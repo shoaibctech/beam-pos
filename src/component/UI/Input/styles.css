@@ -1,0 +1,26 @@
+
+
+.input_field {
+    display: flex;
+    flex-direction: column;
+}
+.input_field > input[type=text], .input_field > input[type=password] {
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    margin: 10px;
+    padding: 5px 10px;
+    width: calc(10vw + 200px);
+}
+ input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+     -webkit-box-shadow: 0 0 0px 1000px #d3d3d347 inset;
+}
+.error {
+    color: red;
+    border-bottom: 1px solid red;
+}
+.error_text {
+    color: red;
+}

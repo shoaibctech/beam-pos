@@ -1,0 +1,155 @@
+.edit-container {
+    /*width: 43.4vw;*/
+    margin: 2rem auto;
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--step-border-color);
+    border-radius: 5px;
+    /*-webkit-transition: width 2s; !* Safari *!*/
+    /*transition: width 2s;*/
+    /*transition-timing-function: ease-out;*/
+}
+.edit-container:hover {
+    border: 1px solid var(--hover-border-color);
+}
+@media (max-width: 768px) {
+    .edit-container {
+        width: 47vw;
+    }
+    .MuiStepper-root {
+        padding-left: 10px !important;
+    }
+}
+@media (max-width: 520px) {
+    .edit-container {
+        width: 65vw;
+    }
+    .MuiStepper-root {
+        padding-left: 5px !important;
+    }
+}
+.edit-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.edit-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+.table-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.table-row > *:first-child {
+    color: #868080;
+    margin: 0 10px 10px 0px;
+    padding: 10px 10px 0 0;
+    width: calc(10vw + 100px);
+    align-items: center;
+}
+.table-row> *:nth-child(2){
+    text-align: left;
+    color: #868080;
+    margin: 0 0 10px 0;
+    padding: 10px 0 0 0;
+}
+.table-row > h3:first-child {
+    margin: 0 10px 10px 0px;
+    padding: 10px 10px 0 0;
+    width: calc(10vw + 100px);
+}
+.table-row> h3:nth-child(2){
+    text-align: left;
+    margin: 0 0 10px 0;
+    padding: 10px 0 0 0;
+}
+.confirm-btn {
+    background: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid ghostwhite;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-size: 23px;
+    /*box-shadow: 1px 1px 18px lightgrey;*/
+}
+.cancel-btn {
+    background: red;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid ghostwhite;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px 15px 10px 0;
+    padding: 10px 15px;
+    width: 150px;
+    font-size: 23px;
+    /*box-shadow: 1px 1px 18px lightgrey;*/
+}
+.cancel-btn:hover {
+    color: red;
+    background: white;
+    border: 1px solid red;
+}
+.confirm-btn:hover {
+    border: 1px solid lightgrey;
+}
+.confirm-btn img {
+    width: 25px;
+    margin-bottom: -7px;
+}
+.edit-btn {
+    cursor: pointer;
+    color: #9a9696;
+
+}
+.edit-btn:hover {
+    color: var(--link-txt-color);
+}
+
+.edit-bottom-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.edit-bottom-section .c-btn {
+    margin-left: auto;
+}
+.edit-field-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.edit-field-row > *:nth-child(2) {
+    width: 100%;
+}
+
+.edit-field-btn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+/*Date picker customization*/
+.react-datepicker-wrapper {
+    width: 100% !important;
+}

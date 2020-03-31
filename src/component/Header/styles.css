@@ -1,0 +1,48 @@
+.header {
+    padding: 11px 2% 11px 2%;
+    background: white;
+    border-bottom: 1px solid var(--step-border-color);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px #d3d3d385;
+    margin-bottom: 1rem;
+}
+.app-title{
+    padding: 10px 25px;
+}
+.app-logo {
+    width: 11rem;
+}
+.header h1 {
+    color: var(--main-bg-color);
+}
+.logo img {
+    width: 40px;
+    height: auto;
+}
+.header .logout {
+    margin-left: auto;
+}
+.logout_btn {
+    border: none;
+    font-size: 20px;
+    background: transparent;
+    padding: 10px 25px;
+    text-transform: capitalize;;
+    color: var(--main-bg-color);
+    cursor: pointer;
+}
+.logout_btn:hover {
+    background: transparent;
+    font-size: 21px;
+    font-family: inherit;
+}
+ a {
+     color: var(--main-bg-color);
+    text-decoration: none;
+}

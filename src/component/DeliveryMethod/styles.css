@@ -1,0 +1,20 @@
+.delivery-method {
+    background: white;
+    width: 46.5vw;
+    padding: 1.5rem 0 35px 0;
+    -webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
+    transition-timing-function: ease-out;
+}
+
+.delivery-row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px 2rem;
+}
+
+.delivery-row .MuiRadio-colorSecondary.Mui-checked {
+    color: black;
+}

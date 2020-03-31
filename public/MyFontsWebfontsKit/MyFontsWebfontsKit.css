@@ -1,0 +1,29 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3881797, 2020-03-19T18:35:46-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: ClobberGrotesk-Medium by Wordshape
+ * URL: https://www.myfonts.com/fonts/wordshape/clobber/grotesk-medium/
+ * Copyright: Copyright (c) Ian Lynam, 2010. All rights reserved.
+ * 
+ * 
+ * 
+ * © 2020 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/3b3b45");
+  
+@font-face {
+  src: url('webFonts/ClobberGrotesk-Medium/font.eot');
+  font-family: 'ClobberGrotesk-Medium';
+  src: url('webFonts/ClobberGrotesk-Medium/font.woff2') format('woff2'), url('webFonts/ClobberGrotesk-Medium/font.woff') format('woff'), url('webFonts/ClobberGrotesk-Medium/font.eot?#iefix') format('embedded-opentype'), url('webFonts/ClobberGrotesk-Medium/font.ttf') format('truetype');
+}
+

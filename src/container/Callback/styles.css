@@ -1,0 +1,13 @@
+.payment {
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.res-div {
+    background: white;
+    width: 50%;
+    margin: 100px auto;
+    padding: 0 10px 10px 10px;
+}

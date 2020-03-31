@@ -1,0 +1,64 @@
+.payment-module {
+    /*width: 43.4vw;*/
+    margin: 2rem auto;
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--step-border-color);
+    border-radius: 5px;
+    /*-webkit-transition: width 2s; !* Safari *!*/
+    /*transition: width 2s;*/
+    /*transition-timing-function: ease-out;*/
+}
+.payment-module:hover {
+    border: 1px solid var(--hover-border-color);
+}
+.payment-status-model {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*width: 43.4vw;*/
+    margin: 0 auto 2rem auto;
+
+}
+.bar {
+    padding: 20px 10px 8px 14px;
+    margin-bottom: 14px;
+    margin-top: 10px;
+    background: #F8F8F8;
+    color: #949494;
+    width: auto;
+}
+@media (max-width: 768px) {
+    .payment-module {
+        width: 59.4vw;
+    }
+    payment-status-model {
+        width: auto;
+    }
+    .summary-row {
+        width: 90%;
+    }
+}
+@media (max-width: 520px) {
+    .payment-module {
+        width: 57vw;
+    }
+    .payment-status-model {
+        width: 53vw;
+    }
+    .summary-row {
+        width: 90%;
+    }
+}
+
+.edit-field-row-q {
+    margin: 10px 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.edit-field-row-q > *:nth-child(2) {
+    width: 100%;
+}

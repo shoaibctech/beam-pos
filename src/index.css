@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --main-bg-color: #09f4c8;
+    --secondary-bg-color: black;
+    --main-txt-color: white;
+    --upload-bg-color: #f0f0f0;
+    --btn-txt-color: white;
+
+    --input-hover-color: black;
+    --input-border-color: lightgrey;
+
+    --quote-head-color: #524e4e;
+    --quote-head-txt-color: white;
+
+    --link-txt-color: black;
+
+    --edit-txt-color: #524e4e8a;
+    --edit-txt-hover-color: black;
+
+    --upload-animation-bg-color: grey;
+
+    --step-border-color: #f0f0f0;
+    --hover-border-color: #09f4c8;
+    --completed-border-color: #a6a9a8;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+input:-webkit-autofill{
+    background-color: white !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    box-sizing: border-box;
+    font-family: ClobberGrotesk-Medium !important;
+    background: #ffffff;
+}
+h1, h2, h3, h4, h5, h6, p, div, span, input {
+    font-family: ClobberGrotesk-Medium !important;
+}
+#root {
+    min-height: 100vh;
+}
