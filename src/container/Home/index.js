@@ -71,6 +71,8 @@ const Home = () => {
     const [emailStatus, setIsEmailStatus] = useState(false);
     const [errorStatus, setIsErrorStatus] = useState(false);
     const [link, setLink] = useState('')
+    const [token, setToken] = useState('');
+    const [paymentId, setPaymentId] = useState('');
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -129,28 +131,26 @@ const Home = () => {
         localStorage.setItem('user', JSON.stringify(user))
         setLoading(true);
         try {
-            const req = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/paymentToken`, {
-                amount: user.amount, //isSkip ?  :parseFloat(res.client_sell_amount) + parseFloat(TRANSACTION_FEE),
-                currency: 'GBP',
-                redirect_uri: process.env.REACT_APP_CALLBACK_URL,
-                beneficiary_name: '',
-                email: '',
-                company: '',
-            }, {})
 
 
-            if (req.data.success){
-                setIsEmailStatus(req.data.success);
-                setIsErrorStatus(false);
-                setLoading(false);
-                setStep(step + 1);
-                setActiveStep(activeStep + 1)
-                setLink(req.data.redirectUrl)
-                parseImg(req.data.qrCode)
+            const token = await axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/nuapay`,
+                {
+                    amount: user.amount,
+                    currency: 'GBP',
+            } );
+            console.log('token ::', token);
 
-                // window.open(req.data.redirectUrl, '_self');
-            }
+            setPaymentId(token.data.paymentData.id);
+            setToken(token.data);
+
+            setIsEmailStatus(token.data.success);
+            setIsErrorStatus(false);
+            setLoading(false);
+            setStep(step + 1);
+            setActiveStep(activeStep + 1)
+
         } catch (e) {
+            console.log('error :: ', e)
             setIsErrorStatus(true);
             setIsEmailStatus(false);
             setLoading(false);
@@ -311,7 +311,7 @@ const Home = () => {
                                             }   {
                                                 index === 2  &&
                                                    <QRCode
-                                                       link={link}
+                                                       paymentId={paymentId}
                                                    />
                                             }
                                         </div>
