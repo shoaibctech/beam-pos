@@ -119,6 +119,7 @@ const Home = () => {
                 });
         }
     }
+
     const parseImg = (xml_String) => {
         var doc = new DOMParser().parseFromString(xml_String, 'application/xml');
         var el = document.getElementById('svgCon')
@@ -126,6 +127,7 @@ const Home = () => {
             el.ownerDocument.importNode(doc.documentElement, true)
         )
     }
+
     const getAccessToken = async () => {
 
         localStorage.setItem('user', JSON.stringify(user))
@@ -156,7 +158,28 @@ const Home = () => {
             setLoading(false);
         }
 
+    }
+    const getQrCode = async () => {
+        setLoading(true);
+        const org_id = 'lby3aled2d';
+        try {
+            const link = `http://localhost:3000/bank/${org_id}/${user.amount}`
+            const code = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link });
+            setTimeout(() => {
+                parseImg(code.data.qrCode);
+            }, 1000)
+            setLink(code.data.link);
+            console.log(code)
 
+            setIsErrorStatus(false);
+            setLoading(false);
+            setStep(step + 1);
+            setActiveStep(activeStep + 1)
+        } catch (e) {
+            console.log(e)
+            setIsErrorStatus(true);
+            setLoading(false);
+        }
     }
 
     const validateFields = () => {
@@ -304,14 +327,15 @@ const Home = () => {
                                                     isSkip={isSkip}
                                                     user={user}
                                                     TRANSACTION_FEE={TRANSACTION_FEE}
-                                                    getAccessToken={getAccessToken}
+                                                    getAccessToken={getQrCode}
                                                     emailStatus={emailStatus}
                                                     errorStatus={errorStatus}
                                                 />
                                             }   {
                                                 index === 2  &&
                                                    <QRCode
-                                                       paymentId={paymentId}
+                                                       link={link}
+
                                                    />
                                             }
                                         </div>
