@@ -163,7 +163,7 @@ const Home = () => {
         setLoading(true);
         const org_id = 'lby3aled2d';
         try {
-            const link = `http://localhost:3000/bank/${org_id}/${user.amount}`
+            const link = `${window.location.origin}/bank/${org_id}/${user.amount}`
             const code = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link });
             setTimeout(() => {
                 parseImg(code.data.qrCode);
