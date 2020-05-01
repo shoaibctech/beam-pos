@@ -103,20 +103,25 @@ const Home = () => {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }
-            axios.post(`${process.env.REACT_APP_CURRENCY_CLOUD_URL}/authenticate/api`, qs.stringify(data), config)
-                .then( res => {
-                    localStorage.setItem('auth_token', res.data.auth_token)
-                    localStorage.setItem('expiresOn', new Date());
-                    // setStep(step + 1);
-                    window.location.reload();
-                    setLoading(false);
-                })
-                .catch( err => {
-                    let error = {};
-                    error.password = 'Username or Password is incorrect!';
-                    setErrors(error);
-                    setLoading(false);
-                });
+            // axios.post(`${process.env.REACT_APP_CURRENCY_CLOUD_URL}/authenticate/api`, qs.stringify(data), config)
+            //     .then( res => {
+            //         localStorage.setItem('auth_token', res.data.auth_token)
+            //         localStorage.setItem('expiresOn', new Date());
+            //         // setStep(step + 1);
+            //         window.location.reload();
+            //         setLoading(false);
+            //     })
+            //     .catch( err => {
+            //         let error = {};
+            //         error.password = 'Username or Password is incorrect!';
+            //         setErrors(error);
+            //         setLoading(false);
+            //     });
+            localStorage.setItem('auth_token', 'tokenfffffffffffffffffffffffffffffffffff')
+            localStorage.setItem('expiresOn', new Date());
+            // setStep(step + 1);
+            window.location.reload();
+            setLoading(false);
         }
     }
 

@@ -2,3 +2,16 @@
 .bnk_links {
     cursor: pointer;
 }
+.loader {
+    position: absolute;
+    width: 100vw;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    min-height: 100vh;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
