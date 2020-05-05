@@ -21,7 +21,7 @@ const Bank = () => {
                 });
             console.log('token ::', aspUrl);
             setLoading(false);
-            window.open(aspUrl.data.paymentData.aspspAuthUrl, '_blank');
+            window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             console.log(e);
         }
