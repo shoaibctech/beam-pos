@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import qs from 'querystring';
+import { setPusherClient } from 'react-pusher';
+import Pusher from 'pusher-js';
 
 import './styles.css';
 import BotUser from './img/user-1.svg';
@@ -73,13 +75,41 @@ const Home = () => {
     const [link, setLink] = useState('')
     const [token, setToken] = useState('');
     const [paymentId, setPaymentId] = useState('');
+    const [isStatus, setIsStatus] = useState(false);
+    const [statusData, setStatusData] = useState({});
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
 
     const steps = getSteps();
 
+    var pusherClient = new Pusher('08afbf07160d195dc8dd', {
+        cluster: 'ap2'
+    });
+    setPusherClient(pusherClient);
+
     useEffect(() => {
+
+        var channel = pusherClient.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+
+        // var channel = pusherClient.subscribe('my-channel');
+        channel.bind('qr-code-event', function(data) {
+            // alert(JSON.stringify(data));
+            console.log('data ::', data);
+            setLoading(true);
+        });
+
+        channel.bind('status-event', function(data) {
+            // alert(JSON.stringify(data));
+            console.log('data ::', data.data);
+            setStatusData(data.data);
+            setIsStatus(true);
+            setLoading(false);
+        });
+
         const prevDate = localStorage.getItem('expiresOn');
         if(prevDate){
             if( new Date(new Date() - new Date(prevDate)).getMinutes() > 59 ) {
@@ -340,7 +370,8 @@ const Home = () => {
                                                 index === 2  &&
                                                    <QRCode
                                                        link={link}
-
+                                                       isStatus={isStatus}
+                                                       statusData={statusData}
                                                    />
                                             }
                                         </div>

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../Payment/styles.css';
+import './style.css';
 import axios from 'axios';
+// import Tick from "../QuoteDetails/img/tick-anim.svg";
+import Tick from '../../container/Home/img/confirm-4.svg';
 
-const QRCode = ({paymentId, link}) => {
+const QRCode = ({paymentId, link, isStatus, statusData}) => {
 
     const [payment, setPayment] = useState();
     const [paymentStatus, setPaymentStatus] = useState(false);
+    const [isTick, setTick] = useState(false);
 
     // const listener = async (event) => {
     //     if(event.data.status=="CLOSED") {
@@ -20,15 +24,14 @@ const QRCode = ({paymentId, link}) => {
 
     useEffect( () => {
         // window.addEventListener("message",listener,false);
-    }, [])
+        setTimeout(()=> {
+           isStatus && setTick(true);
+        }, 1200)
+    }, [isStatus])
     const redirect = () => {
         console.log(link)
         window.open(link, '_blank');
     }
-
-    // console.log('ddddddddddddddd', payment)
-    // console.log('ddddddddddddddd', payment && payment.status)
-    // console.log('ddddddddddddddd', paymentStatus)
     return (
         <div className="payment-module">
             {/*{*/}
@@ -51,16 +54,54 @@ const QRCode = ({paymentId, link}) => {
             {/*            }*/}
             {/*        </div>*/}
             {/*}*/}
-            <div id='svgCon' style={{    width: '12rem', margin: '3rem auto'}}>
-            </div>
-            <br/>
-            <div style={{display: 'flex', justifyContent: 'center' }}>
-                {
-                    <button onClick={() => redirect()} className="pay-btn">
-                        Pay
-                    </button>
-                }
-            </div>
+            {!isStatus ?
+                <div>
+                    <div id='svgCon' style={{    width: '12rem', margin: '3rem auto'}}>
+                    </div>
+                    <br/>
+                    <div style={{display: 'flex', justifyContent: 'center' }}>
+                        {
+                            <button onClick={() => redirect()} className="pay-btn">
+                                Pay
+                            </button>
+                        }
+                    </div>
+                </div>
+                :
+                <div>
+                    <h2>Payment Status</h2>
+                    <br/>
+                    <br/>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>Status: </td>
+                                <td>{statusData.status}</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Id: </td>
+                                <td>{statusData.id}</td>
+                            </tr>
+                            <tr>
+                                <td>Amount: </td>
+                                <td>{statusData.amount}</td>
+                            </tr>
+                            <tr>
+                                <td>Currency: </td>
+                                <td>{statusData.currency}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div className="payment">
+                            {
+                             isTick && <img src={Tick} className="complete-tick" alt="tick"/>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
     );
 }

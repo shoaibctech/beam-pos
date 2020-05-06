@@ -62,3 +62,14 @@
 .edit-field-row-q > *:nth-child(2) {
     width: 100%;
 }
+
+.complete-tick {
+    max-width: 9rem;
+    margin: -1rem 0;
+}
+.payment {
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
