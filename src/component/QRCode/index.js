@@ -4,7 +4,7 @@ import './style.css';
 import axios from 'axios';
 // import Tick from "../QuoteDetails/img/tick-anim.svg";
 import GreenTick from './img/tick-anim.svg';
-import RedTick from './img/red-tick.png';
+import RedTick from './img/forbidden.svg';
 
 const QRCode = ({paymentId, link, isStatus, statusData}) => {
 
@@ -105,6 +105,7 @@ const QRCode = ({paymentId, link, isStatus, statusData}) => {
                         </p>
                     </div>
                     <div>
+                        <br/>
                         <div className="payment">
                             {
                              isTick &&
