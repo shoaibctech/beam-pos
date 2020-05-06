@@ -3,7 +3,8 @@ import '../Payment/styles.css';
 import './style.css';
 import axios from 'axios';
 // import Tick from "../QuoteDetails/img/tick-anim.svg";
-import Tick from '../../container/Home/img/confirm-4.svg';
+import GreenTick from './img/tick-anim.svg';
+import RedTick from './img/red-tick.png';
 
 const QRCode = ({paymentId, link, isStatus, statusData}) => {
 
@@ -73,29 +74,44 @@ const QRCode = ({paymentId, link, isStatus, statusData}) => {
                     <br/>
                     <br/>
                     <div>
-                        <table>
-                            <tr>
-                                <td>Status: </td>
-                                <td>{statusData.status}</td>
-                            </tr>
-                            <tr>
-                                <td>Payment Id: </td>
-                                <td>{statusData.id}</td>
-                            </tr>
-                            <tr>
-                                <td>Amount: </td>
-                                <td>{statusData.amount}</td>
-                            </tr>
-                            <tr>
-                                <td>Currency: </td>
-                                <td>{statusData.currency}</td>
-                            </tr>
-                        </table>
+                        {/*// <table>*/}
+                        {/*//     <tr>*/}
+                        {/*        <td>Status: </td>*/}
+                        {/*        <td>{statusData.status}</td>*/}
+                        {/*    </tr>*/}
+                        {/*    <tr>*/}
+                        {/*        <td>Payment Id: </td>*/}
+                        {/*        <td>{statusData.id}</td>*/}
+                        {/*    </tr>*/}
+                        {/*    <tr>*/}
+                        {/*        <td>Amount: </td>*/}
+                        {/*        <td>{statusData.amount}</td>*/}
+                        {/*    </tr>*/}
+                        {/*    <tr>*/}
+                        {/*        <td>Currency: </td>*/}
+                        {/*        <td>{statusData.currency}</td>*/}
+                        {/*    </tr>*/}
+                        {/*</table>*/}
+                        <p>
+                            {
+                                statusData.status === 'SETTLEMENT_IN_PROGRESS' && <p>Payment of {statusData.amount} {' '} {statusData.currency} is in Progress.</p>
+                            }
+                            {
+                                statusData.status === 'SETTLEMENT_COMPLETE' && <p>Payment of {statusData.amount} {' '} {statusData.currency} has been successfully completed.</p>
+                            }
+                            {
+                                statusData.status === 'SETTLEMENT_REJECTED' && <p>Payment of {statusData.amount} {' '} {statusData.currency} has been failed.</p>
+                            }
+                        </p>
                     </div>
                     <div>
                         <div className="payment">
                             {
-                             isTick && <img src={Tick} className="complete-tick" alt="tick"/>
+                             isTick &&
+                             <img
+                                 src={statusData.status === 'SETTLEMENT_IN_PROGRESS' || statusData.status === 'SETTLEMENT_COMPLETE' ? GreenTick : RedTick}
+                                 className="complete-tick"
+                                 alt="tick"/>
                             }
                         </div>
                     </div>
