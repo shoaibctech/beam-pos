@@ -235,6 +235,7 @@ const Home = () => {
 
     const handleEdit = (index) => {
         setActiveStep(index);
+        setIsStatus(false);
         setIsErrorStatus(false);
         setIsEmailStatus(false);
     }
