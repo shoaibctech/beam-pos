@@ -11,8 +11,8 @@ const Signup = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [bankId, setBankId] = useState('');
-    const [errors, setErrors] = useState({email:'', password:'', bankId});
+    const [merchantId, setMerchantId] = useState('');
+    const [errors, setErrors] = useState({email:'', password:'', merchantId: ''});
 
     const onSignup = () => {
 
@@ -107,11 +107,11 @@ const Signup = () => {
                     </div>
                     <div>
                         <Input
-                            error={errors.bankId}
-                            name="bankId"
+                            error={errors.merchantId}
+                            name="merchantId"
                             type="text"
-                            value={bankId}
-                            handleChange={setBankId}
+                            value={merchantId}
+                            handleChange={setMerchantId}
                             placeholder="Merchant Id"
                         />
                     </div>
