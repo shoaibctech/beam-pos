@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import qs from 'querystring';
 import { setPusherClient } from 'react-pusher';
 import Pusher from 'pusher-js';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 import './styles.css';
-import BotUser from './img/user-1.svg';
-import Key from './img/key-1.svg';
 import EditInvoice from "../../component/EditInvoice";
 import Payment from "../../component/Payment";
-import Input from "../../component/UI/Input";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import axios from "axios";
@@ -18,6 +15,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
+import Signin from "../../component/Signin";
 
 const TRANSACTION_FEE = '1.50';
 const StepElement = ({message}) => {
@@ -61,7 +59,7 @@ const getStep = () => {
 const getSteps = () => {
     return ['Amount', 'Confirm', 'Pay']
 }
-const Home = () => {
+const Home =  () => {
     const [step, setStep] = useState(getStep());
     const [user, setUser] = useState({});
     const [userName, setUserName] = useState('');
@@ -88,8 +86,8 @@ const Home = () => {
     });
     setPusherClient(pusherClient);
 
-    useEffect(() => {
 
+    useEffect(() => {
         var channel = pusherClient.subscribe('my-channel');
         channel.bind('my-event', function(data) {
             alert(JSON.stringify(data));
@@ -121,18 +119,20 @@ const Home = () => {
             document.querySelector('.loader').style.height = 150 + 'vh';
         }
     },[step, loading]);
-    const onLogin = () => {
+
+    const onLogin = async () => {
         if(validateFields()){
-            setLoading(true);
-            const data = {
-                login_id: userName,
-                api_key: password
-            };
-            const config = {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }
+            // setLoading(true);
+
+            // const data = {
+            //     login_id: userName,
+            //     api_key: password
+            // };
+            // const config = {
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded'
+            //     }
+            // }
             // axios.post(`${process.env.REACT_APP_CURRENCY_CLOUD_URL}/authenticate/api`, qs.stringify(data), config)
             //     .then( res => {
             //         localStorage.setItem('auth_token', res.data.auth_token)
@@ -147,11 +147,11 @@ const Home = () => {
             //         setErrors(error);
             //         setLoading(false);
             //     });
-            localStorage.setItem('auth_token', 'tokenfffffffffffffffffffffffffffffffffff')
-            localStorage.setItem('expiresOn', new Date());
+            // localStorage.setItem('auth_token', 'tokenfffffffffffffffffffffffffffffffffff')
+            // localStorage.setItem('expiresOn', new Date());
             // setStep(step + 1);
-            window.location.reload();
-            setLoading(false);
+            // window.location.reload();
+            // setLoading(false);
         }
     }
 
@@ -226,10 +226,10 @@ const Home = () => {
             err.password = 'Password must not be empty!';
         }
         if(Object.getOwnPropertyNames(err).length === 0 ){
-            return true;
+            return false;
         } else {
             setErrors(err)
-            return false;
+            return true;
         }
     }
 
@@ -253,60 +253,17 @@ const Home = () => {
             </div>
             }
             { step === 0 &&
-            <div className="login-container">
-                <div className="row">
-                    <div>
-                        <h1>Welcome to junction</h1>
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        <img src={BotUser} alt="Lucy" />
-                    </div>
-                    <div>
-                        <Input
-                            error={errors.userName}
-                            name="userName"
-                            type="text"
-                            value={userName}
-                            handleChange={setUserName}
-                            placeholder="Username"
-                        />
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        <img src={Key} alt="Lucy" />
-                    </div>
-                    <div>
-                        <Input
-                            error={errors.password}
-                            name="password"
-                            type="password"
-                            value={password}
-                            handleChange={setPassword}
-                            placeholder="Password"
-                        />
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="bottom-section-container">
-                    <div className="bottom-section">
-                        <input type="button" value="Sign in" onClick={onLogin}/>
-                    </div>
-                    <div></div>
-                </div>
-                <div className="bottom-section-container">
-                    <div className="bottom-section">
-                        <p className="link forget-password" style={{boxSizing: 'border-box'}}>Forget password?</p>
-                    </div>
-                </div>
-            </div>
+                <Signin
+                userName={userName}
+                setUserName={setUserName}
+                password={password}
+                setPassword={setPassword}
+                errors={errors}
+                validateFields={validateFields}
+                setLoading={setLoading}
+                step={step}
+                setStep={setStep}
+                />
             }
             {
                 step > 0 &&
