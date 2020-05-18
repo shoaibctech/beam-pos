@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -6,6 +7,7 @@ import request from 'request';
 
 
 const Signup = () => {
+    let history = useHistory();
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -33,6 +35,7 @@ const Signup = () => {
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
             console.log(body);
+            history.push('/');
         });
 
     }
@@ -109,7 +112,7 @@ const Signup = () => {
                             type="text"
                             value={bankId}
                             handleChange={setBankId}
-                            placeholder="Bank Id"
+                            placeholder="Merchant Id"
                         />
                     </div>
                 </div>
