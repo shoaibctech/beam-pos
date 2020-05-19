@@ -5,8 +5,8 @@ import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
 
 var webAuth = new auth0.WebAuth({
-    domain:       'dev-ulr4x749.auth0.com',
-    clientID:     'XORs41wWGZN6sFlmGXLApXkYJWEnTB50',
+    domain:       'dev-1e11vioj.eu.auth0.com',
+    clientID:     'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
 });
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {

@@ -12,30 +12,43 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [merchantId, setMerchantId] = useState('');
-    const [errors, setErrors] = useState({email:'', password:'', merchantId: ''});
+    const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
 
     const onSignup = () => {
 
         var options = {
             method: 'POST',
-            url: 'https://dev-ulr4x749.auth0.com/dbconnections/signup',
+            url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
             headers: {'content-type': 'application/json'},
             body: {
-                client_id: 'XORs41wWGZN6sFlmGXLApXkYJWEnTB50',
+                client_id: 'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
                 username: userName,
                 email: email,
                 password: password,
                 connection: 'Username-Password-Authentication',
                 name: userName,
-                user_metadata: {BankId: 'redId'}
+                user_metadata: {merchant_id:  merchantId}
             },
             json: true
         };
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-            console.log(body);
-            history.push('/');
+            console.log('error ::', error)
+            console.log('body ::', body);
+
+            if(body.statusCode == '400' || body.statusCode == 400 ){
+                console.log('des ::', body.description)
+                errors.status = body.message || body.description;
+                let data = {...errors};
+                setErrors(data)
+            } else if (body.error){
+                errors.status = body.error;
+                let data = {...errors};
+                setErrors(data)
+            } else  {
+                history.push('/');
+            }
         });
 
     }
@@ -121,6 +134,14 @@ const Signup = () => {
                 <div className="bottom-section-container">
                     <div className="bottom-section">
                         <input type="button" value="Sign Up" onClick={onSignup}/>
+                    </div>
+                    <div></div>
+                </div>
+                <div className="bottom-section-container">
+                    <div className="bottom-section">
+                        {
+                            errors.status && <p className="forget-password" style={{color: 'red'}}>{errors.status}</p>
+                        }
                     </div>
                     <div></div>
                 </div>

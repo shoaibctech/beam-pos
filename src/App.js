@@ -3,14 +3,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import MainRoute from "./routes";
 import Header from "./component/Header";
-// import Footer from "./component/Footer";
+
 
 function App() {
-    // useEffect(() => {
-    //     window.onbeforeunload = function() {
-    //         return "Dude, are you sure you want to refresh? Think of the kittens!";
-    //     }
-    // }, []);
   return (
       <div>
           <div id="content">
@@ -19,7 +14,6 @@ function App() {
                   <MainRoute />
               </Router>
           </div>
-          {/*<Footer />*/}
       </div>
   );
 }
