@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Nuapay from "./container/Nuapay";
 import Bank from "./container/Bank";
 import Signup from "./component/Signup";
+import Verify from "./component/Verify";
 
 
 const MainRoute = () => {
@@ -16,6 +17,7 @@ const MainRoute = () => {
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />
                 <Route path="/bank/:org_id/:amount"  component={Bank} />
+                <Route path="/verify" component={Verify}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>

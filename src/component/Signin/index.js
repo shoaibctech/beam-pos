@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
+import axios from 'axios';
 
 var webAuth = new auth0.WebAuth({
     domain:       'dev-1e11vioj.eu.auth0.com',
@@ -14,6 +16,7 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
     //test credentials
     // test123@gmail.com
     // test1234
+    const history = useHistory();
     const [message, setMessage] = useState('');
 
     console.log(errors)
@@ -40,13 +43,27 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 localStorage.setItem('expiresOn', res.expiresIn);
                 localStorage.setItem('access_token', res.accessToken);
                 localStorage.setItem('tokenType', res.tokenType);
+                getUserInfo();
                 setStep(step + 1);
-                window.location.reload();
                 setLoading(false);
             }
         });
     }
 
+    const getUserInfo = async () => {
+        const req = await axios.post('https://dev-1e11vioj.eu.auth0.com/userInfo', '',{
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        });
+
+        console.log('req ::', req)
+        if(req.data.email_verified == true){
+            window.location.reload();
+        } else {
+         history.push('/verify');
+        }
+    }
     return (
         <div className="login-container">
             <div className="row">
