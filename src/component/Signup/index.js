@@ -28,7 +28,7 @@ const Signup = () => {
     }, [])
 
     const getToken = async (token) => {
-        const data = await  axios.post('http://localhost:4000/api/datatoken', {code: token})
+        const data = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
         console.log('data ::', data)
     }
 
