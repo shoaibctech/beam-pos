@@ -1,18 +1,36 @@
-import React, { Fragment, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from 'react';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import request from 'request';
+import axios from 'axios';
 
 
 const Signup = () => {
     let history = useHistory();
+    let location = useLocation();
     const [userName, setUserName] = useState('');
+    const [accessToken, setAccessToken] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [merchantId, setMerchantId] = useState('');
+    const [isFilled, setIsFilled] = useState(false);
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
+
+    useEffect( () => {
+        const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
+        if(access_token){
+            setAccessToken(access_token);
+            console.log('access_ token :: ', access_token);
+            getToken(access_token);
+        }
+    }, [])
+
+    const getToken = async (token) => {
+        const data = await  axios.post('http://localhost:4000/api/datatoken', {code: token})
+        console.log('data ::', data)
+    }
 
     const onSignup = () => {
 

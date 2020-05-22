@@ -10,7 +10,7 @@ const PathComponent = () => {
     if(location.pathname === '/signup') {
         return <Link to="/" style={{boxSizing: 'border-box'}}>Log in</Link>;
     } else {
-        return <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>
+        return <Link to="/verifybank" style={{boxSizing: 'border-box'}}>Sign Up</Link>
     }
 }
 

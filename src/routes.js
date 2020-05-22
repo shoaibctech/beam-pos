@@ -6,6 +6,7 @@ import Nuapay from "./container/Nuapay";
 import Bank from "./container/Bank";
 import Signup from "./component/Signup";
 import Verify from "./component/Verify";
+import ConnectBank from "./component/ConnectBank";
 
 
 const MainRoute = () => {
@@ -18,6 +19,7 @@ const MainRoute = () => {
                 <Route path="/nuapay" exact component={Nuapay} />
                 <Route path="/bank/:org_id/:amount"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
+                <Route path="/verifybank" exact component={ConnectBank}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
