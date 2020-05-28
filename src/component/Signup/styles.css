@@ -1,0 +1,8 @@
+.account {
+    width: calc(10vw + 200px);
+    margin: 10px;
+    padding: 5px 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}

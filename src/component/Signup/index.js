@@ -6,6 +6,8 @@ import Key from "../../container/Home/img/key-1.svg";
 import request from 'request';
 import axios from 'axios';
 
+import './styles.css';
+
 
 const Signup = () => {
     let history = useHistory();
@@ -18,6 +20,8 @@ const Signup = () => {
     const [isFilled, setIsFilled] = useState(false);
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
     const [account, setAccount] = useState({});
+    const [accountList, setAccountList] = useState([]);
+    const [name, setName] = useState('');
 
     useEffect( () => {
         const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
@@ -30,8 +34,9 @@ const Signup = () => {
 
     const getToken = async (token) => {
         const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
-        console.log('response ::', res.data.accounts)
-        setAccount(res.data.accounts);
+        setAccountList(res.data.accounts);
+        setAccount(res.data.accounts[0]);
+        setName(res.data.accounts[0].display_name)
     }
 
     const onSignup = () => {
@@ -71,6 +76,11 @@ const Signup = () => {
             }
         });
 
+    }
+    const handleChange = (event) => {
+        setName(event.target.value);
+        const selectedAccount = accountList.filter( data => data.display_name === event.target.value)
+        setAccount(selectedAccount[0]);
     }
 
     return (
@@ -149,6 +159,25 @@ const Signup = () => {
                         />
                     </div>
                 </div>
+
+                <br/>
+                <br/>
+                <div className="row">
+                    <div className="icon">
+                        <img src={Key} alt="Lucy" />
+                    </div>
+                    <div>
+                        <select className="account" placeholder="Select Account Type" value={name} onChange={handleChange}>
+                            {
+                                accountList && accountList.map( (acnt, idx) => {
+                                    return <option key={idx} value={acnt.display_name}>{acnt.display_name}</option>
+                                } )
+                            }
+                        </select>
+                    </div>
+                </div>
+
+
                 <br/>
                 <br/>
                 <div className="row">
@@ -162,6 +191,7 @@ const Signup = () => {
                             type="text"
                             value={account.account_type}
                             // handleChange={setMerchantId}
+                            disabled={true}
                             placeholder="Accoount Id"
                         />
                     </div>
@@ -179,6 +209,7 @@ const Signup = () => {
                             type="text"
                             value={account.display_name}
                             // handleChange={setMerchantId}
+                            disabled={true}
                             placeholder="Account Display Name"
                         />
                     </div>
@@ -196,6 +227,7 @@ const Signup = () => {
                             type="text"
                             value={account.account_number ? account.account_number.swift_bic : ''}
                             // handleChange={setMerchantId}
+                            disabled={true}
                             placeholder="Accoount Id"
                         />
                     </div>
