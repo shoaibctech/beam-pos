@@ -98,6 +98,7 @@ const Signup = () => {
                         <img src={BotUser} alt="Lucy" />
                     </div>
                     <div>
+                        <label className="label">Email</label>
                         <Input
                             error={errors.email}
                             name="email"
@@ -115,6 +116,7 @@ const Signup = () => {
                         <img src={BotUser} alt="Lucy" />
                     </div>
                     <div>
+                        <label className="label">Username</label>
                         <Input
                             error={errors.userName}
                             name="userName"
@@ -132,6 +134,7 @@ const Signup = () => {
                         <img src={Key} alt="Lucy" />
                     </div>
                     <div>
+                        <label className="label">Password</label>
                         <Input
                             error={errors.password}
                             name="password"
@@ -146,9 +149,10 @@ const Signup = () => {
                 <br/>
                 <div className="row">
                     <div className="icon">
-                        <img src={Key} alt="Lucy" />
+                        {/*<img src={Key} alt="Lucy" />*/}
                     </div>
                     <div>
+                        <label className="label">Merchant Id</label>
                         <Input
                             error={errors.merchantId}
                             name="merchantId"
@@ -164,9 +168,10 @@ const Signup = () => {
                 <br/>
                 <div className="row">
                     <div className="icon">
-                        <img src={Key} alt="Lucy" />
+                        {/*<img src={Key} alt="Lucy" />*/}
                     </div>
                     <div>
+                        <label className="label">Select Bank</label> <br/>
                         <select className="account" placeholder="Select Account Type" value={name} onChange={handleChange}>
                             {
                                 accountList && accountList.map( (acnt, idx) => {
@@ -182,9 +187,10 @@ const Signup = () => {
                 <br/>
                 <div className="row">
                     <div className="icon">
-                        <img src={Key} alt="Lucy" />
+                        {/*<img src={Key} alt="Lucy" />*/}
                     </div>
                     <div>
+                        <label className="label">Account Type</label>
                         <Input
                             // error={errors.}
                             name="accountType"
@@ -200,9 +206,10 @@ const Signup = () => {
                 <br/>
                 <div className="row">
                     <div className="icon">
-                        <img src={Key} alt="Lucy" />
+                        {/*<img src={Key} alt="Lucy" />*/}
                     </div>
                     <div>
+                        <label className="label">Display Name</label>
                         <Input
                             // error={errors.}
                             name="acDisplayName"
@@ -218,9 +225,10 @@ const Signup = () => {
                 <br/>
                 <div className="row">
                     <div className="icon">
-                        <img src={Key} alt="Lucy" />
+                        {/*<img src={Key} alt="Lucy" />*/}
                     </div>
                     <div>
+                        <label className="label">Swift Code</label>
                         <Input
                             // error={errors.}
                             name="accountType"
