@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -17,6 +17,7 @@ const Signup = () => {
     const [merchantId, setMerchantId] = useState('');
     const [isFilled, setIsFilled] = useState(false);
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
+    const [account, setAccount] = useState({});
 
     useEffect( () => {
         const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
@@ -28,8 +29,9 @@ const Signup = () => {
     }, [])
 
     const getToken = async (token) => {
-        const data = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
-        console.log('data ::', data)
+        const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
+        console.log('response ::', res.data.accounts)
+        setAccount(res.data.accounts);
     }
 
     const onSignup = () => {
@@ -147,6 +149,60 @@ const Signup = () => {
                         />
                     </div>
                 </div>
+                <br/>
+                <br/>
+                <div className="row">
+                    <div className="icon">
+                        <img src={Key} alt="Lucy" />
+                    </div>
+                    <div>
+                        <Input
+                            // error={errors.}
+                            name="accountType"
+                            type="text"
+                            value={account.account_type}
+                            // handleChange={setMerchantId}
+                            placeholder="Accoount Id"
+                        />
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div className="row">
+                    <div className="icon">
+                        <img src={Key} alt="Lucy" />
+                    </div>
+                    <div>
+                        <Input
+                            // error={errors.}
+                            name="acDisplayName"
+                            type="text"
+                            value={account.display_name}
+                            // handleChange={setMerchantId}
+                            placeholder="Account Display Name"
+                        />
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div className="row">
+                    <div className="icon">
+                        <img src={Key} alt="Lucy" />
+                    </div>
+                    <div>
+                        <Input
+                            // error={errors.}
+                            name="accountType"
+                            type="text"
+                            value={account.account_number ? account.account_number.swift_bic : ''}
+                            // handleChange={setMerchantId}
+                            placeholder="Accoount Id"
+                        />
+                    </div>
+                </div>
+
+
+
                 <br/>
                 <br/>
                 <div className="bottom-section-container">
