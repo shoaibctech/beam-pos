@@ -1,0 +1,11 @@
+.verify-btn {
+    background-color: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    border-radius: 2px;
+    border: 1px;
+    width: calc(10vw + 224px);
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 23px;
+    cursor: pointer;
+}
