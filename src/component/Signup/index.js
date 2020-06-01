@@ -47,12 +47,14 @@ const Signup = () => {
             headers: {'content-type': 'application/json'},
             body: {
                 client_id: 'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
-                username: userName,
                 email: email,
                 password: password,
                 connection: 'Username-Password-Authentication',
-                name: userName,
-                user_metadata: {merchant_id:  merchantId}
+                name: name,
+                user_metadata: {
+                    account_number: account.account_number.number,
+                    sort_code: account.account_number.sort_code,
+                }
             },
             json: true
         };
@@ -94,6 +96,16 @@ const Signup = () => {
                 <br/>
                 <br/>
                 <div className="row">
+                    <div>
+                        <p style={{width: '60%', margin: 'auto'}}>
+                            Hi {name}, welcome to Junction. We've now got all your details, just need your email address and
+                            password to finish creating your account.
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div className="row">
                     <div className="icon">
                         <img src={BotUser} alt="Lucy" />
                     </div>
@@ -106,24 +118,6 @@ const Signup = () => {
                             value={email}
                             handleChange={setEmail}
                             placeholder="Email"
-                        />
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        <img src={BotUser} alt="Lucy" />
-                    </div>
-                    <div>
-                        <label className="label">Username</label>
-                        <Input
-                            error={errors.userName}
-                            name="userName"
-                            type="text"
-                            value={userName}
-                            handleChange={setUserName}
-                            placeholder="User Name"
                         />
                     </div>
                 </div>
@@ -145,104 +139,6 @@ const Signup = () => {
                         />
                     </div>
                 </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        {/*<img src={Key} alt="Lucy" />*/}
-                    </div>
-                    <div>
-                        <label className="label">Merchant Id</label>
-                        <Input
-                            error={errors.merchantId}
-                            name="merchantId"
-                            type="text"
-                            value={merchantId}
-                            handleChange={setMerchantId}
-                            placeholder="Merchant Id"
-                        />
-                    </div>
-                </div>
-
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        {/*<img src={Key} alt="Lucy" />*/}
-                    </div>
-                    <div>
-                        <label className="label">Select Bank</label> <br/>
-                        <select className="account" placeholder="Select Account Type" value={name} onChange={handleChange}>
-                            {
-                                accountList && accountList.map( (acnt, idx) => {
-                                    return <option key={idx} value={acnt.display_name}>{acnt.display_name}</option>
-                                } )
-                            }
-                        </select>
-                    </div>
-                </div>
-
-
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        {/*<img src={Key} alt="Lucy" />*/}
-                    </div>
-                    <div>
-                        <label className="label">Account Type</label>
-                        <Input
-                            // error={errors.}
-                            name="accountType"
-                            type="text"
-                            value={account.account_type}
-                            // handleChange={setMerchantId}
-                            disabled={true}
-                            placeholder="Accoount Id"
-                        />
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        {/*<img src={Key} alt="Lucy" />*/}
-                    </div>
-                    <div>
-                        <label className="label">Display Name</label>
-                        <Input
-                            // error={errors.}
-                            name="acDisplayName"
-                            type="text"
-                            value={account.display_name}
-                            // handleChange={setMerchantId}
-                            disabled={true}
-                            placeholder="Account Display Name"
-                        />
-                    </div>
-                </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div className="icon">
-                        {/*<img src={Key} alt="Lucy" />*/}
-                    </div>
-                    <div>
-                        <label className="label">Swift Code</label>
-                        <Input
-                            // error={errors.}
-                            name="accountType"
-                            type="text"
-                            value={account.account_number ? account.account_number.swift_bic : ''}
-                            // handleChange={setMerchantId}
-                            disabled={true}
-                            placeholder="Accoount Id"
-                        />
-                    </div>
-                </div>
-
-
-
                 <br/>
                 <br/>
                 <div className="bottom-section-container">
