@@ -99,7 +99,7 @@ const Signup = () => {
                     <div>
                         <p style={{width: '60%', margin: 'auto'}}>
                             Hi {name}, welcome to Junction. We've now got all your details, just need your email address and
-                            password to finish creating your account.
+                           a password to finish creating your account.
                         </p>
                     </div>
                 </div>
