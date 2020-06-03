@@ -1,0 +1,9 @@
+REACT_APP_CALLBACK_URL=http://localhost:3000/callback
+REACT_APP_BACKEND_URL=http://localhost:4000
+REACT_APP_KLIPPA_URL=https://custom-ocr.klippa.com/api/v1
+REACT_APP_KLIPPA_AUTH_KEY=D01hCgSibdQUS0m6gv7YWLL0dyss2Cl1
+REACT_APP_CURRENCY_CLOUD_URL=https://devapi.currencycloud.com/v2
+REACT_APP_NUAPAY_API=http://localhost:4000
+REACT_APP_CLIENT_ID=connectedtech-1e45a8
+REACT_APP_CLIENT_SECRET=6467e0ed-452a-4177-84b2-e1643cc40db2
+REACT_APP_AUTH_LINK=https://auth.truelayer.com/?response_type=code&client_id=connectedtech-1e45a8&scope=info%20accounts&redirect_uri=http://localhost:3000/signup&providers=uk-ob-all%20uk-oauth-all%20uk-cs-mock
