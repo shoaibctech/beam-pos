@@ -26,6 +26,7 @@ const Header = () => {
         <header className="header">
             <div className="app-title">
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
+                <Link to="/transaction">Transactions</Link>
             </div>
             <div className="logout">
                 {

@@ -1,0 +1,38 @@
+.transaction {
+    margin: 1rem 2rem;
+}
+.btn-refund {
+    padding: 10px 15px;
+    background: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    border: 1px solid ghostwhite;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    width: 90%;
+}
+.loading {
+    text-align: center;
+    border-bottom: none;
+}
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.btn-ok, .btn-cancel {
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.btn-ok {
+    background: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    border: 1px solid ghostwhite;
+}
+.btn-cancel {
+    background: white;
+    color: black;
+    border: 1px solid black;
+}

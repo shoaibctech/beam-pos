@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { setPusherClient } from 'react-pusher';
 import Pusher from 'pusher-js';
-import { Auth0Client } from '@auth0/auth0-spa-js';
 
 import './styles.css';
 import EditInvoice from "../../component/EditInvoice";
@@ -18,14 +17,14 @@ import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
 
 const TRANSACTION_FEE = '1.50';
-const StepElement = ({message}) => {
-    return (
-        <span className="parent-tag">
-                <span style={{marginRight: '10px'}}><img src={require('./img/bill.svg')} className="step-img" alt="recipt" /></span>
-                <span>{message}</span>
-            </span>
-    );
-};
+// const StepElement = ({message}) => {
+//     return (
+//         <span className="parent-tag">
+//                 <span style={{marginRight: '10px'}}><img src={require('./img/bill.svg')} className="step-img" alt="recipt" /></span>
+//                 <span>{message}</span>
+//             </span>
+//     );
+// };
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -119,42 +118,6 @@ const Home =  () => {
             document.querySelector('.loader').style.height = 150 + 'vh';
         }
     },[step, loading]);
-
-
-    const onLogin = async () => {
-        if(validateFields()){
-            // setLoading(true);
-
-            // const data = {
-            //     login_id: userName,
-            //     api_key: password
-            // };
-            // const config = {
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded'
-            //     }
-            // }
-            // axios.post(`${process.env.REACT_APP_CURRENCY_CLOUD_URL}/authenticate/api`, qs.stringify(data), config)
-            //     .then( res => {
-            //         localStorage.setItem('auth_token', res.data.auth_token)
-            //         localStorage.setItem('expiresOn', new Date());
-            //         // setStep(step + 1);
-            //         window.location.reload();
-            //         setLoading(false);
-            //     })
-            //     .catch( err => {
-            //         let error = {};
-            //         error.password = 'Username or Password is incorrect!';
-            //         setErrors(error);
-            //         setLoading(false);
-            //     });
-            // localStorage.setItem('auth_token', 'tokenfffffffffffffffffffffffffffffffffff')
-            // localStorage.setItem('expiresOn', new Date());
-            // setStep(step + 1);
-            // window.location.reload();
-            // setLoading(false);
-        }
-    }
 
     const parseImg = (xml_String) => {
         var doc = new DOMParser().parseFromString(xml_String, 'application/xml');

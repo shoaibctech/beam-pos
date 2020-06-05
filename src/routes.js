@@ -7,6 +7,7 @@ import Bank from "./container/Bank";
 import Signup from "./component/Signup";
 import Verify from "./component/Verify";
 import ConnectBank from "./component/ConnectBank";
+import Transactions from "./container/Transactions";
 
 
 const MainRoute = () => {
@@ -20,6 +21,7 @@ const MainRoute = () => {
                 <Route path="/bank/:org_id/:amount"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
+                <Route path="/transaction" exact component={Transactions}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
