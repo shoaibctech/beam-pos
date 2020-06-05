@@ -26,7 +26,10 @@ const Header = () => {
         <header className="header">
             <div className="app-title">
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
-                <Link to="/transaction">Transactions</Link>
+            </div>
+            <div>
+                <div className="nav-link">{localStorage.getItem('auth_token') && localStorage.getItem('auth_token').length > 5 &&
+                <Link to="/transaction">Transactions</Link>}</div>
             </div>
             <div className="logout">
                 {

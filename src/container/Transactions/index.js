@@ -71,7 +71,7 @@ const Transactions = () => {
     }
     return (
         <div className="transaction">
-            <h2>Transactions Details</h2>
+            <h2 className="heading">Transactions Details</h2>
             <table>
                 <thead>
                 <tr>
@@ -103,16 +103,19 @@ const Transactions = () => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
+                <div className="modal-container">
+                    <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
 
-                <br/>
-                <div className="modal-footer">
-                    <button className="btn-cancel" onClick={() => closeModal()}>
-                        Cancel
-                    </button>
-                    <button className="btn-ok" onClick={() => refund()}>
-                        Refund
-                    </button>
+                    <br/>
+                    <br/>
+                    <div className="modal-footer">
+                        <button className="btn-cancel" onClick={() => closeModal()}>
+                            Cancel
+                        </button>
+                        <button className="btn-ok" onClick={() => refund()}>
+                            Refund
+                        </button>
+                    </div>
                 </div>
             </Modal>
         </div>

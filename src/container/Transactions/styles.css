@@ -1,6 +1,14 @@
 .transaction {
     margin: 1rem 2rem;
 }
+
+.heading {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+.modal-container {
+    padding: 2rem 3rem 1rem;
+}
 .btn-refund {
     padding: 10px 15px;
     background: var(--main-bg-color);

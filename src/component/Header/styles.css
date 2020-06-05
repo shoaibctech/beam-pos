@@ -46,3 +46,6 @@
      color: var(--main-bg-color);
     text-decoration: none;
 }
+ .nav-link {
+     font-size: 21px;
+ }
