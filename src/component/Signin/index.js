@@ -58,7 +58,7 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
         });
 
         console.log('req ::', req)
-        if(req.data.email_verified == true){
+        if(req.data.email_verified === true){
             window.location.reload();
         } else {
          history.push('/verify');

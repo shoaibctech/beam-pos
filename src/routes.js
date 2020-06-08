@@ -8,6 +8,8 @@ import Signup from "./component/Signup";
 import Verify from "./component/Verify";
 import ConnectBank from "./component/ConnectBank";
 import Transactions from "./container/Transactions";
+import PrivateRoute from "./component/PrivateRoute";
+
 
 
 const MainRoute = () => {
@@ -18,10 +20,10 @@ const MainRoute = () => {
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />
-                <Route path="/bank/:org_id/:amount"  component={Bank} />
+                <PrivateRoute path="/bank/:org_id/:amount"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
-                <Route path="/transaction" exact component={Transactions}/>
+                <PrivateRoute path="/transaction" exact component={Transactions}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
