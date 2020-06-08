@@ -50,12 +50,12 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number] {
     margin: 10px 10px 10px 0;
     width: 100%;
     box-sizing: border-box;
     outline: 0;
-    padding: 0 16px;
+    padding: 2px 0 2px 5px;
     border: 1px solid var(--input-border-color);
     border-radius: 4px;
     height: 44px;

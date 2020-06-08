@@ -8,6 +8,7 @@
 }
 .modal-container {
     padding: 2rem 3rem 1rem;
+    min-width: 400px;
 }
 .btn-refund {
     padding: 10px 15px;
@@ -19,6 +20,9 @@
     font-size: 15px;
     width: 90%;
 }
+.btn-refund[disabled] {
+    background: #cccccc;
+}
 .loading {
     text-align: center;
     border-bottom: none;
@@ -29,10 +33,12 @@
     justify-content: space-around;
 }
 .btn-ok, .btn-cancel {
+    margin: 10px;
     padding: 10px 15px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 15px;
+    width: 200px;
 }
 .btn-ok {
     background: var(--main-bg-color);
@@ -43,4 +49,20 @@
     background: white;
     color: black;
     border: 1px solid black;
+}
+.btn-ok[disabled] {
+    background: #cccccc;
+}
+.refund-radio-label {
+    margin: 0 10px;
+}
+.refund-radio-btn {
+    margin-right: 7px;
+}
+.loader-footer {
+    text-align: center;
+}
+.t-error {
+    color: red;
+    text-align: center;
 }

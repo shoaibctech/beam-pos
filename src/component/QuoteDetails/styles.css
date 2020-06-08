@@ -56,7 +56,8 @@
     padding: 10px 15px;
     width: 90%;
 }
-.quote-row-btn > button:disabled, button[disabled] {
+.quote-row-btn > button:disabled,
+.quote-row-btn > button[disabled] {
     background: #cccccc;
     display: flex;
     flex-direction: row;

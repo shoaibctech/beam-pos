@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import Loader from "react-loader-spinner";
 
 import './styles.css';
 
@@ -20,7 +21,11 @@ const Transactions = () => {
     const [isFetching, setIsFetching] = useState(false);
     const [modalIsOpen,setIsOpen] = useState(false);
     const [refundIndex, setRefundIndex] = useState();
-    const [refundPayment, setRefundPayment] = useState({amount: '', currency: ''})
+    const [refundPayment, setRefundPayment] = useState({amount: '', currency: ''});
+    const [refundType, setRefundType] = useState('');
+    const [amount, setAmount] = useState('');
+    const [isRefunding, setIsRefunding] = useState(false);
+    const [refundError, setRefundError] = useState('')
 
     useEffect( () => {
         getPaymentsList();
@@ -29,6 +34,7 @@ const Transactions = () => {
     const getPaymentsList = async () => {
         setIsFetching(true);
         const paymentList = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`);
+        console.log(paymentList.data.paymentList)
         setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         setIsFetching(false);
     }
@@ -40,18 +46,30 @@ const Transactions = () => {
     }
     const refund = async () => {
         console.log('going to refund', refundPayment);
-        const refundStatus = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/refundpayment`, {
-            paymentId: paymentList.data[refundIndex].id,
-            amount: paymentList.data[refundIndex].amount,
-            currency: paymentList.data[refundIndex].currency,
-            identification: paymentList.data[refundIndex].endToEndIdentification,
-            remittanceInformation: paymentList.data[refundIndex].remittanceInformation,
+        setIsRefunding(true);
+        setRefundError('');
+        try {
+            const refundStatus = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/refundpayment`, {
+                paymentId: paymentList.data[refundIndex].id,
+                amount: refundType === 'full' ? paymentList.data[refundIndex].amount : amount,
+                currency: paymentList.data[refundIndex].currency,
+                identification: paymentList.data[refundIndex].endToEndIdentification,
+                remittanceInformation: paymentList.data[refundIndex].remittanceInformation,
 
-        });
-        console.log('refund status :', refundStatus);
+            });
+            setIsRefunding(false);
+            console.log('refund status :', refundStatus);
+        } catch (e) {
+            setRefundError('Payment refund failed. Please try again later...');
+            setIsRefunding(false);
+        }
     }
     const closeModal= () => {
         setIsOpen(false);
+        setAmount('');
+        setRefundType('');
+        setIsRefunding(false);
+        setRefundError('');
     }
     const renderTable = (data) => {
         return data.map( (payment, idx) => {
@@ -90,7 +108,7 @@ const Transactions = () => {
                     : <tr>
                         <td>No data found...</td>
                     </tr>
-                    : <tr rowspan="4" style={{height: '10rem'}}>
+                    : <tr rowSpan="4" style={{height: '10rem'}}>
                         <td colSpan="8" className="loading">Loading...</td>
                     </tr>
                 }
@@ -104,18 +122,80 @@ const Transactions = () => {
                 contentLabel="Example Modal"
             >
                 <div className="modal-container">
-                    <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
-
-                    <br/>
-                    <br/>
-                    <div className="modal-footer">
-                        <button className="btn-cancel" onClick={() => closeModal()}>
-                            Cancel
-                        </button>
-                        <button className="btn-ok" onClick={() => refund()}>
-                            Refund
-                        </button>
-                    </div>
+                    <h2>Refunding</h2>
+                    {
+                        !isRefunding &&
+                        <div>
+                            <div>
+                                <div>
+                                    <div>
+                                        Refund type:
+                                        <label className="refund-radio-label">
+                                            <input
+                                                className="refund-radio-btn"
+                                                type="radio"
+                                                value="full"
+                                                checked={refundType === 'full'}
+                                                onChange={ ()=> setRefundType('full')}
+                                            />
+                                            Full
+                                        </label>
+                                        <label className="refund-radio-label">
+                                            <input
+                                                className="refund-radio-btn"
+                                                type="radio"
+                                                value="partial"
+                                                checked={refundType === 'partial'}
+                                                onChange={ ()=> setRefundType('partial')}
+                                            />
+                                            Partial
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {
+                                refundType === 'full' &&
+                                <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
+                            }
+                            {
+                                refundType === 'partial' &&
+                                <div>
+                                    <input
+                                        placeholder="Enter amount"
+                                        type="number"
+                                        onChange={(e) => setAmount(e.target.value)}
+                                        value={amount}/>
+                                </div>
+                            }
+                            {
+                                refundType === 'partial' && amount !== '' &&
+                                    <p>Are you sure you want to refund {amount} {refundPayment.currency}?</p>
+                            }
+                            <br/>
+                            <div className="modal-footer">
+                                <button className="btn-cancel" onClick={() => closeModal()}>
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn-ok"
+                                    onClick={() => refund()}
+                                    disabled={!refundType || (refundType === 'partial' && amount === '')}
+                                >
+                                    Refund
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    {
+                        isRefunding &&
+                        <div className="loader-footer">
+                            <Loader type="TailSpin" color="black" height={100} width={100}/>
+                        </div>
+                    }
+                    {
+                        refundError &&
+                            <p className="t-error">{refundError}</p>
+                    }
                 </div>
             </Modal>
         </div>
