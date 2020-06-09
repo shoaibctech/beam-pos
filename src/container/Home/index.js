@@ -17,14 +17,6 @@ import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
 
 const TRANSACTION_FEE = '1.50';
-// const StepElement = ({message}) => {
-//     return (
-//         <span className="parent-tag">
-//                 <span style={{marginRight: '10px'}}><img src={require('./img/bill.svg')} className="step-img" alt="recipt" /></span>
-//                 <span>{message}</span>
-//             </span>
-//     );
-// };
 
 const useStyles = makeStyles(theme => ({
     root: {

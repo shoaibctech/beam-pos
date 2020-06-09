@@ -35,7 +35,7 @@ const Transactions = () => {
 
     const getPaymentsList = async () => {
         setIsFetching(true);
-        const paymentList = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`);
+        const paymentList = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`, {email: getUserData().email});
         console.log(paymentList.data.paymentList)
         setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         setIsFetching(false);

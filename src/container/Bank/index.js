@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
+import { getUserData } from "../../utils";
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -17,7 +18,8 @@ const Bank = () => {
                 {
                     orgId: org_id,
                     amount: amount,
-                    bankId: bankId
+                    bankId: bankId,
+                    email: getUserData().email,
                 });
             console.log('token ::', aspUrl);
             setLoading(false);
