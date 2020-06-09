@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loader from "react-loader-spinner";
+import { getUserData } from "../../utils";
 
 import './styles.css';
 
@@ -29,6 +30,7 @@ const Transactions = () => {
 
     useEffect( () => {
         getPaymentsList();
+        console.log('data ::', getUserData());
     }, []);
 
     const getPaymentsList = async () => {

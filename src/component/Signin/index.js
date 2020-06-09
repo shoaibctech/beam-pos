@@ -5,6 +5,7 @@ import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
 import axios from 'axios';
+import { setUserData } from '../../utils/index';
 
 var webAuth = new auth0.WebAuth({
     domain:       'dev-1e11vioj.eu.auth0.com',
@@ -56,9 +57,8 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             }
         });
-
-        console.log('req ::', req)
         if(req.data.email_verified === true){
+            setUserData(req.data);
             window.location.reload();
         } else {
          history.push('/verify');

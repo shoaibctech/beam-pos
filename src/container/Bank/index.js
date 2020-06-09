@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Route } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";

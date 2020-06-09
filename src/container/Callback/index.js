@@ -29,7 +29,7 @@ const Callback = (props) => {
         setTimeout(() => {
             setTick(true);
         }, 1200)
-        }, [])
+        }, [props.location.search])
 
     return (
         <div className="res-div">

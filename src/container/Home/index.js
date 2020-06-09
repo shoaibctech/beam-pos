@@ -70,8 +70,6 @@ const Home =  () => {
     const [emailStatus, setIsEmailStatus] = useState(false);
     const [errorStatus, setIsErrorStatus] = useState(false);
     const [link, setLink] = useState('')
-    const [token, setToken] = useState('');
-    const [paymentId, setPaymentId] = useState('');
     const [isStatus, setIsStatus] = useState(false);
     const [statusData, setStatusData] = useState({});
 
@@ -107,13 +105,6 @@ const Home =  () => {
             setLoading(false);
         });
 
-        const prevDate = localStorage.getItem('expiresOn');
-        if(prevDate){
-            if( new Date(new Date() - new Date(prevDate)).getMinutes() > 59 ) {
-                localStorage.clear()
-                setStep(0);
-            }
-        }
         if(step > 0 && loading){
             document.querySelector('.loader').style.height = 150 + 'vh';
         }
@@ -127,37 +118,6 @@ const Home =  () => {
         )
     }
 
-    const getAccessToken = async () => {
-
-        localStorage.setItem('user', JSON.stringify(user))
-        setLoading(true);
-        try {
-
-
-            const token = await axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/nuapay`,
-                {
-                    amount: user.amount,
-                    currency: 'GBP',
-            } );
-            console.log('token ::', token);
-
-            setPaymentId(token.data.paymentData.id);
-            setToken(token.data);
-
-            setIsEmailStatus(token.data.success);
-            setIsErrorStatus(false);
-            setLoading(false);
-            setStep(step + 1);
-            setActiveStep(activeStep + 1)
-
-        } catch (e) {
-            console.log('error :: ', e)
-            setIsErrorStatus(true);
-            setIsEmailStatus(false);
-            setLoading(false);
-        }
-
-    }
     const getQrCode = async () => {
         setLoading(true);
         const org_id = 'lby3aled2d';

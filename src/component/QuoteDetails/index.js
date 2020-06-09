@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import './styles.css';
 // import '../EditInvoice/styles.css';
 import axios from 'axios';
-import Timer from '../../Utils/CountDownTimer';
+import Timer from '../../utils/CountDownTimer';
 import Clock from './img/clock11.png';
 
 

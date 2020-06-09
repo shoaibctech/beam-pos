@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../Payment/styles.css';
 import './style.css';
-import axios from 'axios';
+// import axios from 'axios';
 // import Tick from "../QuoteDetails/img/tick-anim.svg";
 import GreenTick from './img/tick-anim.svg';
 import RedTick from './img/forbidden.svg';
 
 const QRCode = ({paymentId, link, isStatus, statusData}) => {
 
-    const [payment, setPayment] = useState();
-    const [paymentStatus, setPaymentStatus] = useState(false);
+    // const [payment, setPayment] = useState();
+    // const [paymentStatus, setPaymentStatus] = useState(false);
     const [isTick, setTick] = useState(false);
 
     // const listener = async (event) => {

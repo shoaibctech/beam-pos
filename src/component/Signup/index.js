@@ -12,29 +12,21 @@ import './styles.css';
 const Signup = () => {
     let history = useHistory();
     let location = useLocation();
-    const [userName, setUserName] = useState('');
-    const [accessToken, setAccessToken] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [merchantId, setMerchantId] = useState('');
-    const [isFilled, setIsFilled] = useState(false);
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
     const [account, setAccount] = useState({});
-    const [accountList, setAccountList] = useState([]);
     const [name, setName] = useState('');
 
     useEffect( () => {
         const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
         if(access_token){
-            setAccessToken(access_token);
-            console.log('access_ token :: ', access_token);
             getToken(access_token);
         }
-    }, [])
+    }, [location.search])
 
     const getToken = async (token) => {
         const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
-        setAccountList(res.data.accounts);
         setAccount(res.data.accounts[0]);
         setName(res.data.accounts[0].display_name)
     }
@@ -61,10 +53,8 @@ const Signup = () => {
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-            console.log('error ::', error)
-            console.log('body ::', body);
 
-            if(body.statusCode == '400' || body.statusCode == 400 ){
+            if(body.statusCode === '400' || body.statusCode === 400 ){
                 console.log('des ::', body.description)
                 errors.status = body.message || body.description;
                 let data = {...errors};
@@ -78,11 +68,6 @@ const Signup = () => {
             }
         });
 
-    }
-    const handleChange = (event) => {
-        setName(event.target.value);
-        const selectedAccount = accountList.filter( data => data.display_name === event.target.value)
-        setAccount(selectedAccount[0]);
     }
 
     return (
