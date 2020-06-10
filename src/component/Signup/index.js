@@ -11,28 +11,35 @@ import './styles.css';
 
 const Signup = () => {
     let history = useHistory();
-    let location = useLocation();
+    // let location = useLocation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
     const [account, setAccount] = useState({});
     const [name, setName] = useState('');
+    const [orgs, setOrgs] = useState([]);
 
     useEffect( () => {
-        const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
-        if(access_token){
-            getToken(access_token);
-        }
-    }, [location.search])
+        // const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
+        // if(access_token){
+        //     getToken(access_token);
+        // }
+        getMerchants();
+    }, [])
 
-    const getToken = async (token) => {
-        const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
-        setAccount(res.data.accounts[0]);
-        setName(res.data.accounts[0].display_name)
-    }
+    // const getToken = async (token) => {
+    //     const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
+    //     setAccount(res.data.accounts[0]);
+    //     setName(res.data.accounts[0].display_name)
+    // }
 
     const onSignup = () => {
-
+       if(!validateEmail()){
+           console.log('fuck you')
+           errors.status = 'This ' + email + ' is not allowd. Please try different email ';
+           setErrors(prevState => ({...prevState, ...errors}))
+           return;
+       }
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
@@ -67,7 +74,24 @@ const Signup = () => {
                 history.push('/');
             }
         });
-
+    }
+    const getMerchants = async () => {
+        try {
+            const req =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`);
+            console.log(req.data.orgs);
+            setOrgs( prevState => ([...prevState, ...req.data.orgs]))
+        } catch (e) {
+            console.log('merchant fetching failed')
+        }
+    }
+    const validateEmail = () => {
+        console.log(orgs)
+        let merchant = orgs.filter( org => org.contact.email1 === email)
+        if(merchant.length > 0){
+            setAccount(merchant[0]);
+            setName(merchant[0].name);
+        }
+        return merchant.length > 0;
     }
 
     return (
