@@ -107,8 +107,8 @@ const Transactions = () => {
                 </thead>
                 <tbody>
                 { !isFetching ? paymentList && paymentList.data && paymentList.data.length > 0 ? renderTable(paymentList.data)
-                    : <tr>
-                        <td>No data found...</td>
+                    : <tr rowSpan="4" style={{height: '10rem'}}>
+                        <td colSpan="8" className="loading">No data found...</td>
                     </tr>
                     : <tr rowSpan="4" style={{height: '10rem'}}>
                         <td colSpan="8" className="loading">Loading...</td>

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -11,12 +11,10 @@ import './styles.css';
 
 const Signup = () => {
     let history = useHistory();
-    // let location = useLocation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
-    const [account, setAccount] = useState({});
-    const [name, setName] = useState('');
+    const [name, setName] = useState();
     const [orgs, setOrgs] = useState([]);
 
     useEffect( () => {
@@ -34,12 +32,17 @@ const Signup = () => {
     // }
 
     const onSignup = () => {
-       if(!validateEmail()){
-           console.log('fuck you')
-           errors.status = 'This ' + email + ' is not allowd. Please try different email ';
-           setErrors(prevState => ({...prevState, ...errors}))
-           return;
-       }
+        let merchant = orgs.filter( org => org.contact.email1 === email)
+        let account;
+        if(merchant.length > 0){
+            account = merchant[0];
+            setName(merchant[0].name);
+        } else {
+            errors.status = 'This ' + email + ' is not allowed. Please try different email...';
+            setErrors(prevState => ({...prevState, ...errors}))
+            return;
+        }
+
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
@@ -51,8 +54,9 @@ const Signup = () => {
                 connection: 'Username-Password-Authentication',
                 name: name,
                 user_metadata: {
-                    account_number: account.account_number.number,
-                    sort_code: account.account_number.sort_code,
+                    merchant_id: account.id,
+                    first_name: account.contact.firstName,
+                    last_name: account.contact.lastName,
                 }
             },
             json: true
@@ -78,20 +82,10 @@ const Signup = () => {
     const getMerchants = async () => {
         try {
             const req =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`);
-            console.log(req.data.orgs);
             setOrgs( prevState => ([...prevState, ...req.data.orgs]))
         } catch (e) {
             console.log('merchant fetching failed')
         }
-    }
-    const validateEmail = () => {
-        console.log(orgs)
-        let merchant = orgs.filter( org => org.contact.email1 === email)
-        if(merchant.length > 0){
-            setAccount(merchant[0]);
-            setName(merchant[0].name);
-        }
-        return merchant.length > 0;
     }
 
     return (
@@ -102,17 +96,16 @@ const Signup = () => {
                         <h1>Welcome to junction</h1>
                     </div>
                 </div>
-                <br/>
-                <br/>
-                <div className="row">
-                    <div>
-                        <p style={{marginLeft: '10%', marginRight: '10%', fontFamily: 'none'}}>
-                            Hi <strong>{name}</strong>, welcome to Junction. We've now got all your details, just need your email address and
-                           a password to finish creating your account.
-                        </p>
-                    </div>
-                </div>
-                <br/>
+                {/*<br/>*/}
+                {/*<br/>*/}
+                {/*<div className="row">*/}
+                {/*    <div>*/}
+                {/*        <p style={{marginLeft: '10%', marginRight: '10%', fontFamily: 'none'}}>*/}
+                {/*            Hi <strong>{name}</strong>, welcome to Junction. We've now got all your details, just need your email address and*/}
+                {/*           a password to finish creating your account.*/}
+                {/*        </p>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <br/>
                 <div className="row">
                     <div className="icon">
@@ -131,7 +124,6 @@ const Signup = () => {
                     </div>
                 </div>
                 <br/>
-                <br/>
                 <div className="row">
                     <div className="icon">
                         <img src={Key} alt="Lucy" />
@@ -148,7 +140,6 @@ const Signup = () => {
                         />
                     </div>
                 </div>
-                <br/>
                 <br/>
                 <div className="bottom-section-container">
                     <div className="bottom-section">

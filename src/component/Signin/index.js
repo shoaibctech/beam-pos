@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -14,10 +14,7 @@ var webAuth = new auth0.WebAuth({
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
 
-    //test credentials
-    // test123@gmail.com
-    // test1234
-    const history = useHistory();
+    // const history = useHistory();
     const [message, setMessage] = useState('');
 
     console.log(errors)
@@ -57,12 +54,16 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             }
         });
-        if(req.data.email_verified === true){
-            setUserData(req.data);
-            window.location.reload();
-        } else {
-         history.push('/verify');
-        }
+        //allow with out verification.
+        setUserData(req.data);
+        window.location.reload();
+
+        // if(req.data.email_verified === true){
+        //     setUserData(req.data);
+        //     window.location.reload();
+        // } else {
+        //  history.push('/verify');
+        // }
     }
     return (
         <div className="login-container">
