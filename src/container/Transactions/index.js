@@ -84,7 +84,7 @@ const Transactions = () => {
                 <td>{payment.countryCode}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>
-                    <button className="btn-refund" onClick={() => sureRefund(idx)} disabled={payment.status !== 'SETTLEMENT_COMPLETE'}>Refund</button>
+                    <button className="btn-refund" onClick={() => sureRefund(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
                 </td>
             </tr>);
         });

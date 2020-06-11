@@ -1,19 +1,21 @@
 // src/components/PrivateRoute.js
 
-import React, { useEffect } from "react";
+import React  from "react";
 import { Route, Redirect } from "react-router-dom";
+import {checkToken} from "../../utils";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-    const isAuthenticated = localStorage.getItem('auth_token');
+    const isAuthenticated = checkToken();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            return;
-        }
-    }, [ isAuthenticated]);
+    console.log('s ', isAuthenticated);
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         return;
+    //     }
+    // }, [ isAuthenticated]);
 
     const render = props =>
-        isAuthenticated && isAuthenticated.length > 5 ? <Component {...props} /> : <Redirect to="/" />;
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />;
 
     return <Route path={path} render={render} {...rest} />;
 };

@@ -92,7 +92,7 @@ const QRCode = ({paymentId, link, isStatus, statusData}) => {
                         {/*        <td>{statusData.currency}</td>*/}
                         {/*    </tr>*/}
                         {/*</table>*/}
-                        <p>
+                        <div>
                             {
                                 statusData.status === 'SETTLEMENT_IN_PROGRESS' && <p>Payment of {statusData.amount} {' '} {statusData.currency} is in Progress.</p>
                             }
@@ -102,7 +102,7 @@ const QRCode = ({paymentId, link, isStatus, statusData}) => {
                             {
                                 statusData.status === 'SETTLEMENT_REJECTED' && <p>Payment of {statusData.amount} {' '} {statusData.currency} has been failed.</p>
                             }
-                        </p>
+                        </div>
                     </div>
                     <div>
                         <br/>

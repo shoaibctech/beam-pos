@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import Logo from './img/Junction-pos.png';
 import "./styles.css";
+import {checkToken, removeUserData} from "../../utils";
 
 const PathComponent = () => {
     let location = useLocation();
@@ -17,7 +18,7 @@ const PathComponent = () => {
 
 const Header = () => {
     const logout = (e) => {
-        localStorage.clear();
+        removeUserData();
         window.location.replace('/');
         e.preventDefault();
     }
@@ -28,12 +29,12 @@ const Header = () => {
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
             </div>
             <div>
-                <div className="nav-link">{localStorage.getItem('auth_token') && localStorage.getItem('auth_token').length > 5 &&
+                <div className="nav-link">{ checkToken() &&
                 <Link to="/transaction">Transactions</Link>}</div>
             </div>
             <div className="logout">
                 {
-                    localStorage.getItem('auth_token') && localStorage.getItem('auth_token').length > 5 ?
+                    checkToken() ?
                         <button className="logout_btn" onClick={logout}>
                             Logout
                         </button>

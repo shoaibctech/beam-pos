@@ -85,13 +85,13 @@ const Home =  () => {
         // var channel = pusherClient.subscribe('my-channel');
         channel.bind('qr-code-event', function(data) {
             // alert(JSON.stringify(data));
-            console.log('data ::', data);
+            // console.log('data ::', data);
             setLoading(true);
         });
 
         channel.bind('status-event', function(data) {
             // alert(JSON.stringify(data));
-            console.log('data ::', data.data);
+            // console.log('data ::', data.data);
             setStatusData(data.data);
             setIsStatus(true);
             setLoading(false);
