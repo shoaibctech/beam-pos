@@ -5,11 +5,12 @@ import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
 import axios from 'axios';
-import { setUserData, setToken } from '../../utils/index';
+import {setUserData, setToken } from '../../utils/index';
 
 var webAuth = new auth0.WebAuth({
-    domain:       'dev-1e11vioj.eu.auth0.com',
-    clientID:     'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
+    domain: 'dev-1e11vioj.eu.auth0.com',
+    clientID:'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
+    audience: "http://localhost:4000",
 });
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
@@ -29,7 +30,6 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
             email: userName,
             password: password,
             scope: 'openid',
-            responseType: 'token'
         }, (err, res) => {
             if(err) {
                 console.log('error ::', err)
@@ -51,9 +51,23 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             }
         });
+        //TODO: un comment when need to check if email is verified or not
+        // if(req.data.email_verified === true){
+        //     setUserData(req.data);
+        //     window.location.reload();
+        // } else {
+        //  history.push('/verify');
+        // }
+
+        //TODO: remove below 2 line when will un comment above code
         //allow with out verification.
         setUserData(req.data);
+
+        //TODO: use this when needed merchant token to store on front end
+        // await getMerchantToken();
         window.location.reload();
+
+
         // get user data
         // const req1 = await axios.get(`https://dev-1e11vioj.eu.auth0.com/api/v2/users/${req.data.sub}`, '',{
         //             headers: {
@@ -62,13 +76,20 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
         //             }
         //         });
 
-        // if(req.data.email_verified === true){
-        //     setUserData(req.data);
-        //     window.location.reload();
-        // } else {
-        //  history.push('/verify');
-        // }
     }
+
+    //TODO: use this when needed merchant token to store on front end
+    // const getMerchantToken = async () => {
+    //     try {
+    //         const data =  await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant_token/${DEFAULT_MERCHANT}`,
+    //             {}, 'GET');
+    //         localStorage.setItem('nua_token', data.data.access_token);
+    //     } catch (e) {
+    //         console.log('NUA PAY organization token fetching failed.')
+    //     }
+    //
+    // }
+
     return (
         <div className="login-container">
             <div className="row">

@@ -7,7 +7,6 @@ import EditInvoice from "../../component/EditInvoice";
 import Payment from "../../component/Payment";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
-import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -15,6 +14,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
+import {checkToken, makeSecureRequest} from "../../utils";
 
 const TRANSACTION_FEE = '1.50';
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const getStep = () => {
-    return  localStorage.getItem('auth_token') && localStorage.getItem('auth_token').length > 5 ? 1 :  0;
+    return  checkToken() ? 1 :  0;
 }
 
 const getSteps = () => {
@@ -115,7 +115,7 @@ const Home =  () => {
         const org_id = 'lby3aled2d';
         try {
             const link = `${window.location.origin}/bank/${org_id}/${user.amount}`
-            const code = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link });
+            const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link }, 'POST');
             setTimeout(() => {
                 parseImg(code.data.qrCode);
             }, 1000)

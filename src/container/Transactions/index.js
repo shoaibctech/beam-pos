@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loader from "react-loader-spinner";
-import { getUserData } from "../../utils";
+import { getUserData, makeSecureRequest } from "../../utils";
 
 import './styles.css';
 
@@ -35,7 +35,9 @@ const Transactions = () => {
 
     const getPaymentsList = async () => {
         setIsFetching(true);
-        const paymentList = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`, {email: getUserData().email});
+        const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`,
+            {email: getUserData().email}, 'POST' );
+
         console.log(paymentList.data.paymentList)
         setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         setIsFetching(false);

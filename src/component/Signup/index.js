@@ -4,7 +4,7 @@ import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import request from 'request';
-import axios from 'axios';
+import { makeRequest } from "../../utils";
 
 import './styles.css';
 
@@ -18,18 +18,8 @@ const Signup = () => {
     const [orgs, setOrgs] = useState([]);
 
     useEffect( () => {
-        // const access_token = location.search ? location.search.split('&')[0].substr(6) : null;
-        // if(access_token){
-        //     getToken(access_token);
-        // }
         getMerchants();
     }, [])
-
-    // const getToken = async (token) => {
-    //     const res = await  axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/datatoken`, {code: token})
-    //     setAccount(res.data.accounts[0]);
-    //     setName(res.data.accounts[0].display_name)
-    // }
 
     const onSignup = () => {
         let merchant = orgs.filter( org => org.contact.email1 === email)
@@ -81,7 +71,7 @@ const Signup = () => {
     }
     const getMerchants = async () => {
         try {
-            const req =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`);
+            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`, {}, 'GET');
             setOrgs( prevState => ([...prevState, ...req.data.orgs]))
         } catch (e) {
             console.log('merchant fetching failed')

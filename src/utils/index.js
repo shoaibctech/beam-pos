@@ -1,3 +1,6 @@
+import axios from 'axios';
+
+export const DEFAULT_MERCHANT = 'lby3aled2d';
 
 export const setUserData = (user) => {
     localStorage.setItem('user_data', JSON.stringify(user));
@@ -33,5 +36,20 @@ export const checkToken = () => {
     } else {
         return false;
     }
-
+}
+export const makeSecureRequest = (url, data = {}, method) => {
+    return axios({
+        method,
+        url,
+        data,
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('auth_token'), 'content-type': 'application/json'}
+    });
+}
+export const makeRequest = async (url, data = {}, method) => {
+    return  axios({
+        method,
+        url,
+        data,
+        headers: {'Authorization': 'Bearer ' + localStorage.getItem('auth_token'), 'content-type': 'application/json'}
+    });
 }
