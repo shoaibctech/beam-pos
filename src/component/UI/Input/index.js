@@ -1,7 +1,7 @@
 import React from "react";
 import './styles.css';
 
-const Input = ({ error, name, type, value, handleChange, placeholder, disabled = false}) => {
+const Input = ({ error, name, type, value, handleChange, placeholder, disabled = false, required = false}) => {
     return(
         <div className="input_field">
         <input
@@ -12,6 +12,7 @@ const Input = ({ error, name, type, value, handleChange, placeholder, disabled =
             placeholder={placeholder}
             onChange={e => handleChange(e.target.value)}
             disabled={disabled}
+            required={required}
         />
         <p className="error_text">{error && error}</p>
         </div>

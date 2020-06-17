@@ -26,7 +26,7 @@ const Transactions = () => {
     const [refundType, setRefundType] = useState('');
     const [amount, setAmount] = useState('');
     const [isRefunding, setIsRefunding] = useState(false);
-    const [refundError, setRefundError] = useState('')
+    const [refundError, setRefundError] = useState('');
 
     useEffect( () => {
         getPaymentsList();

@@ -6,6 +6,7 @@ import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
 import axios from 'axios';
 import {setUserData, setToken } from '../../utils/index';
+import ForgetPassword from '../ForgetPassword';
 
 var webAuth = new auth0.WebAuth({
     domain: 'dev-1e11vioj.eu.auth0.com',
@@ -17,8 +18,9 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
 
     // const history = useHistory();
     const [message, setMessage] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    console.log(errors)
+    // console.log(errors)
     const signin = async () => {
         setLoading(true)
         if(validateFields())
@@ -36,7 +38,7 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 setMessage(err.description);
                 setLoading(false);
             } else {
-                console.log(res)
+                // console.log(res)
                 setToken(res);
                 getUserInfo();
                 setStep(step + 1);
@@ -150,9 +152,13 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
 
             <div className="bottom-section-container">
                 <div className="bottom-section">
-                    <p className="link forget-password" style={{boxSizing: 'border-box'}}>Forget password?</p>
+                    <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>Forget password?</p>
                 </div>
             </div>
+            <ForgetPassword
+                modalIsOpen={modalIsOpen}
+                setModalIsOpen={setModalIsOpen}
+            />
         </div>
     );
 }

@@ -1,0 +1,11 @@
+.email_row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.reset-container {
+    padding: 0 3rem 1rem;
+    min-width: 400px;
+}
+.success_message {
+    color: var(--success-text-color);
+}

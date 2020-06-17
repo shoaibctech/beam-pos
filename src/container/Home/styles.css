@@ -50,7 +50,7 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-input[type=text], input[type=password], input[type=number] {
+input[type=text], input[type=password], input[type=number], input[type=email] {
     margin: 10px 10px 10px 0;
     width: 100%;
     box-sizing: border-box;
@@ -62,10 +62,10 @@ input[type=text], input[type=password], input[type=number] {
     font-size: 16px;
     color: #333;
 }
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus {
     border: 1px solid var(--input-hover-color) !important;
 }
-input[type=text]:hover, input[type=password]:hover{
+input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover{
     border: 1px solid var(--input-hover-color) !important;
 }
 label {
@@ -111,10 +111,12 @@ label {
 }
 .link {
     margin-top: 10px;
-    color: grey;
     font-size: 20px;
     text-decoration: none;
-    cursor: not-allowed;
+    cursor: pointer;
+}
+.link:hover {
+    color: var(--main-bg-color);
 }
 .forget-password {
     width: calc(10vw + 224px);
