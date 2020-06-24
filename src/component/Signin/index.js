@@ -9,9 +9,9 @@ import {setUserData, setToken, makeSecureRequest, setUserMetaData} from '../../u
 import ForgetPassword from '../ForgetPassword';
 
 var webAuth = new auth0.WebAuth({
-    domain: 'dev-1e11vioj.eu.auth0.com',
-    clientID:'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
-    audience: "http://localhost:4000",
+    domain: process.env.REACT_APP_AUTH0_DOMAIN,
+    clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
 });
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
@@ -55,7 +55,6 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
         });
         const userMetaData = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/user/${req.data.sub}`, {},
             'GET');
-        console.log("user meta data ::", userMetaData.data.data)
         //TODO: un comment when need to check if email is verified or not
         // if(req.data.email_verified === true){
         //     setUserData(req.data);

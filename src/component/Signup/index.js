@@ -38,7 +38,7 @@ const Signup = () => {
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
             headers: {'content-type': 'application/json'},
             body: {
-                client_id: 'eSfzYw2LlW9FcF00Em0xmuGF3giFHzCE',
+                client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
                 email: email,
                 password: password,
                 connection: 'Username-Password-Authentication',

@@ -162,7 +162,6 @@ const Home =  () => {
         return successStep[index];
     }
 
-    console.log('User Data: ', user)
     return(
         <main>
             {   loading &&
