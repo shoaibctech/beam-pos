@@ -3,7 +3,7 @@ import React, { useState} from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
 
-const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, successStep, setSuccessStep, setUser}) => {
+const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, successStep, setSuccessStep, setUser, getQrCode}) => {
 
     const [amount, setAmount] = useState( '')
     const [error, setError] = useState({ amount: '',});
@@ -21,6 +21,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
     }
 
     const onGetQuote = () => {
+        getQrCode();
         if (validateFields())
             return;
 

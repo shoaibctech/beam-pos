@@ -64,6 +64,7 @@ const Home =  () => {
     const [link, setLink] = useState('')
     const [isStatus, setIsStatus] = useState(false);
     const [statusData, setStatusData] = useState({});
+    const [qrCode, setQrCode] = useState();
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -102,34 +103,39 @@ const Home =  () => {
         }
     },[step, loading]);
 
-    const parseImg = (xml_String) => {
-        var doc = new DOMParser().parseFromString(xml_String, 'application/xml');
-        var el = document.getElementById('svgCon')
-        el.appendChild(
-            el.ownerDocument.importNode(doc.documentElement, true)
-        )
+    const parseImg = () => {
+        setStep(step + 1);
+        setActiveStep(activeStep + 1)
+        setTimeout(() => {
+            var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
+            var el = document.getElementById('svgCon')
+            el.appendChild(
+                el.ownerDocument.importNode(doc.documentElement, true)
+            )
+        }, 200)
+
     }
 
     const getQrCode = async () => {
-        setLoading(true);
+        // setLoading(true);
         const org_id = 'lby3aled2d';
         try {
             const link = `${window.location.origin}/bank/${org_id}/${user.amount}`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link }, 'POST');
-            setTimeout(() => {
-                parseImg(code.data.qrCode);
-            }, 1000)
+            // setTimeout(() => {
+            //     parseImg(code.data.qrCode);
+            // }, 100)
+            setQrCode(code.data.qrCode);
             setLink(code.data.link);
             console.log(code)
 
             setIsErrorStatus(false);
-            setLoading(false);
-            setStep(step + 1);
-            setActiveStep(activeStep + 1)
+            // setLoading(false);
+
         } catch (e) {
             console.log(e)
             setIsErrorStatus(true);
-            setLoading(false);
+            // setLoading(false);
         }
     }
 
@@ -227,6 +233,7 @@ const Home =  () => {
                                                     setSuccessStep={setSuccessStep}
                                                     setUser={setUser}
                                                     setIsSkip={setIsSkip}
+                                                    getQrCode={getQrCode}
                                                 />
 
                                             }
@@ -236,7 +243,7 @@ const Home =  () => {
                                                     isSkip={isSkip}
                                                     user={user}
                                                     TRANSACTION_FEE={TRANSACTION_FEE}
-                                                    getAccessToken={getQrCode}
+                                                    getAccessToken={parseImg}
                                                     emailStatus={emailStatus}
                                                     errorStatus={errorStatus}
                                                 />
