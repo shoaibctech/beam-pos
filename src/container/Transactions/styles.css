@@ -66,3 +66,22 @@
     color: red;
     text-align: center;
 }
+.balance-sec {
+    margin: auto;
+    text-align: center;
+}
+.balance {
+    font-size: larger;
+    font-weight: bold;
+}
+.balance-con {
+    width: 80%;
+    margin: auto;
+    border: 1px solid var(--step-border-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 7px;
+}
+.balance-con:hover {
+    border: 1px solid var(--main-bg-color);
+}

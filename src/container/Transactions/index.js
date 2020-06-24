@@ -27,10 +27,12 @@ const Transactions = () => {
     const [amount, setAmount] = useState('');
     const [isRefunding, setIsRefunding] = useState(false);
     const [refundError, setRefundError] = useState('');
+    const [balance, setBalance] = useState([]);
 
     useEffect( () => {
         getPaymentsList();
         console.log('data ::', getUserData());
+        getBalance();
     }, []);
 
     const getPaymentsList = async () => {
@@ -41,6 +43,11 @@ const Transactions = () => {
         console.log(paymentList.data.paymentList)
         setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         setIsFetching(false);
+    }
+
+    const getBalance = async () => {
+        const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/balance`, {}, 'GET');
+        setBalance(req.data.balances.data);
     }
 
     const sureRefund = (index) => {
@@ -91,8 +98,19 @@ const Transactions = () => {
             </tr>);
         });
     }
+
     return (
         <div className="transaction">
+            <div className="balance-con">
+                <div className="balance-sec">
+                    <p>
+                        {balance && balance.length > 0 ?
+                    <span className="balance">{balance[1].balance.amount} { balance[1].balance.currency}</span>:
+                        "loading..."}
+                    </p>
+                    <p>BALANCE</p>
+                </div>
+            </div>
             <h2 className="heading">Transactions Details</h2>
             <table>
                 <thead>
