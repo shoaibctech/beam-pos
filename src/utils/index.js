@@ -8,6 +8,12 @@ export const setUserData = (user) => {
 export const getUserData = () => {
     return JSON.parse(localStorage.getItem('user_data'));
 }
+export const setUserMetaData = (metaData) => {
+    localStorage.setItem('user_meta_data', JSON.stringify(metaData));
+}
+export const getUserMetaData = () => {
+    return JSON.parse(localStorage.getItem('user_meta_data'));
+}
 export const removeUserData = () => {
     localStorage.removeItem('user_data');
     localStorage.removeItem('auth_token');

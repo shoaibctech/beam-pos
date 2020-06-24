@@ -14,7 +14,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
-import {checkToken, makeSecureRequest} from "../../utils";
+import { checkToken, makeSecureRequest, getUserMetaData } from "../../utils";
 
 const TRANSACTION_FEE = '1.50';
 
@@ -65,6 +65,7 @@ const Home =  () => {
     const [isStatus, setIsStatus] = useState(false);
     const [statusData, setStatusData] = useState({});
     const [qrCode, setQrCode] = useState();
+    const [isFetching, setIsFetching] = useState(false);
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -117,25 +118,21 @@ const Home =  () => {
     }
 
     const getQrCode = async () => {
-        // setLoading(true);
-        const org_id = 'lby3aled2d';
+        setIsFetching(true);
+        const org_id = getUserMetaData().merchant_id;
         try {
             const link = `${window.location.origin}/bank/${org_id}/${user.amount}`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link }, 'POST');
-            // setTimeout(() => {
-            //     parseImg(code.data.qrCode);
-            // }, 100)
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
             console.log(code)
 
             setIsErrorStatus(false);
-            // setLoading(false);
-
         } catch (e) {
             console.log(e)
             setIsErrorStatus(true);
-            // setLoading(false);
+        } finally {
+          setIsFetching(false);
         }
     }
 
@@ -246,6 +243,7 @@ const Home =  () => {
                                                     getAccessToken={parseImg}
                                                     emailStatus={emailStatus}
                                                     errorStatus={errorStatus}
+                                                    isFecthing={isFetching}
                                                 />
                                             }   {
                                                 index === 2  &&
