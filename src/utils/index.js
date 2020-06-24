@@ -20,6 +20,7 @@ export const removeUserData = () => {
     localStorage.removeItem('expiresOn');
     localStorage.removeItem('access_token');
     localStorage.removeItem('tokenType');
+    localStorage.removeItem('user_meta_data');
 }
 export const setToken = (res) => {
     let milliseconds = new Date().getTime();
