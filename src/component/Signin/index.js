@@ -13,6 +13,7 @@ var webAuth = new auth0.WebAuth({
     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
 });
+// added logs
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
 
