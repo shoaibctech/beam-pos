@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
-import { getUserData } from "../../utils";
+import {getUserData} from "../../utils";
+import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -28,9 +29,9 @@ const Bank = () => {
             console.log(e);
         }
     }
-    return(
+    return (
         <div>
-            {   loading &&
+            {loading &&
             <div className="loader">
                 <div id="loaderdiv">
                     <Loader type="TailSpin" color="black" height={100} width={100}/>
@@ -39,19 +40,24 @@ const Bank = () => {
             }
             {
                 !loading &&
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <div>
-                        <h1>Select Bank</h1>
-                        <br/>
-                        <br/>
-                        <img
-                            style={{cursor: 'pointer'}}
-                            className="bnk_links"
-                            src="https://www.nuapay.com/wp-content/uploads/2018/04/nuapay.svg"
-                            alt="NUAPAY ASPSP"
-                            onClick={() => createPayment('8ow24y2pdx')}
-                        />
-                        <br/>
+                <div>
+                    <h1 style={{textAlign: 'center'}}>Select Bank</h1>
+                    <br/>
+                    <br/>
+                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                        {banks.map((bank, index) => (
+                            <div key={index} className="list-banks">
+                                <img
+                                    style={{cursor: 'pointer'}}
+                                    className="list-banks-logo"
+                                    src={bank.logo}
+                                    alt={bank.logo}
+                                    onClick={() => createPayment(bank.id)}
+                                />
+                                <h3>{bank.name}</h3>
+                                <br/>
+                            </div>
+                        ))}
                     </div>
                 </div>
             }
