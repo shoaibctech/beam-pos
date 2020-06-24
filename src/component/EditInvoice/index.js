@@ -33,14 +33,10 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
         const nameElement = <span className="parent-tag">
             <span style={{marginRight: '10px'}}><img src={require('../../container/Home/img/money-4.svg')} className="step-img" alt="money" /></span>
             <span>You are requesting GBP {amount}</span>
-            {/*<span className="tag">{name.charAt(0)}</span>*/}
-            {/*<span>{name}</span>*/}
         </span>;
         const confimElement = <span className="parent-tag">
             <span style={{marginRight: '10px'}}><img src={require('../../container/Home/img/confirm-4.svg')} className="step-img" alt="money" /></span>
             <span>Confirm</span>
-            {/*<span className="tag">{name.charAt(0)}</span>*/}
-            {/*<span>{name}</span>*/}
         </span>;
         ss[0] = nameElement;
         ss[1] = confimElement;

@@ -73,3 +73,6 @@
     justify-content: center;
     align-items: center;
 }
+.payment-loader {
+    text-align: center;
+}

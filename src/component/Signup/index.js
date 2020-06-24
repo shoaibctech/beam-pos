@@ -86,16 +86,6 @@ const Signup = () => {
                         <h1>Welcome to junction</h1>
                     </div>
                 </div>
-                {/*<br/>*/}
-                {/*<br/>*/}
-                {/*<div className="row">*/}
-                {/*    <div>*/}
-                {/*        <p style={{marginLeft: '10%', marginRight: '10%', fontFamily: 'none'}}>*/}
-                {/*            Hi <strong>{name}</strong>, welcome to Junction. We've now got all your details, just need your email address and*/}
-                {/*           a password to finish creating your account.*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <br/>
                 <div className="row">
                     <div className="icon">
