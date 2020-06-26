@@ -1,6 +1,10 @@
-
-.bnk_links {
+.list-banks-logo {
+    height: 170px;
+    width: 170px;
     cursor: pointer;
+    box-shadow: 0px 6px 9px 2px #ccc;
+    border-radius: 6px;
+    margin-top: 1.5rem;
 }
 .loader {
     position: absolute;
@@ -14,4 +18,27 @@
     min-height: 100vh;
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
+}
+.list-banks {
+    width: 33%;
+    text-align: center;
+}
+.list-banks > h3 {
+    margin-top: 8px;
+}
+@media (max-width: 520px) {
+    .list-banks {
+        width: 100%;
+    }
+    .list-banks-logo {
+        height: 210px;
+        width: 210px;
+    }
+}
+@media (min-width: 521px) and (max-width: 770px) {
+    .list-banks {
+        width: 50% !important;
+        text-align: center;
+        margin-top: 1rem;
+    }
 }
