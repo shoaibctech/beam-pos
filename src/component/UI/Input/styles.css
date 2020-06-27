@@ -26,4 +26,6 @@ input:-webkit-autofill:focus {
 }
 .error_text {
     color: red;
+    margin-left: 10px;
+    padding-left: 10px;
 }

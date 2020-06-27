@@ -4,7 +4,7 @@ import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import request from 'request';
-import { makeRequest } from "../../utils";
+import { makeRequest, validateEmail } from "../../utils";
 
 import './styles.css';
 
@@ -89,19 +89,11 @@ const Signup = () => {
         errors.email = '';
         errors.password = '';
         errors.conPassword = '';
+        const isValidEmail = validateEmail(email);
 
-        if(!email) {
+        if(!!isValidEmail){
+            errors.email = isValidEmail;
             formIsValid = false;
-            errors.email = 'Enter your email!'
-        }
-        if(typeof email !== "undefined") {
-            let lastAtPos = email.lastIndexOf('@');
-            let lastDotPos = email.lastIndexOf('.');
-
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') === -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
-                formIsValid = false;
-                errors.email = 'Please enter valid email!';
-            }
         }
 
         if(password.length < 1) {

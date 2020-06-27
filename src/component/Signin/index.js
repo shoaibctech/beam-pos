@@ -15,17 +15,19 @@ var webAuth = new auth0.WebAuth({
 });
 const namespace = "https://posjunction.com";
 
-const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
+const Signin = ({userName, setUserName, password, setPassword, setLoading, setStep, step}) =>  {
 
-    // const history = useHistory();
     const [message, setMessage] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [errors, setErrors] = useState({userName: '', password: ''});
 
-    // console.log(errors)
     const signin = async () => {
         setLoading(true)
-        if(validateFields())
-            return
+        if(!validateFields()) {
+            setLoading(false);
+            return;
+        }
+
 
         webAuth.client.login({
             realm: 'Username-Password-Authentication',
@@ -49,6 +51,27 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
                 setLoading(false);
             }
         });
+    }
+    const validateFields = () => {
+        errors.userName = '';
+        errors.password = '';
+
+        let isValid = true;
+
+        if(!userName){
+            errors.userName = 'Enter your username!';
+            isValid = false;
+        }
+        if(password.length < 1){
+            errors.password = 'Password must not be empty!';
+            isValid = false
+        }
+
+        setErrors( prevState => {
+            return {...prevState, ...errors};
+        });
+
+        return isValid;
     }
 
     //TODO: un comment when need to check if email is verified or not
@@ -129,7 +152,9 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
 
             <div className="bottom-section-container">
                 <div className="bottom-section">
-                    <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>Forget password?</p>
+                    <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>
+                        Forget password?
+                    </p>
                 </div>
             </div>
             <ForgetPassword

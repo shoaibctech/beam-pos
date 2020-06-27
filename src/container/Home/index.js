@@ -55,7 +55,6 @@ const Home =  () => {
     const [amount, setAmount] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [isSkip, setIsSkip] = useState(false);
     const [successStep, setSuccessStep] = useState(['Amount','Confirm', 'Pay']);
@@ -142,22 +141,6 @@ const Home =  () => {
         }
     }
 
-    const validateFields = () => {
-        let err = {};
-        if(!userName){
-            err.userName = 'Enter your username!'
-        }
-        if(password.length < 1){
-            err.password = 'Password must not be empty!';
-        }
-        if(Object.getOwnPropertyNames(err).length === 0 ){
-            return false;
-        } else {
-            setErrors(err)
-            return true;
-        }
-    }
-
     const handleEdit = (index) => {
         setActiveStep(index);
         setIsStatus(false);
@@ -189,8 +172,6 @@ const Home =  () => {
                 setUserName={setUserName}
                 password={password}
                 setPassword={setPassword}
-                errors={errors}
-                validateFields={validateFields}
                 setLoading={setLoading}
                 step={step}
                 setStep={setStep}

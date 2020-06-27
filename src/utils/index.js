@@ -53,3 +53,18 @@ export const makeRequest = async (url, data = {}, method) => {
         headers: {'Authorization': 'Bearer ' + localStorage.getItem('auth_token'), 'content-type': 'application/json'}
     });
 }
+export const validateEmail = (email) => {
+    let error = '';
+    if(!email) {
+        error = 'Enter your email!'
+    }
+    if(typeof email !== "undefined") {
+        let lastAtPos = email.lastIndexOf('@');
+        let lastDotPos = email.lastIndexOf('.');
+
+        if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') === -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
+            error = 'Please enter valid email!';
+        }
+    }
+    return error;
+}
