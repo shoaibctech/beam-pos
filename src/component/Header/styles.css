@@ -32,20 +32,31 @@
     border: none;
     font-size: 20px;
     background: transparent;
-    padding: 10px 25px;
+    padding: 2px 25px;
     text-transform: capitalize;;
     color: var(--main-bg-color);
     cursor: pointer;
+    font-family: inherit;
 }
 .logout_btn:hover {
     background: transparent;
-    font-size: 21px;
     font-family: inherit;
+    box-shadow: 1px 1px 10px 1px lightgrey;
 }
  a {
      color: var(--main-bg-color);
-    text-decoration: none;
+     text-decoration: none;
 }
  .nav-link {
      font-size: 21px;
+ }
+ .user-info {
+     display: inline-block;
+     margin-right: 15px;
+     margin-left: 5px;
+ }
+ @media (max-width: 760px) {
+     .user-info {
+         display: none;
+     }
  }

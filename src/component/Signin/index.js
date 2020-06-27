@@ -49,6 +49,7 @@ const Signin = ({userName, setUserName, password, setPassword, setLoading, setSt
                 setToken(res);
                 setStep(step + 1);
                 setLoading(false);
+                window.location.reload();
             }
         });
     }

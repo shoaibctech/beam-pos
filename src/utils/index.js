@@ -37,6 +37,11 @@ export const checkToken = () => {
         return false;
     }
 }
+export const getAuthToken = () => {
+    if(checkToken()){
+        return localStorage.getItem('auth_token');
+    }
+}
 export const makeSecureRequest = (url, data = {}, method) => {
     return axios({
         method,
