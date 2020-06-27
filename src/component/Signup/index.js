@@ -13,7 +13,8 @@ const Signup = () => {
     let history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({email:'', password:'', merchantId: '', status: ''});
+    const [conPassword, setConPassword] = useState('');
+    const [errors, setErrors] = useState({email:'', password:'', conPassword:'', merchantId: '', status: ''});
     const [name, setName] = useState();
     const [orgs, setOrgs] = useState([]);
 
@@ -24,6 +25,11 @@ const Signup = () => {
     const onSignup = () => {
         let merchant = orgs.filter( org => org.contact.email1 === email)
         let account;
+
+        if (!validateForm()) {
+            return;
+        }
+
         if(merchant.length > 0){
             account = merchant[0];
             setName(merchant[0].name);
@@ -77,6 +83,47 @@ const Signup = () => {
             console.log('merchant fetching failed')
         }
     }
+    const validateForm = () => {
+
+        let formIsValid = true;
+        errors.email = '';
+        errors.password = '';
+        errors.conPassword = '';
+
+        if(!email) {
+            formIsValid = false;
+            errors.email = 'Enter your email!'
+        }
+        if(typeof email !== "undefined") {
+            let lastAtPos = email.lastIndexOf('@');
+            let lastDotPos = email.lastIndexOf('.');
+
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') === -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
+                formIsValid = false;
+                errors.email = 'Please enter valid email!';
+            }
+        }
+
+        if(password.length < 1) {
+            errors.password = 'Password must not be empty!';
+            formIsValid = false;
+        }
+        if(conPassword.length < 1) {
+            errors.conPassword = 'Confirm Password must not be empty!';
+            formIsValid = false;
+        }
+        if(password !== conPassword) {
+            errors.conPassword = 'Confirm password did not match!';
+            formIsValid = false;
+        }
+
+        setErrors( prevState => {
+            return {...prevState, ...errors}
+        });
+        return formIsValid;
+
+    }
+
 
     return (
         <Fragment>
@@ -117,6 +164,23 @@ const Signup = () => {
                             value={password}
                             handleChange={setPassword}
                             placeholder="Password"
+                        />
+                    </div>
+                </div>
+                <br/>
+                <div className="row">
+                    <div className="icon">
+                        <img src={Key} alt="key icon" />
+                    </div>
+                    <div>
+                        <label className="label">Confirm Password</label>
+                        <Input
+                            error={errors.conPassword}
+                            name="confirmPassword"
+                            type="password"
+                            value={conPassword}
+                            handleChange={setConPassword}
+                            placeholder="Confirm Password"
                         />
                     </div>
                 </div>

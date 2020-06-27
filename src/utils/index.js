@@ -1,18 +1,10 @@
 import axios from 'axios';
 
-export const DEFAULT_MERCHANT = 'lby3aled2d';
-
 export const setUserData = (user) => {
     localStorage.setItem('user_data', JSON.stringify(user));
 }
 export const getUserData = () => {
     return JSON.parse(localStorage.getItem('user_data'));
-}
-export const setUserMetaData = (metaData) => {
-    localStorage.setItem('user_meta_data', JSON.stringify(metaData));
-}
-export const getUserMetaData = () => {
-    return JSON.parse(localStorage.getItem('user_meta_data'));
 }
 export const removeUserData = () => {
     localStorage.removeItem('user_data');
@@ -20,7 +12,6 @@ export const removeUserData = () => {
     localStorage.removeItem('expiresOn');
     localStorage.removeItem('access_token');
     localStorage.removeItem('tokenType');
-    localStorage.removeItem('user_meta_data');
 }
 export const setToken = (res) => {
     let milliseconds = new Date().getTime();

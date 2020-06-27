@@ -4,16 +4,16 @@ import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
-import axios from 'axios';
-import {setUserData, setToken, makeSecureRequest, setUserMetaData} from '../../utils/index';
+import {setUserData, setToken,} from '../../utils/index';
 import ForgetPassword from '../ForgetPassword';
+import jwt from 'jwt-decode';
 
 var webAuth = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
 });
-// added logs
+const namespace = "https://posjunction.com";
 
 const Signin = ({userName, setUserName, password, setPassword, errors, validateFields, setLoading, setStep, step}) =>  {
 
@@ -32,47 +32,32 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
             username: userName,
             email: userName,
             password: password,
-            scope: 'openid',
+            scope: 'openid user_metadata',
         }, (err, res) => {
             if(err) {
                 console.log('error ::', err)
                 setMessage(err.description);
                 setLoading(false);
             } else {
-                // console.log(res)
+                const decodedIdToken = jwt(res.idToken);
+                decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
+                decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
+                decodedIdToken.merchant_id = decodedIdToken[`${namespace}/merchant_id`];
+                setUserData(decodedIdToken);
                 setToken(res);
-                getUserInfo();
                 setStep(step + 1);
                 setLoading(false);
             }
         });
     }
 
-    const getUserInfo = async () => {
-        const req = await axios.post('https://dev-1e11vioj.eu.auth0.com/userInfo', '',{
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-            }
-        });
-        const userMetaData = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/user/${req.data.sub}`, {},
-            'GET');
-        //TODO: un comment when need to check if email is verified or not
-        // if(req.data.email_verified === true){
-        //     setUserData(req.data);
-        //     window.location.reload();
-        // } else {
-        //  history.push('/verify');
-        // }
-
-        //TODO: remove below 2 line when will un comment above code
-        //allow with out verification.
-        setUserData(req.data);
-        setUserMetaData(userMetaData.data.data);
-
-        //TODO: use this when needed merchant token to store on front end
-        // await getMerchantToken();
-        window.location.reload();
-    }
+    //TODO: un comment when need to check if email is verified or not
+    // if(req.data.email_verified === true){
+    //     setUserData(req.data);
+    //     window.location.reload();
+    // } else {
+    //  history.push('/verify');
+    // }
 
     //TODO: use this when needed merchant token to store on front end
     // const getMerchantToken = async () => {
@@ -83,8 +68,6 @@ const Signin = ({userName, setUserName, password, setPassword, errors, validateF
     //     } catch (e) {
     //         console.log('NUA PAY organization token fetching failed.')
     //     }
-    //
-    // }
 
     return (
         <div className="login-container">

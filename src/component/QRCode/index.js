@@ -7,7 +7,6 @@ import RedTick from './img/forbidden.svg';
 const QRCode = ({ link, isStatus, statusData}) => {
     const [isTick, setTick] = useState(false);
 
-    console.log('status data ::', statusData)
     useEffect( () => {
         setTimeout(()=> {
            isStatus && setTick(true);
@@ -18,35 +17,50 @@ const QRCode = ({ link, isStatus, statusData}) => {
         window.open(link, '_blank');
     }
     return (
-        <div className="payment-module">
+        <div className="payment-module zero-padding-left zero-padding-right">
             {!isStatus ?
                 <div>
-                    <div id='svgCon' style={{    width: '12rem', margin: '3rem auto'}}>
+                    <div className="qrcode-heading">
+                        <h3>Scan QR Code or click Pay button to start payment process.</h3>
                     </div>
-                    <br/>
-                    <div style={{display: 'flex', justifyContent: 'center' }}>
-                        {
-                            <button onClick={() => redirect()} className="pay-btn">
-                                Pay
-                            </button>
-                        }
-                    </div>
+                   <div className="qrcode-innerbox">
+                       <div id='svgCon' style={{    width: '12rem', margin: '3rem auto'}}>
+                       </div>
+                       <br/>
+                       <div style={{display: 'flex', justifyContent: 'center' }}>
+                           {
+                               <button onClick={() => redirect()} className="pay-btn">
+                                   Pay
+                               </button>
+                           }
+                       </div>
+                   </div>
                 </div>
                 :
                 <div>
-                    <h2>Payment Status</h2>
+                    <div className="qrcode-heading">
+                        <h2>Payment Status</h2>
+                    </div>
                     <br/>
                     <br/>
                     <div>
                         <div>
                             {
-                                statusData.status === 'SETTLEMENT_IN_PROGRESS' && <p>Payment of {statusData.amount} {' '} {statusData.currency} is in Progress.</p>
-                            }
-                            {
-                                statusData.status === 'SETTLEMENT_COMPLETE' && <p>Payment of {statusData.amount} {' '} {statusData.currency} has been successfully completed.</p>
-                            }
-                            {
-                                statusData.status === 'SETTLEMENT_REJECTED' && <p>Payment of {statusData.amount} {' '} {statusData.currency} has been failed.</p>
+
+                                <p className="text-center">
+                                    Payment of <strong>{statusData.amount} {' '} {statusData.currency} {' '}</strong>
+                                    {statusData.status === 'SETTLEMENT_IN_PROGRESS' &&
+                                    'is in Progress.'
+                                    }
+                                    {
+                                        statusData.status === 'SETTLEMENT_COMPLETE' &&
+                                            'has been successfully completed.'
+                                    }
+                                    {
+                                        statusData.status === 'SETTLEMENT_REJECTED' &&
+                                        'has been failed.'
+                                    }
+                                </p>
                             }
                         </div>
                     </div>

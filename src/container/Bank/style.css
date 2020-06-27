@@ -11,13 +11,13 @@
     width: 100vw;
     min-width: 100vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 50%;
     min-height: 100vh;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
 }
 .list-banks {
     width: 33%;

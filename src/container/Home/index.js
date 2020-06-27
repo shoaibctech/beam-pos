@@ -14,7 +14,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
-import { checkToken, makeSecureRequest, getUserMetaData, getUserData } from "../../utils";
+import { checkToken, makeSecureRequest, getUserData } from "../../utils";
 
 const TRANSACTION_FEE = '1.50';
 
@@ -66,6 +66,7 @@ const Home =  () => {
     const [statusData, setStatusData] = useState({});
     const [qrCode, setQrCode] = useState();
     const [isFetching, setIsFetching] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState('');
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -86,15 +87,17 @@ const Home =  () => {
 
         channel.bind('qr-code-event', function(data) {
             
-            if(data.merchantId === getUserMetaData().merchant_id){
+            if(data.merchantId === getUserData().merchant_id){
                 setLoading(true);
+                setLoadingMessage('Payment is in progress... ');
             }
         });
 
         channel.bind('status-event', function(data) {
 
             console.log('data ::', data);
-            if(data.merchantId === getUserMetaData().merchant_id) {
+            if(data.merchantId === getUserData().merchant_id) {
+                setLoadingMessage('');
                 setStatusData(data.data);
                 setIsStatus(true);
                 setLoading(false);
@@ -121,7 +124,7 @@ const Home =  () => {
 
     const getQrCode = async (amount) => {
         setIsFetching(true);
-        const org_id = getUserMetaData().merchant_id;
+        const org_id = getUserData().merchant_id;
         const email = getUserData().email;
         try {
             const link = `${window.location.origin}/bank/${org_id}/${amount}/${email}`
@@ -172,6 +175,12 @@ const Home =  () => {
                 <div id="loaderdiv">
                     <Loader type="TailSpin" color="black" height={100} width={100}/>
                 </div>
+                {
+                    loadingMessage &&
+                    <div>
+                        <p>{loadingMessage}</p>
+                    </div>
+                }
             </div>
             }
             { step === 0 &&

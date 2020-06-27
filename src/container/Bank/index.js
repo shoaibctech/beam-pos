@@ -21,8 +21,7 @@ const Bank = () => {
                     bankId: bankId,
                     email: email,
                 });
-            console.log('token ::', aspUrl);
-            setLoading(false);
+            // setLoading(false);
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             console.log(e);
@@ -37,6 +36,9 @@ const Bank = () => {
             <div className="loader">
                 <div id="loaderdiv">
                     <Loader type="TailSpin" color="black" height={100} width={100}/>
+                </div>
+                <div>
+                    <p>Redirecting...</p>
                 </div>
             </div>
             }

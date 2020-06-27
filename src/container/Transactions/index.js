@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loader from "react-loader-spinner";
-import { getUserData, makeSecureRequest, getUserMetaData } from "../../utils";
+import { getUserData, makeSecureRequest } from "../../utils";
 
 import './styles.css';
 
@@ -32,7 +32,6 @@ const Transactions = () => {
 
     useEffect( () => {
         getPaymentsList();
-        console.log('data ::', getUserData());
         getBalance();
     }, []);
 
@@ -49,7 +48,7 @@ const Transactions = () => {
     const getBalance = async () => {
         setBalanceError('');
         try{
-            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/balance/${getUserMetaData().merchant_id}`, {}, 'GET');
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/balance/${getUserData().merchant_id}`, {}, 'GET');
             setBalance(req.data.balances.data);
         } catch (e) {
             setBalanceError('Balance Fetching failed...');

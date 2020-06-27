@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 :root {
     --main-bg-color: #09f4c8;
@@ -57,4 +58,14 @@ h1, h2, h3, h4, h5, h6, p, div, span, input {
 }
 #root {
     min-height: 100vh;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
 }
