@@ -2,8 +2,9 @@ import React from "react";
 import Loader from 'react-loader-spinner'
 
 import '../QuoteDetails/styles.css';
-import './styles.css'
-const Payment = ({ user, getAccessToken, emailStatus, errorStatus, svgData, isFecthing }) => {
+import './styles.css';
+
+const Payment = ({ amount, getAccessToken, emailStatus, errorStatus, svgData, isFecthing }) => {
 
     return (
         <React.Fragment>
@@ -15,7 +16,7 @@ const Payment = ({ user, getAccessToken, emailStatus, errorStatus, svgData, isFe
                 <div className="payment-module">
                     <div className="payment-status-model">
                         <div>
-                            <h2 className="content-text">You are requesting {parseFloat(user.amount).toFixed(2)} GBP</h2>
+                            <h2 className="content-text">You are requesting {parseFloat(amount).toFixed(2)} GBP</h2>
                         </div>
                         <div>
                             <h3 className="bar">Summary</h3>
@@ -24,19 +25,19 @@ const Payment = ({ user, getAccessToken, emailStatus, errorStatus, svgData, isFe
                         <div className="content-text">
                             <div className="summary-row">
                                 <p>Total amount</p>
-                                <p>{parseFloat(user.amount).toFixed(2)} GBP</p>
+                                <p>{parseFloat(amount).toFixed(2)} GBP</p>
                             </div>
                         </div>
                         <div className="content-text">
                             <div className="summary-row">
                                 <p>Fee (1%)</p>
-                                <p>{parseFloat(user.amount * 0.01).toFixed(2)} GBP</p>
+                                <p>{parseFloat(amount * 0.01).toFixed(2)} GBP</p>
                             </div>
                         </div>
                         <div className="content-text">
                             <div className="summary-row">
                                 <p>Total to receive </p>
-                                <p>{(parseFloat(user.amount) - parseFloat(user.amount * 0.01)).toFixed(2)} GBP</p>
+                                <p>{(parseFloat(amount) - parseFloat(amount * 0.01)).toFixed(2)} GBP</p>
                             </div>
                             <br/>
                         </div>

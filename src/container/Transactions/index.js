@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Loader from "react-loader-spinner";
-import { getUserData, makeSecureRequest } from "../../utils";
+import { getUserData, makeSecureRequest, getUserMetaData } from "../../utils";
 
 import './styles.css';
 
@@ -28,6 +28,7 @@ const Transactions = () => {
     const [isRefunding, setIsRefunding] = useState(false);
     const [refundError, setRefundError] = useState('');
     const [balance, setBalance] = useState([]);
+    const [balanceError, setBalanceError] = useState('');
 
     useEffect( () => {
         getPaymentsList();
@@ -46,8 +47,14 @@ const Transactions = () => {
     }
 
     const getBalance = async () => {
-        const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/balance`, {}, 'GET');
-        setBalance(req.data.balances.data);
+        setBalanceError('');
+        try{
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/balance/${getUserMetaData().merchant_id}`, {}, 'GET');
+            setBalance(req.data.balances.data);
+        } catch (e) {
+            setBalanceError('Balance Fetching failed...');
+        }
+
     }
 
     const sureRefund = (index) => {
@@ -103,11 +110,16 @@ const Transactions = () => {
         <div className="transaction">
             <div className="balance-con">
                 <div className="balance-sec">
-                    <p>
-                        {balance && balance.length > 0 ?
-                    <span className="balance">{balance[1].balance.amount} { balance[1].balance.currency}</span>:
-                        "loading..."}
-                    </p>
+                    {
+                        balanceError ?
+                            <p className="t-error">{balanceError}</p>
+                            :
+                            <p>
+                                {balance && balance.length > 0 ?
+                                    <span className="balance">{balance[1].balance.amount} { balance[1].balance.currency}</span>:
+                                    "loading..."}
+                            </p>
+                    }
                     <p>BALANCE</p>
                 </div>
             </div>

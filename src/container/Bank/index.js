@@ -3,12 +3,11 @@ import {useParams} from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
-import {getUserData} from "../../utils";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
-    const {org_id, amount} = useParams();
+    const {org_id, amount, email} = useParams();
 
     console.log(org_id, amount)
 
@@ -20,7 +19,7 @@ const Bank = () => {
                     orgId: org_id,
                     amount: amount,
                     bankId: bankId,
-                    email: getUserData().email,
+                    email: email,
                 });
             console.log('token ::', aspUrl);
             setLoading(false);

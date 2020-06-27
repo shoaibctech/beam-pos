@@ -14,7 +14,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import Signin from "../../component/Signin";
-import { checkToken, makeSecureRequest, getUserMetaData } from "../../utils";
+import { checkToken, makeSecureRequest, getUserMetaData, getUserData } from "../../utils";
 
 const TRANSACTION_FEE = '1.50';
 
@@ -52,7 +52,7 @@ const getSteps = () => {
 }
 const Home =  () => {
     const [step, setStep] = useState(getStep());
-    const [user, setUser] = useState({});
+    const [amount, setAmount] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -84,19 +84,21 @@ const Home =  () => {
             alert(JSON.stringify(data));
         });
 
-        // var channel = pusherClient.subscribe('my-channel');
         channel.bind('qr-code-event', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log('data ::', data);
-            setLoading(true);
+            
+            if(data.merchantId === getUserMetaData().merchant_id){
+                setLoading(true);
+            }
         });
 
         channel.bind('status-event', function(data) {
-            // alert(JSON.stringify(data));
-            // console.log('data ::', data.data);
-            setStatusData(data.data);
-            setIsStatus(true);
-            setLoading(false);
+
+            console.log('data ::', data);
+            if(data.merchantId === getUserMetaData().merchant_id) {
+                setStatusData(data.data);
+                setIsStatus(true);
+                setLoading(false);
+            }
         });
 
         if(step > 0 && loading){
@@ -117,11 +119,12 @@ const Home =  () => {
 
     }
 
-    const getQrCode = async () => {
+    const getQrCode = async (amount) => {
         setIsFetching(true);
         const org_id = getUserMetaData().merchant_id;
+        const email = getUserData().email;
         try {
-            const link = `${window.location.origin}/bank/${org_id}/${user.amount}`
+            const link = `${window.location.origin}/bank/${org_id}/${amount}/${email}`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
@@ -132,7 +135,7 @@ const Home =  () => {
             console.log(e)
             setIsErrorStatus(true);
         } finally {
-          setIsFetching(false);
+            setIsFetching(false);
         }
     }
 
@@ -167,12 +170,12 @@ const Home =  () => {
             {   loading &&
             <div className="loader">
                 <div id="loaderdiv">
-                <Loader type="TailSpin" color="black" height={100} width={100}/>
+                    <Loader type="TailSpin" color="black" height={100} width={100}/>
                 </div>
             </div>
             }
             { step === 0 &&
-                <Signin
+            <Signin
                 userName={userName}
                 setUserName={setUserName}
                 password={password}
@@ -182,7 +185,7 @@ const Home =  () => {
                 setLoading={setLoading}
                 step={step}
                 setStep={setStep}
-                />
+            />
             }
             {
                 step > 0 &&
@@ -228,7 +231,8 @@ const Home =  () => {
                                                     setLoading={setLoading}
                                                     successStep={successStep}
                                                     setSuccessStep={setSuccessStep}
-                                                    setUser={setUser}
+                                                    amount={amount}
+                                                    setAmount={setAmount}
                                                     setIsSkip={setIsSkip}
                                                     getQrCode={getQrCode}
                                                 />
@@ -236,9 +240,9 @@ const Home =  () => {
                                             }
                                             {
                                                 index === 1  &&
-                                                    <Payment
+                                                <Payment
                                                     isSkip={isSkip}
-                                                    user={user}
+                                                    amount={amount}
                                                     TRANSACTION_FEE={TRANSACTION_FEE}
                                                     getAccessToken={parseImg}
                                                     emailStatus={emailStatus}
@@ -246,13 +250,13 @@ const Home =  () => {
                                                     isFecthing={isFetching}
                                                 />
                                             }   {
-                                                index === 2  &&
-                                                   <QRCode
-                                                       link={link}
-                                                       isStatus={isStatus}
-                                                       statusData={statusData}
-                                                   />
-                                            }
+                                            index === 2  &&
+                                            <QRCode
+                                                link={link}
+                                                isStatus={isStatus}
+                                                statusData={statusData}
+                                            />
+                                        }
                                         </div>
                                     </StepContent>
                                 </Step>
