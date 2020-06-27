@@ -7,13 +7,13 @@ import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const {org_id, amount, email} = useParams();
-
-    console.log(org_id, amount)
 
     const createPayment = async (bankId) => {
         try {
             setLoading(true);
+            setError('');
             const aspUrl = await axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/selfhost`,
                 {
                     orgId: org_id,
@@ -26,6 +26,9 @@ const Bank = () => {
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             console.log(e);
+            setLoading(false);
+            setError('Payment creation failed. Please try agian later...');
+            window.scrollTo(0, 0);
         }
     }
     return (
@@ -36,6 +39,12 @@ const Bank = () => {
                     <Loader type="TailSpin" color="black" height={100} width={100}/>
                 </div>
             </div>
+            }
+            {
+                error &&
+                <div className="error-block">
+                    <h2 className="t-error" style={{textAlign: 'center'}}>{error}</h2>
+                </div>
             }
             {
                 !loading &&
