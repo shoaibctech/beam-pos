@@ -20,7 +20,7 @@ const PathComponent = () => {
         return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>;
     }
 }
-
+//deploying
 const Header = () => {
     const userData = getUserData();
 
