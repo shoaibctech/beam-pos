@@ -17,7 +17,7 @@ const PathComponent = () => {
     if(location.pathname === '/signup') {
         return <Link to="/" style={{boxSizing: 'border-box'}}>Log in</Link>;
     } else {
-        return <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>
+        return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>;
     }
 }
 
@@ -32,7 +32,6 @@ const Header = () => {
 
         e.preventDefault();
     }
-
     console.log(getUserData());
     return(
         <header className="header">

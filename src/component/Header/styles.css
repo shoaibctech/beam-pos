@@ -12,6 +12,17 @@
     box-shadow: 0 8px 6px -6px #d3d3d385;
     margin-bottom: 1rem;
 }
+@media (max-width: 540px) {
+    .header {
+        justify-content: center;
+    }
+    .header h1 {
+        text-align: center;
+    }
+    .app-title {
+        width: 100%;
+    }
+}
 .app-title{
     padding: 10px 25px;
 }
