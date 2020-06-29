@@ -15,7 +15,6 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [conPassword, setConPassword] = useState('');
     const [errors, setErrors] = useState({email:'', password:'', conPassword:'', merchantId: '', status: ''});
-    const [name, setName] = useState();
     const [orgs, setOrgs] = useState([]);
 
     useEffect( () => {
@@ -23,7 +22,7 @@ const Signup = () => {
     }, [])
 
     const onSignup = () => {
-        let merchant = orgs.filter( org => org.contact.email1 === email)
+        let merchant = orgs //orgs.filter( org => org.contact.email1 === email)
         let account;
 
         if (!validateForm()) {
@@ -32,13 +31,12 @@ const Signup = () => {
 
         if(merchant.length > 0){
             account = merchant[0];
-            setName(merchant[0].name);
         } else {
             errors.status = 'This ' + email + ' is not allowed. Please try different email...';
             setErrors(prevState => ({...prevState, ...errors}))
             return;
         }
-
+        
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
@@ -48,7 +46,7 @@ const Signup = () => {
                 email: email,
                 password: password,
                 connection: 'Username-Password-Authentication',
-                name: name,
+                name: account.name,
                 user_metadata: {
                     merchant_id: account.id,
                     first_name: account.contact.firstName,
@@ -79,7 +77,9 @@ const Signup = () => {
         try {
             const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`, {}, 'GET');
             setOrgs( prevState => ([...prevState, ...req.data.orgs]))
+            console.log('data ', req.data.orgs[0].name)
         } catch (e) {
+            //Todo: add check if this api fails
             console.log('merchant fetching failed')
         }
     }
