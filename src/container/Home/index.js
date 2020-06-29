@@ -13,7 +13,6 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
-import Signin from "../../component/Signin";
 import { checkToken, makeSecureRequest, getUserData } from "../../utils";
 
 const TRANSACTION_FEE = '1.50';
@@ -53,8 +52,6 @@ const getSteps = () => {
 const Home =  () => {
     const [step, setStep] = useState(getStep());
     const [amount, setAmount] = useState('');
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [isSkip, setIsSkip] = useState(false);
     const [successStep, setSuccessStep] = useState(['Amount','Confirm', 'Pay']);
@@ -165,17 +162,6 @@ const Home =  () => {
                     </div>
                 }
             </div>
-            }
-            { step === 0 &&
-            <Signin
-                userName={userName}
-                setUserName={setUserName}
-                password={password}
-                setPassword={setPassword}
-                setLoading={setLoading}
-                step={step}
-                setStep={setStep}
-            />
             }
             {
                 step > 0 &&

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -7,6 +7,7 @@ import auth0 from "auth0-js";
 import {setUserData, setToken,} from '../../utils/index';
 import ForgetPassword from '../ForgetPassword';
 import jwt from 'jwt-decode';
+import { useCookies } from "react-cookie";
 
 var webAuth = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -15,16 +16,18 @@ var webAuth = new auth0.WebAuth({
 });
 const namespace = "https://posjunction.com";
 
-const Signin = ({userName, setUserName, password, setPassword, setLoading, setStep, step}) =>  {
+const Signin = () =>  {
 
+    const [cookies, setCookie] = useCookies(['isToken']);
+    const history = useHistory();
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [errors, setErrors] = useState({userName: '', password: ''});
 
     const signin = async () => {
-        setLoading(true)
         if(!validateFields()) {
-            setLoading(false);
             return;
         }
 
@@ -39,7 +42,6 @@ const Signin = ({userName, setUserName, password, setPassword, setLoading, setSt
             if(err) {
                 console.log('error ::', err)
                 setMessage(err.description);
-                setLoading(false);
             } else {
                 const decodedIdToken = jwt(res.idToken);
                 decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
@@ -47,9 +49,14 @@ const Signin = ({userName, setUserName, password, setPassword, setLoading, setSt
                 decodedIdToken.merchant_id = decodedIdToken[`${namespace}/merchant_id`];
                 setUserData(decodedIdToken);
                 setToken(res);
-                setStep(step + 1);
-                setLoading(false);
-                window.location.reload();
+                let milliseconds = new Date().getTime();
+                // let expSec = sec + (res.expiresIn * 1000);
+                //TODO: change expires time on auth0 side
+                let expMiliSec = milliseconds + 3600000;
+                let expSec = expMiliSec / 1000;
+                setCookie('isToken', res.accessToken,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
+                //Todo redirect to home page
+                history.push('/');
             }
         });
     }

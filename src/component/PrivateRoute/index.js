@@ -1,21 +1,21 @@
 // src/components/PrivateRoute.js
 
-import React  from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import {checkToken} from "../../utils";
+import { useCookies } from "react-cookie";
+import {checkToken, removeUserData} from "../../utils";
+
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
     const isAuthenticated = checkToken();
+    const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
 
-    console.log('s ', isAuthenticated);
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         return;
-    //     }
-    // }, [ isAuthenticated]);
-
+        if(!cookies.isToken){
+            removeCookie('isToken');
+            removeUserData();
+        }
     const render = props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/" />;
+        isAuthenticated && cookies.isToken ? <Component {...props} /> : <Redirect to="/login" />;
 
     return <Route path={path} render={render} {...rest} />;
 };

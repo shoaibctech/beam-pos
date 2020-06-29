@@ -9,14 +9,15 @@ import Verify from "./component/Verify";
 import ConnectBank from "./component/ConnectBank";
 import Transactions from "./container/Transactions";
 import PrivateRoute from "./component/PrivateRoute";
-
+import Signin from "./component/Signin";
 
 
 const MainRoute = () => {
     return(
         <div>
             <Switch>
-                <Route path="/" exact component={Home} />
+                <PrivateRoute path="/" exact component={Home} />
+                <Route path="/login" exact component={Signin}/>
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />

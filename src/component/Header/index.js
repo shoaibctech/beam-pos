@@ -1,15 +1,16 @@
-import React, { useState }  from "react";
-import { Link, useLocation } from "react-router-dom";
-import auth0 from 'auth0-js';
+import React from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
+// import auth0 from 'auth0-js';
+import { useCookies } from "react-cookie";
 
 import Logo from './img/Junction-pos.png';
 import "./styles.css";
 import {checkToken, removeUserData, getUserData} from "../../utils";
 
-const webAuth = new auth0.WebAuth({
-    domain: process.env.REACT_APP_AUTH0_DOMAIN,
-    clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
-});
+// const webAuth = new auth0.WebAuth({
+//     domain: process.env.REACT_APP_AUTH0_DOMAIN,
+//     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+// });
 
 const PathComponent = () => {
     let location = useLocation();
@@ -20,19 +21,22 @@ const PathComponent = () => {
         return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>;
     }
 }
-//deploying
+
 const Header = () => {
     const userData = getUserData();
+    let history = useHistory();
+    const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
 
     const logout = async (e) => {
         removeUserData();
-        webAuth.logout({
-            returnTo: window.location.origin
-        });
-
+        removeCookie('isToken');
+        // webAuth.logout({
+        //     returnTo: window.location.origin
+        // });
+        history.push('/login');
         e.preventDefault();
     }
-    console.log(getUserData());
+    console.log('cookie header::', cookies);
     return(
         <header className="header">
             <div className="app-title">
@@ -40,14 +44,14 @@ const Header = () => {
             </div>
             <div>
                 <div className="nav-link">
-                    { checkToken() &&
+                    { cookies.isToken &&
                         <Link to="/transaction">Transactions</Link>
                     }
                 </div>
             </div>
             <div className="logout">
                 {
-                    checkToken() ?
+                    cookies.isToken && checkToken() ?
                         <div>
                             <p className="user-info">{userData.name}</p>
                             <button className="logout_btn" onClick={logout}>
