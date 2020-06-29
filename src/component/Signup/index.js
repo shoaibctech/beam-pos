@@ -22,7 +22,7 @@ const Signup = () => {
     }, [])
 
     const onSignup = () => {
-        let merchant = orgs //orgs.filter( org => org.contact.email1 === email)
+        let merchant = orgs.filter( org => org.contact.email1 === email)
         let account;
 
         if (!validateForm()) {
@@ -36,7 +36,7 @@ const Signup = () => {
             setErrors(prevState => ({...prevState, ...errors}))
             return;
         }
-        
+
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
