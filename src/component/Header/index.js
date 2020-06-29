@@ -36,7 +36,7 @@ const Header = () => {
         history.push('/login');
         e.preventDefault();
     }
-    console.log('cookie header::', cookies);
+
     return(
         <header className="header">
             <div className="app-title">
