@@ -44,7 +44,7 @@ const Header = () => {
             </div>
             <div>
                 <div className="nav-link">
-                    { cookies.isToken &&
+                    { cookies.isToken && checkToken() &&
                         <Link to="/transaction">Transactions</Link>
                     }
                 </div>

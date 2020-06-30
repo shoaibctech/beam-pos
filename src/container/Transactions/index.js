@@ -19,6 +19,7 @@ const customStyles = {
 };
 const Transactions = () => {
     const [paymentList, setPaymentsList] = useState([]);
+    const [transError, setTransError] = useState('');
     const [isFetching, setIsFetching] = useState(false);
     const [modalIsOpen,setIsOpen] = useState(false);
     const [refundIndex, setRefundIndex] = useState();
@@ -37,12 +38,20 @@ const Transactions = () => {
 
     const getPaymentsList = async () => {
         setIsFetching(true);
-        const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`,
-            {email: getUserData().email}, 'POST' );
+        setTransError('');
+        try {
+            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`,
+                {email: getUserData().email}, 'POST' );
 
-        console.log(paymentList.data.paymentList)
-        setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
-        setIsFetching(false);
+            console.log('ffffffffffffffffffffffff', paymentList.data.paymentList)
+            setIsFetching(false);
+            setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
+        } catch (e) {
+            console.log('transssssssssssssssssssssss ', e);
+            setIsFetching(false);
+            setTransError('Transaction request failed...')
+        }
+
     }
 
     const getBalance = async () => {
@@ -105,6 +114,9 @@ const Transactions = () => {
         });
     }
 
+    console.log(transError)
+    console.log(!transError)
+
     return (
         <div className="transaction">
             <div className="balance-con">
@@ -137,12 +149,20 @@ const Transactions = () => {
                 </tr>
                 </thead>
                 <tbody>
-                { !isFetching ? paymentList && paymentList.data && paymentList.data.length > 0 ? renderTable(paymentList.data)
+                { !transError ? !isFetching ? paymentList && paymentList.data && paymentList.data.length > 0 ? renderTable(paymentList.data)
                     : <tr rowSpan="4" style={{height: '10rem'}}>
                         <td colSpan="8" className="loading">No data found...</td>
                     </tr>
                     : <tr rowSpan="4" style={{height: '10rem'}}>
                         <td colSpan="8" className="loading">Loading...</td>
+                    </tr> :''
+                }
+                {
+                    !isFetching && transError &&
+                    <tr rowSpan="4" style={{height: '10rem'}}>
+                        <td colSpan="8" className="loading">
+                            <span className="t-error">{transError}</span>
+                        </td>
                     </tr>
                 }
                 </tbody>
