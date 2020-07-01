@@ -40,7 +40,7 @@ const Transactions = () => {
         setIsFetching(true);
         setTransError('');
         try {
-            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/listpayments`,
+            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {email: getUserData().email}, 'POST' );
 
             console.log('ffffffffffffffffffffffff', paymentList.data.paymentList)
@@ -75,7 +75,7 @@ const Transactions = () => {
         setIsRefunding(true);
         setRefundError('');
         try {
-            const refundStatus = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/refundpayment`, {
+            const refundStatus = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/payment/refund`, {
                 paymentId: paymentList.data[refundIndex].id,
                 amount: refundType === 'full' ? paymentList.data[refundIndex].amount : amount,
                 currency: paymentList.data[refundIndex].currency,
@@ -160,9 +160,7 @@ const Transactions = () => {
                 {
                     !isFetching && transError &&
                     <tr rowSpan="4" style={{height: '10rem'}}>
-                        <td colSpan="8" className="loading">
-                            <span className="t-error">{transError}</span>
-                        </td>
+                        <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
                     </tr>
                 }
                 </tbody>

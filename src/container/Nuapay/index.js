@@ -8,7 +8,7 @@ const Nuapay = () => {
     // const id = '3lbyjvpdbd';
     const getToken = async () => {
         try {
-            const token = await axios.get(`${process.env.REACT_APP_NUAPAY_API}/api/nuapay`);
+            const token = await axios.get(`${process.env.REACT_APP_NUAPAY_API}/api/payment/checkout`);
             console.log('token ::', token);
             // setPaymentId(token.data.paymentData.id);
             // setToken(token.data);

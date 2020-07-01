@@ -124,7 +124,7 @@ const Home =  () => {
         const email = getUserData().email;
         try {
             const link = `${window.location.origin}/bank/${org_id}/${amount}/${email}`
-            const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getQrCode`, { link }, 'POST');
+            const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, { link }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
             console.log(code)

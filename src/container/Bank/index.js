@@ -14,7 +14,7 @@ const Bank = () => {
         try {
             setLoading(true);
             setError('');
-            const aspUrl = await axios.post(`${process.env.REACT_APP_NUAPAY_API}/api/selfhost`,
+            const aspUrl = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/payment/selfhost`,
                 {
                     orgId: org_id,
                     amount: amount,

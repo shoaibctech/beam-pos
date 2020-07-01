@@ -75,7 +75,7 @@ const Signup = () => {
     }
     const getMerchants = async () => {
         try {
-            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getorgs`, {}, 'GET');
+            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchants`, {}, 'GET');
             setOrgs( prevState => ([...prevState, ...req.data.orgs]))
             console.log('data ', req.data.orgs[0].name)
         } catch (e) {
