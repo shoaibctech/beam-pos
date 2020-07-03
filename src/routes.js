@@ -21,7 +21,7 @@ const MainRoute = () => {
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />
-                <Route path="/bank/:org_id/:amount"  component={Bank} />
+                <Route path="/bank/:token"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
                 <PrivateRoute path="/transaction" exact component={Transactions}/>

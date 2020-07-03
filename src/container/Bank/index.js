@@ -8,7 +8,7 @@ import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 const Bank = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const {org_id, amount, email} = useParams();
+    const { token } = useParams();
 
     const createPayment = async (bankId) => {
         try {
@@ -16,17 +16,17 @@ const Bank = () => {
             setError('');
             const aspUrl = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/payment/selfhost`,
                 {
-                    orgId: org_id,
-                    amount: amount,
                     bankId: bankId,
-                    email: email,
+                    token: token,
                 });
             // setLoading(false);
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             console.log(e);
+            console.log(e.response);
+            console.log(e.response.data);
             setLoading(false);
-            setError('Payment creation failed. Please try agian later...');
+            setError(e.response.data.message);
             window.scrollTo(0, 0);
         }
     }

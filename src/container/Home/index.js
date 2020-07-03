@@ -83,7 +83,7 @@ const Home =  () => {
 
         channel.bind('qr-code-event', function(data) {
             
-            if(data.merchantId === getUserData().merchant_id){
+            if(data.token === localStorage.getItem('token')){
                 setLoading(true);
                 setLoadingMessage('Payment is in progress... ');
             }
@@ -92,7 +92,7 @@ const Home =  () => {
         channel.bind('status-event', function(data) {
 
             console.log('data ::', data);
-            if(data.merchantId === getUserData().merchant_id) {
+            if(data.token === localStorage.getItem('token')) {
                 setLoadingMessage('');
                 setStatusData(data.data);
                 setIsStatus(true);
@@ -123,10 +123,16 @@ const Home =  () => {
         const org_id = getUserData().merchant_id;
         const email = getUserData().email;
         try {
-            const link = `${window.location.origin}/bank/${org_id}/${amount}/${email}`
-            const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, { link }, 'POST');
+            const link = `${window.location.origin}/bank/`
+            const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, {
+                merchantId: org_id,
+                email: email,
+                amount: amount,
+                origin: link
+            }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
+            localStorage.setItem('token', code.data.token);
             console.log(code)
 
             setIsErrorStatus(false);
