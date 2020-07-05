@@ -91,7 +91,7 @@ const Bank = () => {
             :
             paymentDetailError ?
                 <div className="detail-error">
-                    <p className="error_text">Invalid payment token....</p>
+                    <h2 className="error_text">Invalid payment token....</h2>
                 </div>
                 :
             <div className="outer-container">
