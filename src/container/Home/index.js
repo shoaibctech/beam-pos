@@ -120,15 +120,15 @@ const Home =  () => {
 
     const getQrCode = async (amount) => {
         setIsFetching(true);
-        const org_id = getUserData().merchant_id;
-        const email = getUserData().email;
+        const { merchant_id, email, name } = getUserData();
         try {
             const link = `${window.location.origin}/bank/`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, {
-                merchantId: org_id,
+                merchantId: merchant_id,
                 email: email,
                 amount: amount,
-                origin: link
+                origin: link,
+                merchantName: name,
             }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);

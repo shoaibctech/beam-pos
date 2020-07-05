@@ -25,6 +25,8 @@ const PathComponent = () => {
 const Header = () => {
     const userData = getUserData();
     let history = useHistory();
+    let location = useLocation();
+
     const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
 
     const logout = async (e) => {
@@ -36,8 +38,10 @@ const Header = () => {
         history.push('/login');
         e.preventDefault();
     }
-
     return(
+    location.pathname.substring(0, 6) === '/bank/' ?
+        <div></div>
+    :
         <header className="header">
             <div className="app-title">
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
@@ -45,7 +49,7 @@ const Header = () => {
             <div>
                 <div className="nav-link">
                     { cookies.isToken && checkToken() &&
-                        <Link to="/transaction">Transactions</Link>
+                    <Link to="/transaction">Transactions</Link>
                     }
                 </div>
             </div>
