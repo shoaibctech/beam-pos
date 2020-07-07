@@ -154,6 +154,7 @@ const Home =  () => {
         return successStep[index];
     }
 
+    console.log("going to build new")
     return(
         <main>
             {   loading &&
