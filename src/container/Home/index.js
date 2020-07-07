@@ -153,8 +153,7 @@ const Home =  () => {
     const getSuccessStep = (index) => {
         return successStep[index];
     }
-
-    console.log("going to build new")
+    
     return(
         <main>
             {   loading &&
