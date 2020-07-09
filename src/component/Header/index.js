@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 
 import Logo from './img/Junction-pos.png';
 import "./styles.css";
-import {checkToken, removeUserData, getUserData} from "../../utils";
+import {checkToken, removeUserData, getUserData, makeSecureRequest} from "../../utils";
 
 // const webAuth = new auth0.WebAuth({
 //     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -30,6 +30,7 @@ const Header = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
 
     const logout = async (e) => {
+        deleteUserData();
         removeUserData();
         removeCookie('isToken');
         // webAuth.logout({
@@ -37,6 +38,16 @@ const Header = () => {
         // });
         history.push('/login');
         e.preventDefault();
+    }
+    const deleteUserData = () => {
+       try {
+           makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/delete`, {
+           }, 'POST').then( res => {
+               console.log('successfully removed data!');
+           })
+       } catch (e) {
+           console.log("Error removing data!");
+       }
     }
     return(
     location.pathname.substring(0, 6) === '/bank/' ?

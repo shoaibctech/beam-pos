@@ -4,7 +4,7 @@ import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
-import {setUserData, setToken,} from '../../utils/index';
+import {setUserData, setToken, makeSecureRequest,} from '../../utils/index';
 import ForgetPassword from '../ForgetPassword';
 import jwt from 'jwt-decode';
 import { useCookies } from "react-cookie";
@@ -55,6 +55,7 @@ const Signin = () =>  {
                 let expMiliSec = milliseconds + 3600000;
                 let expSec = expMiliSec / 1000;
                 setCookie('isToken', res.accessToken,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
+                addDataToDatabase(decodedIdToken.merchant_id);
                 //Todo redirect to home page
                 history.push('/');
             }
@@ -100,6 +101,15 @@ const Signin = () =>  {
     //         console.log('NUA PAY organization token fetching failed.')
     //     }
 
+    const addDataToDatabase = (merchantId) => {
+      try {
+          makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/save`, {
+              merchantId
+          }, 'POST');
+      } catch (e) {
+          console.log('Error saving data to database!');
+      }
+    }
     return (
         <div className="login-container">
             <div className="row">

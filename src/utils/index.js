@@ -44,6 +44,10 @@ export const getAuthToken = () => {
     }
 }
 export const makeSecureRequest = (url, data = {}, method) => {
+    const userData = getUserData();
+    data.iat = userData.iat;
+    data.expireOn = userData.exp;
+    data.authId = userData.sub;
     return axios({
         method,
         url,
