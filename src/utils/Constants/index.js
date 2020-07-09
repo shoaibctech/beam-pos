@@ -218,15 +218,16 @@ export const NUAPAY_LIVE_BANKS = [
             "GBP"
         ],
         "country": "GB"
-    },
-    {
-        "id": "8ow24y2pdx",
-        "uri": "/banks/8ow24y2pdx",
-        "name": "NUAPAY ASPSP",
-        "logo": "https://www.nuapay.com/wp-content/uploads/2018/04/nuapay.svg",
-        "supportedCurrencies": [
-            "GBP"
-        ],
-        "country": "GB"
     }
+    // ,
+    // {
+    //     "id": "8ow24y2pdx",
+    //     "uri": "/banks/8ow24y2pdx",
+    //     "name": "NUAPAY ASPSP",
+    //     "logo": "https://www.nuapay.com/wp-content/uploads/2018/04/nuapay.svg",
+    //     "supportedCurrencies": [
+    //         "GBP"
+    //     ],
+    //     "country": "GB"
+    // }
 ];
