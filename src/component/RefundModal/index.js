@@ -105,7 +105,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
             if (refundData.data.data.length > 0) {
                 console.log('refund list')
                 setRefundType('partial');
-                setRefundList( prevState => ([...prevState, ...refundData.data.data]));
+                setRefundList( prevState => ([...refundData.data.data]));
                 calculateRefundAbleAmount(refundData.data.data);
             } else {
                 setRefundList( []);
