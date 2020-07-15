@@ -9,6 +9,7 @@
 .modal-container {
     padding: 2rem 3rem 1rem;
     min-width: 400px;
+    overflow: scroll;
 }
 .modal-container-with-draw {
     padding: 2rem 3rem 1rem;
@@ -35,7 +36,7 @@
 .modal-footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
 }
 .btn-ok, .btn-cancel {
     margin: 10px;
