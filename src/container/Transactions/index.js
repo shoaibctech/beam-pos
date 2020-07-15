@@ -6,6 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
+import CreditTransferHistory from '../../component/CreditTransferHistory';
+import WithdrawForm from '../../component/WithdrawForm';
 
 import { getUserData, makeSecureRequest } from "../../utils";
 
@@ -99,8 +101,6 @@ const Transactions = () => {
         try {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {email: getUserData().email}, 'POST' );
-
-            console.log('ffffffffffffffffffffffff', paymentList.data.paymentList)
             setIsFetching(false);
             setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         } catch (e) {
@@ -111,32 +111,12 @@ const Transactions = () => {
 
     }
 
-    const getCreditTransferList = async (merchantId) => {
-        setIsFetching(true);
-        setTransError('');
-        try {
-            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments/credit_transfer`,
-                {merchantId: merchantId}, 'POST' );
-
-            console.log('ccccccccccccccccccccccccc', paymentList.data.paymentList)
-            setIsFetching(false);
-            setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
-        } catch (e) {
-            console.log('transssssssssssssssssssssss ', e);
-            setIsFetching(false);
-            setTransError('With draw transaction list request failed...')
-        }
-
-    }
-
     const getRefundPaymentsList = async () => {
         setIsFetching(true);
         setTransError('');
         try {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {email: getUserData().email}, 'POST' );
-
-            console.log('ffffffffffffffffffffffff', paymentList.data.paymentList)
             setIsFetching(false);
             setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
         } catch (e) {
@@ -245,7 +225,6 @@ const Transactions = () => {
         if(newValue === 0){
             getPaymentsList();
         } else if(newValue === 1) {
-            getCreditTransferList(getUserData().merchant_id);
             console.log('new Value', newValue);
         }
     };
@@ -283,11 +262,9 @@ const Transactions = () => {
                 amount = amount + x.refundAmount;
             }
         });
-        console.log('refunded ::', amount);
         setRefundedValue(amount);
     }
 
-    console.log('data refund list::', refundList)
     return (
         <div className="transaction">
            <div className="tabs-balance">
@@ -304,6 +281,14 @@ const Transactions = () => {
                    </Tabs>
                </Paper>
                <div className="balance-con">
+                  <div>
+                      { balance && balance.length > 0 ?
+                          <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency}/>
+                          :
+                          <WithdrawForm balance={0} currency='GBP' isBalance={balance && balance.length > 0 ? false : true}/>
+                      }
+
+                  </div>
                    <div className="balance-sec">
                        <p className="balance-label">BALANCE: {' '}</p>
                        {
@@ -320,36 +305,43 @@ const Transactions = () => {
                </div>
            </div>
             <h2 className="heading">Transactions Details</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Email</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Status</th>
-                    <th>Country Code</th>
-                    <th>Bank Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                { !transError ? !isFetching ? paymentList && paymentList.data && paymentList.data.length > 0 ? renderTable(paymentList.data)
-                    : <tr rowSpan="4" style={{height: '10rem'}}>
-                        <td colSpan="8" className="loading">No data found...</td>
+            {
+                tabValue === 0 &&
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Country Code</th>
+                        <th>Bank Name</th>
+                        <th>Action</th>
                     </tr>
-                    : <tr rowSpan="4" style={{height: '10rem'}}>
-                        <td colSpan="8" className="loading">Loading...</td>
-                    </tr> :''
-                }
-                {
-                    !isFetching && transError &&
-                    <tr rowSpan="4" style={{height: '10rem'}}>
-                        <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    { !transError ? !isFetching ? paymentList && paymentList.data && paymentList.data.length > 0 ? renderTable(paymentList.data)
+                        : <tr rowSpan="4" style={{height: '10rem'}}>
+                            <td colSpan="8" className="loading">No data found...</td>
+                        </tr>
+                        : <tr rowSpan="4" style={{height: '10rem'}}>
+                            <td colSpan="8" className="loading">Loading...</td>
+                        </tr> :''
+                    }
+                    {
+                        !isFetching && transError &&
+                        <tr rowSpan="4" style={{height: '10rem'}}>
+                            <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            {
+                tabValue === 1 &&
+                    <CreditTransferHistory />
+            }
             <Modal
                 isOpen={modalIsOpen}
                 // onAfterOpen={afterOpenModal}
