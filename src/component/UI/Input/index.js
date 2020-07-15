@@ -1,11 +1,11 @@
 import React from "react";
 import './styles.css';
 
-const Input = ({ error, name, type, value, handleChange, placeholder, disabled = false, required = false}) => {
+const Input = ({ error, name, type, value, handleChange, placeholder, disabled = false, required = false, className}) => {
     return(
         <div className="input_field">
         <input
-            className={error ? 'error' : ''}
+            className={error ? `${className} error ` : className}
             name={name}
             type={type}
             value={value}

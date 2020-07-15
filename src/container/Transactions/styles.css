@@ -10,6 +10,11 @@
     padding: 2rem 3rem 1rem;
     min-width: 400px;
 }
+.modal-container-with-draw {
+    padding: 2rem 3rem 1rem;
+    min-width: 400px;
+    text-align: center;
+}
 .btn-refund {
     padding: 10px 15px;
     background: var(--main-bg-color);
@@ -103,7 +108,9 @@
     grid-template-columns: auto auto;
     grid-column-gap: 10px;
 }
-
+.with-draw-input {
+    width: 95% !important;
+}
 @media (max-width: 540px) {
     .top-container {
         flex-direction: column;

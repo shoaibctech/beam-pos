@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Modal from 'react-modal';
 import Loader from "react-loader-spinner";
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 import CreditTransferHistory from '../../component/CreditTransferHistory';
 import WithdrawForm from '../../component/WithdrawForm';
+import moment from 'moment';
+import { orderBy } from 'lodash';
 
 import { getUserData, makeSecureRequest } from "../../utils";
 
@@ -178,14 +179,20 @@ const Transactions = () => {
         setRefundLimitError(false)
     }
     const renderTable = (data) => {
-        return data.map( (payment, idx) => {
+       const sortedData =  orderBy(data, ['creationDateTime'], ['desc']);
+       sortedData.map( x =>{
+           if (x.status === 'SETTLEMENT_COMPLETE'){
+               console.log(x);
+           }
+       });
+        return sortedData.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx}</td>
                 <td>{payment.email}</td>
                 <td>{payment.amount}</td>
                 <td>{payment.currency}</td>
                 <td>{payment.status}</td>
-                <td>{payment.countryCode}</td>
+                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD')}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>
                     <button className="btn-refund" onClick={() => sureRefund(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
@@ -277,7 +284,7 @@ const Transactions = () => {
                        aria-label="disabled tabs example"
                    >
                        <Tab label="Payments" />
-                       <Tab label="With Draws" />
+                       <Tab label="Withdrawl" />
                    </Tabs>
                </Paper>
                <div className="balance-con">
@@ -315,7 +322,7 @@ const Transactions = () => {
                         <th>Amount</th>
                         <th>Currency</th>
                         <th>Status</th>
-                        <th>Country Code</th>
+                        <th>Date</th>
                         <th>Bank Name</th>
                         <th>Action</th>
                     </tr>
@@ -344,7 +351,6 @@ const Transactions = () => {
             }
             <Modal
                 isOpen={modalIsOpen}
-                // onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"

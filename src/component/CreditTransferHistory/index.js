@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { orderBy } from 'lodash';
+
 import { makeSecureRequest, getUserData } from "../../utils";
 
 const CreditTransferHistory = () => {
@@ -31,7 +33,8 @@ const CreditTransferHistory = () => {
     }
 
     const renderTable = (data) => {
-        return data.map( (payment, idx) => {
+       const sortedData = orderBy(data, ['requestedExecutionDate'], ['desc']);
+        return sortedData.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx}</td>
                 <td>{payment.beneficiaryName}</td>
@@ -39,6 +42,7 @@ const CreditTransferHistory = () => {
                 <td>{payment.paymentCurrency}</td>
                 <td>{payment.paymentStatus}</td>
                 <td>{payment.type}</td>
+                <td>{payment.requestedExecutionDate}</td>
             </tr>);
         });
     }
@@ -53,6 +57,7 @@ const CreditTransferHistory = () => {
                     <th>Currency</th>
                     <th>Status</th>
                     <th>Type</th>
+                    <th>Date</th>
                 </tr>
                 </thead>
                 <tbody>

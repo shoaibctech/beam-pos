@@ -57,7 +57,7 @@ const WithdrawForm = ({balance, currency, isBalance}) => {
     }
     return(
         <div style={{width: '10rem', paddingBottom: '10px'}}>
-            <button className="btn-refund" onClick={() => setIsOpen(true)} disabled={true}>
+            <button className="btn-refund" onClick={() => setIsOpen(true)} disabled={isBalance}>
                 Withdraw
             </button>
             <Modal
@@ -66,9 +66,9 @@ const WithdrawForm = ({balance, currency, isBalance}) => {
                 style={customStyles}
                 contentLabel="Withdraw Modal"
             >
-                <div className="modal-container">
-                    <h3>With Draw</h3>
-                    <p>Maximum amount that can be with drawn is {balance} {currency}</p>
+                <div className="modal-container-with-draw">
+                    <h2>Withdraw</h2>
+                    <p>Maximum amount that can be withdrawn is {balance} {currency}</p>
                     {
                         !isFetching &&
                         <div>
@@ -77,6 +77,7 @@ const WithdrawForm = ({balance, currency, isBalance}) => {
                                 handleChange={setAmount}
                                 placeholder="Enter value"
                                 type="number"
+                                className="with-draw-input"
                             />
                         </div>
                     }
