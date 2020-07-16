@@ -66,10 +66,12 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
             console.log('refund status :', refundStatus);
             setRefundMessage('Your refund request successfully created.');
             getRefundList(refundIndex);
+            setAmount('')
         } catch (e) {
             console.log(e.response.data.error.details[0].description);
             setRefundError(e.response.data.error.details[0].description);
             setIsRefunding(false);
+            setAmount('');
         }
     }
 
@@ -119,7 +121,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
     }
     const sureRefund = () => {
         console.log('going to get list of refund amount ')
-        setRefundPayment( prevState => ({...prevState, ...paymentObj}));
+        setRefundPayment( prevState => ({...paymentObj}));
         getRefundList();
     }
     const calculateRefundAbleAmount = (data) => {
@@ -169,89 +171,93 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                             :
                             ''
                     }
-                    <h2>Refunding</h2>
                     {
-                        !isRefunding &&
-                        <div>
-                            { !isFetchingRefundList && <p>Maximum refund amount for this transaction: {(refundPayment.amount - refundedValue).toFixed(2)}</p>}
                             <div>
-                                <div>
-                                    {
-                                        !isFetchingRefundList && refundList && refundList.length < 1 &&
-                                        <div>
-                                            Refund type:
-                                            <label className="refund-radio-label">
-                                                <input
-                                                    className="refund-radio-btn"
-                                                    type="radio"
-                                                    value="full"
-                                                    checked={refundType === 'full'}
-                                                    onChange={ ()=> setRefundType('full')}
-                                                />
-                                                Full
-                                            </label>
-                                            <label className="refund-radio-label">
-                                                <input
-                                                    className="refund-radio-btn"
-                                                    type="radio"
-                                                    value="partial"
-                                                    checked={refundType === 'partial'}
-                                                    onChange={ ()=> setRefundType('partial')}
-                                                />
-                                                Partial
-                                            </label>
-                                        </div>
-                                    }
-                                    {
-                                        isFetchingRefundList &&
-                                        <p>Loading...</p>
-                                    }
-                                </div>
-                            </div>
-                            {
-                                refundType === 'full' &&
-                                <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
-                            }
-                            {
-                                refundType === 'partial' &&
-                                <div>
-                                    <input
-                                        placeholder="Enter amount"
-                                        type="number"
-                                        onChange={(e) => {
-                                            setAmount(e.target.value);
-                                            setRefundLimitError(false);
-                                        }}
-                                        value={amount}/>
-                                </div>
-                            }
-                            {
-                                refundType === 'partial' && amount !== '' &&
-                                <p>Are you sure you want to refund {amount} {refundPayment.currency}?</p>
-                            }
-                            {
-                                refundLimitError && <p className="error_text">Amount exceeded from maximum allowed amount.</p>
-                            }
-                            <br/>
-                            <div className="modal-footer">
-                                <button className="btn-cancel" onClick={() => closeModal()}>
-                                    Cancel
-                                </button>
-                                <button
-                                    className="btn-ok"
-                                    onClick={() => refund()}
-                                    disabled={!refundType || (refundType === 'partial' && amount === '')}
-                                >
-                                    Confirm
-                                </button>
-                            </div>
-                            <div>
+                                <h2>Refunding</h2>
                                 {
-                                    refundMessage && <p className="success_message">{refundMessage}</p>
+                                    !isRefunding &&
+                                    <div>
+                                        { !isFetchingRefundList && <p>Maximum refund amount for this transaction: {(refundPayment.amount - refundedValue).toFixed(2)}</p>}
+                                        <div>
+                                            <div>
+                                                {
+                                                    !isFetchingRefundList && refundList && refundList.length < 1 &&
+                                                    <div>
+                                                        Refund type:
+                                                        <label className="refund-radio-label">
+                                                            <input
+                                                                className="refund-radio-btn"
+                                                                type="radio"
+                                                                value="full"
+                                                                checked={refundType === 'full'}
+                                                                onChange={ ()=> setRefundType('full')}
+                                                            />
+                                                            Full
+                                                        </label>
+                                                        <label className="refund-radio-label">
+                                                            <input
+                                                                className="refund-radio-btn"
+                                                                type="radio"
+                                                                value="partial"
+                                                                checked={refundType === 'partial'}
+                                                                onChange={ ()=> setRefundType('partial')}
+                                                            />
+                                                            Partial
+                                                        </label>
+                                                    </div>
+                                                }
+                                                {
+                                                    isFetchingRefundList &&
+                                                    <p>Loading...</p>
+                                                }
+                                            </div>
+                                        </div>
+                                        {
+                                            !isFetchingRefundList && refundType === 'full' &&
+                                            <h4>Are you sure you want to refund {refundPayment.amount} {refundPayment.currency}.</h4>
+                                        }
+                                        {
+                                            !isFetchingRefundList && refundType === 'partial' &&
+                                            <div>
+                                                <input
+                                                    placeholder="Enter amount"
+                                                    type="number"
+                                                    onChange={(e) => {
+                                                        setAmount(e.target.value);
+                                                        setRefundLimitError(false);
+                                                    }}
+                                                    value={amount}/>
+                                            </div>
+                                        }
+                                        {
+                                            !isFetchingRefundList && refundType === 'partial' && amount !== '' &&
+                                            <p>Are you sure you want to refund {amount} {refundPayment.currency}?</p>
+                                        }
+                                        {
+                                            refundLimitError && <p className="error_text">Amount exceeded from maximum allowed amount.</p>
+                                        }
+                                        <br/>
+                                        <div className="modal-footer">
+                                            <button className="btn-cancel" onClick={() => closeModal()}>
+                                                Cancel
+                                            </button>
+                                            <button
+                                                className="btn-ok"
+                                                onClick={() => refund()}
+                                                disabled={!refundType || (refundType === 'partial' && amount === '')}
+                                            >
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
                                 }
                             </div>
-                        </div>
                     }
+                    <div>
+                        {
+                            refundMessage && <p className="success_message">{refundMessage}</p>
+                        }
+                    </div>
                     {
                         isRefunding &&
                         <div className="loader-footer">

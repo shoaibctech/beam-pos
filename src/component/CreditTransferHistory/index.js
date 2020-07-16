@@ -24,7 +24,7 @@ const CreditTransferHistory = () => {
             console.log('refund data ::', refundList.data.data.data);
 
             setIsFetching(false);
-            setUserCreditList( prevState => ([...prevState, ...refundList.data.data.data]));
+            setUserCreditList( prevState => ([...refundList.data.data.data]));
         } catch (e) {
             setIsFetching(false);
             console.log('errors ', e);
@@ -36,7 +36,7 @@ const CreditTransferHistory = () => {
        const sortedData = orderBy(data, ['requestedExecutionDate'], ['desc']);
         return sortedData.map( (payment, idx) => {
             return (   <tr key={idx}>
-                <td>{idx}</td>
+                <td>{idx + 1}</td>
                 <td>{payment.beneficiaryName}</td>
                 <td>{payment.paymentAmount}</td>
                 <td>{payment.paymentCurrency}</td>

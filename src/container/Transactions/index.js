@@ -41,7 +41,7 @@ const Transactions = () => {
             console.log('fuck you', paymentList.data.paymentList.data);
             const sortedData =  orderBy(paymentList.data.paymentList.data, ['creationDateTime'], ['desc']);
             console.log(sortedData)
-            setPaymentsList( prevState => ([...prevState, ...sortedData]));
+            setPaymentsList( prevState => ([...sortedData]));
 
         } catch (e) {
             console.log('transssssssssssssssssssssss ', e);
@@ -58,7 +58,7 @@ const Transactions = () => {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {email: getUserData().email}, 'POST' );
             setIsFetching(false);
-            setPaymentsList( prevState => ({...prevState, ...paymentList.data.paymentList}));
+            setPaymentsList( prevState => ({...paymentList.data.paymentList}));
         } catch (e) {
             console.log('transssssssssssssssssssssss ', e);
             setIsFetching(false);
@@ -87,12 +87,12 @@ const Transactions = () => {
     const renderTable = (data) => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
-                <td>{idx}</td>
+                <td>{idx + 1}</td>
                 <td>{payment.email}</td>
                 <td>{payment.amount}</td>
                 <td>{payment.currency}</td>
                 <td>{payment.status}</td>
-                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD')}</td>
+                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD hh:mm:ss')}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>
                     <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
