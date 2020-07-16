@@ -145,7 +145,7 @@ const Transactions = () => {
                 <div className="balance-con">
                     <div>
                         { balance && balance.length > 0 ?
-                            <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency}/>
+                            <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
                             :
                             <WithdrawForm balance={0} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
                         }

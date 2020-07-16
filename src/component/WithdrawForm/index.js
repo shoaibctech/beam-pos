@@ -17,7 +17,7 @@ const customStyles = {
     }
 };
 
-const WithdrawForm = ({balance, currency, isBalance}) => {
+const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [amount, setAmount] = useState(0);
     const [isFetching, setIsFetcing] = useState(false);
@@ -50,6 +50,8 @@ const WithdrawForm = ({balance, currency, isBalance}) => {
             console.log('data :: ', data);
             setMessage('successfully created credit transfer');
             setIsFetcing(false);
+            getBalance();
+            setAmount(0);
         } catch (e) {
             setIsFetcing(false);
             setError('There is error while creating credit transfer. Please try again later...');
@@ -97,7 +99,7 @@ const WithdrawForm = ({balance, currency, isBalance}) => {
                             <button
                                 className="btn-ok"
                                 onClick={createCreditTransfer}
-                                disabled={isFetching || !( amount > 0)}
+                                disabled={isFetching || !( amount > 0) || !!error}
                             >
                                 With Draw
                             </button>
