@@ -8,6 +8,7 @@ import {setUserData, setToken, makeSecureRequest,} from '../../utils/index';
 import ForgetPassword from '../ForgetPassword';
 import jwt from 'jwt-decode';
 import { useCookies } from "react-cookie";
+import Loader from '../../component/UI/Loader';
 
 var webAuth = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -25,13 +26,14 @@ const Signin = () =>  {
     const [message, setMessage] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [errors, setErrors] = useState({userName: '', password: ''});
+    const [loading, setLoading] = useState(false);
 
     const signin = async () => {
         if(!validateFields()) {
             return;
         }
 
-
+        setLoading(true);
         webAuth.client.login({
             realm: 'Username-Password-Authentication',
             username: userName,
@@ -43,6 +45,7 @@ const Signin = () =>  {
                 console.log('error ::', err)
                 setMessage(err.description);
             } else {
+                setLoading(false);
                 const decodedIdToken = jwt(res.idToken);
                 decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
                 decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
@@ -155,7 +158,9 @@ const Signin = () =>  {
             <br/>
             <div className="bottom-section-container">
                 <div className="bottom-section">
-                    <input type="button" value="Sign in" onClick={signin}/>
+                    <button className="confirm-btn" style={{width: '100%'}} onClick={signin}>
+                        {loading ? <Loader size="2rem" color="secondary"/> : 'Sign In'}
+                    </button>
                 </div>
                 <div></div>
             </div>
