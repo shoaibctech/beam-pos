@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Input from "../UI/Input";
-import Loader from "react-loader-spinner";
 import { makeSecureRequest, getUserData } from "../../utils";
+import Loader from '../UI/Loader';
 
 
 Modal.setAppElement('#root');
@@ -58,7 +58,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
         }
     }
     return(
-        <div style={{width: '10rem', paddingBottom: '10px'}}>
+        <div style={{width: '10rem'}}>
             <button className="btn-refund" onClick={() => setIsOpen(true)} disabled={isBalance}>
                 Withdraw
             </button>
@@ -88,7 +88,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                         {
                             isFetching &&
                             <div className="loader-footer">
-                                <Loader type="TailSpin" color="black" height={100} width={100}/>
+                                <Loader />
                             </div>
                         }
                     </div>

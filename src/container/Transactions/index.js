@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import Loader from "react-loader-spinner";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { makeStyles } from '@material-ui/core/styles';
 import CreditTransferHistory from '../../component/CreditTransferHistory';
 import WithdrawForm from '../../component/WithdrawForm';
 import moment from 'moment';
 import { orderBy } from 'lodash';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { getUserData, makeSecureRequest } from "../../utils";
 import RefundModal from "../../component/RefundModal";
+import Loader from '../../component/UI/Loader';
 
 import './styles.css';
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: 'rgba(9, 244, 200, 1)'
+        },
+        // secondary: {
+        //     main: green[500],
+        // },
+    },
+});
 
 const Transactions = () => {
     const [paymentList, setPaymentsList] = useState([]);
@@ -92,7 +102,7 @@ const Transactions = () => {
                 <td>{payment.amount}</td>
                 <td>{payment.currency}</td>
                 <td>{payment.status}</td>
-                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD hh:mm:ss')}</td>
+                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>
                     <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
@@ -101,21 +111,21 @@ const Transactions = () => {
         });
     }
 
-    const createCreditTransfer = async () => {
-        try {
-            console.log('creating credit transfer ');
-            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit/transfer`, {
-                amount: 100,
-                currency: 'GBP',
-                merchantId: getUserData().merchant_id,
-            }, 'POST');
-
-            console.log('data ::', req.data.data);
-
-        } catch (e) {
-            console.log("error ::", e.response)
-        }
-    }
+    // const createCreditTransfer = async () => {
+    //     try {
+    //         console.log('creating credit transfer ');
+    //         const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit/transfer`, {
+    //             amount: 100,
+    //             currency: 'GBP',
+    //             merchantId: getUserData().merchant_id,
+    //         }, 'POST');
+    //
+    //         console.log('data ::', req.data.data);
+    //
+    //     } catch (e) {
+    //         console.log("error ::", e.response)
+    //     }
+    // }
 
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
@@ -131,19 +141,21 @@ const Transactions = () => {
         <div className="transaction">
             <div className="tabs-balance">
                 <Paper square >
-                    <Tabs
-                        value={tabValue}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        onChange={handleTabChange}
-                        aria-label="disabled tabs example"
-                    >
-                        <Tab label="Payments" />
-                        <Tab label="Withdrawl" />
-                    </Tabs>
+                    <ThemeProvider theme={theme}>
+                        <Tabs
+                            value={tabValue}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            onChange={handleTabChange}
+                            aria-label="disabled tabs example"
+                        >
+                            <Tab label="Payments" />
+                            <Tab label="Withdrawl" />
+                        </Tabs>
+                    </ThemeProvider>
                 </Paper>
                 <div className="balance-con">
-                    <div>
+                    <div className="balance-block">
                         { balance && balance.length > 0 ?
                             <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
                             :
@@ -152,15 +164,18 @@ const Transactions = () => {
 
                     </div>
                     <div className="balance-sec">
-                        <p className="balance-label">BALANCE: {' '}</p>
+                        <p className="balance-label balance-block">BALANCE: {' '}</p>
                         {
                             balanceError ?
                                 <p className="t-error">{balanceError}</p>
                                 :
-                                <p>
+                                <p className="balance-block">
                                     {balance && balance.length > 0 ?
                                         <span className="balance">{balance[1].balance.amount} { balance[1].balance.currency}</span>:
-                                        "loading..."}
+                                        <span style={{display: 'flex'}}>
+                                            <Loader size='2rem'/>
+                                        </span>
+                                    }
                                 </p>
                         }
                     </div>
@@ -188,7 +203,9 @@ const Transactions = () => {
                             <td colSpan="8" className="loading">No data found...</td>
                         </tr>
                         : <tr rowSpan="4" style={{height: '10rem'}}>
-                            <td colSpan="8" className="loading">Loading...</td>
+                            <td colSpan="8" className="loading">
+                                <Loader />
+                            </td>
                         </tr> :''
                     }
                     {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { orderBy } from 'lodash';
+import Loader from "../UI/Loader";
 
 import { makeSecureRequest, getUserData } from "../../utils";
 
@@ -66,7 +67,9 @@ const CreditTransferHistory = () => {
                         <td colSpan="8" className="loading">No data found...</td>
                     </tr>
                     : <tr rowSpan="4" style={{height: '10rem'}}>
-                        <td colSpan="8" className="loading">Loading...</td>
+                        <td colSpan="8" className="loading">
+                            <Loader />
+                        </td>
                     </tr> : ''
 
                 }

@@ -8,8 +8,8 @@
 }
 .modal-container {
     padding: 2rem 3rem 1rem;
-    min-width: 400px;
-    overflow: scroll;
+    min-width: 350px;
+    min-height: 480px;
 }
 .modal-container-with-draw {
     padding: 2rem 3rem 1rem;
@@ -88,13 +88,18 @@
 }
 .balance-con {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     border: 1px solid var(--step-border-color);
     padding: 10px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 .balance-con:hover {
     border: 1px solid var(--main-bg-color);
+}
+.balance-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .top-container {
     width: 90%;

@@ -1,0 +1,28 @@
+.modal-close-btn {
+    position: absolute;
+    top: -5px;
+    right: 13px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.refund-heading {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.table-container {
+    height: 24rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.table-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
