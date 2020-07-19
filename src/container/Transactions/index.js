@@ -102,7 +102,7 @@ const Transactions = () => {
                 <td>{payment.amount}</td>
                 <td>{payment.currency}</td>
                 <td>{payment.status}</td>
-                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD hh:mm')}</td>
+                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>
                     <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
@@ -171,7 +171,7 @@ const Transactions = () => {
                                 :
                                 <p className="balance-block">
                                     {balance && balance.length > 0 ?
-                                        <span className="balance">{balance[1].balance.amount} { balance[1].balance.currency}</span>:
+                                        <span className="balance">{(balance[1].balance.amount).toFixed(2)} { balance[1].balance.currency}</span>:
                                         <span style={{display: 'flex'}}>
                                             <Loader size='2rem'/>
                                         </span>

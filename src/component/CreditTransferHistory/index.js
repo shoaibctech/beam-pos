@@ -3,6 +3,8 @@ import { orderBy } from 'lodash';
 import Loader from "../UI/Loader";
 
 import { makeSecureRequest, getUserData } from "../../utils";
+import moment from "moment";
+import './styles.css';
 
 const CreditTransferHistory = () => {
     const userData = getUserData();
@@ -43,12 +45,12 @@ const CreditTransferHistory = () => {
                 <td>{payment.paymentCurrency}</td>
                 <td>{payment.paymentStatus}</td>
                 <td>{payment.type}</td>
-                <td>{payment.requestedExecutionDate}</td>
+                <td>{moment(payment.requestedExecutionDate).format('DD-MM-YYYY')}</td>
             </tr>);
         });
     }
     return (
-        <div>
+        <div className="credit-transfer">
             <table>
                 <thead>
                 <tr>

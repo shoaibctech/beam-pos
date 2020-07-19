@@ -1,13 +1,17 @@
 .modal-close-btn {
     position: absolute;
-    top: -5px;
+    top: 8px;
     right: 13px;
     font-size: 24px;
     cursor: pointer;
 }
 .refund-heading {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.refund-section-p, .refund-section-div {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 .table-container {
@@ -25,4 +29,10 @@
 .table-container {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.refund-modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

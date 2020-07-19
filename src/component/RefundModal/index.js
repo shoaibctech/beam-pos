@@ -211,19 +211,19 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                         }
                         {
                             tabValue === 1 &&
-                            <div>
+                            <div className="refund-section">
                                 <h1 className='refund-heading'>Refund</h1>
                                 {
                                     !isRefunding && !isFetchingRefundList &&
                                     <div>
-                                        <p>
+                                        <p className="refund-section-div">
                                             Maximum refund amount for this transaction: {(refundPayment.amount - refundedValue).toFixed(2)}
                                         </p>
                                         <div>
                                             <div>
                                                 {
                                                     refundList && refundList.length < 1 &&
-                                                    <div>
+                                                    <div className="refund-section-div">
                                                         Refund type:
                                                         <label className="refund-radio-label">
                                                             <input
@@ -274,7 +274,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                                             refundLimitError && <p className="error_text">Amount exceeded from maximum allowed amount.</p>
                                         }
                                         <br/>
-                                        <div className="modal-footer">
+                                        <div className="refund-modal-footer">
                                             <button className="btn-cancel" onClick={() => closeModal()}>
                                                 Cancel
                                             </button>

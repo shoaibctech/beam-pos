@@ -52,7 +52,7 @@
 .logout_btn:hover {
     background: transparent;
     font-family: inherit;
-    box-shadow: 1px 1px 10px 1px lightgrey;
+    /*box-shadow: 1px 1px 10px 1px lightgrey;*/
 }
  a {
      color: var(--main-bg-color);

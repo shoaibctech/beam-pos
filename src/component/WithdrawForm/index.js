@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Input from "../UI/Input";
 import { makeSecureRequest, getUserData } from "../../utils";
 import Loader from '../UI/Loader';
+import './styles.css';
 
 
 Modal.setAppElement('#root');
@@ -69,7 +70,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                 contentLabel="Withdraw Modal"
             >
                 <div className="modal-container-with-draw">
-                    <h2>Withdraw</h2>
+                    <h2 className="withdraw-heading">Withdraw</h2>
                     <p>Maximum amount that can be withdrawn is {balance} {currency}</p>
                     {
                         !isFetching &&
@@ -94,14 +95,14 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                     </div>
                     {
                         !isFetching &&
-                        <div>
+                        <div className="withdraw-btn-section">
                             <button className="btn-cancel" onClick={onClose}>Cancel</button>
                             <button
                                 className="btn-ok"
                                 onClick={createCreditTransfer}
                                 disabled={isFetching || !( amount > 0) || !!error}
                             >
-                                With Draw
+                                Withdraw
                             </button>
                         </div>
                     }
