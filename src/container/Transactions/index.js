@@ -11,6 +11,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { getUserData, makeSecureRequest } from "../../utils";
 import RefundModal from "../../component/RefundModal";
 import Loader from '../../component/UI/Loader';
+import { PaymentStatus } from "../../utils/Constants/PaymentStatus";
 
 import './styles.css';
 
@@ -101,7 +102,7 @@ const Transactions = () => {
                 <td>{payment.email}</td>
                 <td>{payment.amount}</td>
                 <td>{payment.currency}</td>
-                <td>{payment.status}</td>
+                <td>{PaymentStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 <td>

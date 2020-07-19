@@ -137,6 +137,16 @@
         grid-template-columns: auto;
         grid-gap: 10px;
     }
+    .tabs-balance div:nth-of-type(1) {
+        order: 2;
+    }
+
+    .tabs-balance div:nth-of-type(2) {
+        order: 1;
+    }
+    .balance-con {
+        flex-direction: row-reverse;
+    }
 }
 
 

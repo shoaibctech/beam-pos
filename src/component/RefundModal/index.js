@@ -8,6 +8,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orderBy } from 'lodash';
 import moment from "moment";
 import Loader from "../UI/Loader";
+import { RefundStatus } from "../../utils/Constants/PaymentStatus";
 
 import './styles.css';
 
@@ -106,8 +107,8 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                 <td>{idx + 1}</td>
                 <td>{payment.refundAmount}</td>
                 <td>{payment.currency}</td>
-                <td>{payment.status}</td>
-                <td>{moment(payment.creationDateTime).format('YYYY-MM-DD hh:mm')}</td>
+                <td>{RefundStatus[payment.status]}</td>
+                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
             </tr>);
         });
     }
