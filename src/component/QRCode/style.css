@@ -10,7 +10,8 @@ th, td {
 }
 
 .qrcode-heading {
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 25px;
     text-align: center;
     border-bottom: 1px solid lightgray;
 }

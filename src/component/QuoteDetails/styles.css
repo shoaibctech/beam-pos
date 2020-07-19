@@ -111,6 +111,7 @@
 }
 .content-text {
     margin-left: 14px;
+    padding: 1rem 0;
 }
 .summary-row {
     display: flex;

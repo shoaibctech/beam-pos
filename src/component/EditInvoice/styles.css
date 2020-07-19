@@ -1,6 +1,6 @@
 .edit-container {
     /*width: 43.4vw;*/
-    margin: 2rem auto;
+    margin: 2rem 3px;
     background: white;
     padding: 20px;
     border: 1px solid var(--step-border-color);
@@ -14,7 +14,7 @@
 }
 @media (max-width: 768px) {
     .edit-container {
-        width: 47vw;
+        width: 83%;
     }
     .MuiStepper-root {
         padding-left: 10px !important;
@@ -22,7 +22,7 @@
 }
 @media (max-width: 520px) {
     .edit-container {
-        width: 65vw;
+        width: 100%;
     }
     .MuiStepper-root {
         padding-left: 5px !important;

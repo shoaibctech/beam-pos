@@ -157,7 +157,7 @@ label {
     .success-step {
         background: white;
         padding: 20px;
-        width: 59.4vw;
+        width: 80%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -173,7 +173,7 @@ label {
         background: white;
         color: #333333;
         padding: 20px;
-        width: 57vw;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -221,45 +221,50 @@ label {
     padding-right: 0 !important;
 }
 .MuiStepConnector-vertical {
-padding: 0 !important;
+    padding: 0 !important;
 }
 .MuiStepConnector-lineVertical {
-padding-top: 14px !important;
+    padding-top: 14px !important;
 }
 
 .tag {
-display: flex;
-width: 30px;
-justify-content: center;
-height: 30px;
-align-items: center;
-border-radius: 50%;
-background-color: var(--main-bg-color);
-color: white;
-margin-right: 10px;
+    display: flex;
+    width: 30px;
+    justify-content: center;
+    height: 30px;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--main-bg-color);
+    color: white;
+    margin-right: 10px;
 }
 .parent-tag {
-display: flex;
-justify-content: flex-start;
-align-items: center;
-flex-direction: row;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
 }
 .step-img {
-width: 32px;
-height: 32px;
+    width: 32px;
+    height: 32px;
 }
 .confirm-btn {
-background: var(--main-bg-color);
-color: var(--btn-txt-color);
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-around;
-border: 1px solid ghostwhite;
-border-radius: 6px;
-cursor: pointer;
-margin: 10px 0;
-padding: 10px 15px;
-font-size: 23px;
-/*box-shadow: 1px 1px 18px lightgrey;*/
+    background: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    -webkit-display: flex;
+    -webkit-flex-direction: row;
+    -webkit-align-items: center;
+    -webkit-justify-content: space-around;
+
+    border: 1px solid ghostwhite;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px 15px;
+    font-size: 23px;
+    /*box-shadow: 1px 1px 18px lightgrey;*/
 }

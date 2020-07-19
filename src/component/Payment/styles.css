@@ -1,6 +1,5 @@
 .payment-module {
-    /*width: 43.4vw;*/
-    margin: 2rem auto;
+    margin: 2rem 0 2rem 5px;
     background: white;
     padding: 20px;
     border: 1px solid var(--step-border-color);
@@ -30,7 +29,7 @@
 }
 @media (max-width: 768px) {
     .payment-module {
-        width: 59.4vw;
+        width: 83%;
     }
     payment-status-model {
         width: auto;
@@ -41,7 +40,7 @@
 }
 @media (max-width: 520px) {
     .payment-module {
-        width: 57vw;
+        width: 100%;
     }
     .payment-status-model {
         width: 53vw;

@@ -24,12 +24,11 @@ const QRCode = ({ link, isStatus, statusData}) => {
                         <h3>Scan QR Code or click Pay button to start payment process.</h3>
                     </div>
                    <div className="qrcode-innerbox">
-                       <div id='svgCon' style={{    width: '12rem', margin: '3rem auto'}}>
+                       <div id='svgCon' style={{    width: '12rem', margin: '52px auto 3rem'}}>
                        </div>
-                       <br/>
                        <div style={{display: 'flex', justifyContent: 'center' }}>
                            {
-                               <button onClick={() => redirect()} className="pay-btn">
+                               <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
                                    Pay
                                </button>
                            }
@@ -65,7 +64,6 @@ const QRCode = ({ link, isStatus, statusData}) => {
                         </div>
                     </div>
                     <div>
-                        <br/>
                         <div className="payment">
                             {
                              isTick &&

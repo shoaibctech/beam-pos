@@ -44,6 +44,7 @@ const Signin = () =>  {
             if(err) {
                 console.log('error ::', err)
                 setMessage(err.description);
+                setLoading(false);
             } else {
                 setLoading(false);
                 const decodedIdToken = jwt(res.idToken);
