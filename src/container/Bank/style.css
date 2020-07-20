@@ -95,7 +95,6 @@
 .outer-container {
     background-color: #325774;
     width: 100%;
-    height: 100%;
     min-height: 100vh;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -157,6 +156,20 @@
 .no-bank {
     margin: 10px;
     text-align: center;
+}
+
+@media (min-width: 768px) {
+    .outer-container {
+        background-color: #00745e;
+        width: 100%;
+        min-height: 100vh;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 2rem;
+        padding-top: 2rem;
+    }
 }
 
 /*Mobile css */
@@ -222,11 +235,37 @@
         border-bottom-left-radius: 0;
     }
     .left-content {
-        padding: 1rem 10px 3rem 10px;
+        padding: 1rem 10px 1rem 10px;
     }
     .mobile-heading {
         display: block;
         padding-bottom: 1.5rem;
+    }
+    .bank-heading {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .bank-screen-logo-container {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 280px) {
+    .list-banks-logo {
+        height: 80px;
+        width: 80px;
+    }
+    .list-banks:nth-child(odd) > h5 {
+        float: left;
+        margin-top: 8px;
+        text-align: center;
+        width: 80px;
+    }
+    .bank-heading {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 20px;
     }
 }
 

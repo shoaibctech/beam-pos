@@ -130,7 +130,7 @@ const Bank = () => {
                                 </div>
                                 {    error &&
                                      <div className="error-block">
-                                         <h2 className="t-error" style={{textAlign: 'center'}}>{error}</h2>
+                                         <p className="t-error" style={{textAlign: 'center'}}>{error}</p>
                                      </div>
                                  }
 
@@ -167,44 +167,3 @@ const Bank = () => {
 }
 
 export default Bank;
-
-// {/*{loading &&*/}
-// {/*<div className="loader">*/}
-// {/*    <div id="loaderdiv">*/}
-// {/*        <Loader type="TailSpin" color="black" height={100} width={100}/>*/}
-// {/*    </div>*/}
-// {/*    <div>*/}
-// {/*        <p>Redirecting...</p>*/}
-// {/*    </div>*/}
-// {/*</div>*/}
-// {/*}*/}
-// {/*{*/}
-// {/*    error &&*/}
-// {/*    <div className="error-block">*/}
-// {/*        <h2 className="t-error" style={{textAlign: 'center'}}>{error}</h2>*/}
-// {/*    </div>*/}
-// {/*}*/}
-// {/*{*/}
-// {/*    !loading &&*/}
-// {/*    <div>*/}
-// {/*        <h1 style={{textAlign: 'center'}}>Select Bank</h1>*/}
-// {/*        <br/>*/}
-// {/*        <br/>*/}
-// {/*        <div style={{display: 'flex', flexWrap: 'wrap'}}>*/}
-// {/*            {banks.map((bank, index) => (*/}
-// {/*                <div key={index} className="list-banks">*/}
-// {/*                    <img*/}
-// {/*                        style={{cursor: 'pointer'}}*/}
-// {/*                        className="list-banks-logo"*/}
-// {/*                        src={bank.logo}*/}
-// {/*                        alt={bank.logo}*/}
-// {/*                        onClick={() => createPayment(bank.id)}*/}
-// {/*                    />*/}
-// {/*                    <h3>{bank.name}</h3>*/}
-// {/*                    <br/>*/}
-// {/*                </div>*/}
-// {/*            ))}*/}
-// {/*        </div>*/}
-// {/*    </div>*/}
-// {/*}*/}
-
