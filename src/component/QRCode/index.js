@@ -3,6 +3,8 @@ import '../Payment/styles.css';
 import './style.css';
 import GreenTick from './img/tick-anim.svg';
 import RedTick from './img/forbidden.svg';
+import NoPayment from './img/no-payment.png';
+import { PaymentStatusMessage, PaymentStatusImage } from "../../utils/Constants/PaymentStatus";
 
 const QRCode = ({ link, isStatus, statusData}) => {
     const [isTick, setTick] = useState(false);
@@ -47,18 +49,7 @@ const QRCode = ({ link, isStatus, statusData}) => {
                             {
 
                                 <p className="text-center">
-                                    Payment of <strong>{statusData.amount} {' '} {statusData.currency} {' '}</strong>
-                                    {statusData.status === 'SETTLEMENT_IN_PROGRESS' &&
-                                    'is in Progress.'
-                                    }
-                                    {
-                                        statusData.status === 'SETTLEMENT_COMPLETE' &&
-                                            'has been successfully completed.'
-                                    }
-                                    {
-                                        statusData.status === 'SETTLEMENT_REJECTED' &&
-                                        'has been failed.'
-                                    }
+                                    Payment of <strong>{statusData.amount.toFixed(2)} {' '} {statusData.currency} {' '}</strong> {PaymentStatusMessage[statusData.status]}
                                 </p>
                             }
                         </div>
@@ -68,7 +59,7 @@ const QRCode = ({ link, isStatus, statusData}) => {
                             {
                              isTick &&
                              <img
-                                 src={statusData.status === 'SETTLEMENT_IN_PROGRESS' || statusData.status === 'SETTLEMENT_COMPLETE' ? GreenTick : RedTick}
+                                 src={PaymentStatusImage[statusData.status] ? GreenTick : NoPayment}
                                  className="complete-tick"
                                  alt="tick"/>
                             }
