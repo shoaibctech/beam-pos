@@ -49,9 +49,7 @@ const Transactions = () => {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {email: getUserData().email}, 'POST' );
             setIsFetching(false);
-            console.log('fuck you', paymentList.data.paymentList.data);
             const sortedData =  orderBy(paymentList.data.paymentList.data, ['creationDateTime'], ['desc']);
-            console.log(sortedData)
             setPaymentsList( prevState => ([...sortedData]));
 
         } catch (e) {

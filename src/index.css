@@ -28,6 +28,8 @@
     --completed-border-color: #a6a9a8;
 
     --success-text-color: #42b042de;
+
+    --text-error-color: rgba(245, 5, 39, 0.87);
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
