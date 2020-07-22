@@ -30,11 +30,28 @@
     100%);
 }
 .detail-error {
+    background: #00745e;
     min-width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.detail-error-block {
+    background: white;
+    width: 50%;
+    height: 100%;
+    padding: 30px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+}
+.mr-1 {
+    margin: 0;
+}
+.mark {
+    width: 108px;
 }
 /* Hide scrollbar for Chrome, Safari and Opera */
 .bank-list-container::-webkit-scrollbar {
@@ -69,11 +86,8 @@
 }
 
 .error-block {
-    padding: 20px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
+    padding: 5px;
+    margin: 0 5px 10px;
     border: 1px solid red;
 }
 @media (max-width: 540px) {
@@ -84,12 +98,18 @@
         height: 100px;
         width: 100px;
     }
+    .detail-error-block {
+        width: 100%;
+    }
 }
 @media (min-width: 521px) and (max-width: 770px) {
     .list-banks {
         width: 50% !important;
         text-align: center;
         margin-top: 1rem;
+    }
+    .detail-error-block {
+        width: 95%;
     }
 }
 .outer-container {
@@ -183,6 +203,12 @@
         align-items: center;
         padding-bottom: 2rem;
         padding-top: 2rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .detail-error-block {
+        width: 90%;
     }
 }
 

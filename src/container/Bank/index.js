@@ -7,6 +7,7 @@ import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 import Logo from '../../component/Header/img/Junction-pos.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
+import Mark from './img/mark.jpg';
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -109,7 +110,18 @@ const Bank = () => {
             :
             paymentDetailError ?
                 <div className="detail-error">
-                    <h2 className="error_text">Invalid payment token....</h2>
+                    <div className="detail-error-block">
+                        <div className="text-center">
+                            <img className="mark" src={Mark} alt="mark" />
+                            <h2 className="error_text text-center mr-1">
+                                Sorry, we are not able to process your payment at the moment.
+                            </h2>
+                            <p className="text-center mr-1">
+                                Please go back to your merchant for assistance. We will resolve this issue as soon as posible
+                                so that you can try again.
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 :
             <div className="outer-container">
