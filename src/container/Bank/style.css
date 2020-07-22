@@ -158,6 +158,20 @@
     text-align: center;
 }
 
+.tip-detail {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background: white;
+    margin-top: 1rem;
+    padding: 15px 10px;
+    border-radius: 4px;
+}
+.tip-box {
+    width: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
 @media (min-width: 768px) {
     .outer-container {
         background-color: #00745e;

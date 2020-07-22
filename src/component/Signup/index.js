@@ -7,6 +7,7 @@ import request from 'request';
 import { makeRequest, validateEmail } from "../../utils";
 
 import './styles.css';
+import Loader from "../UI/Loader";
 
 
 const Signup = () => {
@@ -16,6 +17,7 @@ const Signup = () => {
     const [conPassword, setConPassword] = useState('');
     const [errors, setErrors] = useState({email:'', password:'', conPassword:'', merchantId: '', status: ''});
     const [orgs, setOrgs] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect( () => {
         getMerchants();
@@ -37,6 +39,7 @@ const Signup = () => {
             return;
         }
 
+        setLoading(true);
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
@@ -64,11 +67,14 @@ const Signup = () => {
                 errors.status = body.message || body.description;
                 let data = {...errors};
                 setErrors(data)
+                setLoading(false);
             } else if (body.error){
                 errors.status = body.error;
                 let data = {...errors};
                 setErrors(data)
+                setLoading(false);
             } else  {
+                setLoading(false);
                 history.push('/');
             }
         });
@@ -77,7 +83,7 @@ const Signup = () => {
         try {
             const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchants`, {}, 'GET');
             setOrgs( prevState => ([...prevState, ...req.data.orgs]))
-            console.log('data ', req.data.orgs[0].name)
+            console.log('data ', req.data)
         } catch (e) {
             //Todo: add check if this api fails
             console.log('merchant fetching failed')
@@ -137,7 +143,10 @@ const Signup = () => {
                             name="email"
                             type="text"
                             value={email}
-                            handleChange={setEmail}
+                            handleChange={(value) => {
+                                setEmail(value);
+                                setErrors(prevState => ({...prevState, email: ''}));
+                            }}
                             placeholder="Email"
                         />
                     </div>
@@ -154,7 +163,10 @@ const Signup = () => {
                             name="password"
                             type="password"
                             value={password}
-                            handleChange={setPassword}
+                            handleChange={(value) => {
+                                setPassword(value);
+                                setErrors(prevState => ({...prevState, password: ''}));
+                            }}
                             placeholder="Password"
                         />
                     </div>
@@ -171,7 +183,10 @@ const Signup = () => {
                             name="confirmPassword"
                             type="password"
                             value={conPassword}
-                            handleChange={setConPassword}
+                            handleChange={(value) => {
+                                setConPassword(value);
+                                setErrors(prevState => ({...prevState, conPassword: ''}));
+                            }}
                             placeholder="Confirm Password"
                         />
                     </div>
@@ -179,7 +194,9 @@ const Signup = () => {
                 <br/>
                 <div className="bottom-section-container">
                     <div className="bottom-section">
-                        <input type="button" value="Sign Up" onClick={onSignup}/>
+                        <button className="confirm-btn" style={{width: '100%'}} onClick={onSignup}>
+                            {loading ? <Loader size="2rem" color="secondary"/> : 'Sign Up'}
+                        </button>
                     </div>
                     <div></div>
                 </div>

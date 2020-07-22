@@ -5,6 +5,7 @@ import './style.css';
 import Loader from "react-loader-spinner";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 import Logo from '../../component/Header/img/Junction-pos.png';
+import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 
 const Bank = () => {
@@ -14,6 +15,9 @@ const Bank = () => {
     const [bankList, setBankList] = useState(banks);
     const [paymentDetailError, setPaymentDetailError] = useState(false);
     const [paymentData, setPaymentData] = useState({});
+    const [tipAmount, setTipAmount] = useState('');
+    const [totalAmount, setTotalAmount] = useState();
+    const [tipError, setTipError] = useState('');
     const { token } = useParams();
 
     const createPayment = async (bankId) => {
@@ -24,13 +28,14 @@ const Bank = () => {
                 {
                     bankId: bankId,
                     token: token,
+                    tipAmount: tipError ? 0 : tipAmount,
                 });
             // setLoading(false);
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
-            console.log(e);
-            console.log(e.response);
-            console.log(e.response.data);
+            // console.log(e);
+            // console.log(e.response);
+            // console.log(e.response.data);
             setLoading(false);
             setError(e.response.data.message);
             window.scrollTo(0, 0);
@@ -59,18 +64,31 @@ const Bank = () => {
        getPaymentDetails();
     }, []);
     const getPaymentDetails = async () => {
-        console.log('fetching payment details ::');
         setLoading(true);
         try {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
-            console.log(req.data.data);
-            console.log(Object.keys(req.data.data).length);
-            setPaymentData( prevState => ({...paymentData, ...req.data.data}))
+            setPaymentData( prevState => ({...paymentData, ...req.data.data}));
+            setTotalAmount(req.data.data.amount);
             setLoading(false);
             setPaymentDetailError('');
         } catch (e) {
             setLoading(false);
             setPaymentDetailError(true);
+        }
+    }
+    const handleTipAmount = (value) => {
+        setTipAmount(value);
+        if(value && isNaN(value)) {
+            setTipError('Value must be number');
+            setTotalAmount(paymentData.amount);
+            return;
+        }
+        setTipError('');
+        if(value) {
+           let amount = parseFloat(paymentData.amount) + parseFloat(value);
+           setTotalAmount(amount);
+        } else {
+            setTotalAmount(paymentData.amount);
         }
     }
 
@@ -113,8 +131,24 @@ const Bank = () => {
                                         </div>
                                         <div>
                                             <span>&#163;</span>
-                                            {Object.keys(paymentData).length > 0 && formatPayment(paymentData.amount)}
+                                            {Object.keys(paymentData).length > 0 && formatPayment(totalAmount)}
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="tip-detail">
+                                    <div>
+                                        <h3 className="payment-label">Do you want to add some tip?</h3>
+                                    </div>
+                                    <div>
+                                        <Input
+                                            name="tipAmount"
+                                            handleChange={handleTipAmount}
+                                            value={tipAmount}
+                                            error={tipError}
+                                            placeholder="Amount"
+                                            type="number"
+                                            className="tip-box"
+                                        />
                                     </div>
                                 </div>
                                 {/*<div className="reference-section">*/}
