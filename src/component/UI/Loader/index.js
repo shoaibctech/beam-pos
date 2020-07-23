@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: 'rgba(9, 244, 200, 1)'
+            main: 'rgba(89, 86, 262, 1)'
         },
         secondary: {
             main: 'rgba(255, 255, 255, 100)',

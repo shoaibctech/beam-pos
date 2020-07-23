@@ -4,11 +4,11 @@ import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
-import Logo from '../../component/Header/img/Junction-pos.png';
+import Logo from '../../component/Header/img/Lucie-default-padding.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Mark from './img/mark.jpg';
-//redploying
+
 const Bank = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -149,7 +149,7 @@ const Bank = () => {
                                 </div>
                                 <div className="tip-detail">
                                     <div>
-                                        <h3 className="payment-label">Do you want to add some tip?</h3>
+                                        <h3 className="payment-label">Would you like to add a tip?</h3>
                                     </div>
                                     <div>
                                         <Input

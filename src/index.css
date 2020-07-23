@@ -4,32 +4,33 @@
     box-sizing: border-box;
 }
 :root {
-    --main-bg-color: #09f4c8;
-    --secondary-bg-color: black;
+    --main-bg-color: #5956E8;
+    --secondary-bg-color: #151B25;
     --main-txt-color: white;
     --upload-bg-color: #f0f0f0;
     --btn-txt-color: white;
 
-    --input-hover-color: black;
+    --input-hover-color: #151B25;
     --input-border-color: lightgrey;
 
     --quote-head-color: #524e4e;
     --quote-head-txt-color: white;
 
-    --link-txt-color: black;
+    --link-txt-color: #151B25;
 
     --edit-txt-color: #524e4e8a;
-    --edit-txt-hover-color: black;
+    --edit-txt-hover-color: #151B25;
 
     --upload-animation-bg-color: grey;
 
     --step-border-color: #f0f0f0;
-    --hover-border-color: #09f4c8;
+    --hover-border-color: #5956E8;
     --completed-border-color: #a6a9a8;
 
     --success-text-color: #42b042de;
 
-    --text-error-color: rgba(245, 5, 39, 0.87);
+    --text-error-color: #FA4259;
+    --main-theme-color: #151B25;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -60,7 +61,7 @@ body {
     background: #ffffff;
 }
 h1, h2, h3, h4, h5, h6, p, div, span, input, strong {
-    font-family: ClobberGrotesk-Medium;
+    font-family: 'Poppins', sans-serif;
 }
 #root {
     min-height: 100vh;
@@ -85,4 +86,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+.theme-link {
+    color: var(--main-theme-color);
 }

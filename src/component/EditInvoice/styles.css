@@ -86,7 +86,7 @@
     /*box-shadow: 1px 1px 18px lightgrey;*/
 }
 .cancel-btn {
-    background: red;
+    background: var(--text-error-color);
     color: white;
     display: flex;
     flex-direction: row;
@@ -102,9 +102,9 @@
     /*box-shadow: 1px 1px 18px lightgrey;*/
 }
 .cancel-btn:hover {
-    color: red;
+    color: var(--text-error-color);
     background: white;
-    border: 1px solid red;
+    border: 1px solid var(--text-error-color);
 }
 .confirm-btn:hover {
     border: 1px solid lightgrey;

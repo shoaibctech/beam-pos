@@ -5,9 +5,6 @@
     flex-direction: column;
 }
 .input_field > input[type=text], .input_field > input[type=password], .input_field > input[type=email], .input_field > input[type=number] {
-    border-right: none;
-    border-left: none;
-    border-top: none;
     margin: 10px;
     padding: 5px 10px;
     width: calc(10vw + 200px);
@@ -21,11 +18,11 @@ input:-webkit-autofill:focus {
      -webkit-box-shadow: 0 0 0 1000px #d3d3d347 inset;
 }
 .error {
-    color: red;
-    border-bottom: 1px solid red;
+    color: var(--text-error-color);
+    border-bottom: 1px solid var(--text-error-color);
 }
 .error_text {
-    color: red;
+    color: var(--text-error-color);
     margin-left: 10px;
     padding-left: 10px;
 }

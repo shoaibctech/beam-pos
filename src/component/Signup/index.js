@@ -128,7 +128,7 @@ const Signup = () => {
             <div className="login-container">
                 <div className="row">
                     <div>
-                        <h1>Welcome to junction</h1>
+                        <h1>Welcome to Lucie.</h1>
                     </div>
                 </div>
                 <br/>

@@ -18,7 +18,7 @@ import './styles.css';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: 'rgba(9, 244, 200, 1)'
+            main: 'rgba(89, 86, 262, 1)'
         },
         // secondary: {
         //     main: green[500],

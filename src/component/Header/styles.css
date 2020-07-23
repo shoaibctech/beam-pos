@@ -45,7 +45,7 @@
     background: transparent;
     padding: 2px 25px;
     text-transform: capitalize;;
-    color: var(--main-bg-color);
+    color: var(--main-theme-color);
     cursor: pointer;
     font-family: inherit;
 }
@@ -62,6 +62,7 @@
      font-size: 21px;
  }
  .user-info {
+     color: var(--main-bg-color);
      display: inline-block;
      margin-right: 15px;
      margin-left: 5px;

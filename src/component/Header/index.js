@@ -3,9 +3,11 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 // import auth0 from 'auth0-js';
 import { useCookies } from "react-cookie";
 
-import Logo from './img/Junction-pos.png';
+// import Logo from './img/Junction-pos.png';
+import Logo from './img/Lucie-default.png';
+
 import "./styles.css";
-import {checkToken, removeUserData, getUserData, makeSecureRequest} from "../../utils";
+import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../../utils";
 
 // const webAuth = new auth0.WebAuth({
 //     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -16,9 +18,13 @@ const PathComponent = () => {
     let location = useLocation();
 
     if(location.pathname === '/signup') {
-        return <Link to="/" style={{boxSizing: 'border-box'}}>Log in</Link>;
+        return <Link to="/" style={{boxSizing: 'border-box'}}>
+            <strong className="theme-link">Log in</strong>
+        </Link>;
     } else {
-        return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>Sign Up</Link>;
+        return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>
+           <strong className="theme-link">Sign Up</strong>
+        </Link>;
     }
 }
 
@@ -68,9 +74,11 @@ const Header = () => {
                 {
                     cookies.isToken && checkToken() ?
                         <div>
-                            <p className="user-info">{userData.name}</p>
+                            <p className="user-info">
+                                <strong>{userData.name}</strong>
+                            </p>
                             <button className="logout_btn" onClick={logout}>
-                                Logout
+                               <strong>Logout</strong>
                             </button>
                         </div>
                         :

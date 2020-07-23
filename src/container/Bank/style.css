@@ -30,7 +30,7 @@
     100%);
 }
 .detail-error {
-    background: #00745e;
+    background: var(--main-theme-color);
     min-width: 100%;
     min-height: 100vh;
     display: flex;
@@ -48,7 +48,7 @@
     border-radius: 6px;
 }
 .mr-1 {
-    margin: 0;
+    margin: 1rem auto;
 }
 .mark {
     width: 108px;
@@ -113,7 +113,7 @@
     }
 }
 .outer-container {
-    background-color: #325774;
+    background-color: var(--main-theme-color);
     width: 100%;
     min-height: 100vh;
     padding-top: 2.5rem;
@@ -194,7 +194,7 @@
 }
 @media (min-width: 768px) {
     .outer-container {
-        background-color: #00745e;
+        background-color: var(--main-theme-color);
         width: 100%;
         min-height: 100vh;
         height: 100vh;

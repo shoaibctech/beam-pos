@@ -69,12 +69,13 @@
     text-align: center;
 }
 .t-error {
-    color: red;
+    color: var(--text-error-color);
     text-align: center;
 }
 .balance-sec {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 .balance-sec:first-child {
     justify-content: center;
