@@ -8,7 +8,7 @@ import Logo from '../../component/Header/img/Junction-pos.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Mark from './img/mark.jpg';
-
+//redploying
 const Bank = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
