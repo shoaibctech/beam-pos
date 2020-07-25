@@ -31,7 +31,7 @@ const QRCode = ({ link, isStatus, statusData}) => {
                        <div style={{display: 'flex', justifyContent: 'center' }}>
                            {
                                <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
-                                   <span>Pay with <string style="font-size: 27px;">Lucie.</string></span>
+                                   <span>Pay with <strong style={{fontSize: '25px'}}>Lucie.</strong></span>
                                </button>
                            }
                        </div>
