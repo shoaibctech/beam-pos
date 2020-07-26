@@ -138,7 +138,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                         {
                             tabValue === 0 &&
                                 <div>
-                                    <div className='table-container'>
+                                    <div className='table-container' style={{overflowX: 'auto'}}>
                                         <table>
                                             <thead>
                                             <tr>

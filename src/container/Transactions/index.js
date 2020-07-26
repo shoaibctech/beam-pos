@@ -183,38 +183,40 @@ const Transactions = () => {
             <h2 className="heading">Transactions Details</h2>
             {
                 tabValue === 0 &&
-                <table>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Email</th>
-                        <th>Amount</th>
-                        <th>Currency</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Bank Name</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { !transError ? !isFetching ? paymentList  && paymentList.length > 0 ? renderTable(paymentList)
-                        : <tr rowSpan="4" style={{height: '10rem'}}>
-                            <td colSpan="8" className="loading">No data found...</td>
+                <div style={{overflowX: 'auto'}}>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Currency</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Bank Name</th>
+                            <th>Action</th>
                         </tr>
-                        : <tr rowSpan="4" style={{height: '10rem'}}>
-                            <td colSpan="8" className="loading">
-                                <Loader />
-                            </td>
-                        </tr> :''
-                    }
-                    {
-                        !isFetching && transError &&
-                        <tr rowSpan="4" style={{height: '10rem'}}>
-                            <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        { !transError ? !isFetching ? paymentList  && paymentList.length > 0 ? renderTable(paymentList)
+                            : <tr rowSpan="4" style={{height: '10rem'}}>
+                                <td colSpan="8" className="loading">No data found...</td>
+                            </tr>
+                            : <tr rowSpan="4" style={{height: '10rem'}}>
+                                <td colSpan="8" className="loading">
+                                    <Loader />
+                                </td>
+                            </tr> :''
+                        }
+                        {
+                            !isFetching && transError &&
+                            <tr rowSpan="4" style={{height: '10rem'}}>
+                                <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
             }
             {
                 tabValue === 1 &&

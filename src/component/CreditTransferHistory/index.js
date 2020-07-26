@@ -50,7 +50,8 @@ const CreditTransferHistory = () => {
         });
     }
     return (
-        <div className="credit-transfer">
+        <div className="credit-transfer" style={{overflowX: 'auto'}}>
+
             <table>
                 <thead>
                 <tr>
