@@ -49,7 +49,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                 }, 'POST');
 
             console.log('data :: ', data);
-            setMessage('successfully created credit transfer');
+            setMessage('Your request for credit transfer has been submitted successfully.');
             setIsFetcing(false);
             getBalance();
             setAmount(0);
