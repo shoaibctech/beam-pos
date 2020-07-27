@@ -35,7 +35,7 @@ const Transactions = () => {
     const [tabValue, setTabValue] = useState(0);
     const [index, setIndex] = useState();
     const [isOpen, setIsOpen] = useState(false);
-
+    const { account_type } = getUserData();
 
     useEffect( () => {
         getPaymentsList();
@@ -103,9 +103,11 @@ const Transactions = () => {
                 <td>{PaymentStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
-                <td>
-                    <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
-                </td>
+                { account_type !== 'basic' &&
+                    <td>
+                        <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
+                    </td>
+                }
             </tr>);
         });
     }
@@ -138,48 +140,51 @@ const Transactions = () => {
 
     return (
         <div className="transaction">
-            <div className="tabs-balance">
-                <Paper square >
-                    <ThemeProvider theme={theme}>
-                        <Tabs
-                            value={tabValue}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            onChange={handleTabChange}
-                            aria-label="disabled tabs example"
-                        >
-                            <Tab label="Payments" />
-                            <Tab label="Withdrawl" />
-                        </Tabs>
-                    </ThemeProvider>
-                </Paper>
-                <div className="balance-con">
-                    <div className="balance-block">
-                        { balance && balance.length > 0 ?
-                            <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
-                            :
-                            <WithdrawForm balance={0} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
-                        }
-
-                    </div>
-                    <div className="balance-sec">
-                        <p className="balance-label balance-block">BALANCE: {' '}</p>
-                        {
-                            balanceError ?
-                                <p className="t-error">{balanceError}</p>
+            {
+                account_type !== 'basic' &&
+                <div className="tabs-balance">
+                    <Paper square >
+                        <ThemeProvider theme={theme}>
+                            <Tabs
+                                value={tabValue}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                onChange={handleTabChange}
+                                aria-label="disabled tabs example"
+                            >
+                                <Tab label="Payments" />
+                                <Tab label="Withdrawl" />
+                            </Tabs>
+                        </ThemeProvider>
+                    </Paper>
+                    <div className="balance-con">
+                        <div className="balance-block">
+                            { balance && balance.length > 0 ?
+                                <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
                                 :
-                                <p className="balance-block">
-                                    {balance && balance.length > 0 ?
-                                        <span className="balance">{(balance[1].balance.amount).toFixed(2)} { balance[1].balance.currency}</span>:
-                                        <span style={{display: 'flex'}}>
+                                <WithdrawForm balance={0} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
+                            }
+
+                        </div>
+                        <div className="balance-sec">
+                            <p className="balance-label balance-block">BALANCE: {' '}</p>
+                            {
+                                balanceError ?
+                                    <p className="t-error">{balanceError}</p>
+                                    :
+                                    <p className="balance-block">
+                                        {balance && balance.length > 0 ?
+                                            <span className="balance">{(balance[1].balance.amount).toFixed(2)} { balance[1].balance.currency}</span>:
+                                            <span style={{display: 'flex'}}>
                                             <Loader size='2rem'/>
                                         </span>
-                                    }
-                                </p>
-                        }
+                                        }
+                                    </p>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <h2 className="heading">Transactions Details</h2>
             {
                 tabValue === 0 &&
@@ -194,7 +199,10 @@ const Transactions = () => {
                             <th>Status</th>
                             <th>Date</th>
                             <th>Bank Name</th>
-                            <th>Action</th>
+                            {
+                                account_type !== 'basic' &&
+                                <th>Action</th>
+                            }
                         </tr>
                         </thead>
                         <tbody>

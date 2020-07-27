@@ -147,22 +147,25 @@ const Bank = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="tip-detail">
-                                    <div>
-                                        <h3 className="payment-label">Would you like to add a tip?</h3>
+                                {
+                                    paymentData && paymentData.merchant_type === 'tip' &&
+                                    <div className="tip-detail">
+                                        <div>
+                                            <h3 className="payment-label">Would you like to add a tip?</h3>
+                                        </div>
+                                        <div>
+                                            <Input
+                                                name="tipAmount"
+                                                handleChange={handleTipAmount}
+                                                value={tipAmount}
+                                                error={tipError}
+                                                placeholder="Amount"
+                                                type="number"
+                                                className="tip-box"
+                                            />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <Input
-                                            name="tipAmount"
-                                            handleChange={handleTipAmount}
-                                            value={tipAmount}
-                                            error={tipError}
-                                            placeholder="Amount"
-                                            type="number"
-                                            className="tip-box"
-                                        />
-                                    </div>
-                                </div>
+                                }
                                 {/*<div className="reference-section">*/}
                                 {/*    <p>Reference</p>*/}
                                 {/*    <p><strong>Reference</strong></p>*/}

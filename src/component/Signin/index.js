@@ -51,6 +51,9 @@ const Signin = () =>  {
                 decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
                 decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
                 decodedIdToken.merchant_id = decodedIdToken[`${namespace}/merchant_id`];
+                decodedIdToken.beneficiary_id = decodedIdToken[`${namespace}/beneficiary_id`];
+                decodedIdToken.account_type = decodedIdToken[`${namespace}/account_type`];
+                decodedIdToken.merchant_type = decodedIdToken[`${namespace}/merchant_type`];
                 setUserData(decodedIdToken);
                 setToken(res);
                 let milliseconds = new Date().getTime();
