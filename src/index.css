@@ -50,10 +50,10 @@ input:-webkit-autofill:active  {
 html {
     height: 100%;
 }
-@font-face {
-    font-family: ClobberGrotesk-Medium;
-    src: url('./utils/Fonts/MyFontsWebfontsKit/webFonts/ClobberGrotesk-Medium/font.woff');
-}
+/*@font-face {*/
+/*    font-family: ClobberGrotesk-Medium;*/
+/*    src: url('./utils/Fonts/MyFontsWebfontsKit/webFonts/ClobberGrotesk-Medium/font.woff');*/
+/*}*/
 body {
     min-height: 100%;
     box-sizing: border-box;
@@ -89,4 +89,17 @@ input[type=number] {
 }
 .theme-link {
     color: var(--main-theme-color);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 23px !important;
+    }
+    h2 {
+        font-size: 21px !important;
+    }
+    h3 {
+        font-size: 19px !important;
+    }
+
 }

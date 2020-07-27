@@ -43,7 +43,8 @@
         width: 100%;
     }
     .payment-status-model {
-        width: 53vw;
+        width: 100%;
+        margin: 0;
     }
     .summary-row {
         width: 90%;
