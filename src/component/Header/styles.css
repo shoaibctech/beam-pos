@@ -45,7 +45,7 @@
     background: transparent;
     padding: 2px 25px;
     text-transform: capitalize;;
-    color: var(--main-theme-color);
+    color: var(--main-bg-color);
     cursor: pointer;
     font-family: inherit;
 }
