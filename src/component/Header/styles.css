@@ -27,7 +27,7 @@
     padding: 10px 25px;
 }
 .app-logo {
-    width: 9rem;
+    width: 7rem;
 }
 .header h1 {
     color: var(--main-bg-color);
@@ -59,16 +59,26 @@
      text-decoration: none;
 }
  .nav-link {
-     font-size: 21px;
+     font-size: 20px;
  }
+
  .user-info {
      color: var(--main-bg-color);
      display: inline-block;
      margin-right: 15px;
      margin-left: 5px;
  }
+ .cta {
+     padding-right: 25px;
+     font-size: 20px;
+ }
  @media (max-width: 760px) {
      .user-info {
          display: none;
+     }
+ }
+@media (max-width: 540px) {
+     .mobile-nav-link {
+         padding-left: 25px;
      }
  }

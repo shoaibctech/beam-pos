@@ -43,6 +43,7 @@ const Bank = () => {
         }
     }
     const formatPayment = (amount) => {
+        var amount = parseFloat(amount).toFixed(2);
         const firstPart = amount.toString().split('.')[0];
         const secondPart = amount.toString().split('.')[1];
         return (
@@ -78,12 +79,20 @@ const Bank = () => {
         }
     }
     const handleTipAmount = (value) => {
-        setTipAmount(value);
-        if(value && isNaN(value)) {
+        if(value && isNaN(value) && value !== '.') {
             setTipError('Value must be number');
             setTotalAmount(paymentData.amount);
             return;
+        } else if (value.toString().split('.')[1] && value.toString().split('.')[1].length > 2){
+            setTipAmount(parseFloat(value).toFixed(2));
+        } else if (value === '.') {
+            setTipAmount(value);
+            setTotalAmount(paymentData.amount);
+            return;
+        } else {
+            setTipAmount(value);
         }
+
         setTipError('');
         if(value) {
            let amount = parseFloat(paymentData.amount) + parseFloat(value);
@@ -160,7 +169,7 @@ const Bank = () => {
                                                 value={tipAmount}
                                                 error={tipError}
                                                 placeholder="Amount"
-                                                type="number"
+                                                type="text"
                                                 className="tip-box"
                                             />
                                         </div>

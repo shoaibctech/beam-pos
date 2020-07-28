@@ -74,11 +74,9 @@
 }
 .balance-sec {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-.balance-sec:first-child {
     justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
 }
 .balance-label {
     margin-left: 1rem;
@@ -86,6 +84,7 @@
 }
 .balance {
     font-weight: bold;
+    white-space: nowrap;
 }
 .balance-con {
     display: flex;
@@ -118,6 +117,9 @@
 .with-draw-input {
     width: 95% !important;
 }
+.btn-withdraw-block {
+    width: 10rem;
+}
 @media (max-width: 540px) {
     .top-container {
         flex-direction: column;
@@ -133,6 +135,9 @@
 }
 
 @media (max-width: 768px) {
+    .isHidden {
+        display: none;
+    }
     .tabs-balance{
         display: grid;
         grid-template-columns: auto;
@@ -147,6 +152,19 @@
     }
     .balance-con {
         flex-direction: row-reverse;
+    }
+    .balance-label {
+        margin-left: 0;
+        margin-right: 5px;
+    }
+    .balance-sec {
+        margin-right: 5px;
+    }
+    .btn-withdraw-block {
+        width: 7rem;
+    }
+    .balance-block {
+        text-align: right;
     }
 }
 

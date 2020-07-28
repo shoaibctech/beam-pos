@@ -41,7 +41,7 @@ const CreditTransferHistory = () => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{payment.beneficiaryName}</td>
-                <td>{payment.paymentAmount}</td>
+                <td>{payment.paymentAmount.toFixed(2)}</td>
                 <td>{payment.paymentCurrency}</td>
                 <td>{payment.paymentStatus}</td>
                 <td>{payment.type}</td>

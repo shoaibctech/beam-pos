@@ -59,7 +59,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
         }
     }
     return(
-        <div style={{width: '10rem'}}>
+        <div className="btn-withdraw-block">
             <button className="btn-refund" onClick={() => setIsOpen(true)} disabled={isBalance}>
                 Withdraw
             </button>
@@ -71,7 +71,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
             >
                 <div className="modal-container-with-draw">
                     <h2 className="withdraw-heading">Withdraw</h2>
-                    <p>Maximum amount that can be withdrawn is {balance} {currency}</p>
+                    <p>Maximum amount that can be withdrawn is {balance.toFixed(2)} {currency}</p>
                     {
                         !isFetching &&
                         <div>
@@ -84,7 +84,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                             />
                         </div>
                     }
-                    {amountExeedError && <p className="error_text">Credit transfer amount must not exceed from {balance}.</p>}
+                    {amountExeedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
                     <div>
                         {
                             isFetching &&

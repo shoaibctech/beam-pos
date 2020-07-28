@@ -97,14 +97,14 @@ const Transactions = () => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td>{payment.email}</td>
-                <td>{payment.amount}</td>
+                <td  className="isHidden">{payment.email}</td>
+                <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{PaymentStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 { account_type !== 'basic' &&
-                    <td>
+                    <td  style={{minWidth: '145px'}}>
                         <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
                     </td>
                 }
@@ -137,7 +137,6 @@ const Transactions = () => {
         }
     };
 
-
     return (
         <div className="transaction">
             {
@@ -153,11 +152,27 @@ const Transactions = () => {
                                 aria-label="disabled tabs example"
                             >
                                 <Tab label="Payments" />
-                                <Tab label="Withdrawl" />
+                                <Tab label="Withdrawls" />
                             </Tabs>
                         </ThemeProvider>
                     </Paper>
                     <div className="balance-con">
+                        <div className="balance-sec">
+                            <p className="balance-label balance-block">BALANCE: {' '}</p>
+                            {
+                                balanceError ?
+                                    <p className="t-error">{balanceError}</p>
+                                    :
+                                    <div className="balance-block">
+                                        {balance && balance.length > 0 ?
+                                            <span className="balance">{(balance[1].balance.amount).toFixed(2)} { balance[1].balance.currency}</span>:
+                                            <span style={{display: 'flex'}}>
+                                            <Loader size='2rem'/>
+                                        </span>
+                                        }
+                                    </div>
+                            }
+                        </div>
                         <div className="balance-block">
                             { balance && balance.length > 0 ?
                                 <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
@@ -165,22 +180,6 @@ const Transactions = () => {
                                 <WithdrawForm balance={0} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
                             }
 
-                        </div>
-                        <div className="balance-sec">
-                            <p className="balance-label balance-block">BALANCE: {' '}</p>
-                            {
-                                balanceError ?
-                                    <p className="t-error">{balanceError}</p>
-                                    :
-                                    <p className="balance-block">
-                                        {balance && balance.length > 0 ?
-                                            <span className="balance">{(balance[1].balance.amount).toFixed(2)} { balance[1].balance.currency}</span>:
-                                            <span style={{display: 'flex'}}>
-                                            <Loader size='2rem'/>
-                                        </span>
-                                        }
-                                    </p>
-                            }
                         </div>
                     </div>
                 </div>
@@ -193,7 +192,7 @@ const Transactions = () => {
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Email</th>
+                            <th className="isHidden">Email</th>
                             <th>Amount</th>
                             <th>Currency</th>
                             <th>Status</th>
@@ -201,7 +200,7 @@ const Transactions = () => {
                             <th>Bank Name</th>
                             {
                                 account_type !== 'basic' &&
-                                <th>Action</th>
+                                <th style={{minWidth: '145px'}}>Action</th>
                             }
                         </tr>
                         </thead>
@@ -211,9 +210,7 @@ const Transactions = () => {
                                 <td colSpan="8" className="loading">No data found...</td>
                             </tr>
                             : <tr rowSpan="4" style={{height: '10rem'}}>
-                                <td colSpan="8" className="loading">
-                                    <Loader />
-                                </td>
+                                <td colSpan="8" className="loading"><Loader /></td>
                             </tr> :''
                         }
                         {

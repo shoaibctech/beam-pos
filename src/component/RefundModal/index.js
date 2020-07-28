@@ -65,7 +65,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td>{payment.refundAmount}</td>
+                <td>{payment.refundAmount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{RefundStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>

@@ -30,7 +30,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
         let ss = {...successStep};
         const nameElement = <span className="parent-tag">
             <span style={{marginRight: '10px'}}><img src={require('../../container/Home/img/money-4.svg')} className="step-img" alt="money" /></span>
-            <span>You are requesting GBP {amount}</span>
+            {window.innerWidth > 800 ? <span>You are requesting GBP {parseFloat(amount).toFixed(2)}</span>  : <span>{parseFloat(amount).toFixed(2)} GBP</span>}
         </span>;
         const confimElement = <span className="parent-tag">
             <span style={{marginRight: '10px'}}><img src={require('../../container/Home/img/confirm-4.svg')} className="step-img" alt="money" /></span>

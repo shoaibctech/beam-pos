@@ -180,7 +180,7 @@ const Signin = () =>  {
             <div className="bottom-section-container">
                 <div className="bottom-section">
                     <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>
-                        Forget password?
+                        Forgot password?
                     </p>
                 </div>
             </div>

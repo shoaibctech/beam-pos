@@ -48,7 +48,7 @@ const QRCode = ({ link, isStatus, statusData}) => {
                         <div>
                             {
 
-                                <p className="text-center" style={{paddingBottom: '1rem'}}>
+                                <p className="text-center" style={{padding: '1rem'}}>
                                     Payment of <strong>{statusData.amount.toFixed(2)} {' '} {statusData.currency} {' '}</strong> {PaymentStatusMessage[statusData.status]}
                                 </p>
                             }

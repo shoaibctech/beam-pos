@@ -54,6 +54,9 @@ const Signup = () => {
                     merchant_id: account.id,
                     first_name: account.contact.firstName,
                     last_name: account.contact.lastName,
+                    account_type: "basic",
+                    beneficiary_id: "",
+                    merchant_type: "nontip"
                 }
             },
             json: true

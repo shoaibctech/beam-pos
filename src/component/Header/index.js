@@ -19,11 +19,11 @@ const PathComponent = () => {
 
     if(location.pathname === '/signup') {
         return <Link to="/" style={{boxSizing: 'border-box'}}>
-            <strong className="theme-link">Log in</strong>
+            <strong className="theme-link cta">Log in</strong>
         </Link>;
     } else {
         return location.pathname.split('/')[1] === 'bank' ? '' : <Link to="/signup" style={{boxSizing: 'border-box'}}>
-           <strong className="theme-link">Sign Up</strong>
+           <strong className="theme-link cta">Sign Up</strong>
         </Link>;
     }
 }
@@ -66,7 +66,9 @@ const Header = () => {
             <div>
                 <div className="nav-link">
                     { cookies.isToken && checkToken() &&
-                    <Link to="/transaction">Transactions</Link>
+                    <Link to="/transaction" className="mobile-nav-link">
+                        <strong >Transactions</strong>
+                    </Link>
                     }
                 </div>
             </div>
