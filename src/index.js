@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import { CookiesProvider } from 'react-cookie';
 // import * as serviceWorker from './serviceWorker';
+import HttpsRedirect from 'react-https-redirect';
 
 ReactDOM.render(
     <CookiesProvider>
-        <App />
+        <HttpsRedirect>
+            <App />
+        </HttpsRedirect>
     </CookiesProvider>,
     document.getElementById('root')
 );
