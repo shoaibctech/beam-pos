@@ -106,9 +106,9 @@ const Bank = () => {
         loading ?
         <div>
             {loading &&
-            <div className="loader">
+            <div className="loader bank-bg-color">
                 <div id="loaderdiv">
-                    <Loader type="TailSpin" color="black" height={100} width={100}/>
+                    <Loader type="Oval" color="#5956e8" height={100} width={100}/>
                 </div>
                 <div>
                     <h3>Connecting...</h3>
@@ -150,9 +150,9 @@ const Bank = () => {
                                                 <strong>{Object.keys(paymentData).length > 0 ? paymentData.merchantName : ''}</strong>
                                             </p>
                                         </div>
-                                        <div>
+                                        <div style={{ fontSize: '18px'}}>
                                             <span>&#163;</span>
-                                            {Object.keys(paymentData).length > 0 && formatPayment(totalAmount)}
+                                            {Object.keys(paymentData).length > 0 && totalAmount}
                                         </div>
                                     </div>
                                 </div>

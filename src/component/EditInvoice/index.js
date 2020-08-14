@@ -9,7 +9,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
 
     const validateFields = () => {
         let errors = {...error}
-        !amount || amount < 1 ? errors.amount = "*Amount is Required" : errors.amount = "";
+        !amount || (amount === 0 || amount < 0) ? errors.amount = "*Amount is Required" : errors.amount = "";
 
         setError(errors);
         if( errors.amount  ) {

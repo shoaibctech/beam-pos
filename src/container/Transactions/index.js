@@ -177,7 +177,7 @@ const Transactions = () => {
                             { balance && balance.length > 0 ?
                                 <WithdrawForm balance={balance[1].balance.amount} currency={ balance[1].balance.currency} getBalance={getBalance}/>
                                 :
-                                <WithdrawForm balance={0} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
+                                <WithdrawForm balance={0.00} currency='GBP' isBalance={!(balance && balance.length > 0)}/>
                             }
 
                         </div>

@@ -19,6 +19,12 @@
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 }
+.bank-bg-color {
+    background: var(--main-theme-color);
+}
+.bank-bg-color h3 {
+    color: var(--main-bg-color);
+}
 .bank-list-container {
     display: flex;
     flex-wrap: wrap;
