@@ -152,7 +152,7 @@ const Bank = () => {
                                         </div>
                                         <div style={{ fontSize: '18px'}}>
                                             <span>&#163;</span>
-                                            {Object.keys(paymentData).length > 0 && totalAmount}
+                                            {Object.keys(paymentData).length > 0 && parseFloat(totalAmount).toFixed(2)}
                                         </div>
                                     </div>
                                 </div>
