@@ -238,6 +238,7 @@ const Home =  () => {
                                                 link={link}
                                                 isStatus={isStatus}
                                                 statusData={statusData}
+                                                amount={amount}
                                             />
                                         }
                                         </div>
