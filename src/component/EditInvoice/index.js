@@ -8,7 +8,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
     const [error, setError] = useState({ amount: '',});
 
     const validateFields = () => {
-        let errors = {...error}
+        let errors = {...error};
         !amount || (amount === 0 || amount < 0) ? errors.amount = "*Amount is Required" : errors.amount = "";
 
         setError(errors);
@@ -17,7 +17,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
         } else {
             return false;
         }
-    }
+    };
 
     const onGetQuote = () => {
         getQrCode(amount);
@@ -26,7 +26,7 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
 
         setStep(step + 1);
         setLoading(false);
-        setActiveStep(activeStep + 1)
+        setActiveStep(activeStep + 1);
         let ss = {...successStep};
         const nameElement = <span className="parent-tag">
             <span style={{marginRight: '10px'}}><img src={require('../../container/Home/img/money-4.svg')} className="step-img" alt="money" /></span>
