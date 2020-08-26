@@ -68,7 +68,7 @@ const Signin = () =>  {
         try {
             const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/challenge`, {
                 client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
                 mfa_token: mfaToken,
                 // challenge_type: 'oob otp'
             }, { headers: {'Content-Type': 'application/json'}});
@@ -94,7 +94,7 @@ const Signin = () =>  {
             const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, {
                 grant_type: 'http://auth0.com/oauth/grant-type/mfa-oob',
                 client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
                 mfa_token: mfaToken,
                 oob_code: oobCode,
                 binding_code: otpCode,
@@ -197,7 +197,7 @@ const Signin = () =>  {
         try {
             const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/associate`, {
                 client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
                 authenticator_types: ["oob"],
                 oob_channels: ["sms"],
                 phone_number: phone,
