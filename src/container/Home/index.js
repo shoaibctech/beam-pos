@@ -44,11 +44,11 @@ const useStyles = makeStyles(theme => ({
 
 const getStep = () => {
     return  checkToken() ? 1 :  0;
-}
+};
 
 const getSteps = () => {
     return ['Amount', 'Confirm', 'Pay']
-}
+};
 const Home =  () => {
     const [step, setStep] = useState(getStep());
     const [amount, setAmount] = useState('');
@@ -82,7 +82,7 @@ const Home =  () => {
         });
 
         channel.bind('qr-code-event', function(data) {
-            
+
             if(data.token === localStorage.getItem('token')){
                 setLoading(true);
                 setLoadingMessage('Payment is in progress... ');
@@ -116,7 +116,7 @@ const Home =  () => {
             )
         }, 200)
 
-    }
+    };
 
     const getQrCode = async (amount) => {
         setIsFetching(true);
@@ -134,27 +134,27 @@ const Home =  () => {
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
             localStorage.setItem('token', code.data.token);
-            console.log(code)
+            console.log(code);
 
             setIsErrorStatus(false);
         } catch (e) {
-            console.log(e)
+            console.log(e);
             setIsErrorStatus(true);
         } finally {
             setIsFetching(false);
         }
-    }
+    };
 
     const handleEdit = (index) => {
         setActiveStep(index);
         setIsStatus(false);
         setIsErrorStatus(false);
         setIsEmailStatus(false);
-    }
+    };
     const getSuccessStep = (index) => {
         return successStep[index];
-    }
-    
+    };
+
     return(
         <main>
             {   loading &&
