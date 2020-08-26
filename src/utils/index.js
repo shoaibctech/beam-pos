@@ -19,10 +19,10 @@ export const setToken = (res) => {
     // let expSec = sec + (res.expiresIn * 1000);
     //TODO: change expires time on auth0 side
     let expSec = milliseconds + 3600000; // Expire token after 60 minutes of login 60 * 60 * 1000 = 600000 milliseconds
-    localStorage.setItem('auth_token', res.idToken)
+    localStorage.setItem('auth_token', res.id_token)
     localStorage.setItem('expiresOn', expSec);
-    localStorage.setItem('access_token', res.accessToken);
-    localStorage.setItem('tokenType', res.tokenType);
+    localStorage.setItem('access_token', res.access_token);
+    localStorage.setItem('tokenType', res.token_type);
 }
 export const checkToken = () => {
     if(localStorage.getItem('auth_token') && localStorage.getItem('auth_token').length > 5){

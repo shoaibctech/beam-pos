@@ -1,0 +1,19 @@
+.toast {
+    position: fixed;
+    top: 17px;
+    left: 40%;
+    padding: 10px 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+.success {
+    color: green;
+}
+.warning {
+    color: orange;
+}
+.error {
+    color: red;
+}

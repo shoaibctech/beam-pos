@@ -9,6 +9,9 @@ import ForgetPassword from '../ForgetPassword';
 import jwt from 'jwt-decode';
 import { useCookies } from "react-cookie";
 import Loader from '../../component/UI/Loader';
+import axios from 'axios';
+import './styles.css';
+import Toast from '../../component/UI/Toast';
 
 var webAuth = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -16,7 +19,7 @@ var webAuth = new auth0.WebAuth({
     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
 });
 const namespace = "https://posjunction.com";
-
+//4S2K - Y7RL - DBX8 - ANK3 - 62BG - 8E35
 const Signin = () =>  {
 
     const [cookies, setCookie] = useCookies(['isToken']);
@@ -27,8 +30,16 @@ const Signin = () =>  {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [errors, setErrors] = useState({userName: '', password: ''});
     const [loading, setLoading] = useState(false);
+    const [loginStep, setLoginStep] = useState(0);
+    const [otpCode, setOtpCode] = useState('');
+    const [mfaToken, setMfaToken] = useState('');
+    const [oobCode, setOobCode] = useState('');
+    const [phone, setPhone] = useState('');
+    const [recoveryCodes, setRecoveryCodes] = useState({});
+    const [showToast, setShowToast] = useState(false);
 
     const signin = async () => {
+        setMessage('');
         if(!validateFields()) {
             return;
         }
@@ -42,31 +53,76 @@ const Signin = () =>  {
             scope: 'openid user_metadata',
         }, (err, res) => {
             if(err) {
-                console.log('error ::', err)
-                setMessage(err.description);
-                setLoading(false);
-            } else {
-                setLoading(false);
-                const decodedIdToken = jwt(res.idToken);
-                decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
-                decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
-                decodedIdToken.merchant_id = decodedIdToken[`${namespace}/merchant_id`];
-                decodedIdToken.beneficiary_id = decodedIdToken[`${namespace}/beneficiary_id`];
-                decodedIdToken.account_type = decodedIdToken[`${namespace}/account_type`];
-                decodedIdToken.merchant_type = decodedIdToken[`${namespace}/merchant_type`];
-                setUserData(decodedIdToken);
-                setToken(res);
-                let milliseconds = new Date().getTime();
-                // let expSec = sec + (res.expiresIn * 1000);
-                //TODO: change expires time on auth0 side
-                let expMiliSec = milliseconds + 3600000;
-                let expSec = expMiliSec / 1000;
-                setCookie('isToken', res.accessToken,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
-                addDataToDatabase(decodedIdToken.merchant_id);
-                //Todo redirect to home page
-                history.push('/');
+                if( err.code === 'mfa_required'){
+                    showCodePrompt(err.original.response.body.mfa_token);
+                    setMfaToken(err.original.response.body.mfa_token);
+                } else {
+                    setMessage(err.description);
+                    setLoading(false);
+                }
             }
         });
+    }
+    const showCodePrompt = async (mfaToken) => {
+        setMessage('');
+        try {
+            const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/challenge`, {
+                client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                mfa_token: mfaToken,
+                // challenge_type: 'oob otp'
+            }, { headers: {'Content-Type': 'application/json'}});
+
+            setLoading(false);
+            setOobCode(data.data.oob_code);
+            setLoginStep(1);
+            handleShowToast();
+        } catch (e) {
+            if(e.response && e.response.data.error === 'association_required'){
+                setLoginStep(2);
+                setLoading(false);
+            } else {
+                setMessage(e.response && e.response.data.error_description);
+                setLoading(false);
+            }
+        }
+    }
+    const verifyOtpCode = async () => {
+        setLoading(true);
+        setMessage('');
+        try {
+            const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, {
+                grant_type: 'http://auth0.com/oauth/grant-type/mfa-oob',
+                client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                mfa_token: mfaToken,
+                oob_code: oobCode,
+                binding_code: otpCode,
+            });
+            const res = data.data;
+            setLoading(false);
+            const decodedIdToken = jwt(res.id_token);
+            decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
+            decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
+            decodedIdToken.merchant_id = decodedIdToken[`${namespace}/merchant_id`];
+            decodedIdToken.beneficiary_id = decodedIdToken[`${namespace}/beneficiary_id`];
+            decodedIdToken.account_type = decodedIdToken[`${namespace}/account_type`];
+            decodedIdToken.merchant_type = decodedIdToken[`${namespace}/merchant_type`];
+            setUserData(decodedIdToken);
+            setToken(res);
+            let milliseconds = new Date().getTime();
+            // let expSec = sec + (res.expiresIn * 1000);
+            // TODO: change expires time on auth0 side
+            let expMiliSec = milliseconds + 3600000;
+            let expSec = expMiliSec / 1000;
+            setCookie('isToken', res.access_token,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
+            addDataToDatabase(decodedIdToken.merchant_id);
+            // Todo redirect to home page
+            history.push('/');
+        } catch (e) {
+            setLoading(false);
+            setMessage(e.response.data.error_description);
+        }
     }
     const validateFields = () => {
         errors.userName = '';
@@ -117,8 +173,62 @@ const Signin = () =>  {
           console.log('Error saving data to database!');
       }
     }
+    const enrollPhoneNumber = async () => {
+        setLoading(true);
+        let isValid = true;
+        let errorMessage = '';
+        setMessage('');
+        if (typeof phone !== "undefined") {
+            var pattern = new RegExp(/^[0-9\b]+$/);
+            if (!pattern.test(phone)) {
+                isValid = false;
+                errorMessage = "Please enter only number.";
+            }else if(phone.length < 12){
+                isValid = false;
+                errorMessage = "Please enter valid phone number with country code";
+            }
+        }
+        if(!isValid) {
+            setMessage(errorMessage);
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/associate`, {
+                client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+                client_secret: process.env.REACT_APP_CLIENT_SECRET,
+                authenticator_types: ["oob"],
+                oob_channels: ["sms"],
+                phone_number: phone,
+            }, {
+                headers: {Authorization: 'Bearer ' + mfaToken, 'Content-Type': 'application/json' }
+            });
+            setRecoveryCodes(prevState => data);
+            setOobCode(data.data.oob_code);
+            setLoading(false);
+            setLoginStep(1);
+        } catch (e) {
+            console.log('', e.response);
+            setLoading(false);
+        }
+    }
+    const handlePhChange = (ph) => {
+        setMessage('');
+        setPhone(ph);
+    }
+    const handleShowToast  = () => {
+        setShowToast(true);
+        setTimeout(() => {
+            setShowToast(false);
+        }, 1000);
+    }
     return (
         <div className="login-container">
+            {
+                showToast &&
+                    <Toast text="Message sent successfully" type="success" />
+            }
             <div className="row">
                 <div>
                     <h1>Welcome to Lucie.</h1>
@@ -126,48 +236,145 @@ const Signin = () =>  {
             </div>
             <br/>
             <br/>
-            <div className="row">
-                <div className="icon">
-                    <img src={BotUser} alt="Lucy" />
-                </div>
-                <div>
-                    <Input
-                        error={errors.userName}
-                        name="userName"
-                        type="text"
-                        value={userName}
-                        handleChange={setUserName}
-                        placeholder="Username"
-                    />
-                </div>
-            </div>
-            <br/>
-            <br/>
-            <div className="row">
-                <div className="icon">
-                    <img src={Key} alt="Lucy" />
-                </div>
-                <div>
-                    <Input
-                        error={errors.password}
-                        name="password"
-                        type="password"
-                        value={password}
-                        handleChange={setPassword}
-                        placeholder="Password"
-                    />
-                </div>
-            </div>
-            <br/>
-            <br/>
-            <div className="bottom-section-container">
-                <div className="bottom-section">
-                    <button className="confirm-btn" style={{width: '100%'}} onClick={signin}>
-                        {loading ? <Loader size="2rem" color="secondary"/> : 'Sign In'}
-                    </button>
-                </div>
-                <div></div>
-            </div>
+            {
+                loginStep === 0 &&
+                <React.Fragment>
+                    <div className="row">
+                        <div className="icon">
+                            <img src={BotUser} alt="Lucy"/>
+                        </div>
+                        <div>
+                            <Input
+                                error={errors.userName}
+                                name="userName"
+                                type="text"
+                                value={userName}
+                                handleChange={setUserName}
+                                placeholder="Username"
+                            />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div className="row">
+                        <div className="icon">
+                            <img src={Key} alt="Lucy"/>
+                        </div>
+                        <div>
+                            <Input
+                                error={errors.password}
+                                name="password"
+                                type="password"
+                                value={password}
+                                handleChange={setPassword}
+                                placeholder="Password"
+                            />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div className="bottom-section-container">
+                        <div className="bottom-section">
+                            <button className="confirm-btn" style={{width: '100%'}} onClick={signin}>
+                                {loading ? <Loader size="2rem" color="secondary"/> : 'Sign In'}
+                            </button>
+                        </div>
+                        <div></div>
+                    </div>
+                </React.Fragment>
+            }
+            {
+                loginStep === 1 &&
+                    <React.Fragment>
+                        <br/>
+                        <p style={{textAlign: 'center'}}>Please enter 6 digit code that you have received.</p>
+                        <br/>
+                        <div className="row">
+                            <div>
+                                <Input
+                                    // error={errors.otp}
+                                    className="code-input"
+                                    name="otpCode"
+                                    type="text"
+                                    value={otpCode}
+                                    handleChange={setOtpCode}
+                                    placeholder="6 digit code"
+                                />
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div className="bottom-section-container">
+                            <div className="bottom-section">
+                                <button className="confirm-btn" style={{width: '100%'}} onClick={verifyOtpCode}>
+                                    {loading ? <Loader size="2rem" color="secondary"/> : 'Verify Code'}
+                                </button>
+                            </div>
+                            <div></div>
+                        </div>
+                        <p style={{textAlign: 'center', color: '#5956E8', cursor: 'pointer'}} onClick={() => showCodePrompt(mfaToken)}>resend code</p>
+                    </React.Fragment>
+            }
+            {
+                loginStep === 2 &&
+                <React.Fragment>
+                    <br/>
+                    <p style={{textAlign: 'center'}}>Please register your mobile number for Two Factor Authentication</p>
+                    <br/>
+                    <div className="row">
+                        <div>
+                            <Input
+                                // error={errors.otp}
+                                className="code-input"
+                                name="phone"
+                                type="text"
+                                value={phone}
+                                handleChange={handlePhChange}
+                                placeholder="Enter you mobile number 4412341234"
+                            />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div className="bottom-section-container">
+                        <div className="bottom-section">
+                            <button className="confirm-btn" style={{width: '100%'}} onClick={enrollPhoneNumber}>
+                                {loading ? <Loader size="2rem" color="secondary"/> : 'Enroll Phone Number'}
+                            </button>
+                        </div>
+                        <div></div>
+                    </div>
+                </React.Fragment>
+            }
+            {
+                loginStep === 3 && //save recovery codes
+                <React.Fragment>
+                    <br/>
+                    <p style={{textAlign: 'center'}}>Please copy this recovery code</p>
+                    <br/>
+                    <div className="row">
+                        <div>
+                           <p>dddddddddddddddddddddd</p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div className="bottom-section-container">
+                        <div className="bottom-section">
+                            <button className="confirm-btn" style={{width: '100%'}} onClick={() => setLoginStep(1)}>
+                                {loading ? <Loader size="2rem" color="secondary"/> : 'Next'}
+                            </button>
+                        </div>
+                        <div></div>
+                    </div>
+                </React.Fragment>
+            }
             <div className="bottom-section-container">
                 <div className="bottom-section">
                     {
@@ -176,14 +383,16 @@ const Signin = () =>  {
                 </div>
                 <div></div>
             </div>
-
-            <div className="bottom-section-container">
-                <div className="bottom-section">
-                    <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>
-                        Forgot password?
-                    </p>
+            {
+                loginStep === 0 &&
+                <div className="bottom-section-container">
+                    <div className="bottom-section">
+                        <p className="link forget-password" style={{boxSizing: 'border-box'}} onClick={() => setModalIsOpen(true)}>
+                            Forgot password?
+                        </p>
+                    </div>
                 </div>
-            </div>
+            }
             <ForgetPassword
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
