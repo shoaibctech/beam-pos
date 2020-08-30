@@ -12,6 +12,8 @@ import Loader from '../../component/UI/Loader';
 import axios from 'axios';
 import './styles.css';
 import Toast from '../../component/UI/Toast';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 var webAuth = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -34,7 +36,7 @@ const Signin = () =>  {
     const [otpCode, setOtpCode] = useState('');
     const [mfaToken, setMfaToken] = useState('');
     const [oobCode, setOobCode] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState('44');
     const [recoveryCodes, setRecoveryCodes] = useState({});
     const [showToast, setShowToast] = useState(false);
 
@@ -182,7 +184,7 @@ const Signin = () =>  {
             var pattern = new RegExp(/^[0-9\b]+$/);
             if (!pattern.test(phone)) {
                 isValid = false;
-                errorMessage = "Please enter only number.";
+                errorMessage = "Please enter valid phone number.";
             }else if(phone.length < 12){
                 isValid = false;
                 errorMessage = "Please enter valid phone number with country code";
@@ -213,10 +215,7 @@ const Signin = () =>  {
             setLoading(false);
         }
     }
-    const handlePhChange = (ph) => {
-        setMessage('');
-        setPhone(ph);
-    }
+
     const handleShowToast  = () => {
         setShowToast(true);
         setTimeout(() => {
@@ -287,7 +286,7 @@ const Signin = () =>  {
                 loginStep === 1 &&
                     <React.Fragment>
                         <br/>
-                        <p style={{textAlign: 'center'}}>Please enter 6 digit code that you have received.</p>
+                        <p style={{textAlign: 'center'}}>We just sent you a verification code on your phone</p>
                         <br/>
                         <div className="row">
                             <div>
@@ -314,7 +313,10 @@ const Signin = () =>  {
                             </div>
                             <div></div>
                         </div>
-                        <p style={{textAlign: 'center', color: '#5956E8', cursor: 'pointer'}} onClick={() => showCodePrompt(mfaToken)}>resend code</p>
+                        <p style={{textAlign: 'center'}} onClick={() => showCodePrompt(mfaToken)}>
+                            <span>Didn't receive the code? </span>
+                            <span style={{ color: '#5956E8', cursor: 'pointer'}}>Resend</span>
+                        </p>
                     </React.Fragment>
             }
             {
@@ -323,20 +325,20 @@ const Signin = () =>  {
                     <br/>
                     <p style={{textAlign: 'center'}}>Please register your mobile number for Two Factor Authentication</p>
                     <br/>
+                    <br/>
                     <div className="row">
-                        <div>
-                            <Input
-                                // error={errors.otp}
-                                className="code-input"
-                                name="phone"
-                                type="text"
+                        <div style={{ width: 'calc(11vw + 268px)'}}>
+                            <PhoneInput
+                                country={'gb'}
+                                enableAreaCodes={true}
                                 value={phone}
-                                handleChange={handlePhChange}
-                                placeholder="Enter you mobile number 4412341234"
+                                onChange={phone => {
+                                    setMessage('');
+                                    setPhone(phone)
+                                }}
                             />
                         </div>
                     </div>
-                    <br/>
                     <br/>
                     <br/>
                     <br/>

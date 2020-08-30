@@ -1,3 +1,6 @@
 .code-input {
     width: calc(11vw + 268px) !important;
 }
+.react-tel-input .form-control {
+    width: 100% !important;
+}
