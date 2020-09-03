@@ -23,7 +23,7 @@ const Signup = () => {
         getMerchants();
     }, [])
 
-    const onSignup = () => {
+    const onSignup = async () => {
         let merchant = orgs.filter( org => org.contact.email1 === email)
         let account;
 
@@ -62,7 +62,7 @@ const Signup = () => {
             json: true
         };
 
-        request(options, function (error, response, body) {
+        request(options, async function (error, response, body) {
             if (error) throw new Error(error);
 
             if(body.statusCode === '400' || body.statusCode === 400 ){
@@ -77,10 +77,24 @@ const Signup = () => {
                 setErrors(data)
                 setLoading(false);
             } else  {
+                await saveMercahnt(account.id, account.name, account.id, '');
                 setLoading(false);
                 history.push('/');
             }
         });
+    }
+    const saveMercahnt = async (m_id, m_name, m_hash, m_logo ) => {
+        try {
+            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/create_merchant`, {
+                name: m_name,
+                logo: m_logo,
+                nuapay_merchant_id: m_id,
+                merchant_hash: m_hash
+            }, 'POST');
+            console.log('data ', req.data)
+        } catch (e) {
+            console.log('merchant fetching failed')
+        }
     }
     const getMerchants = async () => {
         try {
