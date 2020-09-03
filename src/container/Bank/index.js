@@ -292,7 +292,7 @@ const Bank = () => {
                                     {
                                         merchantType === 'charity' &&
                                         <div>
-                                            <h4>Gift Aid</h4>
+                                            <h4 style={{padding: '10px 0 0 10px'}}>Gift Aid</h4>
                                             <Checkbox
                                                 onChange={(e) => {
                                                     setTaxPayer(e.target.checked);
@@ -306,7 +306,7 @@ const Bank = () => {
                                                 checked={taxPayer}
                                                 color="primary"
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
-                                            /> Are you tax payer?
+                                            /> Are you a tax payer?
                                             { taxPayer &&
                                             <div className="tip-detail">
                                                 <div>
