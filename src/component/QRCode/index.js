@@ -181,8 +181,9 @@ const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
                                 </p>}
                                 { isLinkSent === 'failed' &&
                                 <p style={{color: '#5956e8', margin: '1rem 0', width: 'calc(25vw + 150px)'}}>
-                                    {error.twilio ? error.twilio : "Message service is currently down."} +
-                                        {/*"Please scan Qr Code or click 'Pay with Lucie.' button to continue."}*/}
+                                    {error.twilio ? error.twilio : "Message service is currently down." }
+                                    {merchantType === 'charity' ? "Please scan Qr Code to continue." :
+                                        "Please scan Qr Code or click 'Pay with Lucie.' button to continue."}
                                 </p>}
                             </div>
                         </div>
