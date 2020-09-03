@@ -1,0 +1,41 @@
+.charity-container {
+    background: white;
+    width: 50%;
+    border-radius: 5px;
+    margin: 1rem auto;
+    padding: 2rem;
+    /* border: 1px solid var(--step-border-color); */
+}
+.step-margin {
+    margin-left: 2rem;
+}
+@media (max-width: 768px) {
+    .charity-container {
+        background: white;
+        width: 80%;
+        margin: 3rem auto;
+        padding: 3rem;
+    }
+    .step-root {
+        width: 80% !important;
+        margin: 0;
+    }
+    .step-margin {
+        margin-left: 1rem;
+    }
+}
+@media (max-width: 520px) {
+    .charity-container {
+        background: white;
+        width: 90%;
+        margin: 3rem auto;
+        padding: 1.5rem;
+    }
+    .step-root {
+        width: 90% !important;
+        margin: 0;
+    }
+    .step-margin {
+        margin-left: 0;
+    }
+}

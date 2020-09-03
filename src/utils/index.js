@@ -60,7 +60,7 @@ export const makeRequest = async (url, data = {}, method) => {
         method,
         url,
         data,
-        headers: {'Authorization': 'Bearer ' + localStorage.getItem('auth_token'), 'content-type': 'application/json'}
+        headers: { 'content-type': 'application/json'}
     });
 }
 export const validateEmail = (email) => {

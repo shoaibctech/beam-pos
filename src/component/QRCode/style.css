@@ -8,6 +8,21 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+.qrButton{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+.qrImage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn-ok{
+    width: 210px !important;
+}
 
 .qrcode-heading {
     padding-top: 5px;
@@ -32,6 +47,12 @@ th, td {
         margin-left: auto;
         margin-right: auto;
     }
+}
+.img-loader-div {
+    height: 9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 tr:hover {background-color:#f5f5f5;}

@@ -56,7 +56,7 @@ const Header = () => {
        }
     }
     return(
-    location.pathname.substring(0, 6) === '/bank/' ?
+    location.pathname.substring(0, 6) === '/bank/' || location.pathname.includes('/ch/bank') ?
         <div></div>
     :
         <header className="header">

@@ -154,7 +154,6 @@ const Home =  () => {
     const getSuccessStep = (index) => {
         return successStep[index];
     };
-
     return(
         <main>
             {   loading &&
@@ -235,6 +234,7 @@ const Home =  () => {
                                             }   {
                                             index === 2  &&
                                             <QRCode
+                                                title={"Scan QR Code or click Pay button to start payment process."}
                                                 link={link}
                                                 isStatus={isStatus}
                                                 statusData={statusData}

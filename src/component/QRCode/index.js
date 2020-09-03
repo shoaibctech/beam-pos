@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../Payment/styles.css';
 import './style.css';
 import GreenTick from './img/tick-anim.svg';
-import RedTick from './img/forbidden.svg';
 import NoPayment from './img/no-payment.png';
 import { PaymentStatusMessage, PaymentStatusImage } from "../../utils/Constants/PaymentStatus";
-import { makeSecureRequest, getUserData } from "../../utils";
+import {makeSecureRequest, getUserData } from "../../utils";
 import Loader from "../UI/Loader";
+import GetAppIcon from '@material-ui/icons/GetApp';
+import MobileInput from "../UI/MobileInput";
 
-const QRCode = ({link, isStatus, statusData, amount}) => {
+const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
     const [isTick, setTick] = useState(false);
     const [phone, setPhone] = useState('');
     const [customer, setCustomer] = useState('');
     const [isLinkSending, setIsLinkSeding] = useState(false);
     const [isLinkSent, setIsLinkSent] = useState('');
     const [error, setError] = useState({phone: '', twilio: ''});
+    const [imgData, setImgData] = useState('');
+    const svgRef = useRef(null);
 
     useEffect(() => {
+        generateQrCode();
         setTimeout(() => {
             isStatus && setTick(true);
         }, 1200)
@@ -24,7 +28,10 @@ const QRCode = ({link, isStatus, statusData, amount}) => {
     const redirect = () => {
         console.log(link);
         window.open(link, '_blank');
-    };
+    }
+    const qrButton = async () =>{
+
+    }
     const validateFields = () => {
         let errors = {...error};
         if (!phone) {
@@ -42,6 +49,34 @@ const QRCode = ({link, isStatus, statusData, amount}) => {
             return false;
         }
     };
+    const generateQrCode = async () => {
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/ch`, {
+                merchantId: getUserData().merchant_id
+            },'POST');
+            convertSvgToJsxSvg(req.data.data);
+        } catch (e){
+            console.log('error :: ', e);
+        }
+    }
+    const convertSvgToJsxSvg = (data) => {
+        let qrcodeImg = data;
+        qrcodeImg = qrcodeImg.replace(/xmlns:xlink/g, 'xmlnsXlink');
+        qrcodeImg = qrcodeImg.replace(/xml:space/g, 'xmlSpace');
+        qrcodeImg = qrcodeImg.replace(/enable-background/g, 'enableBackground');
+        qrcodeImg = qrcodeImg.replace(/shape-rendering/g, 'shapeRendering');
+        const buff = new Buffer(qrcodeImg);
+        setImgData(buff);
+    }
+
+    const downloadQR = () => {
+        var gh = document.getElementById('qrCodeD').src;
+        var a  = document.createElement('a');
+        a.href = gh;
+        a.download = 'qrcode.svg';
+        a.click()
+    };
+
     const sendMessage = async () => {
         if (validateFields())
             return;
@@ -59,43 +94,65 @@ const QRCode = ({link, isStatus, statusData, amount}) => {
             setIsLinkSent('success');
         } catch (e) {
             if(e.response.data.error.includes("To"))
-            setError({
-                twilio: "Please enter a valid phone number",
-            });
+                setError({
+                    twilio: "Please enter a valid phone number",
+                });
             setIsLinkSeding(false);
             setIsLinkSent('failed');
         }
     };
+
     return (
         <div className="payment-module zero-padding-left zero-padding-right">
             {!isStatus ?
                 <div>
                     <div className="qrcode-heading">
-                        <h3>Scan QR Code or click Pay button to start payment process.</h3>
+                        <h3>{title}</h3>
                     </div>
                     <div className="qrcode-innerbox">
-                        <div id='svgCon' style={{width: '12rem', margin: '52px auto 3rem'}}>
-                        </div>
-                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                        { merchantType === 'charity' ?
+                            <div style= {{textAlign: 'center'}}>
+                                <div className="qrImage" >
+                                        <div style={{width: '12rem', margin: '52px auto 0rem'}} id="qrcodeDiv" >
+                                            {
+                                                imgData ?
+                                                    <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(imgData)}`} alt="Qr Code"/>
+                                                    :
+                                                   <div className="img-loader-div">
+                                                       <Loader />
+                                                   </div>
+                                            }
+                                        </div>
+                                    <button className="btn-ok" onClick={downloadQR} disabled={!imgData}>
+                                  <span  className="qrButton">
+                                      <GetAppIcon /> <span>Download QR Code</span>
+                                  </span>
+                                    </button>
+                                </div>
+                            </div>
+                            :
+                            <div id='svgCon' style={{width: '12rem', margin: '52px auto 3rem'}}>
+                            </div>
+                        }
+
+                        {merchantType !== "charity" && <div style={{display: 'flex', justifyContent: 'center'}}>
                             <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
                                 <span>Pay with <strong style={{fontSize: '25px'}}>Lucie.</strong></span>
                             </button>
-                        </div>
+                        </div>}
                     </div>
                     <div>
                         <div className="qrcode-innerbox">
                             <br/>
                             <div className="phone-field">
                                 <p><label>Phone No</label></p>
-                                <p>
-                                    <input
-                                        name="phone"
-                                        placeholder="Enter phone number"
-                                        value={phone}
-                                        type="text"
-                                        onChange={(e) => setPhone(e.target.value)}
-                                    />
-                                </p>
+                                <div>
+                                    <MobileInput
+                                        country="gb"
+                                        phone={phone}
+                                        setPhone={setPhone}
+                                        />
+                                </div>
                                 <p style={{color: 'red'}}>{error.phone ? error.phone : ''}</p>
                             </div>
                             <br/>

@@ -10,18 +10,21 @@ import ConnectBank from "./component/ConnectBank";
 import Transactions from "./container/Transactions";
 import PrivateRoute from "./component/PrivateRoute";
 import Signin from "./component/Signin";
+import Charity from "./container/Charity";
 
+import { getUserData } from "./utils";
 
 const MainRoute = () => {
     return(
         <div>
             <Switch>
-                <PrivateRoute path="/" exact component={Home} />
+                <PrivateRoute path="/" exact component={ getUserData() && getUserData().merchant_type === 'charity' ? Charity : Home} />
                 <Route path="/login" exact component={Signin}/>
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />
                 <Route path="/bank/:token"  component={Bank} />
+                <Route path="/ch/bank/:token"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
                 <PrivateRoute path="/transaction" exact component={Transactions}/>
