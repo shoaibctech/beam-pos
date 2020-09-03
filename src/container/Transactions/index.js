@@ -12,6 +12,7 @@ import { getUserData, makeSecureRequest } from "../../utils";
 import RefundModal from "../../component/RefundModal";
 import Loader from '../../component/UI/Loader';
 import { PaymentStatus } from "../../utils/Constants/PaymentStatus";
+import GiftAids from "../../component/GiftAids";
 
 import './styles.css';
 
@@ -35,7 +36,7 @@ const Transactions = () => {
     const [tabValue, setTabValue] = useState(0);
     const [index, setIndex] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const { account_type } = getUserData();
+    const { account_type, merchant_type } = getUserData();
 
     useEffect( () => {
         getPaymentsList();
@@ -104,9 +105,9 @@ const Transactions = () => {
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 { account_type !== 'basic' &&
-                    <td  style={{minWidth: '145px'}}>
-                        <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
-                    </td>
+                <td  style={{minWidth: '145px'}}>
+                    <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
+                </td>
                 }
             </tr>);
         });
@@ -153,6 +154,7 @@ const Transactions = () => {
                             >
                                 <Tab label="Payments" />
                                 <Tab label="Withdrawls" />
+                                {merchant_type === 'charity' && <Tab label="Gift Aids" />}
                             </Tabs>
                         </ThemeProvider>
                     </Paper>
@@ -184,48 +186,62 @@ const Transactions = () => {
                     </div>
                 </div>
             }
-            <h2 className="heading">Transactions Details</h2>
+
             {
+
                 tabValue === 0 &&
-                <div style={{overflowX: 'auto'}}>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th className="isHidden">Email</th>
-                            <th>Amount</th>
-                            <th>Currency</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Bank Name</th>
-                            {
-                                account_type !== 'basic' &&
-                                <th style={{minWidth: '145px'}}>Action</th>
+                <>
+                    <h2 className="heading">Transactions Details</h2>
+                    <div style={{overflowX: 'auto'}}>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th className="isHidden">Email</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Bank Name</th>
+                                {
+                                    account_type !== 'basic' &&
+                                    <th style={{minWidth: '145px'}}>Action</th>
+                                }
+                            </tr>
+                            </thead>
+                            <tbody>
+                            { !transError ? !isFetching ? paymentList  && paymentList.length > 0 ? renderTable(paymentList)
+                                : <tr rowSpan="4" style={{height: '10rem'}}>
+                                    <td colSpan="8" className="loading">No data found...</td>
+                                </tr>
+                                : <tr rowSpan="4" style={{height: '10rem'}}>
+                                    <td colSpan="8" className="loading"><Loader /></td>
+                                </tr> :''
                             }
-                        </tr>
-                        </thead>
-                        <tbody>
-                        { !transError ? !isFetching ? paymentList  && paymentList.length > 0 ? renderTable(paymentList)
-                            : <tr rowSpan="4" style={{height: '10rem'}}>
-                                <td colSpan="8" className="loading">No data found...</td>
-                            </tr>
-                            : <tr rowSpan="4" style={{height: '10rem'}}>
-                                <td colSpan="8" className="loading"><Loader /></td>
-                            </tr> :''
-                        }
-                        {
-                            !isFetching && transError &&
-                            <tr rowSpan="4" style={{height: '10rem'}}>
-                                <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                            {
+                                !isFetching && transError &&
+                                <tr rowSpan="4" style={{height: '10rem'}}>
+                                    <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </>
             }
             {
                 tabValue === 1 &&
-                <CreditTransferHistory />
+                <>
+                    <h2 className="heading">Transactions Details</h2>
+                    <CreditTransferHistory />
+                </>
+            }
+            {
+                tabValue === 2 &&
+                <>
+                    <h2 className="heading">Gift Aid Details</h2>
+                    <GiftAids />
+                </>
             }
             { isOpen &&
             <RefundModal paymentObj={paymentList[index]} onClose={onclose} isOpen={isOpen} />}
