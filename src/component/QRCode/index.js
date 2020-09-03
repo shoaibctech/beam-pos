@@ -9,7 +9,7 @@ import Loader from "../UI/Loader";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import MobileInput from "../UI/MobileInput";
 
-const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
+const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
     const [isTick, setTick] = useState(false);
     const [phone, setPhone] = useState('');
     const [customer, setCustomer] = useState('');
@@ -17,6 +17,7 @@ const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
     const [isLinkSent, setIsLinkSent] = useState('');
     const [error, setError] = useState({phone: '', twilio: ''});
     const [imgData, setImgData] = useState('');
+    const [linkToSend, setLink] = useState(link);
     const svgRef = useRef(null);
 
     useEffect(() => {
@@ -26,8 +27,8 @@ const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
         }, 1200)
     }, [isStatus]);
     const redirect = () => {
-        console.log(link);
-        window.open(link, '_blank');
+        console.log(linkToSend);
+        window.open(linkToSend, '_blank');
     }
     const qrButton = async () =>{
 
@@ -54,6 +55,7 @@ const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
             const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/ch`, {
                 merchantId: getUserData().merchant_id
             },'POST');
+            setLink(req.data.link);
             convertSvgToJsxSvg(req.data.data);
         } catch (e){
             console.log('error :: ', e);
@@ -84,7 +86,7 @@ const QRCode = ({link,title, isStatus, statusData, amount, merchantType}) => {
             setIsLinkSeding(true);
             const data = {
                 phoneNumber: `+${phone}`,
-                lucieUrl: link,
+                lucieUrl: linkToSend,
                 merchant: getUserData().name,
                 customer: customer,
                 amount
