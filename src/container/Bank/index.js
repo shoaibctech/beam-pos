@@ -20,7 +20,7 @@ const Bank = () => {
     const [tipAmount, setTipAmount] = useState('');
     const [totalAmount, setTotalAmount] = useState();
     const [tipError, setTipError] = useState('');
-    const [chAmount, setChAmount] = useState('');
+    const [chAmount, setChAmount] = useState(10);
     const [chAmountError, setChAmountError] = useState('');
     const [merchantType, setMerchantType] = useState('');
     const [merchantName, setMerchantName] = useState('');
