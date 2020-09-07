@@ -13,7 +13,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
     const [isTick, setTick] = useState(false);
     const [phone, setPhone] = useState('');
     const [customer, setCustomer] = useState('');
-    const [isLinkSending, setIsLinkSeding] = useState(false);
+    const [isLinkSending, setIsLinkSending] = useState(false);
     const [isLinkSent, setIsLinkSent] = useState('');
     const [error, setError] = useState({phone: '', twilio: ''});
     const [imgData, setImgData] = useState('');
@@ -21,7 +21,9 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
     const svgRef = useRef(null);
 
     useEffect(() => {
-        generateQrCode();
+        if(merchantType === 'charity')
+            generateQrCode();
+
         setTimeout(() => {
             isStatus && setTick(true);
         }, 1200)
@@ -83,23 +85,24 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
         if (validateFields())
             return;
         try {
-            setIsLinkSeding(true);
+            setIsLinkSending(true);
             const data = {
                 phoneNumber: `+${phone}`,
                 lucieUrl: linkToSend,
                 merchant: getUserData().name,
                 customer: customer,
-                amount
+                amount,
+                type: merchantType === 'charity' ? 'charity' : 'pos',
             };
             const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/send_lucie_link`, data, 'POST');
-            setIsLinkSeding(false);
+            setIsLinkSending(false);
             setIsLinkSent('success');
         } catch (e) {
             if(e.response.data.error.includes("To"))
                 setError({
                     twilio: "Please enter a valid phone number",
                 });
-            setIsLinkSeding(false);
+            setIsLinkSending(false);
             setIsLinkSent('failed');
         }
     };
