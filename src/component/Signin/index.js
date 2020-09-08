@@ -222,6 +222,8 @@ const Signin = () =>  {
             setShowToast(false);
         }, 1000);
     }
+
+    console.log('Environment :: ', process.env.REACT_APP_ENVIRONMENT);
     return (
         <div className="login-container">
             {
