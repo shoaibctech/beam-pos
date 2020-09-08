@@ -223,7 +223,7 @@ const Signin = () =>  {
         }, 1000);
     }
 
-    console.log('Environment :: ', process.env.REACT_APP_ENVIRONMENT);
+    console.log('Environment :: stage deployment ', process.env.REACT_APP_ENVIRONMENT);
     return (
         <div className="login-container">
             {
