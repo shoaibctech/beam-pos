@@ -1,4 +1,4 @@
-export const NUAPAY_LIVE_BANKS = [
+export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTION' ? [
     {
         "id": "qj29q69mxn",
         "uri": "/banks/qj29q69mxn",
@@ -219,15 +219,15 @@ export const NUAPAY_LIVE_BANKS = [
         ],
         "country": "GB"
     }
-    // ,
-    // {
-    //     "id": "8ow24y2pdx",
-    //     "uri": "/banks/8ow24y2pdx",
-    //     "name": "NUAPAY ASPSP",
-    //     "logo": "https://www.nuapay.com/wp-content/uploads/2018/04/nuapay.svg",
-    //     "supportedCurrencies": [
-    //         "GBP"
-    //     ],
-    //     "country": "GB"
-    // }
+] : [
+    {
+        "id": "8ow24y2pdx",
+        "uri": "/banks/8ow24y2pdx",
+        "name": "NUAPAY ASPSP",
+        "logo": "https://www.nuapay.com/wp-content/uploads/2018/04/nuapay.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB"
+    }
 ];
