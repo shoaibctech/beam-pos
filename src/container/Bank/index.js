@@ -182,6 +182,7 @@ const Bank = () => {
         }
     }
 
+    console.log('redeploying code ::');
     return (
         loading ?
             <div>
