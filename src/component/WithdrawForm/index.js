@@ -20,26 +20,26 @@ const customStyles = {
 
 const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [amount, setAmount] = useState(0);
-    const [isFetching, setIsFetcing] = useState(false);
+    const [amount, setAmount] = useState('');
+    const [isFetching, setIsFetching] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [amountExeedError, setAmountExeedError] = useState(false);
+    const [amountExceedError, setAmountExceedError] = useState(false);
 
     const onClose = () => {
         setIsOpen(false);
-        setIsFetcing(false);
+        setIsFetching(false);
         setError('');
         setMessage('');
-        setAmountExeedError(false);
+        setAmountExceedError(false);
         setAmount(0);
     }
     const createCreditTransfer = async () => {
         if(amount > balance){
-            setAmountExeedError(true);
+            setAmountExceedError(true);
             return;
         }
-        setIsFetcing(true);
+        setIsFetching(true);
         try {
 
             const data = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit_transfer`,
@@ -50,11 +50,11 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
 
             console.log('data :: ', data);
             setMessage('Your request for credit transfer has been submitted successfully.');
-            setIsFetcing(false);
+            setIsFetching(false);
             getBalance();
             setAmount(0);
         } catch (e) {
-            setIsFetcing(false);
+            setIsFetching(false);
             setError('There is error while creating credit transfer. Please try again later...');
         }
     }
@@ -70,31 +70,34 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
                 contentLabel="Withdraw Modal"
             >
                 <div className="modal-container-with-draw">
-                    <h2 className="withdraw-heading">Withdraw</h2>
-                    <p>Maximum amount that can be withdrawn is {balance.toFixed(2)} {currency}</p>
+                    { !message && !isFetching && <h2 className="withdraw-heading">Withdraw</h2>}
                     {
-                        !isFetching &&
-                        <div>
-                            <Input
-                                value={amount}
-                                handleChange={setAmount}
-                                placeholder="Enter value"
-                                type="number"
-                                className="with-draw-input"
-                            />
-                        </div>
+                        !isFetching && !message &&
+                        <>
+                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
+                            <div>
+                                <Input
+                                    value={amount}
+                                    handleChange={setAmount}
+                                    placeholder="Enter value"
+                                    type="number"
+                                    className="with-draw-input"
+                                />
+                            </div>
+                        </>
                     }
-                    {amountExeedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
+                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
                     <div>
                         {
-                            isFetching &&
+                            isFetching && !message &&
                             <div className="loader-footer">
                                 <Loader />
+                                <p>Connecting...</p>
                             </div>
                         }
                     </div>
                     {
-                        !isFetching &&
+                        !isFetching && !message &&
                         <div className="withdraw-btn-section">
                             <button className="btn-cancel" onClick={onClose}>Cancel</button>
                             <button
@@ -109,8 +112,13 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
 
                     <div>
                         { error && <p className="error_text">{error}</p>}
-                        { message && <p className="success_message">{message}</p>}
                     </div>
+                    { message &&
+                    <div className="success_msg_blk">
+                        <p className="success_message" style={{  margin: '20px'}}>{message}</p>
+                        <button className='btn-cancel' onClick={onClose}>Close</button>
+                    </div>
+                    }
                 </div>
             </Modal>
         </div>

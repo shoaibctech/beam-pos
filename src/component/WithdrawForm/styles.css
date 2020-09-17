@@ -4,3 +4,9 @@
 .withdraw-heading {
     margin-bottom: 2rem;
 }
+.success_msg_blk {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
