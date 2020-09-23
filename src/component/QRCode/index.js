@@ -90,6 +90,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
                 phoneNumber: `+${phone}`,
                 lucieUrl: linkToSend,
                 merchant: getUserData().name,
+                merchantId: getUserData().merchant_id,
                 customer: customer,
                 amount,
                 type: merchantType === 'charity' ? 'charity' : 'pos',
