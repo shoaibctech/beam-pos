@@ -11,6 +11,7 @@ const MobileInput = ({country = 'gb', phone, setPhone}) => {
           disableCountryCode={true}
           enableLongNumbers={true}
           onlyCountries={['gb', 'pk']}
+          placeholder="Customer phone number"
           value={phone}
           onChange={phone => setPhone(phone)}
       />
