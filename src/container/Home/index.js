@@ -134,7 +134,7 @@ const Home =  () => {
             }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
-            setPaymentToken(req.data.token);
+            setPaymentToken(code.data.token);
             localStorage.setItem('token', code.data.token);
             console.log(code);
 
