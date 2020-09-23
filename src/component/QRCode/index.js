@@ -85,10 +85,10 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
         if (validateFields())
             return;
         try {
-            console.log('1212token :: ', token);
             setIsLinkSending(true);
+            let parsedPhone = phone.charAt(0) === "0" ? phone.replace('0','44') : phone;
             const data = {
-                phoneNumber: phone.charAt(0) === "0" ? phone.replace('0','44') : phone,
+                phoneNumber: `+${parsedPhone}`,
                 lucieUrl: linkToSend,
                 merchant: getUserData().name,
                 merchantId: getUserData().merchant_id,
