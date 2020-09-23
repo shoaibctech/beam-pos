@@ -92,6 +92,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
                 merchant: getUserData().name,
                 merchantId: getUserData().merchant_id,
                 customer: customer,
+                token: localStorage.getItem('token'),
                 amount,
                 type: merchantType === 'charity' ? 'charity' : 'pos',
             };
