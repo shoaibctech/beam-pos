@@ -55,7 +55,7 @@ const Signin = () =>  {
             scope: 'openid user_metadata',
         }, (err, res) => {
             if(err) {
-                if( err.code === 'mfa_required'){
+                if( err.code === 'mfa_required') {
                     showCodePrompt(err.original.response.body.mfa_token);
                     setMfaToken(err.original.response.body.mfa_token);
                 } else {
@@ -112,18 +112,35 @@ const Signin = () =>  {
             decodedIdToken.merchant_type = decodedIdToken[`${namespace}/merchant_type`];
             setUserData(decodedIdToken);
             setToken(res);
+
             let milliseconds = new Date().getTime();
             // let expSec = sec + (res.expiresIn * 1000);
             // TODO: change expires time on auth0 side
             let expMiliSec = milliseconds + 3600000;
             let expSec = expMiliSec / 1000;
             setCookie('isToken', res.access_token,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
+            updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
             addDataToDatabase(decodedIdToken.merchant_id);
             // Todo redirect to home page
             history.push('/');
         } catch (e) {
             setLoading(false);
             setMessage(e.response.data.error_description);
+        }
+    }
+    const updateOrCreateMerchant = async (name, merchant_id, email, phone) => {
+        try {
+            const data = {
+                name: name,
+                nuapay_merchant_id: merchant_id,
+                merchant_hash: merchant_id,
+                email: email,
+                phone: phone && phone !== '44' ? `+${phone}` : '',
+            }
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/create_update`, data, 'POST');
+            console.log('req :: ', req.data);
+        } catch (e) {
+            console.log('Merchant update failed.')
         }
     }
     const validateFields = () => {
@@ -222,8 +239,7 @@ const Signin = () =>  {
             setShowToast(false);
         }, 1000);
     }
-
-    console.log('Environment :: ', process.env.REACT_APP_ENVIRONMENT);
+    
     return (
         <div className="login-container">
             {

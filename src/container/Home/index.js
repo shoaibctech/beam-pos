@@ -70,8 +70,8 @@ const Home =  () => {
 
     const steps = getSteps();
 
-    var pusherClient = new Pusher('08afbf07160d195dc8dd', {
-        cluster: 'ap2'
+    var pusherClient = new Pusher('ee6a3b9ff44cd2fdf60e', {
+        cluster: 'mt1'
     });
     setPusherClient(pusherClient);
 

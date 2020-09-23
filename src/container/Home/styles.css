@@ -124,6 +124,7 @@ label {
 }
 .loader {
     position: absolute;
+    z-index: 100;
     width: 100vw;
     min-width: 100vw;
     display: flex;
