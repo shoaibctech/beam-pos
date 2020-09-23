@@ -85,7 +85,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
         if (validateFields())
             return;
         try {
-            console.log('token :: ', token);
+            console.log('1212token :: ', token);
             setIsLinkSending(true);
             const data = {
                 phoneNumber: `+${phone}`,
