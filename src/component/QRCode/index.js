@@ -9,7 +9,7 @@ import Loader from "../UI/Loader";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import MobileInput from "../UI/MobileInput";
 
-const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
+const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}) => {
     const [isTick, setTick] = useState(false);
     const [phone, setPhone] = useState('');
     const [customer, setCustomer] = useState('');
@@ -85,6 +85,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
         if (validateFields())
             return;
         try {
+            console.log('token :: ', token);
             setIsLinkSending(true);
             const data = {
                 phoneNumber: `+${phone}`,
@@ -92,7 +93,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
                 merchant: getUserData().name,
                 merchantId: getUserData().merchant_id,
                 customer: customer,
-                token: localStorage.getItem('token'),
+                token: token,
                 amount,
                 type: merchantType === 'charity' ? 'charity' : 'pos',
             };
