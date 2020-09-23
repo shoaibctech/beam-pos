@@ -62,7 +62,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
         } catch (e){
             console.log('error :: ', e);
         }
-    }
+    };
     const convertSvgToJsxSvg = (data) => {
         let qrcodeImg = data;
         qrcodeImg = qrcodeImg.replace(/xmlns:xlink/g, 'xmlnsXlink');
@@ -71,7 +71,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
         qrcodeImg = qrcodeImg.replace(/shape-rendering/g, 'shapeRendering');
         const buff = new Buffer(qrcodeImg);
         setImgData(buff);
-    }
+    };
 
     const downloadQR = () => {
         var gh = document.getElementById('qrCodeD').src;
@@ -87,7 +87,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType}) => {
         try {
             setIsLinkSending(true);
             const data = {
-                phoneNumber: `+${phone}`,
+                phoneNumber: phone.charAt(0) === "0" ? phone.replace('0','44') : phone,
                 lucieUrl: linkToSend,
                 merchant: getUserData().name,
                 customer: customer,
