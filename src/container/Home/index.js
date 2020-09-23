@@ -63,6 +63,7 @@ const Home =  () => {
     const [qrCode, setQrCode] = useState();
     const [isFetching, setIsFetching] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState('');
+    const [paymentToken, setPaymentToken] = useState('');
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -133,6 +134,7 @@ const Home =  () => {
             }, 'POST');
             setQrCode(code.data.qrCode);
             setLink(code.data.link);
+            setPaymentToken(code.data.token);
             localStorage.setItem('token', code.data.token);
             console.log(code);
 
@@ -239,6 +241,7 @@ const Home =  () => {
                                                 isStatus={isStatus}
                                                 statusData={statusData}
                                                 amount={amount}
+                                                token={paymentToken}
                                             />
                                         }
                                         </div>
