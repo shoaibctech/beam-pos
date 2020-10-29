@@ -55,10 +55,15 @@ const Header = () => {
            console.log("Error removing data!");
        }
     }
-    return(
-    location.pathname.substring(0, 6) === '/bank/' || location.pathname.includes('/ch/bank') ?
-        <div></div>
-    :
+
+   if  (location.pathname.substring(0, 6) === '/bank/'
+       || location.pathname.includes('/ch/bank')
+       || location.pathname.includes('/thankyou')) {
+        return (
+            <div></div>
+        );
+    }
+    return (
         <header className="header">
             <div className="app-title">
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
@@ -80,7 +85,7 @@ const Header = () => {
                                 <strong>{userData.name}</strong>
                             </p>
                             <button className="logout_btn" onClick={logout}>
-                               <strong>Logout</strong>
+                                <strong>Logout</strong>
                             </button>
                         </div>
                         :

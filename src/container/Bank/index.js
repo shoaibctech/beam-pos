@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
@@ -9,6 +9,8 @@ import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Mark from './img/mark.jpg';
 import Checkbox from '@material-ui/core/Checkbox';
+import Pusher from "pusher-js";
+import {setPusherClient} from "react-pusher";
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -32,6 +34,21 @@ const Bank = () => {
 
     const { token } = useParams();
     const location = useLocation();
+    const history = useHistory();
+
+    var pusherClient = new Pusher('1082901f3f86c7a80080', {
+        cluster: 'mt1'
+    });
+    setPusherClient(pusherClient);
+
+    useEffect(() => {
+        const channel = pusherClient.subscribe('my-channel');
+        channel.bind('thankyou-page-event', function(data) {
+            if(data.token === token ) {
+                history.push('/thankyou');
+            }
+        });
+    }, []);
 
     const createPayment = async (bankId) => {
         try {
@@ -43,7 +60,7 @@ const Bank = () => {
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
                 });
-            // setLoading(false);
+            setLoading(false);
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             // console.log(e);

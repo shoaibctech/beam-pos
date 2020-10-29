@@ -11,6 +11,7 @@ import Transactions from "./container/Transactions";
 import PrivateRoute from "./component/PrivateRoute";
 import Signin from "./component/Signin";
 import Charity from "./container/Charity";
+import ThankYou from "./container/Thankyou";
 
 import { getUserData } from "./utils";
 
@@ -28,6 +29,7 @@ const MainRoute = () => {
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
                 <PrivateRoute path="/transaction" exact component={Transactions}/>
+                <Route path="/thankyou" exact component={ThankYou} />
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
