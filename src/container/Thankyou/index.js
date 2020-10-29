@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles.css';
+import { useHistory } from 'react-router-dom';
 
 const ThankYou = () => {
+    const history = useHistory();
+    useEffect(() => {
+        window.addEventListener("popstate", () => {
+            history.go(1);
+        });
+    }, []);
+
     return (
         <div className="detail-error">
             <div className="detail-error-block">
