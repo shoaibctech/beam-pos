@@ -36,8 +36,8 @@ const Bank = () => {
     const location = useLocation();
     const history = useHistory();
 
-    var pusherClient = new Pusher('1082901f3f86c7a80080', {
-        cluster: 'mt1'
+    var pusherClient = new Pusher('ac404fe517d1f318787a', {
+        cluster: 'ap2'
     });
     setPusherClient(pusherClient);
 
