@@ -25,7 +25,7 @@ const RefundStatus = {
 const PaymentStatusMessage = {
     PENDING: " is pending",
     PENDING_APPROVAL: "is pending.",
-    OAUTH_CALLBACK_COMPLETE: " has been completed successfully.",
+    OAUTH_CALLBACK_COMPLETE: " is in progress.",
     AUTHORISED: " has been authorised.",
     SETTLEMENT_PENDING: " is Pending.",
     SETTLEMENT_IN_PROGRESS: " is in settlement progress.",
