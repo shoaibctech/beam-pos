@@ -102,7 +102,7 @@ const Transactions = () => {
                 <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{PaymentStatus[payment.status]}</td>
-                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
+                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</td>
                 <td>{payment.debtorBankName}</td>
                 { account_type !== 'basic' &&
                 <td  style={{minWidth: '145px'}}>

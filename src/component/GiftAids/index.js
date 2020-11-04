@@ -36,7 +36,7 @@ const GiftAids = () => {
                 <td>{payment.address}</td>
                 <td>£{parseFloat(payment.amount).toFixed(2)}</td>
                 <td>{payment.payment_status}</td>
-                <td>{moment(payment.createdAt).format('DD-MM-YYYY hh:mm')}</td>
+                <td>{moment(payment.createdAt).format('DD-MM-YYYY HH:mm')}</td>
             </tr>);
         });
     }

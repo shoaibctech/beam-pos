@@ -68,7 +68,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
                 <td>{payment.refundAmount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{RefundStatus[payment.status]}</td>
-                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY hh:mm')}</td>
+                <td>{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</td>
             </tr>);
         });
     }

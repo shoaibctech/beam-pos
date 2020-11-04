@@ -116,8 +116,9 @@ const Signin = () =>  {
             let milliseconds = new Date().getTime();
             // let expSec = sec + (res.expiresIn * 1000);
             // TODO: change expires time on auth0 side
-            let expMiliSec = milliseconds + 3600000;
-            let expSec = expMiliSec / 1000;
+            // Set Expire time to one hour (60 minutes)
+            let expMiliSec = milliseconds + 3600000; // add one hour milli seconds to current time milli seconds
+            let expSec = expMiliSec / 1000; // divide milli seconds on 1000 to get seconds
             setCookie('isToken', res.access_token,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
             updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
             addDataToDatabase(decodedIdToken.merchant_id);
