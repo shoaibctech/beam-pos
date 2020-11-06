@@ -48,7 +48,7 @@ const Transactions = () => {
         setTransError('');
         try {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
-                {email: getUserData().email}, 'POST' );
+                {merchant_id: getUserData().merchant_id}, 'POST' );
             setIsFetching(false);
             const sortedData =  orderBy(paymentList.data.paymentList.data, ['creationDateTime'], ['desc']);
             setPaymentsList( prevState => ([...sortedData]));
