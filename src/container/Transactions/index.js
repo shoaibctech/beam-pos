@@ -98,12 +98,13 @@ const Transactions = () => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td  className="isHidden">{payment.email}</td>
+                <td>{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : 'N/A'}</td>
                 <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
+                <td>{payment.debtorBankName ? payment.debtorBankName : 'N/A'}</td>
+                <td  className="isHidden">{payment.email}</td>
                 <td>{PaymentStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</td>
-                <td>{payment.debtorBankName}</td>
                 { account_type !== 'basic' &&
                 <td  style={{minWidth: '145px'}}>
                     <button className="btn-refund" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
@@ -197,12 +198,13 @@ const Transactions = () => {
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th className="isHidden">Email</th>
+                                <th>Payer Name</th>
                                 <th>Amount</th>
                                 <th>Currency</th>
+                                <th>Bank Name</th>
+                                <th className="isHidden">Email</th>
                                 <th>Status</th>
                                 <th>Date</th>
-                                <th>Bank Name</th>
                                 {
                                     account_type !== 'basic' &&
                                     <th style={{minWidth: '145px'}}>Action</th>
