@@ -98,6 +98,7 @@ const Transactions = () => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
+                <td>{payment.id}</td>
                 <td>{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : 'N/A'}</td>
                 <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
@@ -198,6 +199,7 @@ const Transactions = () => {
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Payment Id</th>
                                 <th>Payer Name</th>
                                 <th>Amount</th>
                                 <th>Currency</th>
