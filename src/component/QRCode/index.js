@@ -145,7 +145,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
 
                         {merchantType !== "charity" && <div style={{display: 'flex', justifyContent: 'center'}}>
                             <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
-                                <span>Pay with <strong style={{fontSize: '25px'}}>Lucie.</strong></span>
+                                <span>Pay with <strong style={{fontSize: '25px'}}>beam.</strong></span>
                             </button>
                         </div>}
                     </div>
@@ -179,7 +179,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                             <br/>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <button className="pay-btn" onClick={sendMessage}>
-                                    {isLinkSending ? <Loader size="2rem" color="secondary"/> : 'Send LuciePay Link'}
+                                    {isLinkSending ? <Loader size="2rem" color="secondary"/> : <span>Send <strong style={{fontSize: '25px'}}>beam.</strong> Link</span>}
                                 </button>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center' }}>
