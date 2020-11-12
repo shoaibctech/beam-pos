@@ -4,7 +4,7 @@ import axios from "axios";
 import './style.css';
 import Loader from "react-loader-spinner";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
-import Logo from '../../component/Header/img/Lucie-default-padding.png';
+import Logo from '../../component/Header/img/Light-Logo.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Mark from './img/mark.jpg';

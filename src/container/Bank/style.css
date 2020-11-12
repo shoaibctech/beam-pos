@@ -166,11 +166,12 @@
     border-radius: 4px;
 }
 .bank-screen-logo {
-    width: 100%;
+    width: 80%;
 }
 .bank-screen-logo-container {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 1rem;
 }
 .payment-detail {
     display: flex;

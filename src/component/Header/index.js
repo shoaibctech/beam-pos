@@ -4,7 +4,7 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 // import Logo from './img/Junction-pos.png';
-import Logo from './img/Lucie-default.png';
+import Logo from './img/Light-Logo.png';
 
 import "./styles.css";
 import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../../utils";

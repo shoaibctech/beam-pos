@@ -145,7 +145,7 @@ const Signup = () => {
             <div className="login-container">
                 <div className="row">
                     <div>
-                        <h1>Welcome to Lucie.</h1>
+                        <h1>Welcome to beam.</h1>
                     </div>
                 </div>
                 <br/>
