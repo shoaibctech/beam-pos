@@ -67,7 +67,8 @@ const Bank = () => {
             // console.log(e.response);
             // console.log(e.response.data);
             setLoading(false);
-            setError(e.response.data.message);
+            // setError(e.response.data.message);
+            setError('Sorry, this bank is currently down. Please try again later');
             window.scrollTo(0, 0);
         }
     }
@@ -378,8 +379,8 @@ const Bank = () => {
                                         <h2 className="bank-heading">Choose your bank</h2>
                                     </div>
                                     {    error &&
-                                    <div className="error-block">
-                                        <p className="t-error" style={{textAlign: 'center'}}>{error}</p>
+                                    <div>
+                                        <p className="t-error">{error}</p>
                                     </div>
                                     }
 

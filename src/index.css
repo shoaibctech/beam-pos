@@ -29,7 +29,7 @@
 
     --success-text-color: #42b042de;
 
-    --text-error-color: #FA4259;
+    --text-error-color: red;
     --main-theme-color: #151B25;
 }
 input:-webkit-autofill,

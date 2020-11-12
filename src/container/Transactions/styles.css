@@ -70,6 +70,8 @@
 }
 .t-error {
     color: var(--text-error-color);
+    background: white;
+    padding: 10px;
     text-align: center;
 }
 .balance-sec {

@@ -98,7 +98,7 @@
 .error-block {
     padding: 5px;
     margin: 0 5px 10px;
-    border: 1px solid red;
+    border: 1px solid var(--text-error-color);
 }
 @media (max-width: 540px) {
     .list-banks {
