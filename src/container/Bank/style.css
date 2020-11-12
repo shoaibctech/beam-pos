@@ -1,10 +1,9 @@
 .list-banks-logo {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     cursor: pointer;
-    /*box-shadow: 0px 6px 9px 2px #ccc;*/
     border-radius: 6px;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 .loader {
     position: absolute;
@@ -28,12 +27,18 @@
 .bank-list-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     height: 30rem;
+    padding: 5px;
     overflow: scroll;
-    background-image: linear-gradient(to bottom,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.9)
-    100%);
+    /*background-image: linear-gradient(to bottom,*/
+    /*rgba(255, 255, 255, 0),*/
+    /*rgba(255, 255, 255, 0.9)*/
+    /*100%);*/
+}
+.bank-list-container::after {
+    content: "";
+    flex: auto;
 }
 .detail-error {
     background: var(--main-theme-color);
@@ -70,25 +75,22 @@
     scrollbar-width: none;  /* Firefox */
 }
 .list-banks {
-    width: 50%;
-}
-.list-banks:nth-child(odd) > h5 {
-    float: left;
-    margin-top: 8px;
+    box-sizing: border-box;
+    width: 29.33%;
     text-align: center;
-    width: 103px;
+    box-shadow: 1px 1px 6px 0 #888888;
+    margin: 10px 2px;
+    border-radius: 5px;
+    background: white;
 }
-.list-banks:nth-child(even) > h5 {
-    float: right;
-    margin-top: 8px;
+.list-banks:hover {
+    box-sizing: border-box;
+    border: 1px solid;
+}
+.list-banks > p {
+    font-size: 12px;
     text-align: center;
-    width: 103px;
-}
-.list-banks:nth-child(odd) {
-    text-align: left;
-}
-.list-banks:nth-child(even) {
-    text-align: right;
+    margin-bottom: -14px;
 }
 
 .error-block {
@@ -98,11 +100,14 @@
 }
 @media (max-width: 540px) {
     .list-banks {
-        width: 50%;
+        width: 29.33%;
+    }
+    .list-banks > p {
+        font-size: 10px;
     }
     .list-banks-logo {
-        height: 100px;
-        width: 100px;
+        height: 50px;
+        width: 80px;
     }
     .detail-error-block {
         width: 100%;
@@ -110,7 +115,7 @@
 }
 @media (min-width: 521px) and (max-width: 770px) {
     .list-banks {
-        width: 50% !important;
+        width: 29% !important;
         text-align: center;
         margin-top: 1rem;
     }
@@ -119,36 +124,44 @@
     }
 }
 .outer-container {
-    background-color: var(--main-theme-color);
+    background-image: url('img/bank-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
     width: 100%;
     min-height: 100vh;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
 }
 .inner-container {
-    background: white;
+    background: #ffffff59;
     width: 758px;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .inner-container-grid {
     display: grid;
     grid-template-columns: 45% 55%;
 }
 .left-section {
-    background: #F7F8FA;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    background: #f7f8fabd;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 .left-content {
     padding: 1rem 10px;
 }
 .right-content {
-    padding: 1rem 3rem;
+    padding: 1rem 1rem;
 }
 .bank-heading {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    padding: 9px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
 }
 .bank-screen-logo {
     width: 100%;
@@ -172,13 +185,7 @@
 .mobile-heading {
     display: none;
 }
-/*.reference-section {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    padding: 8px 10px;*/
-/*    margin-bottom: 1rem;*/
-/*    margin-top: 1rem;*/
-/*}*/
+
 .no-bank {
     margin: 10px;
     text-align: center;
@@ -211,6 +218,18 @@
         padding-top: 2rem;
     }
 }
+@media (max-width: 540px) {
+    .bank-list-container {
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 100%);
+    }
+    .right-content {
+        background-image: url('img/bank-bg.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+}
 
 @media (max-width: 1000px) {
     .detail-error-block {
@@ -239,24 +258,9 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
-    .list-banks {
-        width: 50%;
-    }
     .list-banks-logo {
-        height: 140px;
-        width: 140px;
-    }
-    .list-banks:nth-child(odd) > h5 {
-        float: left;
-        margin-top: 8px;
-        text-align: center;
-        width: 123px;
-    }
-    .list-banks:nth-child(even) > h5 {
-        float: right;
-        margin-top: 8px;
-        text-align: center;
-        width: 123px;
+        height: 80px;
+        width: 80px;
     }
 }
 
@@ -292,21 +296,15 @@
         margin-bottom: 0.5rem;
     }
     .bank-screen-logo-container {
-        margin-top: 0;
-        margin-bottom: 10px;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
     }
 }
 
 @media (max-width: 280px) {
     .list-banks-logo {
-        height: 80px;
-        width: 80px;
-    }
-    .list-banks:nth-child(odd) > h5 {
-        float: left;
-        margin-top: 8px;
-        text-align: center;
-        width: 80px;
+        height: 55px;
+        width: 60px;
     }
     .bank-heading {
         margin-top: 0.5rem;

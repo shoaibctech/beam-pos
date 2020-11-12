@@ -401,7 +401,7 @@ const Bank = () => {
                                                         alt={bank.logo}
                                                         onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : createPayment(bank.id)}
                                                     />
-                                                    <h5>{bank.name}</h5>
+                                                    <p>{bank.name}</p>
                                                     <br/>
                                                 </div>
                                             ))}
