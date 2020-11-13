@@ -273,7 +273,7 @@
         padding-bottom: 0;
     }
     .inner-container {
-        background: white;
+        background: #ffffff59;
         width: 100%;
         margin: 0 auto;
         border-radius: 0;
@@ -283,7 +283,7 @@
         grid-template-columns: 100%;
     }
     .left-section {
-        background: #F7F8FA;
+        background: #f7f8fabd;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
