@@ -19,10 +19,10 @@
     backdrop-filter: blur(4px);
 }
 .bank-bg-color {
-    background: var(--main-theme-color);
+    background: white;
 }
 .bank-bg-color h3 {
-    color: var(--main-bg-color);
+    color: black;
 }
 .bank-list-container {
     display: flex;

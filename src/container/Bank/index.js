@@ -207,7 +207,7 @@ const Bank = () => {
                 {loading &&
                 <div className="loader bank-bg-color">
                     <div id="loaderdiv">
-                        <Loader type="Oval" color="#5956e8" height={100} width={100}/>
+                        <Loader type="Oval" color="#000000" height={100} width={100}/>
                     </div>
                     <div>
                         <h3>Connecting...</h3>
