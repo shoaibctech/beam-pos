@@ -11,6 +11,7 @@ import Mark from './img/mark.jpg';
 import Checkbox from '@material-ui/core/Checkbox';
 import Pusher from "pusher-js";
 import {setPusherClient} from "react-pusher";
+import AntiClockLoader from '../../component/UI/AnitClockLoader';
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ const Bank = () => {
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
                 });
-            setLoading(false);
+            // setLoading(false);
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
         } catch (e) {
             // console.log(e);
@@ -206,12 +207,10 @@ const Bank = () => {
             <div>
                 {loading &&
                 <div className="loader bank-bg-color">
-                    <div id="loaderdiv">
-                        <Loader type="Oval" color="#000000" height={100} width={100}/>
-                    </div>
-                    <div>
-                        <h3>Connecting...</h3>
-                    </div>
+                    {/*<div id="loaderdiv">*/}
+                    {/*    /!*<Loader type="Oval" color="#000000" height={100} width={100}/>*!/*/}
+                    {/*</div>*/}
+                    <AntiClockLoader  message="Connecting..." color="black"/>
                 </div>
                 }
             </div>
@@ -371,6 +370,20 @@ const Bank = () => {
                                     {/*    <p>Reference</p>*/}
                                     {/*    <p><strong>Reference</strong></p>*/}
                                     {/*</div>*/}
+                                    {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
+                                    <div className="flow-steps">
+                                            <div><span className="step-mark">1</span> Connect to bank</div>
+                                            <div><span className="step-mark">2</span> Authorize your payment</div>
+                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                        </div>
+                                    }
+                                    <div className="rule-conduct">
+                                        <p>
+                                            Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                            who are authorised by the Financial Conduct Authority under the Payment
+                                            Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div>

@@ -29,6 +29,7 @@
 .mark {
     width: 200px;
     background-color: white !important;
+    margin: 1rem 0;
 }
 
 .text {
@@ -45,7 +46,7 @@
 
 @media (max-width: 540px) {
     .detail-error-block {
-        width: 70%;
+        width: 80%;
     }
     .text {
         margin-left: 0;
