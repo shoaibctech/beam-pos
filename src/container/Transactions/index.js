@@ -36,6 +36,10 @@ const Transactions = () => {
     const [tabValue, setTabValue] = useState(0);
     const [index, setIndex] = useState();
     const [isOpen, setIsOpen] = useState(false);
+    const [paymentId, setPaymentId] = useState('');
+    const [isSearching, setIsSearching] = useState(true);
+    const [searchData, setSearchData] = useState([]);
+
     const { account_type, merchant_type } = getUserData();
 
     useEffect( () => {
@@ -46,6 +50,7 @@ const Transactions = () => {
     const getPaymentsList = async () => {
         setIsFetching(true);
         setTransError('');
+        setIsSearching(false);
         try {
             const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
                 {merchant_id: getUserData().merchant_id}, 'POST' );
@@ -72,7 +77,7 @@ const Transactions = () => {
         } catch (e) {
             console.log('transssssssssssssssssssssss ', e);
             setIsFetching(false);
-            setTransError('RefundModal transaction request failed...')
+            setTransError('Refund transaction request failed...');
         }
     }
 
@@ -140,6 +145,30 @@ const Transactions = () => {
         }
     };
 
+    const getPaymentDetail = async () => {
+        if (!paymentId)
+            return;
+
+        setIsFetching(true);
+        setIsSearching(true);
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
+                {
+                    paymentId: paymentId,
+                    merchantId: getUserData().merchant_id
+                }, 'POST');
+            const data = [req.data.paymentDetail]
+            setSearchData(data);
+            console.log('payment Detail :: ', data);
+            setIsFetching(false);
+        } catch (e) {
+            setIsFetching(false);
+            setSearchData([]);
+           console.log(e);
+           e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
+        }
+    }
+
     return (
         <div className="transaction">
             {
@@ -193,7 +222,17 @@ const Transactions = () => {
 
                 tabValue === 0 &&
                 <>
-                    <h2 className="heading">Transactions Details</h2>
+                   <div className="tr-top-box">
+                       <h2 className="heading">Transactions Details</h2>
+                       <div className="search-container">
+                           <input type="text" value={paymentId} onChange={e => {
+                               setPaymentId(e.target.value);
+                               if (!e.target.value)
+                                   setIsSearching(false);
+                           }} placeholder="Enter payment id"/>
+                           <button onClick={getPaymentDetail}>Search</button>
+                       </div>
+                   </div>
                     <div style={{overflowX: 'auto'}}>
                         <table>
                             <thead>
@@ -214,13 +253,25 @@ const Transactions = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            { !transError ? !isFetching ? paymentList  && paymentList.length > 0 ? renderTable(paymentList)
-                                : <tr rowSpan="4" style={{height: '10rem'}}>
-                                    <td colSpan="8" className="loading">No data found...</td>
+                            { !transError && !isFetching && !isSearching && paymentList  && paymentList.length > 0 ?
+                                renderTable(paymentList)
+                                : !isFetching && !isSearching && <tr rowSpan="4" style={{height: '10rem'}}>
+                                <td colSpan="10" className="loading">No results found</td>
+                            </tr>
+
+                            }
+                            {
+                                 !isFetching && isSearching  && searchData  && searchData.length > 0 ?
+                                     renderTable(searchData)
+                                     : !isFetching && isSearching && <tr rowSpan="4" style={{height: '10rem'}}>
+                                     <td colSpan="10" className="loading">No payment details found against <strong>{paymentId}</strong></td>
+                                 </tr>
+                            }
+                            {
+                                isFetching &&
+                                <tr rowSpan="4" style={{height: '10rem'}}>
+                                    <td colSpan="10" className="loading"><Loader /></td>
                                 </tr>
-                                : <tr rowSpan="4" style={{height: '10rem'}}>
-                                    <td colSpan="8" className="loading"><Loader /></td>
-                                </tr> :''
                             }
                             {
                                 !isFetching && transError &&

@@ -122,6 +122,29 @@
 .btn-withdraw-block {
     width: 10rem;
 }
+.tr-top-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.search-container > button {
+    background: var(--main-bg-color);
+    color: var(--btn-txt-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid ghostwhite;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
 @media (max-width: 540px) {
     .top-container {
         flex-direction: column;
@@ -167,6 +190,12 @@
     }
     .balance-block {
         text-align: right;
+    }
+    .tr-top-box {
+        flex-direction: column;
+    }
+    .search-container {
+        width: 100%;
     }
 }
 

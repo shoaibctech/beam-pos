@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-.detail-error-block {
+.thankyou-container {
     background: white;
     width: 50%;
     height: 100%;
@@ -17,46 +17,33 @@
     align-items: center;
     border-radius: 6px;
 }
-
-.mr-1 {
-    margin: 1rem auto;
-}
-
-.text-center {
-    text-align: center;
+.thankyou-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .mark {
     width: 200px;
     background-color: white !important;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 
-.text {
-    /* color: #fa4259; */
-    margin-left: 10px;
-    padding-left: 10px;
-}
 
 @media (max-width: 1000px) {
-    .detail-error-block {
+    .thankyou-container {
         width: 85%;
     }
 }
 
 @media (max-width: 540px) {
-    .detail-error-block {
-        width: 80%;
-    }
-    .text {
-        margin-left: 0;
-        padding-left: 0;
-        font-size: 20px;
+    .thankyou-container {
+        width: 85%;
     }
 }
 
 @media (min-width: 521px) and (max-width: 770px) {
-    .detail-error-block {
+    .thankyou-container {
         width: 80%;
     }
 }
