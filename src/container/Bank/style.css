@@ -309,7 +309,7 @@
 
 @media (max-width: 540px) {
     .outer-container {
-        background-image: url('img/bank-bg-mobile.jpg');
+        background-image: url('img/bank-bg-mobile-x.jpg');
         background-repeat: no-repeat;
         background-position: center center;
         background-attachment: fixed;
