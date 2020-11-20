@@ -245,7 +245,7 @@
 }
 @media (min-width: 768px) {
     .outer-container {
-        background-color: var(--main-theme-color);
+        /*background-color: var(--main-theme-color);*/
         width: 100%;
         min-height: 100vh;
         height: 100vh;
@@ -309,7 +309,7 @@
 
 @media (max-width: 540px) {
     .outer-container {
-        background-image: url('img/bank-bg-mobile-x.jpg');
+        background-image: url('img/bank-bg-mobile.jpg');
         background-repeat: no-repeat;
         background-position: center center;
         background-attachment: fixed;
