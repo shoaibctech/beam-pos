@@ -126,7 +126,7 @@
     }
 }
 .outer-container {
-    background-image: url('img/bank-bg.jpg');
+    background-image: url('img/bank-bg-mobile.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -309,6 +309,11 @@
 
 @media (max-width: 540px) {
     .outer-container {
+        background-image: url('img/bank-bg-mobile.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
         padding-top: 0;
         padding-bottom: 0;
     }
