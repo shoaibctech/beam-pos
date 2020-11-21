@@ -68,7 +68,14 @@ const Bank = () => {
             // console.log(e.response);
             // console.log(e.response.data);
             setLoading(false);
-            e.response.data.ErrorCode === 101 ? setError(e.response.data.message) : setError('Sorry, this bank is currently down. Please try again later');
+            switch (e.response.data.ErrorCode) {
+                case 101:
+                    setError(e.response.data.message);
+                    break;
+                default:
+                    setError("Sorry, currently we can\'t process your request. Please try again later");
+                    // setError('Sorry, this bank is currently down. Please try again later');
+            }
             window.scrollTo(0, 0);
         }
     }
