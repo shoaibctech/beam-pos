@@ -27,6 +27,7 @@ const Signup = () => {
     const onSignup = async () => {
         let merchant = orgs.filter( org => org.contact.email1 === email)
         let account;
+        setIsSignedUp(false);
 
         if (!validateForm()) {
             return;
