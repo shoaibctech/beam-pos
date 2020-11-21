@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
@@ -18,6 +18,7 @@ const Signup = () => {
     const [errors, setErrors] = useState({email:'', password:'', conPassword:'', merchantId: '', status: ''});
     const [orgs, setOrgs] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isSignedUp, setIsSignedUp] = useState(false);
 
     useEffect( () => {
         getMerchants();
@@ -40,6 +41,12 @@ const Signup = () => {
         }
 
         setLoading(true);
+
+        //check if merchant is enhanced (have Nuapay bank account)
+        const enhancedData = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/account/enhanced`, {
+            merchantId: account.id
+        }, 'POST');
+
         var options = {
             method: 'POST',
             url: 'https://dev-1e11vioj.eu.auth0.com/dbconnections/signup',
@@ -54,7 +61,7 @@ const Signup = () => {
                     merchant_id: account.id,
                     first_name: account.contact.firstName,
                     last_name: account.contact.lastName,
-                    account_type: "basic",
+                    account_type: enhancedData.data.enhanced ? 'enhanced' : 'basic',
                     beneficiary_id: "",
                     merchant_type: "nontip"
                 }
@@ -79,7 +86,8 @@ const Signup = () => {
             } else  {
                 await saveMercahnt(account.id, account.name, account.id, '');
                 setLoading(false);
-                history.push('/');
+                // history.push('/');
+                setIsSignedUp(true);
             }
         });
     }
@@ -217,6 +225,12 @@ const Signup = () => {
                     </div>
                     <div></div>
                 </div>
+                {
+                    isSignedUp &&
+                    <div className="bottom-section-container">
+                        <p className="mr-1" style={{color: "green"}}>You account has been registered. <Link to="/">Login</Link></p>
+                    </div>
+                }
                 <div className="bottom-section-container">
                     <div className="bottom-section">
                         {
