@@ -84,18 +84,19 @@ const Signup = () => {
                 setErrors(data)
                 setLoading(false);
             } else  {
-                await saveMercahnt(account.id, account.name, account.id, '');
+                await saveMerchant(account.id, account.name, account.id, '');
                 setLoading(false);
                 // history.push('/');
                 setIsSignedUp(true);
             }
         });
     }
-    const saveMercahnt = async (m_id, m_name, m_hash, m_logo ) => {
+    const saveMerchant = async (m_id, m_name, m_hash, m_logo ) => {
         try {
-            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/create_merchant`, {
+            const req =  await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/create_update`, {
                 name: m_name,
                 logo: m_logo,
+                email: email,
                 nuapay_merchant_id: m_id,
                 merchant_hash: m_hash
             }, 'POST');
