@@ -57,7 +57,7 @@ input[type=text], input[type=password], input[type=number], input[type=email] {
     outline: 0;
     padding: 2px 0 2px 9px;
     border: 1px solid var(--input-border-color);
-    border-radius: 4px;
+    border-radius: 0;
     height: 44px;
     font-size: 16px;
     color: #333;
@@ -260,9 +260,8 @@ label {
     -webkit-flex-direction: row;
     -webkit-align-items: center;
     -webkit-justify-content: space-around;
-
     border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
     margin: 10px 0;
     padding: 10px 15px;

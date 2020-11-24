@@ -21,7 +21,7 @@
     background: var(--main-bg-color);
     color: var(--btn-txt-color);
     border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
     font-size: 15px;
     width: 90%;
@@ -132,18 +132,16 @@
     justify-content: flex-end;
 }
 .search-container > button {
-    background: var(--main-bg-color);
-    color: var(--btn-txt-color);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid ghostwhite;
-    border-radius: 6px;
-    cursor: pointer;
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
+}
+.load-more {
+    margin: 20px auto;
 }
 @media (max-width: 540px) {
     .top-container {

@@ -78,7 +78,7 @@
     align-items: center;
     justify-content: space-around;
     border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
     margin: 10px 0;
     padding: 10px 15px;
@@ -108,6 +108,7 @@
 }
 .confirm-btn:hover {
     border: 1px solid lightgrey;
+    background: var(--btn-bg-hover-color);
 }
 .confirm-btn img {
     width: 25px;

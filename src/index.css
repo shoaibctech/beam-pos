@@ -8,7 +8,10 @@
     --secondary-bg-color: #151B25;
     --main-txt-color: white;
     --upload-bg-color: #f0f0f0;
+
     --btn-txt-color: white;
+    --btn-bg-color: #5956E8;
+    --btn-bg-hover-color: #3d39ec;;
 
     --input-hover-color: #151B25;
     --input-border-color: lightgrey;
@@ -85,6 +88,19 @@ input[type=number] {
 }
 .theme-link {
     color: var(--main-theme-color);
+}
+.btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+}
+.btn-primary {
+    color: var(--btn-txt-color);
+    background: var(--btn-bg-color);
+}
+.btn-primary:hover {
+    background: var(--btn-bg-hover-color);
 }
 
 @media (max-width: 768px) {

@@ -29,6 +29,8 @@ const theme = createMuiTheme({
 
 const Transactions = () => {
     const [paymentList, setPaymentsList] = useState([]);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [isLastPage, setIsLastPage] = useState(false);
     const [transError, setTransError] = useState('');
     const [isFetching, setIsFetching] = useState(false);
     const [balance, setBalance] = useState([]);
@@ -47,19 +49,28 @@ const Transactions = () => {
         getBalance();
     }, []);
 
-    const getPaymentsList = async () => {
+    const getPaymentsList = async (page = 1) => {
         setIsFetching(true);
         setTransError('');
         setIsSearching(false);
         try {
-            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
-                {merchant_id: getUserData().merchant_id}, 'POST' );
-            setIsFetching(false);
-            const sortedData =  orderBy(paymentList.data.paymentList.data, ['creationDateTime'], ['desc']);
-            setPaymentsList( prevState => ([...sortedData]));
+            const paymentListReq = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
+                {
+                    merchant_id: getUserData().merchant_id,
+                    pageNumber: page,
+                }, 'POST' );
 
+            setIsFetching(false);
+            const sortedData =  orderBy(paymentListReq.data.paymentList.data, ['creationDateTime'], ['desc']);
+            if (page === paymentListReq.data.paymentList.page.totalPages){
+                setIsLastPage(true);
+            }
+            if (page === 1){
+                setPaymentsList( prevState => ([...sortedData]));
+            } else {
+                setPaymentsList( prevState => ([...paymentList,...sortedData]));
+            }
         } catch (e) {
-            console.log('transssssssssssssssssssssss ', e);
             setIsFetching(false);
             setTransError('Transaction request failed...')
         }
@@ -169,6 +180,10 @@ const Transactions = () => {
         }
     }
 
+    const handleNextPage = () => {
+        setPageNumber(pageNumber + 1);
+        getPaymentsList(pageNumber + 1);
+    }
     return (
         <div className="transaction">
             {
@@ -230,7 +245,7 @@ const Transactions = () => {
                                if (!e.target.value)
                                    setIsSearching(false);
                            }} placeholder="Enter payment id"/>
-                           <button onClick={getPaymentDetail}>Search</button>
+                           <button className="btn btn-primary" onClick={getPaymentDetail}>Search</button>
                        </div>
                    </div>
                     <div style={{overflowX: 'auto'}}>
@@ -253,12 +268,13 @@ const Transactions = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            { !transError && !isFetching && !isSearching && paymentList  && paymentList.length > 0 ?
+                            { !transError && !isSearching && paymentList  && paymentList.length > 0 &&
                                 renderTable(paymentList)
-                                : !isFetching && !isSearching && <tr rowSpan="4" style={{height: '10rem'}}>
-                                <td colSpan="10" className="loading">No results found</td>
-                            </tr>
-
+                            }
+                            {
+                                !isFetching && !isSearching && paymentList  && paymentList.length < 1 && <tr rowSpan="4" style={{height: '10rem'}}>
+                                    <td colSpan="10" className="loading">No results found</td>
+                                </tr>
                             }
                             {
                                  !isFetching && isSearching  && searchData  && searchData.length > 0 ?
@@ -281,6 +297,12 @@ const Transactions = () => {
                             }
                             </tbody>
                         </table>
+                        {
+                            !isFetching && !isLastPage &&
+                            <div className="text-center load-more">
+                                <button className="btn btn-primary" onClick={handleNextPage}>Load More</button>
+                            </div>
+                        }
                     </div>
                 </>
             }

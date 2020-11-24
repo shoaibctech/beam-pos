@@ -102,12 +102,15 @@
     align-items: center;
     justify-content: space-around;
     border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
     margin: 35px 0 10px 0;
     padding: 10px 15px;
     width: calc(27vw + 150px);
     font-size: 20px;
+}
+.pay-btn:hover {
+    background: var(--btn-bg-hover-color);
 }
 .content-text {
     margin-left: 14px;
