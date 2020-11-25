@@ -272,6 +272,10 @@
         /*background-attachment: fixed;*/
         /*background-size: cover;*/
     }
+    .info-icon {
+        display: block;
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 1000px) {

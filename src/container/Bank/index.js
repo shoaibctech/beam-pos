@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
-import Loader from "react-loader-spinner";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 import Logo from '../../component/Header/img/Light-Logo.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
-import Mark from './img/mark.jpg';
 import Checkbox from '@material-ui/core/Checkbox';
 import Pusher from "pusher-js";
 import {setPusherClient} from "react-pusher";
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
+import isMobile from '../../utils/MobileCheck';
 
 const Bank = () => {
     const [loading, setLoading] = useState(false);
@@ -61,8 +60,13 @@ const Bank = () => {
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
                 });
-            // setLoading(false);
-            window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
+           const windowObjectReference = await window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
+           console.log('windowObjectReference :: ', windowObjectReference);
+           console.log('isMobile.any() :: ', isMobile.any());
+            if (isMobile.any()){
+                console.log('mobile device :: ', isMobile.Android());
+                setLoading(false);
+            }
         } catch (e) {
             // console.log(e);
             // console.log(e.response);
@@ -207,7 +211,6 @@ const Bank = () => {
         }
     }
 
-    console.log('redeploying code ::');
     return (
         loading ?
             <div>
@@ -227,7 +230,7 @@ const Bank = () => {
                         <div className="text-center">
                             {/*<img className="mark" src={Mark} alt="mark" />*/}
                             <h2 className="error_text text-center mr-1">
-                                <i className="fas fa-info-circle"></i>  Sorry, the payment link is either used or expired.
+                                <span className="info-icon"><i className="fas fa-info-circle"></i></span>  Sorry, the payment link is either used or expired.
                             </h2>
                             <p className="text-center mr-1">
                                 Please go back to your merchant for assistance.
