@@ -225,13 +225,12 @@ const Bank = () => {
                 <div className="detail-error">
                     <div className="detail-error-block">
                         <div className="text-center">
-                            <img className="mark" src={Mark} alt="mark" />
+                            {/*<img className="mark" src={Mark} alt="mark" />*/}
                             <h2 className="error_text text-center mr-1">
-                                Sorry, we are not able to process your payment at the moment.
+                                <i className="fas fa-info-circle"></i>  Sorry, the payment link is either used or expired.
                             </h2>
                             <p className="text-center mr-1">
-                                Please go back to your merchant for assistance. We will resolve this issue as soon as possible
-                                so that you can try again.
+                                Please go back to your merchant for assistance.
                             </p>
                         </div>
                     </div>

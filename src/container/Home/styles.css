@@ -92,8 +92,7 @@ label {
 .bottom-section input[type=button] {
     background-color: var(--main-bg-color);
     color: var(--btn-txt-color);
-    border-radius: 2px;
-    border: 1px;
+    border-radius: 0;
     width: calc(10vw + 224px);
     padding: 10px 20px ;
     margin: 10px;
@@ -251,6 +250,7 @@ label {
 }
 .confirm-btn {
     background: var(--main-bg-color);
+    border: none;
     color: var(--btn-txt-color);
     display: flex;
     flex-direction: row;
@@ -260,8 +260,6 @@ label {
     -webkit-flex-direction: row;
     -webkit-align-items: center;
     -webkit-justify-content: space-around;
-    border: 1px solid ghostwhite;
-    border-radius: 0;
     cursor: pointer;
     margin: 10px 0;
     padding: 10px 15px;
