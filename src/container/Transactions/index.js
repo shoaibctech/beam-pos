@@ -285,7 +285,7 @@ const Transactions = () => {
                             }
                             {
                                 isFetching &&
-                                <tr rowSpan="4" style={{height: '10rem'}}>
+                                <tr rowSpan="4" style={{height: '7rem'}}>
                                     <td colSpan="10" className="loading"><Loader /></td>
                                 </tr>
                             }
