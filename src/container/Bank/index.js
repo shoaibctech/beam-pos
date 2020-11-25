@@ -60,12 +60,13 @@ const Bank = () => {
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
                 });
-           const windowObjectReference = await window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
-           console.log('windowObjectReference :: ', windowObjectReference);
-           console.log('isMobile.any() :: ', isMobile.any());
-            if (isMobile.any()){
-                console.log('mobile device :: ', isMobile.Android());
-                setLoading(false);
+            //load payment link
+            window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
+
+            if (!isMobile.any()){
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
             }
         } catch (e) {
             // console.log(e);
