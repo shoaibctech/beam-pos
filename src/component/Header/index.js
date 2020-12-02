@@ -77,7 +77,7 @@ const Header = () => {
                     }
                 </div>
             </div>
-            { userData.merchant_type !== 'charity' &&
+            { userData && userData.merchant_type !== 'charity' &&
                 <div>
                     <div className="nav-link">
                         { cookies.isToken && checkToken() &&
