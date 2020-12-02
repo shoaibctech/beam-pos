@@ -68,15 +68,26 @@ const Header = () => {
             <div className="app-title">
                 <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
             </div>
-            <div>
+            <div className="app-title">
                 <div className="nav-link">
                     { cookies.isToken && checkToken() &&
                     <Link to="/transaction" className="mobile-nav-link">
-                        <strong >Transactions</strong>
+                        Transactions
                     </Link>
                     }
                 </div>
             </div>
+            { userData.merchant_type !== 'charity' &&
+                <div>
+                    <div className="nav-link">
+                        { cookies.isToken && checkToken() &&
+                        <Link to="/profile" className="mobile-nav-link">
+                            Key Management
+                        </Link>
+                        }
+                    </div>
+                </div>
+            }
             <div className="logout">
                 {
                     cookies.isToken && checkToken() ?
