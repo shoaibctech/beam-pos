@@ -205,7 +205,7 @@ label {
     height: 7px;
 }
 .MuiPaper-root {
-    background-color: #ffffff !important;
+    background-color: #ffffff;
 }
 
 .MuiStepIcon-root.MuiStepIcon-completed, .MuiStepIcon-root.MuiStepIcon-active {

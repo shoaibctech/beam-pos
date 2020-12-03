@@ -1,18 +1,25 @@
 .key-block {
-    border: 1px solid var(--step-border-color);
     display: inline-block;
     width: 100%;
 }
 .key-block span {
     padding: 5px;
     display: inline-block;
+    width: 100%;
 }
 .key-data {
     display: inline-block;
-    float: right;
-    background: var(--step-border-color);
     cursor: pointer;
+    width: 100%;
 }
+.key-data > input {
+    text-align: center;
+}
+.key-data > input:hover {
+    cursor: pointer;
+    background: #05bf0526;
+}
+
 .key-info {
     color: grey;
     font-size: 12px;
@@ -26,7 +33,7 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    float: right;
+    width: 100%;
 }
 
 .tooltip .tooltiptext {
@@ -39,7 +46,7 @@
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 150%;
+    bottom: 100%;
     left: 50%;
     margin-left: -75px;
     opacity: 0;

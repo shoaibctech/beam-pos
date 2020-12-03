@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeSecureRequest, getUserData } from "../../utils";
 import Loader from '../../component/UI/Loader';
-
+import AlertToast from '../../component/UI/AlertToast';
 import './styles.css';
+
 
 const Profile = () => {
     const [isFetching, setIsFetching] = useState(false);
@@ -40,25 +41,26 @@ const Profile = () => {
             setKeyError('Something went wrong....');
         }
     }
-   const copyCodeToClipboard = () => {
+    const copyCodeToClipboard = () => {
        let textField = document.createElement('textarea');
        textField.innerText = apiKey;
        document.body.appendChild(textField);
        textField.select();
        document.execCommand('copy');
        textField.remove();
+       setIsCopied(true);
     }
     return (
         <div>
             <div className="login-container">
                 <div>
                     <p className="key-block">
-                        <span className="key-text">Api Key</span>
+                        <label htmlFor="api-key">Api Key:</label>
                         <div className="tooltip" style={{display: 'inlineBlock'}}>
                             <span className="key-data" onClick={copyCodeToClipboard}>
-                            <span className="tooltiptext" id="myTooltip">Copy to clipboard</span>
-                                {apiKey}
-                        </span>
+                                <span className="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                                <input type="text" disabled value={apiKey} name="api-key"/>
+                            </span>
                         </div>
                     </p>
                     <p className="text-center mr-1">
@@ -81,6 +83,7 @@ const Profile = () => {
                 {/*        <span className="key-info">Note: If a key is compromised, you can create a new key. This will discard old key. </span>*/}
                 {/*    </p>*/}
                 {/*</div>*/}
+                <AlertToast isOpen={isCopied} handleClose={() => setIsCopied(false)} message="copied" />
             </div>
         </div>
     );

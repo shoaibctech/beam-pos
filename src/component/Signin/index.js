@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie";
 import Loader from '../../component/UI/Loader';
 import axios from 'axios';
 import './styles.css';
-import Toast from '../../component/UI/Toast';
+import AlertToast from '../../component/UI/AlertToast';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -243,10 +243,7 @@ const Signin = () =>  {
     
     return (
         <div className="login-container">
-            {
-                showToast &&
-                    <Toast text="Message sent successfully" type="success" />
-            }
+            <AlertToast isOpen={showToast} handleClose={() => setShowToast(false)} message="Message sent successfully!" />
             <div className="row">
                 <div>
                     <h1>Welcome to beam.</h1>
