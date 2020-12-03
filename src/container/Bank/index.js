@@ -386,7 +386,7 @@ const Bank = () => {
                                             <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                         </div>
                                     }
-                                    <div className="rule-conduct">
+                                    <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,
                                             who are authorised by the Financial Conduct Authority under the Payment
@@ -429,6 +429,13 @@ const Bank = () => {
                                                 </div>
                                             ))}
                                         </div>
+                                    </div>
+                                    <div className="rule-conduct mobile-only">
+                                        <p>
+                                            Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                            who are authorised by the Financial Conduct Authority under the Payment
+                                            Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                        </p>
                                     </div>
                                 </div>
                             </div>

@@ -354,6 +354,19 @@
         margin-top: 1rem;
         margin-bottom: 2rem;
     }
+    .mobile-only {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 15px 9px;
+    }
+    .desktop-only {
+        display: none;
+    }
+}
+@media (min-width: 540px) {
+    .mobile-only {
+        display: none;
+    }
 }
 
 @media (max-width: 280px) {
