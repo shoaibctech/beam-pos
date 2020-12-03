@@ -327,9 +327,11 @@ const Signin = () =>  {
                             </div>
                             <div></div>
                         </div>
-                        <p style={{textAlign: 'center'}} onClick={() => showCodePrompt(mfaToken, true)}>
+                        <p style={{textAlign: 'center'}}>
                             <span>Didn't receive the code? </span>
-                            <span style={{ color: '#5956E8', cursor: 'pointer'}}>Resend</span>
+                            <span style={{ color: '#5956E8', cursor: 'pointer'}}  onClick={() => showCodePrompt(mfaToken, true)}>
+                                Resend
+                            </span>
                         </p>
                     </React.Fragment>
             }
