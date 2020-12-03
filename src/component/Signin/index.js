@@ -65,7 +65,7 @@ const Signin = () =>  {
             }
         });
     }
-    const showCodePrompt = async (mfaToken) => {
+    const showCodePrompt = async (mfaToken, isResending = false) => {
         setMessage('');
         try {
             const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/challenge`, {
@@ -78,10 +78,12 @@ const Signin = () =>  {
             setLoading(false);
             setOobCode(data.data.oob_code);
             setLoginStep(1);
-            handleShowToast();
+            setShowToast(true);
         } catch (e) {
             if(e.response && e.response.data.error === 'association_required'){
-                setLoginStep(2);
+                if (!isResending) // Don't update screen
+                    setLoginStep(2);
+
                 setLoading(false);
             } else {
                 setMessage(e.response && e.response.data.error_description);
@@ -229,16 +231,12 @@ const Signin = () =>  {
             setLoading(false);
             setLoginStep(1);
         } catch (e) {
+            if(e.response && e.response.data.error_description)
+                setMessage(e.response.data.error_description);
+
             console.log('', e.response);
             setLoading(false);
         }
-    }
-
-    const handleShowToast  = () => {
-        setShowToast(true);
-        setTimeout(() => {
-            setShowToast(false);
-        }, 1000);
     }
     
     return (
@@ -329,7 +327,7 @@ const Signin = () =>  {
                             </div>
                             <div></div>
                         </div>
-                        <p style={{textAlign: 'center'}} onClick={() => showCodePrompt(mfaToken)}>
+                        <p style={{textAlign: 'center'}} onClick={() => showCodePrompt(mfaToken, true)}>
                             <span>Didn't receive the code? </span>
                             <span style={{ color: '#5956E8', cursor: 'pointer'}}>Resend</span>
                         </p>
