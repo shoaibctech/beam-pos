@@ -31,7 +31,7 @@
     align-content: flex-start;
     height: 30rem;
     padding: 5px;
-    overflow: scroll;
+    overflow-y: scroll;
 
     /*background-image: linear-gradient(to bottom,*/
     /*rgba(255, 255, 255, 0),*/
@@ -69,15 +69,38 @@
 .mark {
     width: 108px;
 }
-/* Hide scrollbar for Chrome, Safari and Opera */
-.bank-list-container::-webkit-scrollbar {
-    display: none;
-}
+/*!* Hide scrollbar for Chrome, Safari and Opera *!*/
+/*.bank-list-container::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .bank-list-container {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    /*-ms-overflow-style: none;  !* IE and Edge *!*/
+    /*scrollbar-width: none;  !* Firefox *!*/
+    scrollbar-width: thin;
+    scrollbar-color: grey white;
+}
+
+ /*width*/
+.bank-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+ /*Track */
+.bank-list-container::-webkit-scrollbar-track {
+    /*background: #f1f1f1;*/
+}
+
+/* Handle */
+.bank-list-container::-webkit-scrollbar-thumb {
+    background: #151B25;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+.bank-list-container::-webkit-scrollbar-thumb:hover {
+    background: #151B25;
 }
 .list-banks {
     box-sizing: border-box;
