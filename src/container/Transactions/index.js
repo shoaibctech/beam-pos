@@ -131,22 +131,6 @@ const Transactions = () => {
         });
     }
 
-    // const createCreditTransfer = async () => {
-    //     try {
-    //         console.log('creating credit transfer ');
-    //         const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit/transfer`, {
-    //             amount: 100,
-    //             currency: 'GBP',
-    //             merchantId: getUserData().merchant_id,
-    //         }, 'POST');
-    //
-    //         console.log('data ::', req.data.data);
-    //
-    //     } catch (e) {
-    //         console.log("error ::", e.response)
-    //     }
-    // }
-
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
         if(newValue === 0){
