@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-export default ({ message = 'loading...', color = 'black', height = 50, width = 50 }) => {
+export default ({ message = 'loading...', color = 'black', height = 56, width = 56 }) => {
   return (
      <div>
        <div className="anti-clock-loader" style={{borderTop: `4px solid ${color}`, height: height, width: width}}></div>

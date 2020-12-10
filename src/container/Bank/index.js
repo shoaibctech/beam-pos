@@ -381,7 +381,7 @@ const Bank = () => {
                                     {/*</div>*/}
                                     {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                     <div className="flow-steps">
-                                            <div><span className="step-mark">1</span> Connect to bank</div>
+                                            <div><span className="step-mark">1</span> Connect to your bank</div>
                                             <div><span className="step-mark">2</span> Authorize your payment</div>
                                             <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                         </div>
