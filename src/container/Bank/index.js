@@ -13,7 +13,7 @@ import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
 
 const Bank = () => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [bankList, setBankList] = useState(banks);
