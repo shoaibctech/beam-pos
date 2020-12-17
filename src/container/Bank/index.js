@@ -37,7 +37,7 @@ const Bank = () => {
     const [isFetching, setFetching] = useState(false)
     const [loaderText, setLoaderText] = useState('beam.');
 
-    const { token } = useParams();
+    const { token, payment_type } = useParams();
     const location = useLocation();
     const history = useHistory();
 
@@ -72,10 +72,10 @@ const Bank = () => {
             setMerchantType('charity');
             getCharityPaymentDetails();
         } else {
-            if (isMobile.any()){
-                getPaymentDetails();
-            } else {
+            if (!isMobile.any() && payment_type && payment_type === 'wp'){
                 getQrCode();
+            } else {
+                getPaymentDetails();
             }
 
         }
@@ -312,13 +312,12 @@ const Bank = () => {
                                             <img src={Logo} alt="logo" className="bank-screen-logo" />
                                         </div>
 
-                                        {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                         <div className="flow-steps">
-                                            <div><span className="step-mark">1</span> Connect to your bank</div>
-                                            <div><span className="step-mark">2</span> Authorize your payment</div>
-                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                            <div><span className="step-mark">1</span> Scan QR code</div>
+                                            <div className="or-div"><hr className="or-hr" /> <span className="or">OR</span> <hr className="or-hr"/></div>
+                                            <div><span className="step-mark">2</span> Select bank</div>
                                         </div>
-                                        }
+
                                         <div className="rule-conduct desktop-only">
                                             <p>
                                                 Beam Payments is powered by Sentenial Limited, trading as Nuapay,
@@ -331,14 +330,17 @@ const Bank = () => {
                                 <div>
                                     <div className="right-content">
                                         <div className="text-center">
-                                            <h2 className="bank-heading">Scan Code OR click to pay</h2>
+                                            <h2 className="bank-heading">Proceed to Payment</h2>
+                                        </div>
+                                        <div>
+                                            <p className="bank-heading">Scan QR Code to proceed payment through mobile or click select bank.</p>
                                         </div>
                                         <div className="bank-qr-code">
                                             <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(qrCodeImg)}`} alt="Qr Code"/>
                                         </div>
                                         <div>
                                             <button className="btn btn-primary click-to-pay" onClick={getPaymentDetailsWeb}>
-                                                {isFetching ? <Loader size="2rem" color="secondary"/> : 'Click to Pay'}
+                                                {isFetching ? <Loader size="1rem" color="secondary"/> : 'Select Bank'}
                                             </button>
                                         </div>
                                         {/*<div>*/}
