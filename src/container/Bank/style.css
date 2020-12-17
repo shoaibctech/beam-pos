@@ -269,6 +269,16 @@
     border-radius: 50%;
     margin-right: 10px;
 }
+
+.bank-qr-code {
+    width: 12rem;
+    margin: 6rem auto;
+}
+.click-to-pay {
+    width: 100%;
+    margin: 10px auto;
+}
+
 @media (min-width: 768px) {
     .outer-container {
         /*background-color: var(--main-theme-color);*/

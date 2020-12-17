@@ -8,9 +8,10 @@ import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Checkbox from '@material-ui/core/Checkbox';
 import Pusher from "pusher-js";
-import {setPusherClient} from "react-pusher";
+import { setPusherClient } from "react-pusher";
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
+import Loader from '../../component/UI/Loader';
 
 const Bank = () => {
     const [loading, setLoading] = useState(true);
@@ -31,6 +32,9 @@ const Bank = () => {
     const [taxPayerAddr, setTaxPayerAddr] = useState('');
     const [taxPayerNameError, setTaxPayerNameError] = useState('');
     const [taxPayerAddrError, setTaxPayerAddrError] = useState('');
+    const [qrCodeImg, setQrCodeImg] = useState(null);
+    const [showQrCode, setShowQrCode] = useState(false);
+    const [isFetching, setFetching] = useState(false)
 
     const { token } = useParams();
     const location = useLocation();
@@ -44,10 +48,26 @@ const Bank = () => {
     useEffect(() => {
         const channel = pusherClient.subscribe('my-channel');
         channel.bind('thankyou-page-event', function(data) {
-            if(data.token === token ) {
+            if(data.token === token && !data.isMobile ) {
                 history.push('/thankyou');
+            } else if (data.token === token && data.isMobile ) {
+                window.open(data.redirctLink, '_self');
             }
         });
+    }, []);
+
+    useEffect(( ) => {
+        if (location.pathname.includes('/ch/bank')) {
+            setMerchantType('charity');
+            getCharityPaymentDetails();
+        } else {
+            if (isMobile.any()){
+                getPaymentDetails();
+            } else {
+                getQrCode();
+            }
+
+        }
     }, []);
 
     const createPayment = async (bankId) => {
@@ -59,6 +79,7 @@ const Bank = () => {
                     bankId: bankId,
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
+                    isMobile: isMobile.any()
                 });
             //load payment link
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
@@ -78,22 +99,22 @@ const Bank = () => {
                     setError(e.response.data.message);
                     break;
                 default:
-                    setError("Sorry, currently we can\'t process your request. Please try again later");
+                    setError("Sorry, currently we can't process your request. Please try again later");
                     // setError('Sorry, this bank is currently down. Please try again later');
             }
             window.scrollTo(0, 0);
         }
     }
-    const formatPayment = (amount) => {
-        var amount = parseFloat(amount).toFixed(2);
-        const firstPart = amount.toString().split('.')[0];
-        const secondPart = amount.toString().split('.')[1];
-        return (
-            <span>
-                <strong style={{ fontSize: '18px'}}>{firstPart}</strong> {secondPart && '.'}{secondPart}
-        </span>
-        );
-    }
+    // const formatPayment = (amount) => {
+    //     var parsedAmount = parseFloat(amount).toFixed(2);
+    //     const firstPart = parsedAmount.toString().split('.')[0];
+    //     const secondPart = parsedAmount.toString().split('.')[1];
+    //     return (
+    //         <span>
+    //             <strong style={{ fontSize: '18px'}}>{firstPart}</strong> {secondPart && '.'}{secondPart}
+    //     </span>
+    //     );
+    // }
     const handleSearch = (e) => {
         const value = e.target.value;
         setSearchQuery(value);
@@ -104,14 +125,6 @@ const Bank = () => {
             setBankList(banks);
         }
     }
-    useEffect(() => {
-        if (location.pathname.includes('/ch/bank')) {
-            setMerchantType('charity');
-            getCharityPaymentDetails();
-        } else {
-            getPaymentDetails();
-        }
-    }, []);
     const getCharityPaymentDetails = async () => {
         try {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment/${token}`, {}, 'GET');
@@ -121,6 +134,7 @@ const Bank = () => {
             setPaymentDetailError(true);
         }
     }
+
     const getPaymentDetails = async () => {
         setLoading(true);
         try {
@@ -134,6 +148,47 @@ const Bank = () => {
             setPaymentDetailError(true);
         }
     }
+    const getPaymentDetailsWeb = async () => {
+        setFetching(true);
+        try {
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
+            setPaymentData( prevState => ({...paymentData, ...req.data.data}));
+            setTotalAmount(req.data.data.amount);
+            setFetching(false);
+            setShowQrCode(false);
+            setPaymentDetailError('');
+        } catch (e) {
+            setFetching(false);
+            setShowQrCode(false);
+            setPaymentDetailError(true);
+        }
+    }
+
+    const getQrCode = async () => {
+        setLoading(true);
+        try {
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+                {
+                    pathUrl: window.location.href
+                }, 'POST');
+           const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+           setQrCodeImg(imgBuffer);
+           setShowQrCode(true);
+           setLoading(false);
+        } catch (e) {
+            setLoading(false);
+        }
+    }
+    //TODO: move this code to utils
+    const convertSvgToJsxSvg = async (data) => {
+        let Img = data;
+        Img = Img.replace(/xmlns:xlink/g, 'xmlnsXlink');
+        Img = Img.replace(/xml:space/g, 'xmlSpace');
+        Img = Img.replace(/enable-background/g, 'enableBackground');
+        Img = Img.replace(/shape-rendering/g, 'shapeRendering');
+        return new Buffer(Img);
+    };
+
     const handleTipAmount = (value) => {
         if(value && isNaN(value) && value !== '.') {
             setTipError('Value must be number');
@@ -169,7 +224,6 @@ const Bank = () => {
         } else {
             setChAmount(value);
         }
-        console.log('he :: ', value)
     }
     const createCharityPayment = async (bankId) => {
         if(taxPayer) {
@@ -217,9 +271,6 @@ const Bank = () => {
             <div>
                 {loading &&
                 <div className="loader bank-bg-color">
-                    {/*<div id="loaderdiv">*/}
-                    {/*    /!*<Loader type="Oval" color="#000000" height={100} width={100}/>*!/*/}
-                    {/*</div>*/}
                     <AntiClockLoader  message="beam." color="black"/>
                 </div>
                 }
@@ -240,7 +291,59 @@ const Bank = () => {
                     </div>
                 </div>
                 :
-                <div className="outer-container">
+                showQrCode ?
+                    <div className="outer-container">
+                        <div className="inner-container">
+                            <div className="inner-container-grid">
+                                <div className="left-section">
+                                    <div className="left-content">
+                                        <div className="bank-screen-logo-container">
+                                            <img src={Logo} alt="logo" className="bank-screen-logo" />
+                                        </div>
+
+                                        {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
+                                        <div className="flow-steps">
+                                            <div><span className="step-mark">1</span> Connect to your bank</div>
+                                            <div><span className="step-mark">2</span> Authorize your payment</div>
+                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                        </div>
+                                        }
+                                        <div className="rule-conduct desktop-only">
+                                            <p>
+                                                Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                                who are authorised by the Financial Conduct Authority under the Payment
+                                                Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="right-content">
+                                        <div className="text-center">
+                                            <h2 className="bank-heading">Scan Code OR click to pay</h2>
+                                        </div>
+                                        <div className="bank-qr-code">
+                                            <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(qrCodeImg)}`} alt="Qr Code"/>
+                                        </div>
+                                        <div>
+                                            <button className="btn btn-primary click-to-pay" onClick={getPaymentDetailsWeb}>
+                                                {isFetching ? <Loader size="2rem" color="secondary"/> : 'Click to Pay'}
+                                            </button>
+                                        </div>
+                                        <div className="rule-conduct mobile-only">
+                                            <p>
+                                                Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                                who are authorised by the Financial Conduct Authority under the Payment
+                                                Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    <div className="outer-container">
                     <div className="inner-container">
                         <div className="inner-container-grid">
                             <div className="left-section">
