@@ -241,7 +241,7 @@ const Signin = () =>  {
     
     return (
         <div className="login-container">
-            <AlertToast isOpen={showToast} handleClose={() => setShowToast(false)} message="Message sent successfully!" />
+            <AlertToast isOpen={showToast} handleClose={() => setShowToast(false)} message="Code sent successfully!" />
             <div className="row">
                 <div>
                     <h1>Welcome to beam.</h1>

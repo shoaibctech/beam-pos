@@ -35,6 +35,7 @@ const Bank = () => {
     const [qrCodeImg, setQrCodeImg] = useState(null);
     const [showQrCode, setShowQrCode] = useState(false);
     const [isFetching, setFetching] = useState(false)
+    const [loaderText, setLoaderText] = useState('beam.');
 
     const { token } = useParams();
     const location = useLocation();
@@ -54,8 +55,18 @@ const Bank = () => {
                 window.open(data.redirectLink, '_self');
             }
         });
+        channel.bind('bank-payment-in-process-event', function (data){
+            if (data.token === token && data.status === 'processing'){
+                setLoading(true);
+                setLoaderText('payment in progress');
+            }
+        });
     }, []);
 
+    const showLoader = () => {
+        setLoading(true);
+        setLoaderText('payment in progress');
+    }
     useEffect(( ) => {
         if (location.pathname.includes('/ch/bank')) {
             setMerchantType('charity');
@@ -271,7 +282,7 @@ const Bank = () => {
             <div>
                 {loading &&
                 <div className="loader bank-bg-color">
-                    <AntiClockLoader  message="beam." color="black"/>
+                    <AntiClockLoader  message={loaderText} color="black"/>
                 </div>
                 }
             </div>
@@ -330,6 +341,9 @@ const Bank = () => {
                                                 {isFetching ? <Loader size="2rem" color="secondary"/> : 'Click to Pay'}
                                             </button>
                                         </div>
+                                        {/*<div>*/}
+                                        {/*    <button onClick={showLoader} className="btn btn-primary"> Process </button>*/}
+                                        {/*</div>*/}
                                         <div className="rule-conduct mobile-only">
                                             <p>
                                                 Beam Payments is powered by Sentenial Limited, trading as Nuapay,
