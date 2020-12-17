@@ -13,6 +13,7 @@ import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
 
+//test deployment 
 const Bank = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
