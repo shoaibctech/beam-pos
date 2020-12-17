@@ -51,7 +51,7 @@ const Bank = () => {
             if(data.token === token && !data.isMobile ) {
                 history.push('/thankyou');
             } else if (data.token === token && data.isMobile ) {
-                window.open(data.redirctLink, '_self');
+                window.open(data.redirectLink, '_self');
             }
         });
     }, []);
