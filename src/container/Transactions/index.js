@@ -256,7 +256,7 @@ const Transactions = () => {
                                 renderTable(paymentList)
                             }
                             {
-                                !isFetching && !isSearching && paymentList  && paymentList.length < 1 && <tr rowSpan="4" style={{height: '10rem'}}>
+                               !transError && !isFetching && !isSearching && paymentList  && paymentList.length < 1 && <tr rowSpan="4" style={{height: '10rem'}}>
                                     <td colSpan="10" className="loading">No results found</td>
                                 </tr>
                             }
@@ -276,13 +276,13 @@ const Transactions = () => {
                             {
                                 !isFetching && transError &&
                                 <tr rowSpan="4" style={{height: '10rem'}}>
-                                    <td colSpan="8" className="loading"><span className="t-error">{transError}</span></td>
+                                    <td colSpan="10" className="loading"><span className="t-error">{transError}</span></td>
                                 </tr>
                             }
                             </tbody>
                         </table>
                         {
-                            !isFetching && !isLastPage &&
+                            !isFetching && !isLastPage && !transError &&
                             <div className="text-center load-more">
                                 <button className="btn btn-primary" onClick={handleNextPage}>Load More</button>
                             </div>
