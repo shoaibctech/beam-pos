@@ -153,7 +153,7 @@
 }
 .outer-container {
     /*background-image: url('img/bank-bg-mobile.jpg');*/
-    background: white;
+    background: #fffbf4ab;
     /*background-repeat: no-repeat;*/
     /*background-position: center center;*/
     /*background-attachment: fixed;*/
@@ -175,7 +175,7 @@
     grid-template-columns: 45% 55%;
 }
 .left-section {
-    background: #f7f8fabd;
+    background: #9ba9b84d;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
@@ -194,6 +194,7 @@
     padding: 10px 3px;
 }
 .right-content {
+    background: white;
     padding: 1rem 1rem;
 }
 .bank-heading {
