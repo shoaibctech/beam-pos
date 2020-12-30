@@ -368,7 +368,6 @@ const Bank = () => {
                                     <div className="bank-screen-logo-container">
                                         <img src={Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
-
                                     <div className="payment-detail-section">
                                         <h3 className="text-center mobile-heading">Payment Info</h3>
                                         <div className="payment-detail">
@@ -394,7 +393,7 @@ const Bank = () => {
                                             </div>
                                         </div>
                                     </div>
-
+                                    <p className="info-link">what is beam?</p>
                                     {
                                         paymentData && paymentData.merchant_type === 'tip' &&
                                         <div className="tip-detail">
@@ -501,11 +500,14 @@ const Bank = () => {
                                     {/*</div>*/}
                                     {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                     <div className="flow-steps">
-                                            <div><span className="step-mark">1</span> Connect to your bank</div>
-                                            <div><span className="step-mark">2</span> Authorize your payment</div>
-                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
-                                        </div>
+                                        <div><span className="step-mark">1</span> Connect to your bank</div>
+                                        <div><span className="step-mark">2</span> Authorize your payment</div>
+                                        <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                    </div>
                                     }
+                                    <div className='cancel-flow'>
+                                        <p>Cancel and return to merchant</p>
+                                    </div>
                                     <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,

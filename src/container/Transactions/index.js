@@ -14,7 +14,6 @@ import RefundModal from "../../component/RefundModal";
 import Loader from '../../component/UI/Loader';
 import { PaymentStatus } from "../../utils/Constants/PaymentStatus";
 import GiftAids from "../../component/GiftAids";
-//minor change
 
 import './styles.css';
 
@@ -243,7 +242,7 @@ const Transactions = () => {
                                name="checkedB"
                                inputProps={{ 'aria-label': 'primary checkbox' }}
                            />
-                           <span>Clear</span>
+                           <span>Cleared</span>
                        </div>
                        <div className="search-container">
                            <input type="text" value={paymentId} onChange={e => {
