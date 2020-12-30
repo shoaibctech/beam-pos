@@ -7,12 +7,14 @@ import WithdrawForm from '../../component/WithdrawForm';
 import moment from 'moment';
 import { orderBy } from 'lodash';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
 
 import { getUserData, makeSecureRequest } from "../../utils";
 import RefundModal from "../../component/RefundModal";
 import Loader from '../../component/UI/Loader';
 import { PaymentStatus } from "../../utils/Constants/PaymentStatus";
 import GiftAids from "../../component/GiftAids";
+
 
 import './styles.css';
 
@@ -41,6 +43,7 @@ const Transactions = () => {
     const [paymentId, setPaymentId] = useState('');
     const [isSearching, setIsSearching] = useState(true);
     const [searchData, setSearchData] = useState([]);
+    const [isPaymentReceived, setIsPaymentReceived] = useState(false);
 
     const { account_type, merchant_type } = getUserData();
 
@@ -48,6 +51,9 @@ const Transactions = () => {
         getPaymentsList();
         getBalance();
     }, []);
+    useEffect(() => {
+        getPaymentsList();
+    }, [isPaymentReceived]);
 
     const getPaymentsList = async (page = 1) => {
         setIsFetching(true);
@@ -58,6 +64,7 @@ const Transactions = () => {
                 {
                     merchant_id: getUserData().merchant_id,
                     pageNumber: page,
+                    paymentStatus: isPaymentReceived ? 'PAYMENT_RECEIVED' : 'all'
                 }, 'POST' );
 
             setIsFetching(false);
@@ -168,6 +175,10 @@ const Transactions = () => {
         setPageNumber(pageNumber + 1);
         getPaymentsList(pageNumber + 1);
     }
+    const handleSwitchChange = (event) => {
+        setPaymentsList([]);
+        setIsPaymentReceived(event.target.checked);
+    }
     return (
         <div className="transaction">
             {
@@ -223,6 +234,17 @@ const Transactions = () => {
                 <>
                    <div className="tr-top-box">
                        <h2 className="heading">Transactions Details</h2>
+                       <div className="status-toggle">
+                           <span>All</span>
+                           <Switch
+                               checked={isPaymentReceived}
+                               onChange={handleSwitchChange}
+                               color="primary"
+                               name="checkedB"
+                               inputProps={{ 'aria-label': 'primary checkbox' }}
+                           />
+                           <span>Clear</span>
+                       </div>
                        <div className="search-container">
                            <input type="text" value={paymentId} onChange={e => {
                                setPaymentId(e.target.value);
