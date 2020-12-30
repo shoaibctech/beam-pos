@@ -6,6 +6,10 @@
     margin-bottom: 2.5rem;
     margin-top: 2.5rem;
 }
+.status-toggle {
+    margin-left: auto;
+    padding-right: 20px;
+}
 .modal-container {
     padding: 2rem 3rem 1rem;
     min-width: 350px;
