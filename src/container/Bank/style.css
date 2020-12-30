@@ -152,11 +152,12 @@
     }
 }
 .outer-container {
-    background-image: url('img/bank-bg-mobile.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover;
+    /*background-image: url('img/bank-bg-mobile.jpg');*/
+    background: white;
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+    /*background-attachment: fixed;*/
+    /*background-size: cover;*/
     width: 100%;
     min-height: 100vh;
     padding-top: 2.5rem;
@@ -164,6 +165,7 @@
 }
 .inner-container {
     background: #ffffff59;
+    box-shadow: 0px 0px 20px 5px #00000030;
     width: 758px;
     margin: 0 auto;
     border-radius: 5px;
