@@ -42,7 +42,8 @@ const Transactions = () => {
     const [paymentId, setPaymentId] = useState('');
     const [isSearching, setIsSearching] = useState(true);
     const [searchData, setSearchData] = useState([]);
-    const [isPaymentReceived, setIsPaymentReceived] = useState(false);
+    const [isPaymentReceived, setIsPaymentReceived] = useState(true);
+    const [payerName, setPayerName] = useState('');
 
     const { account_type, merchant_type } = getUserData();
 
@@ -147,18 +148,23 @@ const Transactions = () => {
     };
 
     const getPaymentDetail = async () => {
-        if (!paymentId)
+        if (!paymentId && !payerName)
             return;
 
         setIsFetching(true);
         setIsSearching(true);
+        const apiData = payerName ? {
+            payerName: payerName,
+            merchantId: getUserData().merchant_id
+        } :
+            {
+                paymentId: paymentId,
+                merchantId: getUserData().merchant_id
+            };
         try {
             const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
-                {
-                    paymentId: paymentId,
-                    merchantId: getUserData().merchant_id
-                }, 'POST');
-            const data = [req.data.paymentDetail]
+                apiData, 'POST');
+            const data = paymentId ? [req.data.paymentDetail] : req.data.paymentDetail;
             setSearchData(data);
             console.log('payment Detail :: ', data);
             setIsFetching(false);
@@ -234,7 +240,7 @@ const Transactions = () => {
                    <div className="tr-top-box">
                        <h2 className="heading">Transactions Details</h2>
                        <div className="status-toggle">
-                           <span>All</span>
+                           <span>Cleared</span>
                            <Switch
                                checked={isPaymentReceived}
                                onChange={handleSwitchChange}
@@ -242,14 +248,25 @@ const Transactions = () => {
                                name="checkedB"
                                inputProps={{ 'aria-label': 'primary checkbox' }}
                            />
-                           <span>Cleared</span>
+                           <span>All</span>
                        </div>
                        <div className="search-container">
+                           <input type="text" value={payerName} onChange={e => {
+                               setPayerName(e.target.value);
+                               if (!e.target.value)
+                                   setIsSearching(false);
+                           }}
+                                  placeholder="Payer Name"
+                                  disabled={!!paymentId}
+                           />
                            <input type="text" value={paymentId} onChange={e => {
                                setPaymentId(e.target.value);
                                if (!e.target.value)
                                    setIsSearching(false);
-                           }} placeholder="Enter payment id"/>
+                           }}
+                                  placeholder="Enter payment id"
+                                  disabled={!!payerName}
+                           />
                            <button className="btn btn-primary" onClick={getPaymentDetail}>Search</button>
                        </div>
                    </div>

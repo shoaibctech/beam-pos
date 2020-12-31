@@ -196,6 +196,12 @@
     }
     .search-container {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .status-toggle {
+        margin-left: auto;
+        margin-right: 0;
     }
 }
 
