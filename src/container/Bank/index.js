@@ -37,6 +37,7 @@ const Bank = () => {
     const [showQrCode, setShowQrCode] = useState(false);
     const [isFetching, setFetching] = useState(false)
     const [loaderText, setLoaderText] = useState('beam.');
+    const [isWpPayment, setIsWpPayment] = useState(false);
 
     const { token, payment_type } = useParams();
     const location = useLocation();
@@ -166,6 +167,9 @@ const Bank = () => {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
             setPaymentData( prevState => ({...paymentData, ...req.data.data}));
             setTotalAmount(req.data.data.amount);
+            if (req.data && req.data.data.link){
+                setIsWpPayment(true);
+            }
             setFetching(false);
             setShowQrCode(false);
             setPaymentDetailError('');
@@ -393,7 +397,7 @@ const Bank = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="info-link">what is beam?</p>
+                                    {/*<p className="info-link">what is beam?</p>*/}
                                     {
                                         paymentData && paymentData.merchant_type === 'tip' &&
                                         <div className="tip-detail">
@@ -505,9 +509,14 @@ const Bank = () => {
                                         <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                     </div>
                                     }
-                                    <div className='cancel-flow'>
-                                        <p>Cancel and return to merchant</p>
-                                    </div>
+                                    {
+                                        isWpPayment &&
+                                        <div className='cancel-flow'>
+                                            <p onClick={() => {
+                                                window.history.back();
+                                            }}>Cancel and return to merchant</p>
+                                        </div>
+                                    }
                                     <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,

@@ -164,9 +164,8 @@
     padding-bottom: 2.5rem;
 }
 .cancel-flow {
-    font-size: 12px;
     cursor: pointer;
-    color: var(--main-bg-color);
+    text-decoration: underline;
 }
 .info-link {
     font-size: 14px;
