@@ -94,6 +94,7 @@ input[type=number] {
     padding: 10px 20px;
     cursor: pointer;
     border: none;
+    border-radius: 3px;
 }
 .btn-primary {
     color: var(--btn-txt-color);

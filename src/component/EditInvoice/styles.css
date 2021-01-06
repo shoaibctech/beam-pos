@@ -82,6 +82,7 @@
     margin: 10px 0;
     padding: 10px 15px;
     font-size: 23px;
+    border-radius: 3px;
 }
 .cancel-btn {
     background: var(--text-error-color);
@@ -95,6 +96,7 @@
     padding: 10px 15px;
     width: 150px;
     font-size: 23px;
+    border-radius: 3px;
     /*box-shadow: 1px 1px 18px lightgrey;*/
 }
 .cancel-btn:hover {

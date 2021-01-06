@@ -57,10 +57,10 @@ input[type=text], input[type=password], input[type=number], input[type=email] {
     outline: 0;
     padding: 2px 0 2px 9px;
     border: 1px solid var(--input-border-color);
-    border-radius: 0;
     height: 44px;
     font-size: 16px;
     color: #333;
+    border-radius: 3px;
 }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus {
     border: 1px solid var(--input-hover-color) !important;
@@ -92,7 +92,7 @@ label {
 .bottom-section input[type=button] {
     background-color: var(--main-bg-color);
     color: var(--btn-txt-color);
-    border-radius: 0;
+    border-radius: 3px;
     width: calc(10vw + 224px);
     padding: 10px 20px ;
     margin: 10px;
@@ -264,5 +264,6 @@ label {
     margin: 10px 0;
     padding: 10px 15px;
     font-size: 23px;
+    border-radius: 3px;
     /*box-shadow: 1px 1px 18px lightgrey;*/
 }

@@ -25,7 +25,7 @@
     background: var(--main-bg-color);
     color: var(--btn-txt-color);
     border: none;
-    border-radius: 0;
+    border-radius: 3px;
     cursor: pointer;
     font-size: 15px;
     width: 90%;
