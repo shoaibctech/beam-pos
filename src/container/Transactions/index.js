@@ -42,7 +42,7 @@ const Transactions = () => {
     const [paymentId, setPaymentId] = useState('');
     const [isSearching, setIsSearching] = useState(true);
     const [searchData, setSearchData] = useState([]);
-    const [isPaymentReceived, setIsPaymentReceived] = useState(true);
+    const [isPaymentReceived, setIsPaymentReceived] = useState(false);
     const [payerName, setPayerName] = useState('');
 
     const { account_type, merchant_type } = getUserData();
@@ -64,7 +64,7 @@ const Transactions = () => {
                 {
                     merchant_id: getUserData().merchant_id,
                     pageNumber: page,
-                    paymentStatus: isPaymentReceived ? 'PAYMENT_RECEIVED' : 'all'
+                    paymentStatus: !isPaymentReceived ? 'PAYMENT_RECEIVED' : 'all'
                 }, 'POST' );
 
             setIsFetching(false);
