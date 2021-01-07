@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 // import auth0 from 'auth0-js';
 import { useCookies } from "react-cookie";
@@ -32,6 +32,7 @@ const Header = () => {
     const userData = getUserData();
     let history = useHistory();
     let location = useLocation();
+    const [isShowMenu, setIsShowMenu] = useState(false);
 
     const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
 
@@ -77,17 +78,6 @@ const Header = () => {
                     }
                 </div>
             </div>
-            { userData && userData.merchant_type !== 'charity' &&
-                <div>
-                    <div className="nav-link">
-                        { cookies.isToken && checkToken() &&
-                        <Link to="/profile" className="mobile-nav-link">
-                            Key Management
-                        </Link>
-                        }
-                    </div>
-                </div>
-            }
             <div className="logout">
                 {
                     cookies.isToken && checkToken() ?
@@ -95,9 +85,31 @@ const Header = () => {
                             <p className="user-info">
                                 <strong>{userData.name}</strong>
                             </p>
-                            <button className="logout_btn" onClick={logout}>
-                                <strong>Logout</strong>
-                            </button>
+                                {
+                                    !isShowMenu &&
+                                        <span className="cursor-pointer" onClick={() => setIsShowMenu(true)}><i className="fa fa-bars" aria-hidden="true"></i></span>
+                                }
+                                { isShowMenu &&
+                                    <div className="logout-dropdown">
+                                         <span className="cross-icon cursor-pointer" onClick={() => setIsShowMenu(false)}>
+                                                <i className="fa fa-times" aria-hidden="true"></i>
+                                         </span>
+                                        <ul>
+                                            { userData && userData.merchant_type !== 'charity' &&
+                                            <li>
+                                                { cookies.isToken && checkToken() &&
+                                                <Link to="/profile" className="mobile-nav-link">
+                                                    Key Management
+                                                </Link>
+                                                }
+                                            </li>
+                                            }
+                                            <li>
+                                                <span className="cursor-pointer"  onClick={logout}>Logout</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
                         </div>
                         :
                         <PathComponent/>

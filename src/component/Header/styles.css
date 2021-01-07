@@ -41,7 +41,6 @@
 }
 .logout_btn {
     border: none;
-    font-size: 20px;
     background: transparent;
     padding: 2px 25px;
     text-transform: capitalize;;
@@ -72,6 +71,34 @@
      padding-right: 25px;
      font-size: 20px;
  }
+ .logout-dropdown {
+     box-shadow: 0px 0px 5px 0px grey;
+     position: absolute;
+ }
+ .logout-dropdown ul {
+     padding-top: 25px;
+     padding-left: 5px;
+     padding-right: 17px;
+     padding-bottom: 20px;
+ }
+ .logout-dropdown ul li {
+     list-style: none;
+     padding: 5px 0;
+     text-align: left;
+ }
+.logout-dropdown ul li a, .logout-dropdown ul li span {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.cross-icon {
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
  @media (max-width: 760px) {
      .user-info {
          display: none;
