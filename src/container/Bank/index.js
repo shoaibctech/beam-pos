@@ -143,6 +143,7 @@ const Bank = () => {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment/${token}`, {}, 'GET');
             setMerchantName(req.data.merchantName);
             setPaymentDetailError('');
+            setLoading(false);
         } catch (e) {
             setPaymentDetailError(true);
         }
