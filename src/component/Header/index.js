@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 
 // import Logo from './img/Junction-pos.png';
 import Logo from './img/Light-Logo.png';
+import Logout from "../Logout";
 
 import "./styles.css";
 import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../../utils";
@@ -82,33 +83,11 @@ const Header = () => {
                 {
                     cookies.isToken && checkToken() ?
                         <div>
-                            <p className="user-info">
-                                <strong>{userData.name}</strong>
-                            </p>
                                 {
-                                    !isShowMenu &&
-                                        <span className="cursor-pointer" onClick={() => setIsShowMenu(true)}><i className="fa fa-bars" aria-hidden="true"></i></span>
+                                    <span className="cursor-pointer" onClick={() => setIsShowMenu(!isShowMenu)}><i className="fa fa-bars" aria-hidden="true"></i></span>
                                 }
                                 { isShowMenu &&
-                                    <div className="logout-dropdown">
-                                         <span className="cross-icon cursor-pointer" onClick={() => setIsShowMenu(false)}>
-                                                <i className="fa fa-times" aria-hidden="true"></i>
-                                         </span>
-                                        <ul>
-                                            { userData && userData.merchant_type !== 'charity' &&
-                                            <li>
-                                                { cookies.isToken && checkToken() &&
-                                                <Link to="/profile" className="mobile-nav-link">
-                                                    Key Management
-                                                </Link>
-                                                }
-                                            </li>
-                                            }
-                                            <li>
-                                                <span className="cursor-pointer"  onClick={logout}>Logout</span>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <Logout cookies={cookies} logout={logout} userData={userData}/>
                                 }
                         </div>
                         :
