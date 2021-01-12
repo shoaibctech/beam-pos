@@ -3,7 +3,8 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
-import Logo from '../../component/Header/img/Light-Logo.png';
+// import Logo from '../../component/Header/img/Light-Logo.png';
+import Logo from './img/Dark.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -314,15 +315,26 @@ const Bank = () => {
                             <div className="inner-container-grid">
                                 <div className="left-section">
                                     <div className="left-content">
+                                        {/*<span className="cursor-pointer" onClick={() => window.history.back()}><i className="fas fa-arrow-left"></i> back</span>*/}
                                         <div className="bank-screen-logo-container">
                                             <img src={Logo} alt="logo" className="bank-screen-logo" />
                                         </div>
 
-                                        <div className="flow-steps">
-                                            <div><span className="step-mark">1</span> Scan QR code</div>
-                                            <div className="or-div"><hr className="or-hr" /> <span className="or">OR</span> <hr className="or-hr"/></div>
-                                            <div><span className="step-mark">2</span> Select bank</div>
+                                        <div>
+                                            <p className="info-text">To start your payment either scan<br/> QR code or click select bank</p>
                                         </div>
+                                        <div className="flow-steps">
+                                            {/*<div><span className="step-mark">1</span> Scan QR code</div>*/}
+                                            <div>Scan QR code</div>
+                                            <div className="or-div"><hr className="or-hr" /> <span className="or">OR</span> <hr className="or-hr"/></div>
+                                            {/*<div><span className="step-mark">2</span> Select bank</div>*/}
+                                            <div>Press Select bank</div>
+                                        </div>
+                                        {/*<div className='cancel-flow'>*/}
+                                        {/*    <p onClick={() => {*/}
+                                        {/*        window.history.back();*/}
+                                        {/*    }}>Cancel and return to merchant</p>*/}
+                                        {/*</div>*/}
 
                                         <div className="rule-conduct desktop-only">
                                             <p>
@@ -339,7 +351,8 @@ const Bank = () => {
                                             <h2 className="bank-heading">Proceed to Payment</h2>
                                         </div>
                                         <div>
-                                            <p className="bank-heading">Scan QR Code to proceed payment through mobile or click select bank.</p>
+                                            <p className="bank-heading-sub">Scan QR code with your mobile for rapid checkout directly from your banking app. Or alternatively, click 'Select bank' to checkout via your online banking website.</p>
+                                            {/*<p className="bank-heading">Scan QR Code to proceed payment through mobile or click select bank.</p>*/}
                                         </div>
                                         <div className="bank-qr-code">
                                             <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(qrCodeImg)}`} alt="Qr Code"/>
@@ -363,6 +376,11 @@ const Bank = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className='cancel-flow cancel-flow-bg'>
+                            <p onClick={() => {
+                                window.history.back();
+                            }}>Cancel and return to merchant</p>
+                        </div>
                     </div>
                     :
                     <div className="outer-container">
@@ -370,8 +388,12 @@ const Bank = () => {
                         <div className="inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
+                                    <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
                                     <div className="bank-screen-logo-container">
                                         <img src={Logo} alt="logo" className="bank-screen-logo" />
+                                    </div>
+                                    <div>
+                                        <p className="cursor-pointer beam-link">What is beam?</p>
                                     </div>
                                     <div className="payment-detail-section">
                                         <h3 className="text-center mobile-heading">Payment Info</h3>
@@ -510,14 +532,14 @@ const Bank = () => {
                                         <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                     </div>
                                     }
-                                    {
-                                        isWpPayment &&
-                                        <div className='cancel-flow'>
-                                            <p onClick={() => {
-                                                window.history.back();
-                                            }}>Cancel and return to merchant</p>
-                                        </div>
-                                    }
+                                    {/*{*/}
+                                    {/*    isWpPayment &&*/}
+                                    {/*    <div className='cancel-flow'>*/}
+                                    {/*        <p onClick={() => {*/}
+                                    {/*            window.history.back();*/}
+                                    {/*        }}>Cancel and return to merchant</p>*/}
+                                    {/*    </div>*/}
+                                    {/*}*/}
                                     <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,
@@ -573,6 +595,14 @@ const Bank = () => {
                             </div>
                         </div>
                     </div>
+                        {
+                            isWpPayment &&
+                            <div className='cancel-flow cancel-flow-bg'>
+                                <p onClick={() => {
+                                    window.history.back();
+                                }}>Cancel and return to merchant</p>
+                            </div>
+                        }
                 </div>
     );
 }
