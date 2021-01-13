@@ -66,10 +66,6 @@ const Bank = () => {
         });
     }, []);
 
-    const showLoader = () => {
-        setLoading(true);
-        setLoaderText('payment in progress');
-    }
     useEffect(( ) => {
         if (location.pathname.includes('/ch/bank')) {
             setMerchantType('charity');
@@ -83,6 +79,12 @@ const Bank = () => {
 
         }
     }, []);
+
+    const showLoader = () => {
+        setLoading(true);
+        setLoaderText('payment in progress');
+    }
+
 
     const createPayment = async (bankId) => {
         try {
@@ -158,6 +160,9 @@ const Bank = () => {
             setTotalAmount(req.data.data.amount);
             setLoading(false);
             setPaymentDetailError('');
+            if (req.data && req.data.data.link) {
+                setIsWpPayment(true);
+            }
         } catch (e) {
             setLoading(false);
             setPaymentDetailError(true);
@@ -169,6 +174,7 @@ const Bank = () => {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
             setPaymentData( prevState => ({...paymentData, ...req.data.data}));
             setTotalAmount(req.data.data.amount);
+            console.log('data test:: ', req.data)
             if (req.data && req.data.data.link){
                 setIsWpPayment(true);
             }
@@ -323,7 +329,11 @@ const Bank = () => {
                                         <div>
                                             <p className="info-text">To start your payment either scan<br/> QR code or click select bank</p>
                                         </div>
+
                                         <div className="flow-steps">
+                                            <div style={{background: 'transparent', padding: '0 3px', marginBottom: '-5px'}}>
+                                                <p className="cursor-pointer beam-link">What is beam?</p>
+                                            </div>
                                             {/*<div><span className="step-mark">1</span> Scan QR code</div>*/}
                                             <div>Scan QR code</div>
                                             <div className="or-div"><hr className="or-hr" /> <span className="or">OR</span> <hr className="or-hr"/></div>
@@ -392,7 +402,7 @@ const Bank = () => {
                             <div className="left-section">
                                 <div className="left-content">
                                     {
-                                        isWpPayment &&
+                                        isWpPayment && !isMobile.any() &&
                                         <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
                                     }
                                     <div className="bank-screen-logo-container">
