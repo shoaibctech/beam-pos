@@ -330,11 +330,14 @@ const Bank = () => {
                                             {/*<div><span className="step-mark">2</span> Select bank</div>*/}
                                             <div>Press Select bank</div>
                                         </div>
-                                        {/*<div className='cancel-flow'>*/}
-                                        {/*    <p onClick={() => {*/}
-                                        {/*        window.history.back();*/}
-                                        {/*    }}>Cancel and return to merchant</p>*/}
-                                        {/*</div>*/}
+                                        <div className='cancel-flow mobile-only'>
+                                            <p onClick={() => {
+                                                window.history.back();
+                                            }}
+                                               style={{ color: "white" }}>
+                                                Cancel and return to merchant
+                                            </p>
+                                        </div>
 
                                         <div className="rule-conduct desktop-only">
                                             <p>
@@ -376,7 +379,7 @@ const Bank = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='cancel-flow cancel-flow-bg'>
+                        <div className='cancel-flow cancel-flow-bg desktop-768-only'>
                             <p onClick={() => {
                                 window.history.back();
                             }}>Cancel and return to merchant</p>
@@ -388,7 +391,10 @@ const Bank = () => {
                         <div className="inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
-                                    <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
+                                    {
+                                        isWpPayment &&
+                                        <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
+                                    }
                                     <div className="bank-screen-logo-container">
                                         <img src={Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
@@ -396,7 +402,7 @@ const Bank = () => {
                                         <p className="cursor-pointer beam-link">What is beam?</p>
                                     </div>
                                     <div className="payment-detail-section">
-                                        <h3 className="text-center mobile-heading">Payment Info</h3>
+                                        {/*<h3 className="text-center mobile-heading">Payment Info</h3>*/}
                                         <div className="payment-detail">
                                             <div>
                                                 <p className="payment-label">Payment to:</p>
@@ -532,14 +538,18 @@ const Bank = () => {
                                         <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                     </div>
                                     }
-                                    {/*{*/}
-                                    {/*    isWpPayment &&*/}
-                                    {/*    <div className='cancel-flow'>*/}
-                                    {/*        <p onClick={() => {*/}
-                                    {/*            window.history.back();*/}
-                                    {/*        }}>Cancel and return to merchant</p>*/}
-                                    {/*    </div>*/}
-                                    {/*}*/}
+                                    {
+                                        isWpPayment &&
+                                        <div className='cancel-flow mobile-only'>
+                                            <p onClick={() => {
+                                                window.history.back();
+                                            }}
+                                               style={{ color: "white" }}
+                                            >
+                                                Cancel and return to merchant
+                                            </p>
+                                        </div>
+                                    }
                                     <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,
@@ -597,7 +607,7 @@ const Bank = () => {
                     </div>
                         {
                             isWpPayment &&
-                            <div className='cancel-flow cancel-flow-bg'>
+                            <div className='cancel-flow cancel-flow-bg desktop-768-only'>
                                 <p onClick={() => {
                                     window.history.back();
                                 }}>Cancel and return to merchant</p>
