@@ -13,6 +13,7 @@ import Signin from "./component/Signin";
 import Charity from "./container/Charity";
 import ThankYou from "./container/Thankyou";
 import Profile from "./container/profile";
+import MerchantEdit from "./container/MerchantEdit";
 
 import { getUserData } from "./utils";
 
@@ -32,6 +33,7 @@ const MainRoute = () => {
                 <PrivateRoute path="/transaction" exact component={Transactions}/>
                 <Route path="/thankyou" exact component={ThankYou} />
                 <Route path="/profile" exact component={Profile} />
+                <Route path="/merchant-edit" exact component={MerchantEdit} />
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
