@@ -81,6 +81,7 @@
      width: 210px;
      height: auto;
      background: white;
+     z-index: 1;
 
  }
  .logout-dropdown ul {

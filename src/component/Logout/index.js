@@ -32,7 +32,7 @@ const Logout = ({cookies, userData, logout}) =>{
                 { userData && userData.merchant_type !== 'charity' &&
                 <li>
                     <span>
-                        <i className="fas fa-key"></i>
+                        <i class="fas fa-upload"></i>
                     </span>
                     { cookies.isToken && checkToken() &&
                     <Link to="/merchant-edit" className="mobile-nav-link">
