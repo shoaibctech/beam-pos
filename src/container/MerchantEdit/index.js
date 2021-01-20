@@ -24,15 +24,32 @@ const MerchantEdit = ({}) => {
     const uploadLogoS3 = async () => {
         try {
             setIsFetching(true);
+            await deleteOldLogo();
             const ReactS3Client = new S3(config);
             const newFileName = logo.name.slice(0, -4);
-
             ReactS3Client
                 .uploadFile(logo, newFileName)
                 .then(data => updateLogoUrl(data))
                 .catch(err => console.error(err))
 
         } catch (e){
+            console.log('Something went wrong...');
+        }
+    }
+    const deleteOldLogo = async () => {
+        try {
+            const reqData = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/get-logo/${getUserData().merchant_id}`, {}, 'GET');
+            if (reqData && reqData.data.isLogo) {
+                const arrayData = reqData.data.logo.split('/');
+                const fileName = arrayData[arrayData.length -1];
+                console.log('file Name', fileName);
+                // ReactS3Client
+                //     .deleteFile(fileName)
+                //     .then(response => console.log(response))
+                //     .catch(err => console.error(err))
+
+            }
+        } catch (e) {
             console.log('Something went wrong...');
         }
     }
