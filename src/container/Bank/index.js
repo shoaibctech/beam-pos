@@ -39,6 +39,7 @@ const Bank = () => {
     const [isFetching, setFetching] = useState(false)
     const [loaderText, setLoaderText] = useState('beam.');
     const [isWpPayment, setIsWpPayment] = useState(false);
+    const [merchantLogo, setMerchantLogo] = useState(null);
 
     const { token, payment_type } = useParams();
     const location = useLocation();
@@ -289,6 +290,21 @@ const Bank = () => {
             // window.scrollTo(0, 0);
         }
     }
+    useEffect(() => {
+        checkAndFetchLogo();
+    }, []);
+
+    const checkAndFetchLogo = async () => {
+        try {
+            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}`);
+            console.log('logo req :: ', logoReq.data);
+            if (logoReq.data.isLogo){
+                setMerchantLogo(logoReq.data.logo);
+            }
+        } catch (e) {
+            console.log('Error: No merchant logo found...');
+        }
+    }
 
     return (
         loading ?
@@ -323,7 +339,7 @@ const Bank = () => {
                                     <div className="left-content">
                                         {/*<span className="cursor-pointer" onClick={() => window.history.back()}><i className="fas fa-arrow-left"></i> back</span>*/}
                                         <div className="bank-screen-logo-container">
-                                            <img src={Logo} alt="logo" className="bank-screen-logo" />
+                                            <img src={merchantLogo ? merchantLogo : Logo } alt="logo" className="bank-screen-logo" />
                                         </div>
 
                                         <div>
@@ -406,7 +422,7 @@ const Bank = () => {
                                         <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
                                     }
                                     <div className="bank-screen-logo-container">
-                                        <img src={Logo} alt="logo" className="bank-screen-logo" />
+                                        <img src={merchantLogo ? merchantLogo : Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
                                     <div>
                                         <p className="cursor-pointer beam-link">What is beam?</p>

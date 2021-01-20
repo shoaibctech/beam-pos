@@ -1,24 +1,74 @@
 import React, { useState } from "react";
 import ImageUploader from 'react-images-upload';
+import S3 from 'react-aws-s3';
+import { makeSecureRequest, getUserData } from "../../utils";
+import Loader from "../../component/UI/Loader";
+
+const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_REGION,
+    accessKeyId: process.env.REACT_APP_ACCESS_ID,
+    secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
+}
 
 const MerchantEdit = ({}) => {
-    const [pictures, setPictures] = useState([]);
+    const [logo, setLogo] = useState(null);
+    const [isFetching, setIsFetching] = useState(false);
+    const [isImg, setIsImg] = useState(false);
 
     const onDrop = (picture) => {
-        setPictures(picture);
-        console.log('picture ::', picture);
+        setLogo(picture[0]);
+        setIsImg(true);
     }
 
+    const uploadLogoS3 = async () => {
+        try {
+            setIsFetching(true);
+            const ReactS3Client = new S3(config);
+            const newFileName = logo.name.slice(0, -4);
+
+            ReactS3Client
+                .uploadFile(logo, newFileName)
+                .then(data => updateLogoUrl(data))
+                .catch(err => console.error(err))
+
+        } catch (e){
+            console.log('Something went wrong...');
+        }
+    }
+
+    const updateLogoUrl = async (data) => {
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/update-logo`,
+                {
+                    logoUrl: data.location,
+                    merchantId: getUserData().merchant_id
+                }, 'POST');
+
+            console.log('successfully uploaded logo ::', req.data);
+            setIsFetching(false);
+        } catch (e) {
+            console.log('Error: ', e);
+        }
+    }
     return (
-        <div>
+        <React.Fragment>
             <ImageUploader
                 withIcon={true}
-                buttonText='Choose images'
+                buttonText='Choose Logo'
                 onChange={onDrop}
                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                 maxFileSize={5242880}
             />
-        </div>
+            {
+                isImg &&
+                <div className="text-center">
+                    <button onClick={uploadLogoS3} className="btn btn-primary" style={{ width: '200px' }}>
+                        { isFetching ? <Loader size="2rem" color="secondary"/> : 'Upload' }
+                    </button>
+                </div>
+            }
+        </React.Fragment>
     );
 }
 

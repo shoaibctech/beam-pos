@@ -235,6 +235,8 @@
 }
 .bank-screen-logo {
     width: 80%;
+    max-width: 232px;
+    max-height: 108px;
 }
 .bank-screen-logo-container {
     margin: 1.5rem auto;
