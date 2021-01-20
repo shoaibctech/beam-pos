@@ -88,7 +88,7 @@ const MerchantEdit = ({}) => {
                     </button>
                 </div>
             }
-            <AlertToast isOpen={showMessage} handleClose={() => setShowMessage(false)} message="Logo Uploaded successfully!" />
+            <AlertToast isOpen={showMessage} handleClose={() => setShowMessage(false)} message="Logo uploaded successfully!" />
         </React.Fragment>
     );
 }
