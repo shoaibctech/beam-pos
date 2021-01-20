@@ -42,12 +42,12 @@ const MerchantEdit = ({}) => {
             if (reqData && reqData.data.isLogo) {
                 const arrayData = reqData.data.logo.split('/');
                 const fileName = arrayData[arrayData.length -1];
-                console.log('file Name', fileName);
-                // ReactS3Client
-                //     .deleteFile(fileName)
-                //     .then(response => console.log(response))
-                //     .catch(err => console.error(err))
 
+                const ReactS3Client = new S3(config);
+                ReactS3Client
+                    .deleteFile(fileName)
+                    .then(response => console.log(response))
+                    .catch(err => console.error(err))
             }
         } catch (e) {
             console.log('Something went wrong...');
