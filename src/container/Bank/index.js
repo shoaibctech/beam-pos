@@ -296,7 +296,7 @@ const Bank = () => {
 
     const checkAndFetchLogo = async () => {
         try {
-            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}`);
+            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/beam`);
             console.log('logo req :: ', logoReq.data);
             if (logoReq.data.isLogo){
                 setMerchantLogo(logoReq.data.logo);
