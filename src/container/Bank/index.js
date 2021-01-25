@@ -305,7 +305,7 @@ const Bank = () => {
             console.log('Error: No merchant logo found...');
         }
     }
-
+//minor change for redeployment
     return (
         loading ?
             <div>
