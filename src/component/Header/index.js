@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 // import auth0 from 'auth0-js';
 import { useCookies } from "react-cookie";
@@ -36,6 +36,35 @@ const Header = () => {
     const [isShowMenu, setIsShowMenu] = useState(false);
 
     const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
+    const ref = useRef(null);
+
+    const handleHideDropdown = (event) => {
+        if (event.key === "Escape") {
+            setIsShowMenu(false);
+        }
+    };
+
+    const handleClickOutside = event => {
+        // if (ref.current && !ref.current.contains(event.target)) {
+        if (ref.current && event.target.id !== 'logout-btn') {
+            setIsShowMenu(false);
+        }
+    };
+
+    useEffect(() => {
+        if (typeof handleClickOutside == 'function' && typeof handleHideDropdown == 'function'){
+            document.addEventListener("keydown", handleHideDropdown, true);
+            document.addEventListener("click", handleClickOutside, true);
+        }
+
+        return () => {
+            if (typeof handleClickOutside == 'function' && typeof handleHideDropdown == 'function') {
+                document.removeEventListener("keydown", handleHideDropdown, true);
+                document.removeEventListener("click", handleClickOutside, true);
+            }
+        };
+    });
+
 
     const logout = async (e) => {
         deleteUserData();
@@ -87,7 +116,9 @@ const Header = () => {
                                     <span className="cursor-pointer" onClick={() => setIsShowMenu(!isShowMenu)}><i className="fa fa-bars" aria-hidden="true"></i></span>
                                 }
                                 { isShowMenu &&
+                                <div ref={ref}>
                                     <Logout cookies={cookies} logout={logout} userData={userData}/>
+                                </div>
                                 }
                         </div>
                         :

@@ -14,7 +14,9 @@ const Logout = ({cookies, userData, logout}) =>{
                         <i className="fas fa-user"></i>
                    </span>
                     <span className="cursor-pointer">
-                        {userData.name}
+                        <strong>
+                            {userData.name}
+                        </strong>
                     </span>
                 </li>
                 { userData && userData.merchant_type !== 'charity' &&
@@ -45,7 +47,7 @@ const Logout = ({cookies, userData, logout}) =>{
                     <span>
                         <i className="fas fa-sign-out-alt"></i>
                     </span>
-                    <span className="cursor-pointer"  onClick={logout}>Logout</span>
+                    <span className="cursor-pointer" name="logout-btn" id="logout-btn" onClick={logout}>Logout</span>
                 </li>
             </ul>
         </div>
