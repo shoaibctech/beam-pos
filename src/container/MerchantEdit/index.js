@@ -61,7 +61,8 @@ const MerchantEdit = ({}) => {
             const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/update-logo`,
                 {
                     logoUrl: data.location,
-                    merchantId: getUserData().merchant_id
+                    merchantId: getUserData().merchant_id,
+                    logoType: 'beam'
                 }, 'POST');
 
             console.log('successfully uploaded logo ::', req.data);
