@@ -8,6 +8,7 @@ import {makeSecureRequest, getUserData } from "../../utils";
 import Loader from "../UI/Loader";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import MobileInput from "../UI/MobileInput";
+import AlertToast from '../../component/UI/AlertToast';
 
 const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}) => {
     const [isTick, setTick] = useState(false);
@@ -18,6 +19,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
     const [error, setError] = useState({phone: '', twilio: ''});
     const [imgData, setImgData] = useState('');
     const [linkToSend, setLink] = useState(link);
+    const [isCopied, setIsCopied] = useState(false);
     const svgRef = useRef(null);
 
     useEffect(() => {
@@ -109,6 +111,15 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
             setIsLinkSent('failed');
         }
     };
+    const copyCodeToClipboard = () => {
+        let textField = document.createElement('textarea');
+        textField.innerText = linkToSend;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+        setIsCopied(true);
+    };
 
     return (
         <div className="payment-module zero-padding-left zero-padding-right">
@@ -119,7 +130,12 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                     </div>
                     <div className="qrcode-innerbox">
                         { merchantType === 'charity' ?
-                            <div style= {{textAlign: 'center'}}>
+                            <div style= {{textAlign: 'center',position:'relative'}}>
+                                <div className="copy-btn">
+                                    <button onClick={copyCodeToClipboard} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
+                                    <i className="fas fa-copy" style={{fontSize:'20px',color:'grey'}}></i>
+                                    </button>
+                                </div>
                                 <div className="qrImage" >
                                         <div style={{width: '12rem', margin: '52px auto 0rem'}} id="qrcodeDiv" >
                                             {
@@ -179,7 +195,9 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                             <br/>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <button className="pay-btn" onClick={sendMessage}>
-                                    {isLinkSending ? <Loader size="2rem" color="secondary"/> : <span>Send <strong style={{fontSize: '25px'}}>beam.</strong> Link</span>}
+                                    {isLinkSending ? <Loader size="2rem" color="secondary"/> : <span>Send {
+                                        merchantType === "charity" ? <span><strong>beam.</strong>&nbsp;donation</span> : <strong style={{fontSize: '25px'}}>beam.</strong>
+                                    } link</span>}
                                 </button>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center' }}>
@@ -227,7 +245,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                     </div>
                 </div>
             }
-
+            <AlertToast isOpen={isCopied} handleClose={() => setIsCopied(false)} message="copied" />
         </div>
     );
 }

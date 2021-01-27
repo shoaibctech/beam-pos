@@ -7,7 +7,7 @@ const Charity = () => {
     return(
         <div className="charity-container">
             <QRCode
-                title="You can Scan the QR Code or just download it!"
+                title="You can scan the QR code or just download it!"
                 link={'https://tinyurl.com/yyaxqazf?merchant_name=Test'}
                 isStatus={false}
                 statusData={{}}
