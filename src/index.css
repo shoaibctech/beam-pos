@@ -97,6 +97,10 @@ input[type=number] {
     border: none;
     border-radius: 3px;
 }
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
 .btn-primary {
     color: var(--btn-txt-color);
     background: var(--btn-bg-color);
