@@ -423,6 +423,11 @@
     text-decoration: underline;
     color: white;
 }
+.gift-aid-block {
+    background: white;
+    margin-top: 6px;
+    border-radius: 5px;
+}
 
 @media (max-width: 540px) {
     .outer-container {

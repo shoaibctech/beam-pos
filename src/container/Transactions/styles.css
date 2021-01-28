@@ -49,6 +49,7 @@
     cursor: pointer;
     font-size: 15px;
     width: 200px;
+    border-radius: 3px;
 }
 .btn-ok {
     background: var(--main-bg-color);

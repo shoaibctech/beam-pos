@@ -431,7 +431,7 @@ const Bank = () => {
                                         {/*<h3 className="text-center mobile-heading">Payment Info</h3>*/}
                                         <div className="payment-detail">
                                             <div>
-                                                <p className="payment-label">Payment to:</p>
+                                                <p className="payment-label">{merchantType === 'charity' ? 'Donation to:' :  'Payment to:'}</p>
                                                 <p>
                                                     {
                                                         merchantType === 'charity' ?
@@ -496,7 +496,7 @@ const Bank = () => {
                                     }
                                     {
                                         merchantType === 'charity' &&
-                                        <div>
+                                        <div className="gift-aid-block">
                                             <h4 style={{padding: '10px 0 0 10px'}}>Gift Aid</h4>
                                             <Checkbox
                                                 onChange={(e) => {
@@ -511,7 +511,7 @@ const Bank = () => {
                                                 checked={taxPayer}
                                                 color="primary"
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
-                                            /> Are you a tax payer?
+                                            /> Are you a UK tax payer?
                                             { taxPayer &&
                                             <div className="tip-detail">
                                                 <div>

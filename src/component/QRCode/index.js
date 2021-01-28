@@ -133,7 +133,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                             <div style= {{textAlign: 'center',position:'relative'}}>
                                 <div className="copy-btn">
                                     <button onClick={copyCodeToClipboard} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
-                                    <i className="fas fa-copy" style={{fontSize:'20px',color:'grey'}}></i>
+                                    <i className="fas fa-copy cursor-pointer cp-btn"></i>
                                     </button>
                                 </div>
                                 <div className="qrImage" >
@@ -147,7 +147,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                                                    </div>
                                             }
                                         </div>
-                                    <button className="btn-ok" onClick={downloadQR} disabled={!imgData}>
+                                    <button className="btn btn-primary btn-ok" onClick={downloadQR} disabled={!imgData}>
                                   <span  className="qrButton">
                                       <GetAppIcon /> <span>Download QR Code</span>
                                   </span>
