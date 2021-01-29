@@ -128,7 +128,8 @@ const Signin = () =>  {
             history.push('/');
         } catch (e) {
             setLoading(false);
-            setMessage(e.response.data.error_description);
+            const ErrorString = {'Invalid binding_code.' : 'Incorrect code.' }
+            setMessage(ErrorString[e.response.data.error_description] ? ErrorString[e.response.data.error_description] : 'Incorrect code.');
         }
     }
     const updateOrCreateMerchant = async (name, merchant_id, email, phone) => {

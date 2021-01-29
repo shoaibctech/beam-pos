@@ -108,7 +108,9 @@ button:focus {
 .btn-primary:hover {
     background: var(--btn-bg-hover-color);
 }
-
+#react-select-2-input {
+    margin: 0 !important;
+}
 @media (max-width: 768px) {
     h1 {
         font-size: 23px !important;

@@ -13,6 +13,7 @@ import { setPusherClient } from "react-pusher";
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 // redeploying
 const Bank = () => {
@@ -273,7 +274,7 @@ const Bank = () => {
                 charityAmount: chAmount,
                 isTaxPayer: taxPayer,
                 name: taxPayerName,
-                address: taxPayerAddr,
+                address: taxPayerAddr.label,
                 token: token
             };
 
@@ -305,7 +306,7 @@ const Bank = () => {
             console.log('Error: No merchant logo found...');
         }
     }
-//minor change for redeployment
+
     return (
         loading ?
             <div>
@@ -513,7 +514,7 @@ const Bank = () => {
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
                                             /> Are you a UK tax payer?
                                             { taxPayer &&
-                                            <div className="tip-detail">
+                                            <div className="tip-detail" style={{marginTop: '0'}}>
                                                 <div>
                                                     <h3 className="payment-label">Name</h3>
                                                 </div>
@@ -532,22 +533,35 @@ const Bank = () => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <h3 className="payment-label">Address</h3>
+                                                    <h3 className="payment-label" style={{ marginBottom: '6px' }}>Address</h3>
                                                 </div>
-                                                <div>
-                                                    <Input
-                                                        name="Address"
-                                                        handleChange={(value) => {
+                                                {/*<div>*/}
+                                                {/*    <Input*/}
+                                                {/*        name="Address"*/}
+                                                {/*        handleChange={(value) => {*/}
+                                                {/*            setTaxPayerAddr(value);*/}
+                                                {/*            setTaxPayerAddrError('');*/}
+                                                {/*        }}*/}
+                                                {/*        value={taxPayerAddr}*/}
+                                                {/*        error={taxPayerAddrError}*/}
+                                                {/*        placeholder="Enter address"*/}
+                                                {/*        type="text"*/}
+                                                {/*        className="tip-box"*/}
+                                                {/*    />*/}
+                                                {/*</div>*/}
+                                                <GooglePlacesAutocomplete
+                                                    apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
+                                                    selectProps={{
+                                                        taxPayerAddr,
+                                                        isClearable: true,
+                                                        placeholder: 'Type address or post code...',
+                                                        onChange: (value) => {
                                                             setTaxPayerAddr(value);
                                                             setTaxPayerAddrError('');
-                                                        }}
-                                                        value={taxPayerAddr}
-                                                        error={taxPayerAddrError}
-                                                        placeholder="Enter address"
-                                                        type="text"
-                                                        className="tip-box"
-                                                    />
-                                                </div>
+                                                        },
+                                                    }}
+                                                />
+                                                {taxPayerAddrError ? <span className="red_color" style={{marginTop: '5px'}}>{taxPayerAddrError}</span> : ''}
                                             </div>
                                             }
                                         </div>

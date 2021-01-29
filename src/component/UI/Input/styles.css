@@ -23,6 +23,8 @@ input:-webkit-autofill:focus {
 }
 .error_text {
     color: var(--text-error-color);
-    margin-left: 10px;
-    padding-left: 10px;
+    margin-left: 5px;
+}
+.red_color {
+    color: var(--text-error-color);
 }
