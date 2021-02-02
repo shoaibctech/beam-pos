@@ -121,6 +121,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
         setIsCopied(true);
     };
 
+    //redeploying
     return (
         <div className="payment-module zero-padding-left zero-padding-right">
             {!isStatus ?
