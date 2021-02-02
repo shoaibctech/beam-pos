@@ -120,6 +120,9 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
         textField.remove();
         setIsCopied(true);
     };
+    const DonatePage = () => {
+        window.open(linkToSend);
+    }
 
     //redeploying
     return (
@@ -148,11 +151,18 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                                                    </div>
                                             }
                                         </div>
-                                    <button className="btn btn-primary btn-ok" onClick={downloadQR} disabled={!imgData}>
+                                   <div className="btn-flex">
+                                       <button className="btn btn-primary btn-ok" onClick={downloadQR} disabled={!imgData}>
                                   <span  className="qrButton">
-                                      <GetAppIcon /> <span>Download QR Code</span>
+                                      <GetAppIcon /> &nbsp; &nbsp;<span>Download QR Code</span>
                                   </span>
-                                    </button>
+                                       </button>
+                                       <button className="btn btn-primary btn-ok" onClick={DonatePage}>
+                                  <span className="qrButton">
+                                       <i className="fas fa-donate" style={{fontSize:"20px"}}></i> &nbsp; &nbsp;<span>Donate with <strong>beam.</strong></span>
+                                  </span>
+                                       </button>
+                                   </div>
                                 </div>
                             </div>
                             :

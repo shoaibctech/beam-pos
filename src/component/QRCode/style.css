@@ -23,7 +23,15 @@ th, td {
 .btn-ok{
     width: 210px !important;
 }
-
+.btn-flex {
+    display: flex;
+}
+@media (max-width: 768px){
+    .btn-flex {
+        display: flex;
+        flex-direction: column;
+    }
+}
 .qrcode-heading {
     padding-top: 5px;
     padding-bottom: 25px;
