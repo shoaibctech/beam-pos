@@ -136,7 +136,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                         { merchantType === 'charity' ?
                             <div style= {{textAlign: 'center',position:'relative'}}>
                                 <div className="copy-btn">
-                                    <button onClick={copyCodeToClipboard} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
+                                    <button onClick={copyCodeToClipboard} disabled={!imgData} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
                                     <i className="fas fa-copy cursor-pointer cp-btn"></i>
                                     </button>
                                 </div>
@@ -157,7 +157,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                                       <GetAppIcon /> &nbsp; &nbsp;<span>Download QR Code</span>
                                   </span>
                                        </button>
-                                       <button className="btn btn-primary btn-ok" onClick={DonatePage}>
+                                       <button className="btn btn-primary btn-ok" onClick={DonatePage} disabled={!imgData}>
                                   <span className="qrButton">
                                        <i className="fas fa-donate" style={{fontSize:"20px"}}></i> &nbsp; &nbsp;<span>Donate with <strong>beam.</strong></span>
                                   </span>
