@@ -25,7 +25,7 @@ const Signup = () => {
     }, [])
 
     const onSignup = async () => {
-        let merchant = orgs.filter( org => org.contact.email1 === email)
+        let merchant = orgs.filter( org => org.contact.email1.toLowerCase() === email.toLowerCase());
         let account;
         setIsSignedUp(false);
 
@@ -54,7 +54,7 @@ const Signup = () => {
             headers: {'content-type': 'application/json'},
             body: {
                 client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-                email: email,
+                email: email.toLowerCase(),
                 password: password,
                 connection: 'Username-Password-Authentication',
                 name: account.name,

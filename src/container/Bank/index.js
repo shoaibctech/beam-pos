@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import axios from "axios";
 import './style.css';
-import Loader from "react-loader-spinner";
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
-import Logo from '../../component/Header/img/Light-Logo.png';
+// import Logo from '../../component/Header/img/Light-Logo.png';
+import Logo from './img/Dark.png';
 import Input from "../../component/UI/Input";
 import { makeRequest } from "../../utils";
-import Mark from './img/mark.jpg';
 import Checkbox from '@material-ui/core/Checkbox';
 import Pusher from "pusher-js";
-import {setPusherClient} from "react-pusher";
+import { setPusherClient } from "react-pusher";
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
+import isMobile from '../../utils/MobileCheck';
+import Loader from '../../component/UI/Loader';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
+// redeploying
 const Bank = () => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [bankList, setBankList] = useState(banks);
@@ -32,8 +35,14 @@ const Bank = () => {
     const [taxPayerAddr, setTaxPayerAddr] = useState('');
     const [taxPayerNameError, setTaxPayerNameError] = useState('');
     const [taxPayerAddrError, setTaxPayerAddrError] = useState('');
+    const [qrCodeImg, setQrCodeImg] = useState(null);
+    const [showQrCode, setShowQrCode] = useState(false);
+    const [isFetching, setFetching] = useState(false)
+    const [loaderText, setLoaderText] = useState('beam.');
+    const [isWpPayment, setIsWpPayment] = useState(false);
+    const [merchantLogo, setMerchantLogo] = useState(null);
 
-    const { token } = useParams();
+    const { token, payment_type } = useParams();
     const location = useLocation();
     const history = useHistory();
 
@@ -45,11 +54,39 @@ const Bank = () => {
     useEffect(() => {
         const channel = pusherClient.subscribe('my-channel');
         channel.bind('thankyou-page-event', function(data) {
-            if(data.token === token ) {
+            if(data.token === token && !data.isMobile ) {
                 history.push('/thankyou');
+            } else if (data.token === token && data.isMobile ) {
+                window.open(data.redirectLink, '_self');
+            }
+        });
+        channel.bind('bank-payment-in-process-event', function (data){
+            if (data.token === token && data.status === 'processing'){
+                setLoading(true);
+                setLoaderText('payment in progress');
             }
         });
     }, []);
+
+    useEffect(( ) => {
+        if (location.pathname.includes('/ch/bank')) {
+            setMerchantType('charity');
+            getCharityPaymentDetails();
+        } else {
+            if (!isMobile.any() && payment_type && payment_type === 'wp'){
+                getQrCode();
+            } else {
+                getPaymentDetails();
+            }
+
+        }
+    }, []);
+
+    const showLoader = () => {
+        setLoading(true);
+        setLoaderText('payment in progress');
+    }
+
 
     const createPayment = async (bankId) => {
         try {
@@ -60,9 +97,16 @@ const Bank = () => {
                     bankId: bankId,
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
+                    isMobile: isMobile.any()
                 });
-            // setLoading(false);
+            //load payment link
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
+
+            if (!isMobile.any()){
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
+            }
         } catch (e) {
             // console.log(e);
             // console.log(e.response);
@@ -73,22 +117,22 @@ const Bank = () => {
                     setError(e.response.data.message);
                     break;
                 default:
-                    setError("Sorry, currently we can\'t process your request. Please try again later");
+                    setError("Sorry, currently we can't process your request. Please try again later");
                     // setError('Sorry, this bank is currently down. Please try again later');
             }
             window.scrollTo(0, 0);
         }
     }
-    const formatPayment = (amount) => {
-        var amount = parseFloat(amount).toFixed(2);
-        const firstPart = amount.toString().split('.')[0];
-        const secondPart = amount.toString().split('.')[1];
-        return (
-            <span>
-                <strong style={{ fontSize: '18px'}}>{firstPart}</strong> {secondPart && '.'}{secondPart}
-        </span>
-        );
-    }
+    // const formatPayment = (amount) => {
+    //     var parsedAmount = parseFloat(amount).toFixed(2);
+    //     const firstPart = parsedAmount.toString().split('.')[0];
+    //     const secondPart = parsedAmount.toString().split('.')[1];
+    //     return (
+    //         <span>
+    //             <strong style={{ fontSize: '18px'}}>{firstPart}</strong> {secondPart && '.'}{secondPart}
+    //     </span>
+    //     );
+    // }
     const handleSearch = (e) => {
         const value = e.target.value;
         setSearchQuery(value);
@@ -99,23 +143,17 @@ const Bank = () => {
             setBankList(banks);
         }
     }
-    useEffect(() => {
-        if (location.pathname.includes('/ch/bank')) {
-            setMerchantType('charity');
-            getCharityPaymentDetails();
-        } else {
-            getPaymentDetails();
-        }
-    }, []);
     const getCharityPaymentDetails = async () => {
         try {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment/${token}`, {}, 'GET');
             setMerchantName(req.data.merchantName);
             setPaymentDetailError('');
+            setLoading(false);
         } catch (e) {
             setPaymentDetailError(true);
         }
     }
+
     const getPaymentDetails = async () => {
         setLoading(true);
         try {
@@ -124,11 +162,59 @@ const Bank = () => {
             setTotalAmount(req.data.data.amount);
             setLoading(false);
             setPaymentDetailError('');
+            if (req.data && req.data.data.link) {
+                setIsWpPayment(true);
+            }
         } catch (e) {
             setLoading(false);
             setPaymentDetailError(true);
         }
     }
+    const getPaymentDetailsWeb = async () => {
+        setFetching(true);
+        try {
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
+            setPaymentData( prevState => ({...paymentData, ...req.data.data}));
+            setTotalAmount(req.data.data.amount);
+            console.log('data test:: ', req.data)
+            if (req.data && req.data.data.link){
+                setIsWpPayment(true);
+            }
+            setFetching(false);
+            setShowQrCode(false);
+            setPaymentDetailError('');
+        } catch (e) {
+            setFetching(false);
+            setShowQrCode(false);
+            setPaymentDetailError(true);
+        }
+    }
+
+    const getQrCode = async () => {
+        setLoading(true);
+        try {
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+                {
+                    pathUrl: window.location.href
+                }, 'POST');
+           const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+           setQrCodeImg(imgBuffer);
+           setShowQrCode(true);
+           setLoading(false);
+        } catch (e) {
+            setLoading(false);
+        }
+    }
+    //TODO: move this code to utils
+    const convertSvgToJsxSvg = async (data) => {
+        let Img = data;
+        Img = Img.replace(/xmlns:xlink/g, 'xmlnsXlink');
+        Img = Img.replace(/xml:space/g, 'xmlSpace');
+        Img = Img.replace(/enable-background/g, 'enableBackground');
+        Img = Img.replace(/shape-rendering/g, 'shapeRendering');
+        return new Buffer(Img);
+    };
+
     const handleTipAmount = (value) => {
         if(value && isNaN(value) && value !== '.') {
             setTipError('Value must be number');
@@ -164,7 +250,6 @@ const Bank = () => {
         } else {
             setChAmount(value);
         }
-        console.log('he :: ', value)
     }
     const createCharityPayment = async (bankId) => {
         if(taxPayer) {
@@ -189,7 +274,7 @@ const Bank = () => {
                 charityAmount: chAmount,
                 isTaxPayer: taxPayer,
                 name: taxPayerName,
-                address: taxPayerAddr,
+                address: taxPayerAddr.label,
                 token: token
             };
 
@@ -206,17 +291,28 @@ const Bank = () => {
             // window.scrollTo(0, 0);
         }
     }
+    useEffect(() => {
+        checkAndFetchLogo();
+    }, []);
 
-    console.log('redeploying code ::');
+    const checkAndFetchLogo = async () => {
+        try {
+            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/beam`);
+            console.log('logo req :: ', logoReq.data);
+            if (logoReq.data.isLogo){
+                setMerchantLogo(logoReq.data.logo);
+            }
+        } catch (e) {
+            console.log('Error: No merchant logo found...');
+        }
+    }
+
     return (
         loading ?
             <div>
                 {loading &&
                 <div className="loader bank-bg-color">
-                    {/*<div id="loaderdiv">*/}
-                    {/*    /!*<Loader type="Oval" color="#000000" height={100} width={100}/>*!/*/}
-                    {/*</div>*/}
-                    <AntiClockLoader  message="Connecting..." color="black"/>
+                    <AntiClockLoader  message={loaderText} color="black"/>
                 </div>
                 }
             </div>
@@ -225,32 +321,118 @@ const Bank = () => {
                 <div className="detail-error">
                     <div className="detail-error-block">
                         <div className="text-center">
-                            <img className="mark" src={Mark} alt="mark" />
+                            {/*<img className="mark" src={Mark} alt="mark" />*/}
                             <h2 className="error_text text-center mr-1">
-                                Sorry, we are not able to process your payment at the moment.
+                                <span className="info-icon"><i className="fas fa-info-circle"></i></span>  Sorry, the payment link is either used or expired.
                             </h2>
                             <p className="text-center mr-1">
-                                Please go back to your merchant for assistance. We will resolve this issue as soon as possible
-                                so that you can try again.
+                                Please go back to your merchant for assistance.
                             </p>
                         </div>
                     </div>
                 </div>
                 :
-                <div className="outer-container">
+                showQrCode ?
+                    <div className="outer-container">
+                        <div className="inner-container">
+                            <div className="inner-container-grid">
+                                <div className="left-section">
+                                    <div className="left-content">
+                                        {/*<span className="cursor-pointer" onClick={() => window.history.back()}><i className="fas fa-arrow-left"></i> back</span>*/}
+                                        <div className="bank-screen-logo-container">
+                                            <img src={merchantLogo ? merchantLogo : Logo } alt="logo" className="bank-screen-logo" />
+                                        </div>
+
+                                        <div>
+                                            <p className="info-text">To start your payment either scan<br/> QR code or click select bank</p>
+                                        </div>
+
+                                        <div className="flow-steps">
+                                            <div style={{background: 'transparent', padding: '0 3px', marginBottom: '-5px'}}>
+                                                <p className="cursor-pointer beam-link">What is beam?</p>
+                                            </div>
+                                            {/*<div><span className="step-mark">1</span> Scan QR code</div>*/}
+                                            <div>Scan QR code</div>
+                                            <div className="or-div"><hr className="or-hr" /> <span className="or">OR</span> <hr className="or-hr"/></div>
+                                            {/*<div><span className="step-mark">2</span> Select bank</div>*/}
+                                            <div>Press Select bank</div>
+                                        </div>
+                                        <div className='cancel-flow mobile-only'>
+                                            <p onClick={() => {
+                                                window.history.back();
+                                            }}
+                                               style={{ color: "white" }}>
+                                                Cancel and return to merchant
+                                            </p>
+                                        </div>
+
+                                        <div className="rule-conduct desktop-only">
+                                            <p>
+                                                Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                                who are authorised by the Financial Conduct Authority under the Payment
+                                                Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="right-content">
+                                        <div className="text-center">
+                                            <h2 className="bank-heading">Proceed to Payment</h2>
+                                        </div>
+                                        <div>
+                                            <p className="bank-heading-sub">Scan QR code with your mobile for rapid checkout directly from your banking app. Or alternatively, click 'Select bank' to checkout via your online banking website.</p>
+                                            {/*<p className="bank-heading">Scan QR Code to proceed payment through mobile or click select bank.</p>*/}
+                                        </div>
+                                        <div className="bank-qr-code">
+                                            <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(qrCodeImg)}`} alt="Qr Code"/>
+                                        </div>
+                                        <div>
+                                            <button className="btn btn-primary click-to-pay" onClick={getPaymentDetailsWeb}>
+                                                {isFetching ? <Loader size="1rem" color="secondary"/> : 'Select Bank'}
+                                            </button>
+                                        </div>
+                                        {/*<div>*/}
+                                        {/*    <button onClick={showLoader} className="btn btn-primary"> Process </button>*/}
+                                        {/*</div>*/}
+                                        <div className="rule-conduct mobile-only">
+                                            <p>
+                                                Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                                who are authorised by the Financial Conduct Authority under the Payment
+                                                Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='cancel-flow cancel-flow-bg desktop-768-only'>
+                            <p onClick={() => {
+                                window.history.back();
+                            }}>Cancel and return to merchant</p>
+                        </div>
+                    </div>
+                    :
+                    <div className="outer-container">
                     <div className="inner-container">
                         <div className="inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
+                                    {
+                                        isWpPayment && !isMobile.any() &&
+                                        <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
+                                    }
                                     <div className="bank-screen-logo-container">
-                                        <img src={Logo} alt="logo" className="bank-screen-logo" />
+                                        <img src={merchantLogo ? merchantLogo : Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
-
+                                    <div>
+                                        <p className="cursor-pointer beam-link">What is beam?</p>
+                                    </div>
                                     <div className="payment-detail-section">
-                                        <h3 className="text-center mobile-heading">Payment Info</h3>
+                                        {/*<h3 className="text-center mobile-heading">Payment Info</h3>*/}
                                         <div className="payment-detail">
                                             <div>
-                                                <p className="payment-label">Payment to:</p>
+                                                <p className="payment-label">{merchantType === 'charity' ? 'Donation to:' :  'Payment to:'}</p>
                                                 <p>
                                                     {
                                                         merchantType === 'charity' ?
@@ -271,7 +453,7 @@ const Bank = () => {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/*<p className="info-link">what is beam?</p>*/}
                                     {
                                         paymentData && paymentData.merchant_type === 'tip' &&
                                         <div className="tip-detail">
@@ -315,7 +497,7 @@ const Bank = () => {
                                     }
                                     {
                                         merchantType === 'charity' &&
-                                        <div>
+                                        <div className="gift-aid-block">
                                             <h4 style={{padding: '10px 0 0 10px'}}>Gift Aid</h4>
                                             <Checkbox
                                                 onChange={(e) => {
@@ -330,9 +512,9 @@ const Bank = () => {
                                                 checked={taxPayer}
                                                 color="primary"
                                                 inputProps={{ 'aria-label': 'secondary checkbox' }}
-                                            /> Are you a tax payer?
+                                            /> Are you a UK tax payer?
                                             { taxPayer &&
-                                            <div className="tip-detail">
+                                            <div className="tip-detail" style={{marginTop: '0'}}>
                                                 <div>
                                                     <h3 className="payment-label">Name</h3>
                                                 </div>
@@ -351,22 +533,35 @@ const Bank = () => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <h3 className="payment-label">Address</h3>
+                                                    <h3 className="payment-label" style={{ marginBottom: '6px' }}>Address</h3>
                                                 </div>
-                                                <div>
-                                                    <Input
-                                                        name="Address"
-                                                        handleChange={(value) => {
+                                                {/*<div>*/}
+                                                {/*    <Input*/}
+                                                {/*        name="Address"*/}
+                                                {/*        handleChange={(value) => {*/}
+                                                {/*            setTaxPayerAddr(value);*/}
+                                                {/*            setTaxPayerAddrError('');*/}
+                                                {/*        }}*/}
+                                                {/*        value={taxPayerAddr}*/}
+                                                {/*        error={taxPayerAddrError}*/}
+                                                {/*        placeholder="Enter address"*/}
+                                                {/*        type="text"*/}
+                                                {/*        className="tip-box"*/}
+                                                {/*    />*/}
+                                                {/*</div>*/}
+                                                <GooglePlacesAutocomplete
+                                                    apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
+                                                    selectProps={{
+                                                        taxPayerAddr,
+                                                        isClearable: true,
+                                                        placeholder: 'Type address or post code...',
+                                                        onChange: (value) => {
                                                             setTaxPayerAddr(value);
                                                             setTaxPayerAddrError('');
-                                                        }}
-                                                        value={taxPayerAddr}
-                                                        error={taxPayerAddrError}
-                                                        placeholder="Enter address"
-                                                        type="text"
-                                                        className="tip-box"
-                                                    />
-                                                </div>
+                                                        },
+                                                    }}
+                                                />
+                                                {taxPayerAddrError ? <span className="red_color" style={{marginTop: '5px'}}>{taxPayerAddrError}</span> : ''}
                                             </div>
                                             }
                                         </div>
@@ -378,12 +573,24 @@ const Bank = () => {
                                     {/*</div>*/}
                                     {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                     <div className="flow-steps">
-                                            <div><span className="step-mark">1</span> Connect to bank</div>
-                                            <div><span className="step-mark">2</span> Authorize your payment</div>
-                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                        <div><span className="step-mark">1</span> Connect to your bank</div>
+                                        <div><span className="step-mark">2</span> Authorize your payment</div>
+                                        <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                    </div>
+                                    }
+                                    {
+                                        isWpPayment &&
+                                        <div className='cancel-flow mobile-only'>
+                                            <p onClick={() => {
+                                                window.history.back();
+                                            }}
+                                               style={{ color: "white" }}
+                                            >
+                                                Cancel and return to merchant
+                                            </p>
                                         </div>
                                     }
-                                    <div className="rule-conduct">
+                                    <div className="rule-conduct desktop-only">
                                         <p>
                                             Beam Payments is powered by Sentenial Limited, trading as Nuapay,
                                             who are authorised by the Financial Conduct Authority under the Payment
@@ -427,10 +634,25 @@ const Bank = () => {
                                             ))}
                                         </div>
                                     </div>
+                                    <div className="rule-conduct mobile-only">
+                                        <p>
+                                            Beam Payments is powered by Sentenial Limited, trading as Nuapay,
+                                            who are authorised by the Financial Conduct Authority under the Payment
+                                            Service Regulations 2009 [FRN 624067] for the provision of payment services.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                        {
+                            isWpPayment &&
+                            <div className='cancel-flow cancel-flow-bg desktop-768-only'>
+                                <p onClick={() => {
+                                    window.history.back();
+                                }}>Cancel and return to merchant</p>
+                            </div>
+                        }
                 </div>
     );
 }

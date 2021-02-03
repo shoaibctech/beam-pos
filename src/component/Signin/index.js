@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie";
 import Loader from '../../component/UI/Loader';
 import axios from 'axios';
 import './styles.css';
-import Toast from '../../component/UI/Toast';
+import AlertToast from '../../component/UI/AlertToast';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -65,7 +65,7 @@ const Signin = () =>  {
             }
         });
     }
-    const showCodePrompt = async (mfaToken) => {
+    const showCodePrompt = async (mfaToken, isResending = false) => {
         setMessage('');
         try {
             const data = await axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/mfa/challenge`, {
@@ -78,10 +78,12 @@ const Signin = () =>  {
             setLoading(false);
             setOobCode(data.data.oob_code);
             setLoginStep(1);
-            handleShowToast();
+            setShowToast(true);
         } catch (e) {
             if(e.response && e.response.data.error === 'association_required'){
-                setLoginStep(2);
+                if (!isResending) // Don't update screen
+                    setLoginStep(2);
+
                 setLoading(false);
             } else {
                 setMessage(e.response && e.response.data.error_description);
@@ -126,7 +128,8 @@ const Signin = () =>  {
             history.push('/');
         } catch (e) {
             setLoading(false);
-            setMessage(e.response.data.error_description);
+            const ErrorString = {'Invalid binding_code.' : 'Incorrect code.' }
+            setMessage(ErrorString[e.response.data.error_description] ? ErrorString[e.response.data.error_description] : 'Incorrect code.');
         }
     }
     const updateOrCreateMerchant = async (name, merchant_id, email, phone) => {
@@ -229,24 +232,17 @@ const Signin = () =>  {
             setLoading(false);
             setLoginStep(1);
         } catch (e) {
+            if(e.response && e.response.data.error_description)
+                setMessage(e.response.data.error_description);
+
             console.log('', e.response);
             setLoading(false);
         }
     }
-
-    const handleShowToast  = () => {
-        setShowToast(true);
-        setTimeout(() => {
-            setShowToast(false);
-        }, 1000);
-    }
     
     return (
         <div className="login-container">
-            {
-                showToast &&
-                    <Toast text="Message sent successfully" type="success" />
-            }
+            <AlertToast isOpen={showToast} handleClose={() => setShowToast(false)} message="Code sent successfully!" />
             <div className="row">
                 <div>
                     <h1>Welcome to beam.</h1>
@@ -332,9 +328,11 @@ const Signin = () =>  {
                             </div>
                             <div></div>
                         </div>
-                        <p style={{textAlign: 'center'}} onClick={() => showCodePrompt(mfaToken)}>
+                        <p style={{textAlign: 'center'}}>
                             <span>Didn't receive the code? </span>
-                            <span style={{ color: '#5956E8', cursor: 'pointer'}}>Resend</span>
+                            <span style={{ color: '#5956E8', cursor: 'pointer'}}  onClick={() => showCodePrompt(mfaToken, true)}>
+                                Resend
+                            </span>
                         </p>
                     </React.Fragment>
             }

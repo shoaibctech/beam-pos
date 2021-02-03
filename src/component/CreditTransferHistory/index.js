@@ -23,6 +23,7 @@ const CreditTransferHistory = () => {
             const refundList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/list_credit_transfers`,
                 {
                     merchantId: userData.merchant_id,
+                    beneficiaryId: userData.beneficiary_id,
                 }, 'POST');
             console.log('refund data ::', refundList.data.data.data);
 

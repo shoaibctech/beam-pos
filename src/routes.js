@@ -13,6 +13,8 @@ import Signin from "./component/Signin";
 import Charity from "./container/Charity";
 import ThankYou from "./container/Thankyou";
 import Receipt from "./container/Receipt";
+import Profile from "./container/profile";
+import MerchantEdit from "./container/MerchantEdit";
 
 import { getUserData } from "./utils";
 
@@ -25,13 +27,15 @@ const MainRoute = () => {
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/callback" component={Callback} />
                 <Route path="/nuapay" exact component={Nuapay} />
-                <Route path="/bank/:token"  component={Bank} />
+                <Route path="/bank/:token/:payment_type?"  component={Bank} />
                 <Route path="/ch/bank/:token"  component={Bank} />
                 <Route path="/verify" component={Verify}/>
                 <Route path="/verifybank" exact component={ConnectBank}/>
                 <PrivateRoute path="/transaction" exact component={Transactions}/>
                 <Route path="/thankyou" exact component={ThankYou} />
                 <Route path="/paymentdetails/:amount?/:currency?/:bank_name?/:merchant_name?/:status?/:trans_date?/:payer_name?" component={Receipt} />
+                <Route path="/profile" exact component={Profile} />
+                <Route path="/merchant-edit" exact component={MerchantEdit} />
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>

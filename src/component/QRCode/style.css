@@ -23,7 +23,15 @@ th, td {
 .btn-ok{
     width: 210px !important;
 }
-
+.btn-flex {
+    display: flex;
+}
+@media (max-width: 768px){
+    .btn-flex {
+        display: flex;
+        flex-direction: column;
+    }
+}
 .qrcode-heading {
     padding-top: 5px;
     padding-bottom: 25px;
@@ -54,5 +62,18 @@ th, td {
     justify-content: center;
     align-items: center;
 }
-
+.copy-btn {
+    display: flex;
+    position: absolute;
+    right: -19px;
+    top: 0;
+    cursor: pointer;
+}
+.cp-btn {
+    font-size: 20px;
+    color: grey;
+}
+.cp-btn:hover {
+    color: var(--main-bg-color);
+}
 tr:hover {background-color:#f5f5f5;}

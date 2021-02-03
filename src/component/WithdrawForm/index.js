@@ -39,23 +39,31 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
             setAmountExceedError(true);
             return;
         }
+        if (!getUserData().beneficiary_id) {
+            setMessage('No beneficiary details found. Please contact martinjburt@gmail.com for further assistance ');
+            return;
+        }
         setIsFetching(true);
         try {
 
             const data = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit_transfer`,
                 {
                     merchantId: getUserData().merchant_id,
+                    beneficiaryId: getUserData().beneficiary_id,
                     amount
                 }, 'POST');
 
-            console.log('data :: ', data);
             setMessage('Your request for credit transfer has been submitted successfully.');
             setIsFetching(false);
             getBalance();
             setAmount(0);
         } catch (e) {
+            if (e.response && e.response.data) {
+                setError(e.response.data.message);
+            } else {
+                setError('There is error while creating credit transfer. Please try again later...');
+            }
             setIsFetching(false);
-            setError('There is error while creating credit transfer. Please try again later...');
         }
     }
     return(

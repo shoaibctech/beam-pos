@@ -77,13 +77,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border: none;
     cursor: pointer;
     margin: 10px 0;
     padding: 10px 15px;
     font-size: 23px;
-    /*box-shadow: 1px 1px 18px lightgrey;*/
+    border-radius: 3px;
 }
 .cancel-btn {
     background: var(--text-error-color);
@@ -92,22 +91,20 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid ghostwhite;
-    border-radius: 6px;
     cursor: pointer;
     margin: 10px 15px 10px 0;
     padding: 10px 15px;
     width: 150px;
     font-size: 23px;
+    border-radius: 3px;
     /*box-shadow: 1px 1px 18px lightgrey;*/
 }
 .cancel-btn:hover {
     color: var(--text-error-color);
     background: white;
-    border: 1px solid var(--text-error-color);
 }
 .confirm-btn:hover {
-    border: 1px solid lightgrey;
+    background: var(--btn-bg-hover-color);
 }
 .confirm-btn img {
     width: 25px;

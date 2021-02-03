@@ -6,6 +6,10 @@
     margin-bottom: 2.5rem;
     margin-top: 2.5rem;
 }
+.status-toggle {
+    margin-right: auto;
+    padding-left: 20px;
+}
 .modal-container {
     padding: 2rem 3rem 1rem;
     min-width: 350px;
@@ -20,8 +24,8 @@
     padding: 10px 15px;
     background: var(--main-bg-color);
     color: var(--btn-txt-color);
-    border: 1px solid ghostwhite;
-    border-radius: 6px;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
     font-size: 15px;
     width: 90%;
@@ -41,20 +45,19 @@
 .btn-ok, .btn-cancel {
     margin: 10px;
     padding: 10px 15px;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
     font-size: 15px;
     width: 200px;
+    border-radius: 3px;
 }
 .btn-ok {
     background: var(--main-bg-color);
     color: var(--btn-txt-color);
-    border: 1px solid ghostwhite;
 }
 .btn-cancel {
     background: white;
     color: black;
-    border: 1px solid black;
 }
 .btn-ok[disabled] {
     background: #cccccc;
@@ -132,18 +135,16 @@
     justify-content: flex-end;
 }
 .search-container > button {
-    background: var(--main-bg-color);
-    color: var(--btn-txt-color);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid ghostwhite;
-    border-radius: 6px;
-    cursor: pointer;
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
+}
+.load-more {
+    margin: 20px auto;
 }
 @media (max-width: 540px) {
     .top-container {
@@ -196,6 +197,12 @@
     }
     .search-container {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .status-toggle {
+        margin-left: auto;
+        margin-right: 0;
     }
 }
 

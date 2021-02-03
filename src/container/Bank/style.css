@@ -31,7 +31,7 @@
     align-content: flex-start;
     height: 30rem;
     padding: 5px;
-    overflow: scroll;
+    overflow-y: scroll;
 
     /*background-image: linear-gradient(to bottom,*/
     /*rgba(255, 255, 255, 0),*/
@@ -63,18 +63,44 @@
 .mr-1 {
     margin: 1rem auto;
 }
+.mr-2 {
+    margin: 10px auto;
+}
 .mark {
     width: 108px;
 }
-/* Hide scrollbar for Chrome, Safari and Opera */
-.bank-list-container::-webkit-scrollbar {
-    display: none;
-}
+/*!* Hide scrollbar for Chrome, Safari and Opera *!*/
+/*.bank-list-container::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .bank-list-container {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    /*-ms-overflow-style: none;  !* IE and Edge *!*/
+    /*scrollbar-width: none;  !* Firefox *!*/
+    scrollbar-width: thin;
+    scrollbar-color: grey white;
+}
+
+ /*width*/
+.bank-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+ /*Track */
+.bank-list-container::-webkit-scrollbar-track {
+    /*background: #f1f1f1;*/
+}
+
+/* Handle */
+.bank-list-container::-webkit-scrollbar-thumb {
+    background: #151B25;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+.bank-list-container::-webkit-scrollbar-thumb:hover {
+    background: #151B25;
 }
 .list-banks {
     box-sizing: border-box;
@@ -126,18 +152,37 @@
     }
 }
 .outer-container {
-    background-image: url('img/bank-bg-mobile.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover;
+    /*background-image: url('img/bank-bg-mobile.jpg');*/
+    background: #fffbf4ab;
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+    /*background-attachment: fixed;*/
+    /*background-size: cover;*/
     width: 100%;
     min-height: 100vh;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
 }
+.cancel-flow {
+    cursor: pointer;
+    /*text-decoration: underline;*/
+}
+.cancel-flow-bg {
+    position: absolute;
+    left: 10px;
+    bottom: -2px;
+    font-size: 12px;
+    color: #1A202C;
+}
+.info-link {
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--main-bg-color);
+    float: left;
+}
 .inner-container {
     background: #ffffff59;
+    box-shadow: 0px 0px 20px 5px #00000030;
     width: 758px;
     margin: 0 auto;
     border-radius: 5px;
@@ -147,7 +192,7 @@
     grid-template-columns: 45% 55%;
 }
 .left-section {
-    background: #f7f8fabd;
+    background: #1A202C;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
@@ -164,8 +209,10 @@
 .rule-conduct > p {
     font-size: 10px;
     padding: 10px 3px;
+    color: white;
 }
 .right-content {
+    background: white;
     padding: 1rem 1rem;
 }
 .bank-heading {
@@ -173,14 +220,26 @@
     margin-bottom: 1rem;
     background: white;
     padding: 9px;
-    border: 1px solid var(--input-border-color);
+    /*border: 1px solid var(--input-border-color);*/
     border-radius: 4px;
+}
+.bank-heading-sub {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    padding: 9px;
+    /*border: 1px solid var(--input-border-color);*/
+    border-radius: 4px;
+    text-align: center;
+    font-size: 15px;
 }
 .bank-screen-logo {
     width: 80%;
+    max-width: 232px;
+    max-height: 108px;
 }
 .bank-screen-logo-container {
-    margin: 3rem auto;
+    margin: 1.5rem auto;
     text-align: center;
     padding: 1rem;
 }
@@ -236,13 +295,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: black;
+    background: #1A202C;
     color: white;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
 }
+
+.bank-qr-code {
+    width: 12rem;
+    margin: 6rem auto;
+}
+.click-to-pay {
+    width: 100%;
+    margin: 10px auto;
+}
+.or-div {
+    background: transparent !important;
+}
+.or {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: var(--main-bg-color);
+}
+.or-hr {
+    width: 48%;
+    color: var(--main-bg-color);
+    height: 1px;
+    border-width: 0;
+    background-color: var(--main-bg-color);
+}
+
+.btn-back {
+    color: var(--main-bg-color);
+}
+
 @media (min-width: 768px) {
     .outer-container {
         /*background-color: var(--main-theme-color);*/
@@ -258,7 +347,19 @@
 }
 @media (max-width: 768px) {
     .flow-steps {
-        margin: 3rem 0;
+        margin: 3rem 0 0 0;
+    }
+    .cancel-flow {
+        margin-bottom: 3rem;
+        margin-top: 5px;
+    }
+    .rule-conduct > p {
+        font-size: 10px;
+        padding: 10px 3px;
+        color: #1A202C;
+    }
+    .desktop-768-only{
+        display: none;
     }
 }
 @media (max-width: 540px) {
@@ -271,6 +372,10 @@
         /*background-position: center center;*/
         /*background-attachment: fixed;*/
         /*background-size: cover;*/
+    }
+    .info-icon {
+        display: block;
+        font-size: 40px;
     }
 }
 
@@ -297,7 +402,7 @@
         grid-template-columns: 100%;
     }
     .left-section {
-        background: #F7F8FA;
+        background: #1A202C;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
@@ -306,14 +411,32 @@
         width: 80px;
     }
 }
+.info-text {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    color: white;
+}
+.beam-link {
+    margin-top: -10px;
+    padding-bottom: 5px;
+    text-decoration: underline;
+    color: white;
+}
+.gift-aid-block {
+    background: white;
+    margin-top: 6px;
+    border-radius: 5px;
+}
 
 @media (max-width: 540px) {
     .outer-container {
-        background-image: url('img/bank-bg-mobile.jpg');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        background-size: cover;
+        /*background-image: url('img/bank-bg-mobile.jpg');*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: center center;*/
+        /*background-attachment: fixed;*/
+        /*background-size: cover;*/
+        background: #9ba9b84d;
         padding-top: 0;
         padding-bottom: 0;
     }
@@ -328,7 +451,7 @@
         grid-template-columns: 100%;
     }
     .left-section {
-        background: #f7f8fabd;
+        background: #1A202C;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
@@ -346,6 +469,19 @@
     .bank-screen-logo-container {
         margin-top: 1rem;
         margin-bottom: 2rem;
+    }
+    .mobile-only {
+        display: inline-block;
+        /*background: rgba(255, 255, 255, 0.6);*/
+        padding: 0 9px;
+    }
+    .desktop-only {
+        display: none;
+    }
+}
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
     }
 }
 
