@@ -19,7 +19,7 @@ const TRANSACTION_FEE = '1.50';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '50%',
+        width: '60%',
         margin: '0 auto',
         backgroundColor: '#ffffff !important',
     },
