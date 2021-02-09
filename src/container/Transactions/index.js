@@ -320,7 +320,7 @@ const Transactions = () => {
                             </tbody>
                         </table>
                         {
-                            !isFetching && !isLastPage && !transError &&
+                            !isFetching && !isLastPage && !transError && paymentList.length > 1 &&
                             <div className="text-center load-more">
                                 <button className="btn btn-primary" onClick={handleNextPage}>Load More</button>
                             </div>

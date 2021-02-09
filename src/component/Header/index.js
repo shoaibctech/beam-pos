@@ -118,46 +118,52 @@ const Header = () => {
     // console.log(cookies.isToken);
     // console.log(checkToken());
     return (
-        <header className="header">
-            { ( !checkToken()) ?
-                <div className="app-title">
-                    <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
-                </div>
-                :
-                <h3 className="component-names">{COMPONENT_NAMES[location.pathname]}</h3>
-            }
-            {/*<div className="app-title">*/}
-            {/*    <div className="nav-link">*/}
-            {/*        { cookies.isToken && checkToken() &&*/}
-            {/*        <Link to="/transaction" className="mobile-nav-link">*/}
-            {/*            Transactions*/}
-            {/*        </Link>*/}
-            {/*        }*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-            <div className="logout">
-                {
-                    cookies.isToken && checkToken() ?
-                        <div>
-                                {
-                                    <span className="cursor-pointer" id="menu-btn-id" onClick={() => setIsShowMenu(!isShowMenu)}>
+       <div>
+           <div className="hamburger-icon" onClick={() => {
+               document.getElementById('sidenavbar').style.display = 'block';
+           }}>☰</div>
+           <header className="header">
+
+               { ( !checkToken()) ?
+                   <div className="app-title">
+                       <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
+                   </div>
+                   :
+                   <h3 className="component-names">{COMPONENT_NAMES[location.pathname]}</h3>
+               }
+               {/*<div className="app-title">*/}
+               {/*    <div className="nav-link">*/}
+               {/*        { cookies.isToken && checkToken() &&*/}
+               {/*        <Link to="/transaction" className="mobile-nav-link">*/}
+               {/*            Transactions*/}
+               {/*        </Link>*/}
+               {/*        }*/}
+               {/*    </div>*/}
+               {/*</div>*/}
+               <div className="logout">
+                   {
+                       cookies.isToken && checkToken() ?
+                           <div>
+                               {
+                                   <span className="cursor-pointer" id="menu-btn-id" onClick={() => setIsShowMenu(!isShowMenu)}>
                                         {userData && getNameAcronym(userData.name)}
-                                        {userData && userData.name} {' '}
-                                        {isShowMenu ? <i className="fas fa-angle-up theme-primary-color"></i> :
-                                            <i className="fas fa-angle-down theme-primary-color"></i> }
+                                       {userData && userData.name} {' '}
+                                       {isShowMenu ? <i className="fas fa-angle-up theme-primary-color"></i> :
+                                           <i className="fas fa-angle-down theme-primary-color"></i> }
                                     </span>
-                                }
-                                { isShowMenu &&
-                                <div ref={ref}>
-                                    <Logout cookies={cookies} logout={logout} userData={userData}/>
-                                </div>
-                                }
-                        </div>
-                        :
-                        <PathComponent/>
-                }
-            </div>
-        </header>
+                               }
+                               { isShowMenu &&
+                               <div ref={ref}>
+                                   <Logout cookies={cookies} logout={logout} userData={userData}/>
+                               </div>
+                               }
+                           </div>
+                           :
+                           <PathComponent/>
+                   }
+               </div>
+           </header>
+       </div>
     );
 }
 export default Header;

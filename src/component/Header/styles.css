@@ -14,7 +14,7 @@
 }
 @media (max-width: 540px) {
     .header {
-        justify-content: center;
+        /*justify-content: center;*/
     }
     .header h1 {
         text-align: center;
@@ -121,6 +121,12 @@ li:hover{
 .component-names {
     padding-top: 15px;
     padding-bottom: 15px;
+}
+.hamburger-icon {
+    font-size: 28px;
+    margin-left: 13px;
+    margin-top: 13px;
+    cursor: pointer;
 }
 
  @media (max-width: 760px) {

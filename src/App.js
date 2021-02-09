@@ -13,26 +13,34 @@ import Sidebar from "./component/Sidebar";
 const App = () => {
     const userData = getUserData();
     const [cookie, setCookie] = useCookies(['isToken']);
+    const [pathName, setPathName] = useState('/');
 
-    console.log('location', window.location.pathname)
     return (
         <div>
             <div id="content">
                 <Router>
-                    <div>
-                        {
-                            cookie.isToken && userData &&
-                                <Sidebar />
-                        }
-                        <div className={(cookie.isToken && userData) ? 'main-login-block' : ''}>
-                            <Header/>
-                            <div className={(cookie.isToken && userData) ? 'main-page-bg-block' : ''}>
-                                <div className={(cookie.isToken && userData) ? 'main-page-block' : ''}>
-                                    <MainRoute/>
+                    {
+                        pathName.includes('/bank') ?
+                            <div>
+                                <Header />
+                                <MainRoute />
+                            </div>
+                            :
+                            <div>
+                                {
+                                    cookie.isToken && userData &&
+                                    <Sidebar setPathName={setPathName} />
+                                }
+                                <div className={(cookie.isToken && userData) ? 'main-login-block' : ''}>
+                                    <Header/>
+                                    <div className={(cookie.isToken && userData) ? 'main-page-bg-block' : ''}>
+                                        <div className={(cookie.isToken && userData) ? 'main-page-block' : ''}>
+                                            <MainRoute/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    }
                 </Router>
             </div>
         </div>

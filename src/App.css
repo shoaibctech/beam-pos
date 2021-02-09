@@ -23,4 +23,36 @@
     margin-left: 20px;
     margin-right: 20px;
     background: white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+@media (max-width: 768px) {
+    .sidenav {
+        display: none;
+    }
+    .main-login-block {
+        margin-left: 0; /* Same as the width of the sidenav */
+        /*font-size: 28px; !* Increased text to enable scrolling *!*/
+        /*padding: 0px 10px;*/
+    }
+    .main-page-bg-block {
+        background: white;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: auto;
+    }
+    .main-page-block {
+        box-shadow:  none;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        background: white;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+@media (min-width: 768px) {
+    .hamburger-icon {
+        display: none;
+    }
 }
