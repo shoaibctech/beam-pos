@@ -20,8 +20,9 @@ const COMPONENT_NAMES = {
     '/': 'Home',
     '/profile': 'Key Management',
     '/transaction': 'Transactions',
-    '/merchant-edit': 'Upload Merchant Brand Icon',
-    '/msetting': 'Sms Notification Setting'
+    '/merchant-edit': 'Merchant Logo',
+    '/msetting': 'Sms Notification',
+    '/beamlink': 'Beam Link'
 };
 
 const PathComponent = () => {
@@ -147,7 +148,7 @@ const Header = () => {
                                {
                                    <span className="cursor-pointer" id="menu-btn-id" onClick={() => setIsShowMenu(!isShowMenu)}>
                                         {userData && getNameAcronym(userData.name)}
-                                       {userData && userData.name} {' '}
+                                       <span className="desktop-768-only">{userData && userData.name}{' '}</span>
                                        {isShowMenu ? <i className="fas fa-angle-up theme-primary-color"></i> :
                                            <i className="fas fa-angle-down theme-primary-color"></i> }
                                     </span>

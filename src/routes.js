@@ -36,6 +36,7 @@ const MainRoute = () => {
                 <Route path="/profile" exact component={Profile} />
                 <Route path="/merchant-edit" exact component={MerchantEdit} />
                 <PrivateRoute path="/msetting" exact component={MessageSetting} />
+                <PrivateRoute path="/beamlink" exact component={Home} />
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>

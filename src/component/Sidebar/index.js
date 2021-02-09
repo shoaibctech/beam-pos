@@ -41,14 +41,14 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 Transactions
             </Link>
         </div>
-        {/*<div className={isActive === '/' ? 'link-list active-link' : 'link-list'}>*/}
-        {/*    <Link to="/">*/}
-        {/*        <i className="fas fa-paper-plane"></i>*/}
-        {/*        Send beam link*/}
-        {/*    </Link>*/}
-        {/*</div>*/}
+        <div className={isActive === '/beamlink' ? 'link-list active-link' : 'link-list'}>
+            <Link to="/beamlink">
+                <i className="fas fa-paper-plane"></i>
+                Beam link
+            </Link>
+        </div>
         <div className="link-list" onClick={() => setIsSettingOpen(!isSettingOpen)}>
-            <div className={isSettingOpen ? 'sidebar-submenu active-option' : 'sidebar-submenu'}>
+            <div className={'sidebar-submenu'}>
                <span>
                     <i className="fas fa-user-cog"></i>
                     Settings

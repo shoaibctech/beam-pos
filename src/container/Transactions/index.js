@@ -20,7 +20,7 @@ import './styles.css';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: 'rgba(89, 86, 262, 1)'
+            main: '#ff1375'
         },
         // secondary: {
         //     main: green[500],

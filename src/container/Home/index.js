@@ -14,6 +14,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import { checkToken, makeSecureRequest, getUserData } from "../../utils";
+import {useLocation} from 'react-router-dom';
 
 const TRANSACTION_FEE = '1.50';
 
@@ -50,6 +51,7 @@ const getSteps = () => {
     return ['Amount', 'Confirm', 'Pay']
 };
 const Home =  () => {
+    const location = useLocation();
     const [step, setStep] = useState(getStep());
     const [amount, setAmount] = useState('');
     const [loading, setLoading] = useState(false);
@@ -67,6 +69,11 @@ const Home =  () => {
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
+
+    useEffect(() => {
+        setStep(1);
+        setActiveStep(0);
+    }, [location.pathname]);
 
     const steps = getSteps();
 
@@ -109,13 +116,15 @@ const Home =  () => {
     const parseImg = () => {
         setStep(step + 1);
         setActiveStep(activeStep + 1)
-        setTimeout(() => {
-            var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
-            var el = document.getElementById('svgCon')
-            el.appendChild(
-                el.ownerDocument.importNode(doc.documentElement, true)
-            )
-        }, 200)
+      if (location.pathname !== '/beamlink') {
+          setTimeout(() => {
+              var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
+              var el = document.getElementById('svgCon')
+              el.appendChild(
+                  el.ownerDocument.importNode(doc.documentElement, true)
+              )
+          }, 200)
+      }
 
     };
 
@@ -236,7 +245,9 @@ const Home =  () => {
                                             }   {
                                             index === 2  &&
                                             <QRCode
-                                                title={"Scan QR Code or click Pay button to start payment process."}
+                                                title={
+                                                    location.pathname === '/beamlink' ? 'Send beam link to start payment process.' :
+                                                    'Scan QR Code or click Pay button to start payment process.'}
                                                 link={link}
                                                 isStatus={isStatus}
                                                 statusData={statusData}
