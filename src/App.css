@@ -1,56 +1,26 @@
 #content {
     min-height: calc(100vh - 136px);
 }
-.sidenav {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: var(--side-nav-bg-color);
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-
 .main-login-block {
     margin-left: 200px; /* Same as the width of the sidenav */
     /*font-size: 28px; !* Increased text to enable scrolling *!*/
-    padding: 0px 10px;
+    /*padding: 0px 10px;*/
 }
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
-.main-logo-container {
-    text-align: center;
+.main-page-bg-block {
+    background: #F3F4F7;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 100vh;
 }
-.main-logo-container > img {
-    width: 140px;
-    height: auto;
-}
-.sidenav-icon {
-    color: white;
-}
-.sidenav-icon:hover {
-    color: var(--side-nav-link-hover-color);
-}
-.link-list {
-    display: flex;
-    padding: 12px 10px 12px 20px;
-}
-.link-list:hover {
-    color: var(--side-nav-link-hover-color);
-}
-.link-list i {
-    margin-right: 10px;
-}
-.link-list a {
-    color: white;
-    text-decoration: none;
-}
-.link-list a:hover {
-    color: var(--side-nav-link-hover-color);
+.main-page-block {
+    box-shadow:  1px 1px 10px 4px #c1c0bf;
+    margin-top: -8px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background: white;
 }

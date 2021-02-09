@@ -1,7 +1,7 @@
 .header {
     padding: 11px 2% 11px 2%;
     background: white;
-    border-bottom: 1px solid var(--step-border-color);
+    border-bottom: 1px solid #c1c0bf;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -10,7 +10,7 @@
     -webkit-box-shadow: 0 8px 6px -6px black;
     -moz-box-shadow: 0 8px 6px -6px black;
     box-shadow: 0 8px 6px -6px #d3d3d385;
-    margin-bottom: 1rem;
+    margin-bottom: 3px;
 }
 @media (max-width: 540px) {
     .header {
@@ -115,7 +115,7 @@ li:hover{
     color: black;
     background: #bdbdbd8a;
     border-radius: 50%;
-    padding: 10px 5px;
+    padding: 7px 6px;
     margin: 0 15px 0;
 }
 .component-names {
