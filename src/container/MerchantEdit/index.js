@@ -4,6 +4,7 @@ import S3 from 'react-aws-s3';
 import { makeSecureRequest, getUserData } from "../../utils";
 import Loader from "../../component/UI/Loader";
 import AlertToast from '../../component/UI/AlertToast';
+import './styles.css';
 
 const config = {
     bucketName: process.env.REACT_APP_BUCKET_NAME,

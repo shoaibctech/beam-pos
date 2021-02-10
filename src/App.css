@@ -25,6 +25,7 @@
     background: white;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    min-height: calc(100vh - 100px);
 }
 @media (max-width: 768px) {
     .sidenav {

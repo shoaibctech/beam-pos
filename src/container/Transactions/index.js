@@ -126,7 +126,7 @@ const Transactions = () => {
                 <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{payment.debtorBankName ? payment.debtorBankName : 'N/A'}</td>
-                <td  className="isHidden">{payment.email}</td>
+                {/*<td  className="isHidden">{payment.email}</td>*/}
                 <td>{PaymentStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</td>
                 { account_type !== 'basic' &&
@@ -244,7 +244,7 @@ const Transactions = () => {
                            <Switch
                                checked={isPaymentReceived}
                                onChange={handleSwitchChange}
-                               color="primary"
+                               color="secondary"
                                name="checkedB"
                                inputProps={{ 'aria-label': 'primary checkbox' }}
                            />
@@ -280,7 +280,7 @@ const Transactions = () => {
                                 <th>Amount</th>
                                 <th>Currency</th>
                                 <th>Bank Name</th>
-                                <th className="isHidden">Email</th>
+                                {/*<th className="isHidden">Email</th>*/}
                                 <th>Status</th>
                                 <th>Date</th>
                                 {

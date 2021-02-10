@@ -125,10 +125,10 @@ const Signin = () =>  {
             updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
             addDataToDatabase(decodedIdToken.merchant_id);
             // Todo redirect to home page
-            history.push('/');
+            decodedIdToken.merchant_type === 'charity' ? history.push('/transaction') : history.push('/');
         } catch (e) {
             setLoading(false);
-            const ErrorString = {'Invalid binding_code.' : 'Incorrect code.' }
+            const ErrorString = {'Invalid binding_code.' : 'Incorrect code.'}
             setMessage(ErrorString[e.response.data.error_description] ? ErrorString[e.response.data.error_description] : 'Incorrect code.');
         }
     }

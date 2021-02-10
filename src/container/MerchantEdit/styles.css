@@ -1,0 +1,8 @@
+.fileUploader {
+    border-radius: 2px !important;
+    width: 90%;
+    margin: auto;
+}
+.fileUploader:hover {
+    border: 1px solid var(--hover-border-color) !important;
+}

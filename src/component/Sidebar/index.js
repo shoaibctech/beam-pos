@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Logo from "../../img/Dark.png";
-import {Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useHistory } from "react-router-dom";
 import { getUserData } from "../../utils";
 import './styles.css';
 
 const Sidebar = ({cookie, userData, setPathName}) => {
+    const history = useHistory();
     let location = useLocation();
     const [isActive, setActive] = useState('home');
     const [isSettingOpen, setIsSettingOpen] = useState(false);
@@ -27,10 +28,19 @@ const Sidebar = ({cookie, userData, setPathName}) => {
         }}>
             <i className="fas fa-times"></i>
         </span>
-        <div className="main-logo-container">
-            <img src={Logo} alt="beam" />
+        <div className="main-logo-container cursor-pointer">
+            <img src={Logo} alt="beam"  onClick={() => {
+                merchant_type !== 'charity' ?
+                history.push('/transaction') : history.push('/')
+            }}/>
         </div>
         <br/>
+        <div className={isActive === '/transaction' ? 'link-list active-link' : 'link-list'}>
+            <Link to="/transaction">
+                <i className="fas fa-comments-dollar"></i>
+                Transactions
+            </Link>
+        </div>
         <div className={isActive === '/' ? 'link-list active-link' : 'link-list'}>
             <Link to="/">
                 {
@@ -39,14 +49,8 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 }
                 {
                     merchant_type === 'charity' ?
-                     'Beam Donation' : 'Point of Sale'
+                     'Charity QR Code' : 'Point of Sale'
                 }
-            </Link>
-        </div>
-        <div className={isActive === '/transaction' ? 'link-list active-link' : 'link-list'}>
-            <Link to="/transaction">
-                <i className="fas fa-comments-dollar"></i>
-                Transactions
             </Link>
         </div>
         {
@@ -90,7 +94,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 {/*<div className={isActive === '/msetting' ? 'link-list active-link' : 'link-list'}>*/}
                 {/*    <Link to="/msetting">*/}
                 {/*        <i className="fas fa-key"></i>*/}
-                {/*        Sms Notification*/}
+                {/*        SMS Notification*/}
                 {/*    </Link>*/}
                 {/*</div>*/}
             </div>
