@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Logo from "../../img/Dark.png";
 import {Link, useLocation } from "react-router-dom";
+import { getUserData } from "../../utils";
 import './styles.css';
 
 const Sidebar = ({cookie, userData, setPathName}) => {
     let location = useLocation();
     const [isActive, setActive] = useState('home');
     const [isSettingOpen, setIsSettingOpen] = useState(false);
+    const { merchant_type } = getUserData();
 
     useEffect(() => {
         setActive(location.pathname);
@@ -31,8 +33,14 @@ const Sidebar = ({cookie, userData, setPathName}) => {
         <br/>
         <div className={isActive === '/' ? 'link-list active-link' : 'link-list'}>
             <Link to="/">
-                <i className="fas fa-cash-register"></i>
-                Point of Sale
+                {
+                    merchant_type === 'charity' ?
+                        <i className="fas fa-donate"></i> : <i className="fas fa-cash-register"></i>
+                }
+                {
+                    merchant_type === 'charity' ?
+                     'Beam Donation' : 'Point of Sale'
+                }
             </Link>
         </div>
         <div className={isActive === '/transaction' ? 'link-list active-link' : 'link-list'}>
@@ -41,12 +49,15 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 Transactions
             </Link>
         </div>
-        <div className={isActive === '/beamlink' ? 'link-list active-link' : 'link-list'}>
-            <Link to="/beamlink">
-                <i className="fas fa-paper-plane"></i>
-                Beam link
-            </Link>
-        </div>
+        {
+            merchant_type !== 'charity' &&
+            <div className={isActive === '/beamlink' ? 'link-list active-link' : 'link-list'}>
+                <Link to="/beamlink">
+                    <i className="fas fa-paper-plane"></i>
+                    Beam link
+                </Link>
+            </div>
+        }
         <div className="link-list" onClick={() => setIsSettingOpen(!isSettingOpen)}>
             <div className={'sidebar-submenu'}>
                <span>
@@ -67,12 +78,15 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                         Merchant Logo
                     </Link>
                 </div>
-                <div className={isActive === '/profile' ? 'link-list active-link' : 'link-list'}>
-                    <Link to="/profile">
-                        <i className="fas fa-key"></i>
-                        Key Management
-                    </Link>
-                </div>
+                {
+                    merchant_type !== 'charity' &&
+                    <div className={isActive === '/profile' ? 'link-list active-link' : 'link-list'}>
+                        <Link to="/profile">
+                            <i className="fas fa-key"></i>
+                            Key Management
+                        </Link>
+                    </div>
+                }
                 {/*<div className={isActive === '/msetting' ? 'link-list active-link' : 'link-list'}>*/}
                 {/*    <Link to="/msetting">*/}
                 {/*        <i className="fas fa-key"></i>*/}

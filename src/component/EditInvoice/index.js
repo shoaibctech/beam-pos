@@ -20,10 +20,10 @@ const EditInvoice = ({  step, setStep , setLoading, activeStep, setActiveStep, s
     };
 
     const onGetQuote = () => {
-        getQrCode(amount);
         if (validateFields())
             return;
 
+        getQrCode(amount);
         setStep(step + 1);
         setLoading(false);
         setActiveStep(activeStep + 1);

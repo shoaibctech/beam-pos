@@ -73,6 +73,7 @@ const Home =  () => {
     useEffect(() => {
         setStep(1);
         setActiveStep(0);
+        setAmount('');
     }, [location.pathname]);
 
     const steps = getSteps();
@@ -116,7 +117,7 @@ const Home =  () => {
     const parseImg = () => {
         setStep(step + 1);
         setActiveStep(activeStep + 1)
-      if (location.pathname !== '/beamlink') {
+      if (location.pathname === '/') {
           setTimeout(() => {
               var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
               var el = document.getElementById('svgCon')
@@ -131,6 +132,8 @@ const Home =  () => {
     const getQrCode = async (amount) => {
         setIsFetching(true);
         const { merchant_id, email, name, merchant_type } = getUserData();
+        let isCreateQrcode = location.pathname === '/';
+
         try {
             const link = `${window.location.origin}/bank/`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, {
@@ -140,8 +143,13 @@ const Home =  () => {
                 origin: link,
                 merchantName: name,
                 merchant_type: merchant_type,
+                isCreateQrcode: isCreateQrcode,
             }, 'POST');
-            setQrCode(code.data.qrCode);
+            if (isCreateQrcode){
+                setQrCode(code.data.qrCode);
+            } else {
+                setQrCode('');
+            }
             setLink(code.data.link);
             setPaymentToken(code.data.token);
             localStorage.setItem('token', code.data.token);

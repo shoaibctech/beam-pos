@@ -32,13 +32,12 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
             isStatus && setTick(true);
         }, 1200)
     }, [isStatus]);
+
     const redirect = () => {
         console.log(linkToSend);
         window.open(linkToSend, '_blank');
     }
-    const qrButton = async () =>{
 
-    }
     const validateFields = () => {
         let errors = {...error};
         if (!phone) {
