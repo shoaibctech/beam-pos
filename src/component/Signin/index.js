@@ -125,7 +125,7 @@ const Signin = () =>  {
             updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
             addDataToDatabase(decodedIdToken.merchant_id);
             // Todo redirect to home page
-            decodedIdToken.merchant_type === 'charity' ? history.push('/transaction') : history.push('/');
+            history.push('/transaction');
         } catch (e) {
             setLoading(false);
             const ErrorString = {'Invalid binding_code.' : 'Incorrect code.'}
