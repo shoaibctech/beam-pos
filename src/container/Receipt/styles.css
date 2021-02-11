@@ -1,11 +1,210 @@
 .root {
     margin:0 auto;
     padding-top: 30px;
-    padding-bottom: 10px;
-    width: 500px;
-    display: flex;
+    width: 100vw;
     flex-direction: column;
     height: 100vh;
+    position: relative;
+}
+.main_container {
+    background-color: #1A202C;
+    width: 100vw;
+    height: 100vh;
+}
+.main_head {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+.p_set {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+}
+.set_btn {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 50vh;
+}
+.fill-box {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: limegreen;
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 70px;
+}
+.f-cross {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 70px;
+}
+.cross-small {
+    display: flex;
+    margin: 7px auto;
+    justify-content: center;
+    font-size: 20px;
+    color:white;
+}
+.big-cross {
+    font-size: 40px;
+    color: red;
+    margin: auto;
+}
+.tick-sign {
+    width: 15px;
+    height: 8px;
+    border: solid white;
+    border-width:0 0 3px 3px;
+    transform: rotate(-45deg);
+    margin: 10px auto;
+}
+.circle {
+    border: 6px solid limegreen;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 35px auto;
+}
+.failed-c {
+    border: 6px solid red;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 35px auto;
+}
+.inner-circle {
+    border-radius: 50%;
+    background: white;
+    color: darkslateblue;
+    font-size: 25px;
+    width: 78px;
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+}
+.f-inner-c {
+    border-radius: 50%;
+    background: white;
+    color: darkslateblue;
+    font-size: 25px;
+    width: 78px;
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+}
+.vertical-line {
+    border-left: 6px solid limegreen;
+    height: 100px;
+    margin: auto 42px;
+}
+.f-line {
+    border-left: 6px solid red;
+    height: 100px;
+    margin: auto 42px;
+}
+.small-circle {
+    border: 6px solid limegreen;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin: 0 auto
+}
+.f-small-in {
+    border: 6px solid red;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin: 0 auto
+}
+.small-inner {
+    border-radius: 50%;
+    background: transparent;
+    color: darkslateblue;
+    font-size: 25px;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.f-small-c {
+    border-radius: 50%;
+    background: white;
+    font-size: 25px;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.down-line {
+    border-left: 6px solid white;
+    height: 100px;
+    margin: 7px 28px;
+}
+.check-box {
+    width: 30px;
+    height: 15px;
+    border: solid limegreen;
+    border-width:0 0 6px 6px;
+    transform: rotate(-45deg);
+}
+.down-circle {
+    border: 6px solid white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 100px auto;
+}
+.down-c {
+    border-radius: 50%;
+    background: white;
+    color: darkslateblue;
+    font-size: 25px;
+    width: 78px;
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+}
+.btn_set {
+    width: 300px;
+    height: 60px;
+    background: #ff1375;
+    font-size: 25px;
+    color: white;
+    border-style: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.logo_pos {
+    position: relative;
+    max-width: 190px;
+    max-height: 90px;
+    margin-left: 30px;
+    margin-top: 30px;
 }
 .flex-bottom {
     text-align: center;
@@ -14,7 +213,8 @@
 }
 .receipt-h {
     font-size: 35px !important;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
 }
 .receipt-container {
     width: 500px;
@@ -24,12 +224,29 @@
     padding: 8px 13px;
 }
 .receipt-msg {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: -15px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 .upload-icon {
     width: 20px;
     margin-right: 5px;
+    margin-left: 20px;
+    color: #ff1375;
+    font-size: 20px;
+}
+.text-set {display: flex;
+    text-align: left;
+    margin-left: 20px;
+    color: #ff1375;
+    cursor: pointer;
+    top: 20px;
+}
+.set-pos {
+    display: flex;
+    text-align: left;
+    margin-left: 20px;
+    padding-bottom: 30px;
 }
 .d-link {
     cursor: pointer;
@@ -41,8 +258,17 @@
     display: flex;
     align-items: baseline;
 }
+.text_size {
+    position: relative;
+    font-size: 35px;
+    color: white;
+    text-align: center;
+}
 .light-text {
     font-size: 23px;
+    text-align: center;
+    position: relative;
+    color: white;
 }
 .view-btn {
     background: #5956e8;
@@ -55,42 +281,59 @@
 }
 .fill-tick {
     width: 25px;
-    margin-right: 15px;
+    margin-right: 11px;
+    font-size: 25px;
+    color: white;
+}
+.main_div {
+    height: 100vh;
+}
+.logo_set {
+    width: 80%;
+    max-width: 232px;
+    max-height: 108px;
+    margin: 35px auto;
+}
+.logo-centr {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid lightgrey;
 }
 .detail-h {
     padding: 15px 0 15px 10px;
     align-items: center;
+    justify-content: center;
 }
 .d-light-text {
-    color: #5956e8;
+    color: #ff1375;
     font-size: 20px;
-}
-.receipt-table > table > th, .receipt-table > table > td {
-    border: none !important;
+    margin-right: 40px;
 }
 .receipt-table  td {
     border-bottom: none !important;
+    color: white;
+    text-align: center;
+    width: 50%;
+    font-size: 20px;
 }
-.receipt-block {
-    margin-top: 20px;
+td:hover {
+    color: black;
+}
+.btn {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 30vh;
+}
+.receipt-table {
+    margin: 115px auto;
 }
 @media (max-width: 540px) {
-    .receipt-container {
-        width: 100%;
+    .logo_pos {
+        display: flex;
+        margin: auto;
     }
-    .receipt-container {
-        width: 100%;
-    }
-    .view-btn {
-        width: calc(100% - 20px);
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .root {
-        width: 100%;
-    }
-    .content-block {
-        margin-left: 10px;
-        margin-right: 10px;
+    .p_set {
+        margin-left: 30px;
     }
 }

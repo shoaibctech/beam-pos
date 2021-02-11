@@ -5,7 +5,9 @@ import UploadIcon from './img/upload.png';
 import FillTick from './img/black-tick.png';
 import moment from "moment";
 
+
 import './styles.css';
+import Logo from './img/Dark.png';
 
 const Receipt = () => {
     const [step, setStep] = useState(0);
@@ -13,77 +15,135 @@ const Receipt = () => {
 
     if (step === 0) {
         return (
-            <div className="root">
-                <div>
-                    <h2 className="text-center receipt-h">Payment Made</h2>
-                    <div className="text-center">
-                        <img src={Tick} alt="tick" />
-                    </div>
-                    <div className="receipt-container">
-                        <div className="content-block">
-                            <p className="mobile-p light-text">Success</p>
-                            <p className="mobile-p receipt-msg">Your payment of <strong>£{amount && parseFloat(amount).toFixed(2)}</strong> to <strong>{merchant_name}</strong> has been made.</p>
-                        </div>
-                        <div className="content-block">
-                            <div className="mobile-p view-detail d-link">
-                                <img className="upload-icon" src={UploadIcon} alt="upload" />
-                                <p className="light-text" onClick={() => setStep(1)}>View detail</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex-bottom">
-                    <button className="view-btn" onClick={() => setStep(1)} >View Detail</button>
-                </div>
-            </div>
+               <div className="main_container">
+                   <div>
+                       <div>
+                           <img className="logo_pos" src={Logo} />
+                       </div>
+
+                         {
+                             status === 'AUTHORISED' ?
+                                 <React.Fragment>
+                                     <div className="main_head">
+                                         <h1>Your transfer  is complete.</h1><br/>
+                                     </div>
+                                     <div className="p_set">
+                                         <h4>Your money has been sent to <span style={{color:"limegreen"}}>{merchant_name}.</span></h4>
+                                     </div>
+                                 </React.Fragment>
+                             :
+                             <React.Fragment>
+                                 <div className="main_head">
+                                     <h1>Transfer failed.</h1><br/>
+                                 </div>
+                                 <div className="p_set">
+                                     <h4>Sorry, we are unable to process your payment. Please try again.</h4>
+                                 </div>
+                             </React.Fragment>
+                         }
+                       {
+                           status === 'AUTHORISED' ?
+                               <div className="circle">
+                                   <div className="inner-circle">
+                                       <strong>AM</strong>
+                                       <div className="fill-box">
+                                           <div className="tick-sign"></div>
+                                       </div>
+                                   </div>
+                                   <div className="vertical-line"></div>
+                                   <div className="small-circle">
+                                       <div className="small-inner">
+                                           <div className="check-box"></div>
+                                       </div>
+                                       <div className="down-line" ></div>
+                                   </div>
+                                   <div className="down-circle" >
+                                       <div className="down-c">
+                                           <strong>MB</strong>
+                                       </div>
+                                   </div>
+                               </div>
+                               :
+                               <div className="failed-c">
+                                   <div className="f-inner-c">
+                                       <strong>AM</strong>
+                                       <div className="f-cross">
+                                           <span className="cross-small"><i className="fas fa-times"></i></span>
+                                       </div>
+                                   </div>
+                                   <div className="f-line"></div>
+                                   <div className="f-small-in">
+                                       <div className="f-small-c">
+                                           <div className="big-cross"><i className="fas fa-times"></i></div>
+                                       </div>
+                                       <div className="down-line" ></div>
+                                   </div>
+                                   <div className="down-circle" >
+                                       <div className="down-c">
+                                           <strong>MB</strong>
+                                       </div>
+                                   </div>
+                               </div>
+                       }
+                           </div>
+                   <div className="set_btn">
+                       <button className="btn_set" onClick={() => setStep(1)}>
+                           view detail
+                       </button>
+                   </div>
+                       </div>
         );
-    } else if (step === 1) {
+    }
+    else if (step === 1) {
         return (
-            <div className="root">
-                <div>
-                    <h1 className="text-center receipt-h">Preview</h1>
-                </div>
-                <div className="receipt-block">
-                    <div className="view-detail detail-h">
-                        <img src={FillTick} alt="fill tick" className="fill-tick" />
-                        <p className="light-text">Payment Sent</p>
-                    </div>
-                    <div className="receipt-table">
-                        <table>
-                            {
-                                payer_name &&
-                                <tr>
-                                    <td>From:</td>
-                                    <td><span className="d-light-text">{payer_name}</span></td>
-                                </tr>
-                            }
-                            <tr>
-                                <td>To:</td>
-                                <td><span className="d-light-text">{merchant_name}</span></td>
-                            </tr>
-                            <tr>
-                                <td>Amount:</td>
-                                <td><span className="d-light-text">£{amount && parseFloat(amount).toFixed(2)}</span></td>
-                            </tr>
-                            {/*<tr>*/}
-                            {/*    <td>Reference:</td>*/}
-                            {/*    <td><span>{refrence}</span></td>*/}
-                            {/*</tr>*/}
-                            <tr>
-                                <td>Bank:</td>
-                                <td><span className="d-light-text">{bank_name}</span></td>
-                            </tr>
-                            <tr>
-                                <td>Date:</td>
-                                <td><span className="d-light-text">{trans_date && moment(trans_date).format('Do MMM YYYY')}</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div className="flex-bottom">
-                    <button className="view-btn" onClick={() => setStep(0)} >Hide Detail</button>
-                </div>
-            </div>
+          <div className="main_container">
+                      <div>
+                          <img className="logo_pos" src={Logo}/>
+                      </div>
+                            <div className="text_size" >
+                                Preivew
+                             </div>
+                             <div>
+                                 <div className="view-detail detail-h">
+                                     <span className="fill-tick"><i className="far fa-check-circle"></i></span>
+                                     <p className="light-text">Payment Sent</p>
+                                 </div>
+                             <div className="receipt-table">
+                                 <table>
+                                     {
+                                         payer_name &&
+                                         <tr>
+                                             <td>From:</td>
+                                             <td><span className="d-light-text">{payer_name}</span></td>
+                                         </tr>
+                                     }
+                                     <tr>
+                                         <td>To:</td>
+                                         <td><span className="d-light-text" style={{textTransform:"uppercase"}}>{merchant_name}</span></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Amount:</td>
+                                         <td><span className="d-light-text">£{amount && parseFloat(amount).toFixed(2)}</span></td>
+                                     </tr>
+                                     {/*<tr>*/}
+                                     {/*    <td>Reference:</td>*/}
+                                     {/*    <td><span>{refrence}</span></td>*/}
+                                     {/*</tr>*/}
+                                     <tr>
+                                         <td>Bank:</td>
+                                         <td><span className="d-light-text">{bank_name}</span></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Date:</td>
+                                         <td><span className="d-light-text">{trans_date && moment(trans_date).format('Do MMM YYYY')}</span></td>
+                                     </tr>
+                                 </table>
+                             </div>
+                         </div>
+                      <div className="btn">
+                          <button className="btn_set" onClick={() => setStep(0)} >hide detail</button>
+                      </div>
+          </div>
         );
     }
 }

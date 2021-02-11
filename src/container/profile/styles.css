@@ -68,3 +68,11 @@
     visibility: visible;
     opacity: 1;
 }
+.heading_position {
+    display: flex;
+    justify-content: center;
+
+}
+.set-it {
+    margin-left: 30px;
+}
