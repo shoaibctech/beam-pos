@@ -5,6 +5,7 @@ import { makeSecureRequest, getUserData } from "../../utils";
 import Loader from "../../component/UI/Loader";
 import AlertToast from '../../component/UI/AlertToast';
 import './styles.css';
+import Switch from "@material-ui/core/Switch";
 
 const config = {
     bucketName: process.env.REACT_APP_BUCKET_NAME,
@@ -18,6 +19,7 @@ const MerchantEdit = ({}) => {
     const [isFetching, setIsFetching] = useState(false);
     const [isImg, setIsImg] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+    const [notificationToggle, setNotificationToggle] = useState(true);
 
     const onDrop = (picture) => {
         setLogo(picture[0]);
@@ -73,15 +75,47 @@ const MerchantEdit = ({}) => {
             console.log('Error: ', e);
         }
     }
+    const handleSwitchChange = (event) => {
+        setNotificationToggle(event.target.checked);
+    }
     return (
         <React.Fragment>
-            <ImageUploader
-                withIcon={true}
-                buttonText='Choose Logo'
-                onChange={onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-            />
+            <div className="settings-box">
+                <div className="settings-inner-border">
+                    <span>Upload Logo</span>
+                </div>
+                <div className="settings-content">
+                    <div>
+                        <ImageUploader
+                            withIcon={true}
+                            buttonText='Choose Logo'
+                            onChange={onDrop}
+                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                            maxFileSize={5242880}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="settings-box">
+                <div className="settings-inner-border">
+                    <span>SMS Notifications</span>
+                </div>
+                <div className="settings-content">
+                    <div className="sms-ntf-txt">
+                        Notifications are received by merchant whenever a transaction is complete or failed.
+                    </div>
+                    <div className="sms-toggle">
+                        <Switch
+                            checked={notificationToggle}
+                            onChange={handleSwitchChange}
+                            color="secondary"
+                            name="checkedB"
+                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                        />
+                        <span>Enable or disable SMS notifications</span>
+                    </div>
+                </div>
+            </div>
             {
                 isImg &&
                 <div className="text-center">

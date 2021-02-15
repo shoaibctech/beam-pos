@@ -18,11 +18,11 @@
     height: 100vh;
 }
 .main-page-block {
-    box-shadow:  1px 1px 10px 4px #c1c0bf;
+    /*box-shadow:  1px 1px 10px 4px #c1c0bf;*/
     margin-top: -8px;
     margin-left: 20px;
     margin-right: 20px;
-    background: white;
+    /*background: white;*/
     padding-top: 2rem;
     padding-bottom: 2rem;
     min-height: calc(100vh - 100px);

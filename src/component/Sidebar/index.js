@@ -79,7 +79,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 <div className={isActive === '/merchant-edit' ? 'link-list active-link' : 'link-list'}>
                     <Link to="/merchant-edit">
                         <i className="fas fa-upload"></i>
-                        Merchant Logo
+                        Account
                     </Link>
                 </div>
                 {
