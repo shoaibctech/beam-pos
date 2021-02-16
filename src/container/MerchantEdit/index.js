@@ -96,26 +96,26 @@ const MerchantEdit = ({}) => {
                     </div>
                 </div>
             </div>
-            {/*<div className="settings-box">*/}
-            {/*    <div className="settings-inner-border">*/}
-            {/*        <span>SMS Notifications</span>*/}
-            {/*    </div>*/}
-            {/*    <div className="settings-content">*/}
-            {/*        <div className="sms-ntf-txt">*/}
-            {/*            Notifications are received by merchant whenever a transaction is complete or failed.*/}
-            {/*        </div>*/}
-            {/*        <div className="sms-toggle">*/}
-            {/*            <Switch*/}
-            {/*                checked={notificationToggle}*/}
-            {/*                onChange={handleSwitchChange}*/}
-            {/*                color="secondary"*/}
-            {/*                name="checkedB"*/}
-            {/*                inputProps={{ 'aria-label': 'primary checkbox' }}*/}
-            {/*            />*/}
-            {/*            <span>Enable or disable SMS notifications</span>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div className="settings-box">
+                <div className="settings-inner-border">
+                    <span>SMS Notifications</span>
+                </div>
+                <div className="settings-content">
+                    <div className="sms-ntf-txt">
+                        Notifications are received by merchant whenever a transaction is complete or failed.
+                    </div>
+                    <div className="sms-toggle">
+                        <Switch
+                            checked={notificationToggle}
+                            onChange={handleSwitchChange}
+                            color="secondary"
+                            name="checkedB"
+                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                        />
+                        <span>Enable or disable SMS notifications</span>
+                    </div>
+                </div>
+            </div>
             {
                 isImg &&
                 <div className="text-center">
