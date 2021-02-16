@@ -20,7 +20,7 @@ const COMPONENT_NAMES = {
     '/': 'Home',
     '/profile': 'Key Management',
     '/transaction': 'Transactions',
-    '/merchant-edit': 'Merchant Logo',
+    '/merchant-edit': 'Account Settings',
     '/msetting': 'Sms Notification',
     '/beamlink': 'Beam Link'
 };

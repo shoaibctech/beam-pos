@@ -349,7 +349,12 @@ const Bank = () => {
 
                                         <div className="flow-steps">
                                             <div style={{background: 'transparent', padding: '0 3px', marginBottom: '-5px'}}>
-                                                <p className="cursor-pointer beam-link">What is beam?</p>
+                                                <p
+                                                    className="cursor-pointer beam-link"
+                                                    onClick={() => window.open('https://www.beamtopay.com', '_blank')}
+                                                >
+                                                    What is beam?
+                                                </p>
                                             </div>
                                             {/*<div><span className="step-mark">1</span> Scan QR code</div>*/}
                                             <div>Scan QR code</div>
@@ -426,7 +431,10 @@ const Bank = () => {
                                         <img src={merchantLogo ? merchantLogo : Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
                                     <div>
-                                        <p className="cursor-pointer beam-link">What is beam?</p>
+                                        <p className="cursor-pointer beam-link"
+                                           onClick={() => window.open('https://www.beamtopay.com', '_blank')}
+                                        >What is beam?
+                                        </p>
                                     </div>
                                     <div className="payment-detail-section">
                                         {/*<h3 className="text-center mobile-heading">Payment Info</h3>*/}

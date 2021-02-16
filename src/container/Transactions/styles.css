@@ -1,5 +1,7 @@
 .transaction {
-    margin: 1rem 2rem;
+    margin: 0 10px;
+    padding-top: 1rem;
+    background: #F3F4F7;
 }
 
 .heading {
@@ -45,7 +47,6 @@
 .btn-ok, .btn-cancel {
     margin: 10px;
     padding: 10px 15px;
-    border-radius: 0;
     cursor: pointer;
     font-size: 15px;
     width: 200px;
@@ -92,10 +93,12 @@
     white-space: nowrap;
 }
 .balance-con {
+    background: white;
     display: flex;
     justify-content: center;
     border: 1px solid var(--step-border-color);
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 .balance-con:hover {
@@ -114,10 +117,10 @@
 .with-draw {
     margin: auto 2rem;
 }
-.tabs-balance{
+.tabs-balance {
     display: grid;
     grid-template-columns: auto auto;
-    grid-column-gap: 10px;
+    grid-column-gap: 5px;
 }
 .with-draw-input {
     width: 95% !important;
@@ -158,6 +161,14 @@
         grid-template-columns: auto;
         grid-gap: 10px;
     }
+}
+.tr-d-table {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.tr-d-table span {
+    flex: 0 1 auto;
 }
 
 @media (max-width: 768px) {
@@ -204,6 +215,125 @@
         margin-left: auto;
         margin-right: 0;
     }
+}
+
+/* new transaction desktop*/
+.tr-desktop-only {
+    display: none;
+}
+/*For screen bigger than 768px*/
+@media (min-width: 768px) {
+    .tr-desktop-only {
+        display: block;
+    }
+    .icon-search-container {
+        background: white !important;
+    }
+    .icon-search-container i {
+        color: black !important;
+    }
+}
+.tr-table-box {
+    background: rgb(255, 255, 255);
+    box-sizing: border-box;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 2px;
+    border-radius: 4px;
+}
+.tr-table-head {
+    background: rgb(248, 248, 248);
+    border: 1px solid rgb(229, 229, 229);
+    box-sizing: border-box;
+    border-radius: 4px 4px 0px 0px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Titillium Web", sans-serif;
+}
+/* new transaction mobile table*/
+.tr-mobile-only {
+    display: none;
+}
+@media (max-width: 768px) {
+    .tr-mobile-only {
+        display: block;
+    }
+    .icon-search-container {
+        margin-top: 10px;
+    }
+    .tabs-balance {
+        grid-gap: 1rem !important;
+    }
+}
+.tr-main-container {
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 2px;
+    background: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 98%;
+    margin: 20px auto;
+}
+.tr-content-box {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgrey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.tr-content-box-items {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.tr-s-row {
+    display: flex;
+}
+.tr-action {
+    margin-left: auto;
+    padding-right: 20px;
+}
+.tr-action-btn {
+    background: white;
+    cursor: pointer;
+    border: none;
+    color: var(--main-bg-color);
+}
+.tr-action-btn:disabled {
+    cursor: not-allowed;
+    color: var(--side-nav-bg-color);
+}
+.tr-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5rem;
+}
+.tr-grey-item {
+    color: grey;
+}
+/* icon search container */
+.icon-search-container {
+    background: #e3e2e8;
+    border-radius: 7px;
+    display: flex;
+    padding: 6px 10px;
+    width: 100%;
+    min-width: 300px;
+}
+.icon-search-container i {
+    color: #96979b;
+}
+.icon-search-container input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    margin-left: 5px;
+}
+.icon-search-container input:hover {
+    border: none;
+}
+.icon-search-container input:focus {
+    outline: none;
 }
 
 

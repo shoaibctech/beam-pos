@@ -121,6 +121,7 @@ li:hover{
 .component-names {
     padding-top: 15px;
     padding-bottom: 15px;
+    margin-left: 10px;
 }
 .hamburger-icon {
     font-size: 28px;

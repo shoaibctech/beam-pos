@@ -65,7 +65,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
         <div className="link-list" onClick={() => setIsSettingOpen(!isSettingOpen)}>
             <div className={'sidebar-submenu'}>
                <span>
-                    <i className="fas fa-user-cog"></i>
+                    <i className="fas fa-cogs"></i>
                     Settings
                </span>
                <span>
@@ -78,7 +78,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
             <div className="sidebar-submenu-content">
                 <div className={isActive === '/merchant-edit' ? 'link-list active-link' : 'link-list'}>
                     <Link to="/merchant-edit">
-                        <i className="fas fa-upload"></i>
+                        <i className="fas fa-user"></i>
                         Account
                     </Link>
                 </div>

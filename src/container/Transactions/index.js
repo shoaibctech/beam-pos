@@ -44,6 +44,7 @@ const Transactions = () => {
     const [searchData, setSearchData] = useState([]);
     const [isPaymentReceived, setIsPaymentReceived] = useState(false);
     const [payerName, setPayerName] = useState('');
+    const [searchKey, setSearchKey] = useState('');
 
     const { account_type, merchant_type } = getUserData();
 
@@ -120,7 +121,6 @@ const Transactions = () => {
     const renderTable = (data) => {
         return data.map( (payment, idx) => {
             return (   <tr key={idx}>
-                <td>{idx + 1}</td>
                 <td>{payment.id}</td>
                 <td>{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : 'N/A'}</td>
                 <td>{payment.amount.toFixed(2)}</td>
@@ -147,6 +147,33 @@ const Transactions = () => {
         }
     };
 
+    const handleSearch = async (e) => {
+        if (e.target.value === ''){
+         setIsSearching(false);
+         setSearchKey(e.target.value);
+         return;
+        }
+
+        setIsFetching(true);
+        setIsSearching(true);
+        setSearchKey(e.target.value);
+        const apiData = {
+                searchKey: e.target.value,
+                merchantId: getUserData().merchant_id
+            };
+
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
+                apiData, 'POST');
+            setSearchData(req.data.paymentDetail);
+            setIsFetching(false);
+        } catch (e) {
+            setIsFetching(false);
+            setSearchData([]);
+            console.log(e);
+            e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
+        }
+    }
     const getPaymentDetail = async () => {
         if (!paymentId && !payerName)
             return;
@@ -237,8 +264,8 @@ const Transactions = () => {
 
                 tabValue === 0 &&
                 <>
-                   <div className="tr-top-box">
-                       <h2 className="heading">Transactions Details</h2>
+                   <div className="tr-top-box heading">
+                       {/*<h2 className="heading">Transactions Details</h2>*/}
                        <div className="status-toggle">
                            <span>Cleared</span>
                            <Switch
@@ -251,30 +278,37 @@ const Transactions = () => {
                            <span>All</span>
                        </div>
                        <div className="search-container">
-                           <input type="text" value={payerName} onChange={e => {
-                               setPayerName(e.target.value);
-                               if (!e.target.value)
-                                   setIsSearching(false);
-                           }}
-                                  placeholder="Payer Name"
-                                  disabled={!!paymentId}
-                           />
-                           <input type="text" value={paymentId} onChange={e => {
-                               setPaymentId(e.target.value);
-                               if (!e.target.value)
-                                   setIsSearching(false);
-                           }}
-                                  placeholder="Enter payment id"
-                                  disabled={!!payerName}
-                           />
-                           <button className="btn btn-primary" onClick={getPaymentDetail}>Search</button>
+                           <div className="icon-search-container">
+                               <i className="fas fa-search"></i>
+                               <input
+                                   placeholder="Search by Id or Name"
+                                   value={searchKey}
+                                   onChange={handleSearch}
+                               />
+                           </div>
+                           {/*<input type="text" value={payerName} onChange={e => {*/}
+                           {/*    setPayerName(e.target.value);*/}
+                           {/*    if (!e.target.value)*/}
+                           {/*        setIsSearching(false);*/}
+                           {/*}}*/}
+                           {/*       placeholder="Payer Name"*/}
+                           {/*       disabled={!!paymentId}*/}
+                           {/*/>*/}
+                           {/*<input type="text" value={paymentId} onChange={e => {*/}
+                           {/*    setPaymentId(e.target.value);*/}
+                           {/*    if (!e.target.value)*/}
+                           {/*        setIsSearching(false);*/}
+                           {/*}}*/}
+                           {/*       placeholder="Enter payment id"*/}
+                           {/*       disabled={!!payerName}*/}
+                           {/*/>*/}
+                           {/*<button className="btn btn-primary" onClick={getPaymentDetail}>Search</button>*/}
                        </div>
                    </div>
-                    <div style={{overflowX: 'auto'}}>
-                        <table>
-                            <thead>
+                    <div style={{overflowX: 'auto'}} className="tr-desktop-only">
+                        <table className="tr-table-box">
+                            <thead className="tr-table-head">
                             <tr>
-                                <th>#</th>
                                 <th>Payment Id</th>
                                 <th>Payer Name</th>
                                 <th>Amount</th>
@@ -289,20 +323,20 @@ const Transactions = () => {
                                 }
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="settings-content">
                             { !transError && !isSearching && paymentList  && paymentList.length > 0 &&
                                 renderTable(paymentList)
                             }
                             {
                                !transError && !isFetching && !isSearching && paymentList  && paymentList.length < 1 && <tr rowSpan="4" style={{height: '10rem'}}>
-                                    <td colSpan="10" className="loading">No results found</td>
+                                    <td colSpan="10" className="loading">No transaction found</td>
                                 </tr>
                             }
                             {
                                  !isFetching && isSearching  && searchData  && searchData.length > 0 ?
                                      renderTable(searchData)
                                      : !isFetching && isSearching && <tr rowSpan="4" style={{height: '10rem'}}>
-                                     <td colSpan="10" className="loading">No payment details found against <strong>{paymentId}</strong></td>
+                                     <td colSpan="10" className="loading">No transaction found against <strong>{searchKey}</strong></td>
                                  </tr>
                             }
                             {
@@ -326,6 +360,79 @@ const Transactions = () => {
                             </div>
                         }
                     </div>
+                    <>
+                        <div className="tr-mobile-only">
+                            <div className="tr-main-container">
+                                { !transError && !isSearching && paymentList  && paymentList.length > 0 &&
+                                     paymentList.map( (payment, idx) => {
+                                        return ( <div className="tr-content-box" key={idx}>
+                                             <h3 className="tr-content-box-items">{PaymentStatus[payment.status]}</h3>
+                                             <span className="tr-content-box-items tr-grey-item">{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : ''}</span>
+                                             <div className="tr-s-row">
+                                                 <span className="tr-content-box-items tr-grey-item">{payment.amount.toFixed(2)}</span>
+                                                 <span className="tr-content-box-items tr-grey-item">{payment.currency}</span>
+                                                 { account_type !== 'basic' &&
+                                                    <span  className="tr-action">
+                                                        <button className="tr-action-btn" onClick={() => openRefundModal(idx)}>Refund</button>
+                                                    </span>
+                                                 }
+                                             </div>
+                                             <div>
+                                                 <span className="tr-content-box-items tr-grey-item">{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</span>
+                                             </div>
+                                            <div>
+                                                <span className="tr-content-box-items tr-grey-item">{payment.debtorBankName ? payment.debtorBankName : ''}</span>
+                                            </div>
+                                         </div>)
+                                     })
+                                }
+                                {
+                                    !transError && !isFetching && !isSearching && paymentList  && paymentList.length < 1 &&
+                                    <div className="text-center tr-info">
+                                        <span className="loading">No transactions found</span>
+                                    </div>
+                                }
+                                {
+                                    !isFetching && isSearching  && searchData  && searchData.length > 0 ?
+                                        searchData.map( (payment, idx) => {
+                                            return ( <div className="tr-content-box" key={idx}>
+                                                <h3 className="tr-content-box-items">{PaymentStatus[payment.status]}</h3>
+                                                <span className="tr-content-box-items">{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : 'N/A'}</span>
+                                                <div className="tr-s-row">
+                                                    <span className="tr-content-box-items">{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</span>
+                                                    <span className="tr-content-box-items">{payment.debtorBankName ? payment.debtorBankName : 'N/A'}</span>
+                                                    { account_type !== 'basic' &&
+                                                    <span  className="tr-action">
+                                                        <button className="tr-action-btn" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
+                                                    </span>
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <span className="tr-content-box-items">{payment.amount.toFixed(2)}</span>
+                                                    <span className="tr-content-box-items">{payment.currency}</span>
+                                                </div>
+                                            </div>)
+                                        })
+                                        : !isFetching && isSearching &&
+                                        <div className="text-center tr-info">
+                                        <span className="loading">No payment details found against <strong>{paymentId}</strong></span>
+                                    </div>
+                                }
+                                {
+                                    isFetching &&
+                                    <div className="text-center tr-info" style={{height: '7rem'}}>
+                                        <span className="loading"><Loader /></span>
+                                    </div>
+                                }
+                                {
+                                    !isFetching && transError &&
+                                    <div  className="text-center tr-info" style={{height: '10rem'}}>
+                                        <span className="loading"><span className="t-error">{transError}</span></span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </>
                 </>
             }
             {
