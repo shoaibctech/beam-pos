@@ -105,7 +105,7 @@ const Bank = () => {
             if (!isMobile.any()){
                 setTimeout(() => {
                     setLoading(false);
-                }, 2000);
+                }, 5000);
             }
         } catch (e) {
             // console.log(e);

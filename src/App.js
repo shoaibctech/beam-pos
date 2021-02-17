@@ -20,7 +20,7 @@ const App = () => {
             <div id="content">
                 <Router>
                     {
-                        pathName.includes('/bank') ?
+                        pathName.includes('/bank') || pathName.includes('/paymentdetails') ?
                             <div>
                                 <Header />
                                 <MainRoute />

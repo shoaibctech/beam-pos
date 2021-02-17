@@ -68,7 +68,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
     }
     return(
         <div className="btn-withdraw-block">
-            <button className="btn-refund" onClick={() => setIsOpen(true)} disabled={isBalance}>
+            <button className="btn-withdraw" onClick={() => setIsOpen(true)} disabled={isBalance}>
                 Withdraw
             </button>
             <Modal

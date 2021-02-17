@@ -1,34 +1,29 @@
-.root {
-    margin:0 auto;
-    padding-top: 30px;
-    width: 100vw;
-    flex-direction: column;
-    height: 100vh;
-    position: relative;
-}
+
 .main_container {
     background-color: #1A202C;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
+    padding-bottom: 2rem
 }
 .main_head {
     color: white;
     display: flex;
     justify-content: center;
-    margin-top: 60px;
+    margin-top: 10px;
 }
 .p_set {
     display: flex;
     justify-content: center;
     color: white;
     font-size: 20px;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
 }
 .set_btn {
     display: flex;
     justify-content: center;
     position: relative;
-    margin-top: 50vh;
+    margin-top: 328px;
 }
 .fill-box {
     border-radius: 50%;
@@ -74,7 +69,7 @@
     width: 100px;
     height: 100px;
     position: relative;
-    margin: 35px auto;
+    margin: 26px auto;
 }
 .failed-c {
     border: 6px solid red;
@@ -110,8 +105,8 @@
 }
 .vertical-line {
     border-left: 6px solid limegreen;
-    height: 100px;
-    margin: auto 42px;
+    height: 60px;
+    margin: 6px 42px 0;
 }
 .f-line {
     border-left: 6px solid red;
@@ -159,8 +154,8 @@
 }
 .down-line {
     border-left: 6px solid white;
-    height: 100px;
-    margin: 7px 28px;
+    height: 60px;
+    margin: 6px 28px;
 }
 .check-box {
     width: 30px;
@@ -172,18 +167,18 @@
 .down-circle {
     border: 6px solid white;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     position: relative;
-    margin: 100px auto;
+    margin: 59px auto 20px;
 }
 .down-c {
     border-radius: 50%;
     background: white;
     color: darkslateblue;
     font-size: 25px;
-    width: 78px;
-    height: 78px;
+    width: 75px;
+    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -191,9 +186,9 @@
 }
 .btn_set {
     width: 300px;
-    height: 60px;
+    height: 40px;
     background: #ff1375;
-    font-size: 25px;
+    font-size: 20px;
     color: white;
     border-style: none;
     cursor: pointer;
@@ -204,7 +199,7 @@
     max-width: 190px;
     max-height: 90px;
     margin-left: 30px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .flex-bottom {
     text-align: center;
@@ -307,26 +302,26 @@
 .d-light-text {
     color: #ff1375;
     font-size: 20px;
-    margin-right: 40px;
+    margin-left: 30px;
 }
 .receipt-table  td {
     border-bottom: none !important;
     color: white;
-    text-align: center;
-    width: 50%;
     font-size: 20px;
 }
-td:hover {
-    color: black;
+
+.receipt-table tr:hover {
+    background-color: #1f2733;
 }
-.btn {
+.hide-btn {
     display: flex;
     justify-content: center;
     position: relative;
-    margin-top: 30vh;
+    margin-top: 100px;
 }
 .receipt-table {
-    margin: 115px auto;
+    margin: 50px auto;
+    max-width: 355px;
 }
 @media (max-width: 540px) {
     .logo_pos {
@@ -334,6 +329,12 @@ td:hover {
         margin: auto;
     }
     .p_set {
-        margin-left: 30px;
+        font-size: 15px;
+    }
+    .set_btn, .hide-btn {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        margin: 0 auto;
     }
 }

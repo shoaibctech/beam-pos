@@ -108,17 +108,12 @@ const Header = () => {
     }
 
    const getNameAcronym = (name) => {
-       var matches = name.match(/\b(\w)/g); // ['J','S','O','N']
-       var acronym = matches.join(''); // JSON
-       acronym = acronym.substr(0, 2);
+       var matches = name.match(/\b(\w)/g);
+       var acronym = matches.join('').substr(0, 2);
 
-       let nameAcronymElement = <span className="acronym">{acronym.toUpperCase()}</span>
-       // let nameAcronymElement = <Avatar>{acronym.toUpperCase()}</Avatar>
-           // <span className="acronym"></span>
-       return nameAcronymElement;
+       return <span className="acronym">{acronym.toUpperCase()}</span>;
    }
-    // console.log(cookies.isToken);
-    // console.log(checkToken());
+
     return (
        <div>
            <div className="hamburger-icon" onClick={() => {
