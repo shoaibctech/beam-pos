@@ -1,14 +1,15 @@
 .login-container {
     background: white;
     width: 50%;
-    margin: 3rem auto;
+    margin: 1.5rem auto;
     padding: 3rem;
     border: 1px solid var(--step-border-color);
     border-radius: 5px;
+    box-shadow: 2px 2px 10px 5px #9e9a9a59;
 }
-.login-container:hover {
-    border: 1px solid var(--hover-border-color);
-}
+/*.login-container:hover {*/
+/*    border: 1px solid var(--hover-border-color);*/
+/*}*/
 .step-margin {
     margin-left: 2rem;
 }

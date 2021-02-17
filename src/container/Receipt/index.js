@@ -50,7 +50,7 @@ const Receipt = () => {
                         PaymentStatusImage[status] ?
                             <div className="circle">
                                 <div className="inner-circle">
-                                    <strong>{payer_name ? getNameAcronym(payer_name) : 'XX'}</strong>
+                                    <strong>{payer_name ? getNameAcronym(payer_name) : '£'}</strong>
                                     <div className="fill-box">
                                         <div className="tick-sign"></div>
                                     </div>
@@ -71,7 +71,7 @@ const Receipt = () => {
                             :
                             <div className="failed-c">
                                 <div className="f-inner-c">
-                                    <strong>{payer_name ? getNameAcronym(payer_name) : 'XX'}</strong>
+                                    <strong>{payer_name ? getNameAcronym(payer_name) : '£'}</strong>
                                     <div className="f-cross">
                                         <span className="cross-small"><i className="fas fa-times"></i></span>
                                     </div>

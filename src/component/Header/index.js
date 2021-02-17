@@ -17,7 +17,7 @@ import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../.
 // });
 
 const COMPONENT_NAMES = {
-    '/': 'Home',
+    '/': 'Point of Sale',
     '/profile': 'Key Management',
     '/transaction': 'Transactions',
     '/merchant-edit': 'Account Settings',

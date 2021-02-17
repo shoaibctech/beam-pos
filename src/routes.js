@@ -13,7 +13,7 @@ import Signin from "./component/Signin";
 import Charity from "./container/Charity";
 import ThankYou from "./container/Thankyou";
 import Receipt from "./container/Receipt";
-import Profile from "./container/profile";
+import Profile from "./container/Profile";
 import MerchantEdit from "./container/MerchantEdit";
 import MessageSetting from "./component/MessageSetting";
 
