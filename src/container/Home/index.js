@@ -14,12 +14,13 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import QRCode from "../../component/QRCode";
 import { checkToken, makeSecureRequest, getUserData } from "../../utils";
+import {useLocation} from 'react-router-dom';
 
 const TRANSACTION_FEE = '1.50';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '50%',
+        width: '60%',
         margin: '0 auto',
         backgroundColor: '#ffffff !important',
     },
@@ -50,6 +51,7 @@ const getSteps = () => {
     return ['Amount', 'Confirm', 'Pay']
 };
 const Home =  () => {
+    const location = useLocation();
     const [step, setStep] = useState(getStep());
     const [amount, setAmount] = useState('');
     const [loading, setLoading] = useState(false);
@@ -67,6 +69,12 @@ const Home =  () => {
 
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
+
+    useEffect(() => {
+        setStep(1);
+        setActiveStep(0);
+        setAmount('');
+    }, [location.pathname]);
 
     const steps = getSteps();
 
@@ -109,19 +117,23 @@ const Home =  () => {
     const parseImg = () => {
         setStep(step + 1);
         setActiveStep(activeStep + 1)
-        setTimeout(() => {
-            var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
-            var el = document.getElementById('svgCon')
-            el.appendChild(
-                el.ownerDocument.importNode(doc.documentElement, true)
-            )
-        }, 200)
+      if (location.pathname === '/') {
+          setTimeout(() => {
+              var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
+              var el = document.getElementById('svgCon')
+              el.appendChild(
+                  el.ownerDocument.importNode(doc.documentElement, true)
+              )
+          }, 200)
+      }
 
     };
 
     const getQrCode = async (amount) => {
         setIsFetching(true);
         const { merchant_id, email, name, merchant_type } = getUserData();
+        let isCreateQrcode = location.pathname === '/';
+
         try {
             const link = `${window.location.origin}/bank/`
             const code = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode`, {
@@ -131,8 +143,13 @@ const Home =  () => {
                 origin: link,
                 merchantName: name,
                 merchant_type: merchant_type,
+                isCreateQrcode: isCreateQrcode,
             }, 'POST');
-            setQrCode(code.data.qrCode);
+            if (isCreateQrcode){
+                setQrCode(code.data.qrCode);
+            } else {
+                setQrCode('');
+            }
             setLink(code.data.link);
             setPaymentToken(code.data.token);
             localStorage.setItem('token', code.data.token);
@@ -236,7 +253,9 @@ const Home =  () => {
                                             }   {
                                             index === 2  &&
                                             <QRCode
-                                                title={"Scan QR Code or click Pay button to start payment process."}
+                                                title={
+                                                    location.pathname === '/beamlink' ? 'Send beam link to start payment process.' :
+                                                    'Scan QR Code or click Pay button to start payment process.'}
                                                 link={link}
                                                 isStatus={isStatus}
                                                 statusData={statusData}

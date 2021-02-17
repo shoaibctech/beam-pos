@@ -19,30 +19,30 @@ const Logout = ({cookies, userData, logout}) =>{
                         </strong>
                     </span>
                 </li>
-                { userData && userData.merchant_type !== 'charity' &&
-                <li>
-                    <span>
-                        <i className="fas fa-key"></i>
-                    </span>
-                    { cookies.isToken && checkToken() &&
-                    <Link to="/profile" className="mobile-nav-link">
-                        Key Management
-                    </Link>
-                    }
-                </li>
-                }
-                { userData && userData.merchant_type !== 'charity' &&
-                <li>
-                    <span>
-                        <i class="fas fa-upload"></i>
-                    </span>
-                    { cookies.isToken && checkToken() &&
-                    <Link to="/merchant-edit" className="mobile-nav-link">
-                        Merchant Logo
-                    </Link>
-                    }
-                </li>
-                }
+                {/*{ userData && userData.merchant_type !== 'charity' &&*/}
+                {/*<li>*/}
+                {/*    <span>*/}
+                {/*        <i className="fas fa-key"></i>*/}
+                {/*    </span>*/}
+                {/*    { cookies.isToken && checkToken() &&*/}
+                {/*    <Link to="/profile" className="mobile-nav-link">*/}
+                {/*        Key Management*/}
+                {/*    </Link>*/}
+                {/*    }*/}
+                {/*</li>*/}
+                {/*}*/}
+                {/*{ userData &&*/}
+                {/*<li>*/}
+                {/*    <span>*/}
+                {/*        <i className="fas fa-upload"></i>*/}
+                {/*    </span>*/}
+                {/*    { cookies.isToken && checkToken() &&*/}
+                {/*    <Link to="/merchant-edit" className="mobile-nav-link">*/}
+                {/*        Merchant Logo*/}
+                {/*    </Link>*/}
+                {/*    }*/}
+                {/*</li>*/}
+                {/*}*/}
                 <li>
                     <span>
                         <i className="fas fa-sign-out-alt"></i>

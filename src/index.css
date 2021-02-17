@@ -35,6 +35,9 @@
 
     --text-error-color: red;
     --main-theme-color: #151B25;
+    --bank-left-bg-color: #1A202C;
+    --side-nav-bg-color: #1A202C;
+    --side-nav-link-hover-color: #fc4c95;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -111,6 +114,10 @@ button:focus {
 #react-select-2-input {
     margin: 0 !important;
 }
+.theme-primary-color {
+    color: var(--main-bg-color);
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 23px !important;

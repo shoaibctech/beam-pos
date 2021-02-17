@@ -51,7 +51,7 @@ th, td {
 
 @media (min-width: 1385px) {
     .phone-field {
-        width: calc(27vw + 150px);
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
     }

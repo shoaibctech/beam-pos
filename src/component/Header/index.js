@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 // import Logo from './img/Junction-pos.png';
 import Logo from './img/Light-Logo.png';
 import Logout from "../Logout";
+import Avatar from '@material-ui/core/Avatar';
 
 import "./styles.css";
 import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../../utils";
@@ -14,6 +15,15 @@ import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../.
 //     domain: process.env.REACT_APP_AUTH0_DOMAIN,
 //     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
 // });
+
+const COMPONENT_NAMES = {
+    '/': 'Home',
+    '/profile': 'Key Management',
+    '/transaction': 'Transactions',
+    '/merchant-edit': 'Account Settings',
+    '/msetting': 'Sms Notification',
+    '/beamlink': 'Beam Link'
+};
 
 const PathComponent = () => {
     let location = useLocation();
@@ -46,7 +56,7 @@ const Header = () => {
 
     const handleClickOutside = event => {
         // if (ref.current && !ref.current.contains(event.target)) {
-        if (ref.current && event.target.id !== 'logout-btn') {
+        if (ref.current && event.target.id !== 'logout-btn' && event.target.id !== 'menu-btn-id') {
             setIsShowMenu(false);
         }
     };
@@ -73,6 +83,7 @@ const Header = () => {
         // webAuth.logout({
         //     returnTo: window.location.origin
         // });
+        // console.log('Logout remove cookie.')
         history.push('/login');
         e.preventDefault();
     }
@@ -95,38 +106,66 @@ const Header = () => {
             <div></div>
         );
     }
+
+   const getNameAcronym = (name) => {
+       var matches = name.match(/\b(\w)/g); // ['J','S','O','N']
+       var acronym = matches.join(''); // JSON
+       acronym = acronym.substr(0, 2);
+
+       let nameAcronymElement = <span className="acronym">{acronym.toUpperCase()}</span>
+       // let nameAcronymElement = <Avatar>{acronym.toUpperCase()}</Avatar>
+           // <span className="acronym"></span>
+       return nameAcronymElement;
+   }
+    // console.log(cookies.isToken);
+    // console.log(checkToken());
     return (
-        <header className="header">
-            <div className="app-title">
-                <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
-            </div>
-            <div className="app-title">
-                <div className="nav-link">
-                    { cookies.isToken && checkToken() &&
-                    <Link to="/transaction" className="mobile-nav-link">
-                        Transactions
-                    </Link>
-                    }
-                </div>
-            </div>
-            <div className="logout">
-                {
-                    cookies.isToken && checkToken() ?
-                        <div>
-                                {
-                                    <span className="cursor-pointer" onClick={() => setIsShowMenu(!isShowMenu)}><i className="fa fa-bars" aria-hidden="true"></i></span>
-                                }
-                                { isShowMenu &&
-                                <div ref={ref}>
-                                    <Logout cookies={cookies} logout={logout} userData={userData}/>
-                                </div>
-                                }
-                        </div>
-                        :
-                        <PathComponent/>
-                }
-            </div>
-        </header>
+       <div>
+           <div className="hamburger-icon" onClick={() => {
+               document.getElementById('sidenavbar').style.display = 'block';
+           }}>☰</div>
+           <header className="header">
+
+               { ( !checkToken()) ?
+                   <div className="app-title">
+                       <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
+                   </div>
+                   :
+                   <h3 className="component-names">{COMPONENT_NAMES[location.pathname]}</h3>
+               }
+               {/*<div className="app-title">*/}
+               {/*    <div className="nav-link">*/}
+               {/*        { cookies.isToken && checkToken() &&*/}
+               {/*        <Link to="/transaction" className="mobile-nav-link">*/}
+               {/*            Transactions*/}
+               {/*        </Link>*/}
+               {/*        }*/}
+               {/*    </div>*/}
+               {/*</div>*/}
+               <div className="logout">
+                   {
+                       cookies.isToken && checkToken() ?
+                           <div>
+                               {
+                                   <span className="cursor-pointer" id="menu-btn-id" onClick={() => setIsShowMenu(!isShowMenu)}>
+                                        {userData && getNameAcronym(userData.name)}
+                                       <span className="desktop-768-only">{userData && userData.name}{' '}</span>
+                                       {isShowMenu ? <i className="fas fa-angle-up theme-primary-color"></i> :
+                                           <i className="fas fa-angle-down theme-primary-color"></i> }
+                                    </span>
+                               }
+                               { isShowMenu &&
+                               <div ref={ref}>
+                                   <Logout cookies={cookies} logout={logout} userData={userData}/>
+                               </div>
+                               }
+                           </div>
+                           :
+                           <PathComponent/>
+                   }
+               </div>
+           </header>
+       </div>
     );
 }
 export default Header;

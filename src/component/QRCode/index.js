@@ -9,8 +9,10 @@ import Loader from "../UI/Loader";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import MobileInput from "../UI/MobileInput";
 import AlertToast from '../../component/UI/AlertToast';
+import { useLocation } from 'react-router-dom';
 
 const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}) => {
+    const location = useLocation();
     const [isTick, setTick] = useState(false);
     const [phone, setPhone] = useState('');
     const [customer, setCustomer] = useState('');
@@ -30,13 +32,12 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
             isStatus && setTick(true);
         }, 1200)
     }, [isStatus]);
+
     const redirect = () => {
         console.log(linkToSend);
         window.open(linkToSend, '_blank');
     }
-    const qrButton = async () =>{
 
-    }
     const validateFields = () => {
         let errors = {...error};
         if (!phone) {
@@ -132,99 +133,105 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                     <div className="qrcode-heading">
                         <h3>{title}</h3>
                     </div>
-                    <div className="qrcode-innerbox">
-                        { merchantType === 'charity' ?
-                            <div style= {{textAlign: 'center',position:'relative'}}>
-                                <div className="copy-btn">
-                                    <button onClick={copyCodeToClipboard} disabled={!imgData} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
-                                    <i className="fas fa-copy cursor-pointer cp-btn"></i>
-                                    </button>
-                                </div>
-                                <div className="qrImage" >
+                    {
+                        location.pathname !== '/beamlink' &&
+                        <div className="qrcode-innerbox">
+                            { merchantType === 'charity' ?
+                                <div style= {{textAlign: 'center',position:'relative'}}>
+                                    <div className="copy-btn">
+                                        <button onClick={copyCodeToClipboard} disabled={!imgData} style={{width:'28px',height:'28px',borderStyle:'none',borderRadius:'4px'}}>
+                                            <i className="fas fa-copy cursor-pointer cp-btn"></i>
+                                        </button>
+                                    </div>
+                                    <div className="qrImage" >
                                         <div style={{width: '12rem', margin: '52px auto 0rem'}} id="qrcodeDiv" >
                                             {
                                                 imgData ?
                                                     <img id="qrCodeD" src={`data:image/svg+xml;base64,${btoa(imgData)}`} alt="Qr Code"/>
                                                     :
-                                                   <div className="img-loader-div">
-                                                       <Loader />
-                                                   </div>
+                                                    <div className="img-loader-div">
+                                                        <Loader />
+                                                    </div>
                                             }
                                         </div>
-                                   <div className="btn-flex">
-                                       <button className="btn btn-primary btn-ok" onClick={downloadQR} disabled={!imgData}>
+                                        <div className="btn-flex">
+                                            <button className="btn btn-primary btn-ok" onClick={downloadQR} disabled={!imgData}>
                                   <span  className="qrButton">
                                       <GetAppIcon /> &nbsp; &nbsp;<span>Download QR Code</span>
                                   </span>
-                                       </button>
-                                       <button className="btn btn-primary btn-ok" onClick={DonatePage} disabled={!imgData}>
+                                            </button>
+                                            <button className="btn btn-primary btn-ok" onClick={DonatePage} disabled={!imgData}>
                                   <span className="qrButton">
                                        <i className="fas fa-donate" style={{fontSize:"20px"}}></i> &nbsp; &nbsp;<span>Donate with <strong>beam.</strong></span>
                                   </span>
-                                       </button>
-                                   </div>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            :
-                            <div id='svgCon' style={{width: '12rem', margin: '52px auto 3rem'}}>
-                            </div>
-                        }
+                                :
+                                <div id='svgCon' style={{width: '12rem', margin: '52px auto 3rem'}}>
+                                </div>
+                            }
 
-                        {merchantType !== "charity" && <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
-                                <span>Pay with <strong style={{fontSize: '25px'}}>beam.</strong></span>
-                            </button>
-                        </div>}
-                    </div>
-                    <div>
-                        <div className="qrcode-innerbox">
-                            <br/>
-                            <div className="phone-field">
-                                <p><label>Phone No</label></p>
-                                <div>
-                                    <MobileInput
-                                        country="gb"
-                                        phone={phone}
-                                        setPhone={setPhone}
-                                        />
-                                </div>
-                                <p style={{color: 'red'}}>{error.phone ? error.phone : ''}</p>
-                            </div>
-                            <br/>
-                            <div className="phone-field">
-                                <p><label>Customer Name</label></p>
-                                <p>
-                                    <input
-                                        name="customer"
-                                        placeholder="Enter customer name"
-                                        value={customer}
-                                        type="text"
-                                        onChange={(e) => setCustomer(e.target.value)}
-                                    />
-                                </p>
-                            </div>
-                            <br/>
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <button className="pay-btn" onClick={sendMessage}>
-                                    {isLinkSending ? <Loader size="2rem" color="secondary"/> : <span>Send {
-                                        merchantType === "charity" ? <span><strong>beam.</strong>&nbsp;donation</span> : <strong style={{fontSize: '25px'}}>beam.</strong>
-                                    } link</span>}
+                            {merchantType !== "charity" && <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <button onClick={() => redirect()} className="pay-btn" style={{marginTop: '0'}}>
+                                    <span>Pay with <strong style={{fontSize: '25px'}}>beam.</strong></span>
                                 </button>
-                            </div>
-                            <div style={{display: 'flex', justifyContent: 'center' }}>
-                                { isLinkSent === 'success' &&
-                                <p style={{color: 'green', margin: '1rem 0'}}>
-                                    Payment link successfully sent through sms.
-                                </p>}
-                                { isLinkSent === 'failed' &&
-                                <p style={{color: '#5956e8', textAlign: 'center', margin: '1rem 0', width: 'calc(25vw + 150px)'}}>
-                                    {error.twilio ? error.twilio : "Message service is currently down." }
-                                    {merchantType === 'charity' ? " Please scan Qr Code to continue." :
-                                        " Please scan Qr Code or click 'Pay with Lucie.' button to continue."}
-                                </p>}
+                            </div>}
+                        </div>
+                    }
+                    {
+                        location.pathname === '/beamlink' &&
+                        <div>
+                            <div className="qrcode-innerbox">
+                                <br/>
+                                <div className="phone-field">
+                                    <p><label>Phone No</label></p>
+                                    <div>
+                                        <MobileInput
+                                            country="gb"
+                                            phone={phone}
+                                            setPhone={setPhone}
+                                        />
+                                    </div>
+                                    <p style={{color: 'red'}}>{error.phone ? error.phone : ''}</p>
+                                </div>
+                                <br/>
+                                <div className="phone-field">
+                                    <p><label>Customer Name</label></p>
+                                    <p>
+                                        <input
+                                            name="customer"
+                                            placeholder="Enter customer name"
+                                            value={customer}
+                                            type="text"
+                                            onChange={(e) => setCustomer(e.target.value)}
+                                        />
+                                    </p>
+                                </div>
+                                <br/>
+                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                    <button className="pay-btn" onClick={sendMessage}>
+                                        {isLinkSending ? <Loader size="2rem" color="secondary"/> : <span>Send {
+                                            merchantType === "charity" ? <span><strong>beam.</strong>&nbsp;donation</span> : <strong style={{fontSize: '25px'}}>beam.</strong>
+                                        } link</span>}
+                                    </button>
+                                </div>
+                                <div style={{display: 'flex', justifyContent: 'center' }}>
+                                    { isLinkSent === 'success' &&
+                                    <p style={{color: 'green', margin: '1rem 0'}}>
+                                        Payment link successfully sent through sms.
+                                    </p>}
+                                    { isLinkSent === 'failed' &&
+                                    <p style={{color: '#5956e8', textAlign: 'center', margin: '1rem 0', width: 'calc(25vw + 150px)'}}>
+                                        {error.twilio ? error.twilio : "Message service is currently down." }
+                                        {merchantType === 'charity' ? " Please scan Qr Code to continue." :
+                                            " Please scan Qr Code or click 'Pay with Lucie.' button to continue."}
+                                    </p>}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 :
                 <div>

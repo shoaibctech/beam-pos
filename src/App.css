@@ -1,3 +1,56 @@
 #content {
     min-height: calc(100vh - 136px);
 }
+.main-login-block {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    /*font-size: 28px; !* Increased text to enable scrolling *!*/
+    /*padding: 0px 10px;*/
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+.main-page-bg-block {
+    background: #F3F4F7;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*height: 100vh;*/
+}
+.main-page-block {
+    margin-top: -8px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-height: calc(100vh - 100px);
+}
+@media (max-width: 768px) {
+    .sidenav {
+        display: none;
+    }
+    .main-login-block {
+        margin-left: 0; /* Same as the width of the sidenav */
+        /*font-size: 28px; !* Increased text to enable scrolling *!*/
+        /*padding: 0px 10px;*/
+    }
+    .main-page-bg-block {
+        background: #F3F4F7;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: auto;
+    }
+    .main-page-block {
+        box-shadow:  none;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+@media (min-width: 768px) {
+    .hamburger-icon {
+        display: none;
+    }
+}
