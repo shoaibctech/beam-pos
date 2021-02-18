@@ -373,7 +373,7 @@ const Transactions = () => {
                                              <div className="tr-s-row">
                                                  <span className="tr-content-box-items tr-grey-item">{payment.amount.toFixed(2)}</span>
                                                  <span className="tr-content-box-items tr-grey-item">{payment.currency}</span>
-                                                 { account_type !== 'basic' &&
+                                                 { account_type !== 'basic' && payment.status === 'PAYMENT_RECEIVED' &&
                                                     <span  className="tr-action">
                                                         <button className="tr-action-btn" onClick={() => openRefundModal(idx)}>Refund</button>
                                                     </span>
@@ -403,9 +403,9 @@ const Transactions = () => {
                                                 <div className="tr-s-row">
                                                     <span className="tr-content-box-items">{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</span>
                                                     <span className="tr-content-box-items">{payment.debtorBankName ? payment.debtorBankName : 'N/A'}</span>
-                                                    { account_type !== 'basic' &&
+                                                    { account_type !== 'basic' && payment.status === 'PAYMENT_RECEIVED' &&
                                                     <span  className="tr-action">
-                                                        <button className="tr-action-btn" onClick={() => openRefundModal(idx)} disabled={payment.status !== 'PAYMENT_RECEIVED'}>Refund</button>
+                                                        <button className="tr-action-btn" onClick={() => openRefundModal(idx)}>Refund</button>
                                                     </span>
                                                     }
                                                 </div>
@@ -430,6 +430,12 @@ const Transactions = () => {
                                     !isFetching && transError &&
                                     <div  className="text-center tr-info" style={{height: '10rem'}}>
                                         <span className="loading"><span className="t-error">{transError}</span></span>
+                                    </div>
+                                }
+                                {
+                                    !isFetching && !isLastPage && !transError && paymentList.length > 1 &&
+                                    <div className="text-center load-more">
+                                        <button className="btn btn-primary" onClick={handleNextPage}>Load More</button>
                                     </div>
                                 }
                             </div>

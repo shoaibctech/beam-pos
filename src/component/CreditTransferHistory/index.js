@@ -55,12 +55,14 @@ const CreditTransferHistory = () => {
         const sortedData = orderBy(data, ['requestedExecutionDate'], ['desc']);
        return  sortedData.map((payment, idx) => {
             return (<div className="tr-content-box" key={idx}>
-                <h3 className="tr-content-box-items">{payment.beneficiaryName}</h3>
+                <h3 className="tr-content-box-items">
+                    <span className="tr-content-box-items">{payment.paymentAmount.toFixed(2)}</span>
+                    <span className="tr-content-box-items">{payment.paymentCurrency}</span>
+                </h3>
+                <span className="tr-content-box-items tr-grey-item">
+                    {payment.beneficiaryName}
+                </span>
                 <span className="tr-content-box-items tr-grey-item">{payment.paymentStatus} {payment.type} </span>
-                <div className="tr-s-row">
-                    <span className="tr-content-box-items tr-grey-item">{payment.paymentAmount.toFixed(2)}</span>
-                    <span className="tr-content-box-items tr-grey-item">{payment.paymentCurrency}</span>
-                </div>
                 <div>
                     <span className="tr-content-box-items tr-grey-item">
                         {moment(payment.requestedExecutionDate).format('DD-MM-YYYY')}
