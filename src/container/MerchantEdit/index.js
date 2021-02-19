@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageUploader from 'react-images-upload';
 import S3 from 'react-aws-s3';
 import { makeSecureRequest, getUserData } from "../../utils";
@@ -19,7 +19,13 @@ const MerchantEdit = ({}) => {
     const [isFetching, setIsFetching] = useState(false);
     const [isImg, setIsImg] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+    const [toastMessage, setToastMessage] = useState('Logo uploaded successfully!');
     const [notificationToggle, setNotificationToggle] = useState(true);
+
+
+    useEffect(() => {
+        getSmsNotificationSetting();
+    }, []);
 
     const onDrop = (picture) => {
         setLogo(picture[0]);
@@ -70,13 +76,33 @@ const MerchantEdit = ({}) => {
 
             console.log('successfully uploaded logo ::', req.data);
             setIsFetching(false);
+            setToastMessage('Logo uploaded successfully!');
             setShowMessage(true);
         } catch (e) {
             console.log('Error: ', e);
         }
     }
-    const handleSwitchChange = (event) => {
+    const handleSwitchChange = async (event) => {
         setNotificationToggle(event.target.checked);
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/sms/notification/${getUserData().merchant_id}`, {
+                isSendNotification: event.target.checked,
+                merchantId: getUserData().merchant_id
+            }, 'POST');
+
+            setToastMessage('Successfully updated Sms Notification settings.');
+            setShowMessage(true);
+        } catch (e) {
+            console.log('sow Error :: ', e);
+        }
+    }
+    const getSmsNotificationSetting = async () => {
+        try {
+            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/sms/notification/${getUserData().merchant_id}`, {}, 'GET');
+            setNotificationToggle(req.data.smsNotification);
+        } catch (e) {
+            console.log('show error :: ', e);
+        }
     }
     return (
         <React.Fragment>
@@ -124,7 +150,7 @@ const MerchantEdit = ({}) => {
                     </button>
                 </div>
             }
-            <AlertToast isOpen={showMessage} handleClose={() => setShowMessage(false)} message="Logo uploaded successfully!" />
+            <AlertToast isOpen={showMessage} handleClose={() => setShowMessage(false)} message={toastMessage} />
         </React.Fragment>
     );
 }

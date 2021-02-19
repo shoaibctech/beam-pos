@@ -60,8 +60,8 @@ const Bank = () => {
                 window.open(data.redirectLink, '_self');
             }
         });
-        channel.bind('bank-payment-in-process-event', function (data){
-            if (data.token === token && data.status === 'processing'){
+        channel.bind('bank-payment-in-process-event', function (data) {
+            if (data.token === token && data.status === 'processing') {
                 setLoading(true);
                 setLoaderText('payment in progress');
             }

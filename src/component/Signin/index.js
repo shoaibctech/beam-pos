@@ -4,7 +4,7 @@ import BotUser from "../../container/Home/img/user-1.svg";
 import Input from "../UI/Input";
 import Key from "../../container/Home/img/key-1.svg";
 import auth0 from "auth0-js";
-import {setUserData, setToken, makeSecureRequest,} from '../../utils/index';
+import { setUserData, setToken, makeSecureRequest } from '../../utils/index';
 import ForgetPassword from '../ForgetPassword';
 import jwt from 'jwt-decode';
 import { useCookies } from "react-cookie";
