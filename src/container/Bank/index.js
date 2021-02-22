@@ -195,7 +195,8 @@ const Bank = () => {
         try {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
                 {
-                    pathUrl: window.location.href
+                    pathUrl: window.location.href,
+                    token: token
                 }, 'POST');
            const imgBuffer = await convertSvgToJsxSvg(req.data.data);
            setQrCodeImg(imgBuffer);
