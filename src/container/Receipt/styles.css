@@ -25,15 +25,62 @@
     position: relative;
     margin-top: 328px;
 }
-.fill-box {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: limegreen;
-    position: absolute;
-    margin-top: 60px;
-    margin-left: 70px;
+
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+    .fill-box {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background-color: limegreen;
+        position: absolute;
+        margin-top: 60px;
+        margin-left: 70px;
+    }
 }
+
+/* Safari 11+ */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .fill-box {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background-color: limegreen;
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 36px;
+    }
+}}
+
+/* Safari 10.1 */
+@media not all and (min-resolution:.001dpcm){
+    @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
+        .fill-box {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: limegreen;
+            position: absolute;
+            margin-top: 30px;
+            margin-left: 36px;
+        }
+    }}
+
+/* Safari 6.1-10.0 (not 10.1) */
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0){
+    @media {
+        .fill-box {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: limegreen;
+            position: absolute;
+            margin-top: 30px;
+            margin-left: 36px;
+        }
+    }}
+
 .f-cross {
     border-radius: 50%;
     width: 30px;
