@@ -243,7 +243,7 @@
 }
 .logo_pos {
     position: relative;
-    max-width: 190px;
+    max-width: 160px;
     max-height: 90px;
     margin-left: 30px;
     margin-top: 10px;
@@ -345,6 +345,7 @@
     padding: 15px 0 15px 10px;
     align-items: center;
     justify-content: center;
+    margin-top: 3rem;
 }
 .d-light-text {
     color: #ff1375;
@@ -364,10 +365,10 @@
     display: flex;
     justify-content: center;
     position: relative;
-    margin-top: 100px;
+    margin-top: 106px;
 }
 .receipt-table {
-    margin: 50px auto;
+    margin: 75px auto;
     max-width: 355px;
 }
 @media (max-width: 540px) {

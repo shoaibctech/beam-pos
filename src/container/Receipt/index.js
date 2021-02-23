@@ -92,7 +92,7 @@ const Receipt = () => {
                     }
                     <div className="set_btn">
                         <button className="btn_set" onClick={() => setStep(1)}>
-                            View Detail
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -111,12 +111,12 @@ const Receipt = () => {
                     {PaymentStatusImage[status] ?
                         <div className="view-detail detail-h">
                             <span className="fill-tick"><i style={{color: 'limegreen'}} className="far fa-check-circle"></i></span>
-                            <p className="light-text">Payment Sent</p>
+                            <h2 className="light-text">Payment Sent</h2>
                         </div>
                         :
                         <div className="view-detail detail-h">
                             <span className="fill-tick"><i style={{color: 'red'}} className="far fa-times-circle"></i></span>
-                            <p className="light-text">Payment Failed</p>
+                            <h2 className="light-text">Payment Failed</h2>
                         </div>
                     }
                     <div className="receipt-table">
@@ -163,7 +163,7 @@ const Receipt = () => {
                     </div>
                 </div>
                 <div className="hide-btn">
-                    <button className="btn_set" onClick={() => setStep(0)}>Hide Detail</button>
+                    <button className="btn_set" onClick={() => setStep(0)}>Hide Details</button>
                 </div>
             </div>
         );
