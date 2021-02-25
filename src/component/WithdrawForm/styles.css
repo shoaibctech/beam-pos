@@ -1,6 +1,12 @@
 .withdraw-btn-section {
     margin-top: 1rem;
 }
+/*@media (max-width: 768px) {*/
+/*    .withdraw-btn-section {*/
+
+/*    }*/
+
+/*}*/
 .withdraw-heading {
     margin-bottom: 2rem;
 }
@@ -20,5 +26,21 @@
     border-radius: 3px;
     cursor: pointer;
     font-size: 15px;
-    width: 90%;
+    width: 7rem;
+}
+.btn-withdraw:disabled {
+    background: #8a8787;
+    cursor: not-allowed;
+}
+.withdraw-back-btn{
+    color: #ff1375;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    margin-left: 2rem;
+}
+@media (max-width: 768px) {
+    .modal-container-with-draw{
+margin-top: 1rem;
+    }
 }

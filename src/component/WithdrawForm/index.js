@@ -4,6 +4,7 @@ import Input from "../UI/Input";
 import { makeSecureRequest, getUserData } from "../../utils";
 import Loader from '../UI/Loader';
 import './styles.css';
+import useViewport from "../../utils/useViewPort/useViewPort";
 
 
 Modal.setAppElement('#root');
@@ -18,16 +19,17 @@ const customStyles = {
     }
 };
 
-const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
-    const [isOpen, setIsOpen] = useState(false);
+const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleIsOpen}) => {
+    // const [isOpen, setIsOpen] = useState(false);
     const [amount, setAmount] = useState('');
     const [isFetching, setIsFetching] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [amountExceedError, setAmountExceedError] = useState(false);
+    const {width}= useViewport();
 
     const onClose = () => {
-        setIsOpen(false);
+        handleIsOpen(false);
         setIsFetching(false);
         setError('');
         setMessage('');
@@ -67,68 +69,146 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance}) => {
         }
     }
     return(
-        <div className="btn-withdraw-block">
-            <button className="btn-withdraw" onClick={() => setIsOpen(true)} disabled={isBalance}>
-                Withdraw
-            </button>
-            <Modal
-                isOpen={isOpen}
-                onRequestClose={onClose}
-                style={customStyles}
-                contentLabel="Withdraw Modal"
-            >
-                <div className="modal-container-with-draw">
-                    { !message && !isFetching && <h2 className="withdraw-heading">Withdraw</h2>}
-                    {
-                        !isFetching && !message &&
-                        <>
-                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
-                            <div>
-                                <Input
-                                    value={amount}
-                                    handleChange={setAmount}
-                                    placeholder="Enter value"
-                                    type="number"
-                                    className="with-draw-input"
-                                />
-                            </div>
-                        </>
-                    }
-                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
-                    <div>
-                        {
-                            isFetching && !message &&
-                            <div className="loader-footer">
-                                <Loader />
-                                <p>Connecting...</p>
-                            </div>
-                        }
-                    </div>
-                    {
-                        !isFetching && !message &&
-                        <div className="withdraw-btn-section">
-                            <button className="btn-cancel" onClick={onClose}>Cancel</button>
-                            <button
-                                className="btn-ok"
-                                onClick={createCreditTransfer}
-                                disabled={isFetching || !( amount > 0) || !!error}
-                            >
-                                Withdraw
-                            </button>
-                        </div>
-                    }
+        <div>
 
+            <div>
+                {
+                    width > 768 &&
+                    <Modal
+                        isOpen={isOpen}
+                        onRequestClose={onClose}
+                        style={customStyles}
+                        contentLabel="Withdraw Modal"
+                    >
+                        <React.Fragment>
+                            <div className="btn-withdraw-block withdraw-btn">
+                                <div className="modal-container-with-draw">
+                                    { !message && !isFetching && <h2 className="withdraw-heading">Withdraw</h2>}
+                                    {
+                                        !isFetching && !message &&
+                                        <>
+                                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
+                                            <div>
+                                                <Input
+                                                    value={amount}
+                                                    handleChange={setAmount}
+                                                    placeholder="Enter value"
+                                                    type="number"
+                                                    className="with-draw-input"
+                                                />
+                                            </div>
+                                        </>
+                                    }
+                                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
+                                    <div>
+                                        {
+                                            isFetching && !message &&
+                                            <div className="loader-footer">
+                                                <Loader />
+                                                <p>Connecting...</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    {
+                                        !isFetching && !message &&
+                                        <div className="withdraw-btn-section">
+                                            <button className="btn-cancel" onClick={onClose}>Cancel</button>
+                                            <button
+                                                className="btn-ok"
+                                                onClick={createCreditTransfer}
+                                                disabled={isFetching || !( amount > 0) || !!error}
+                                            >
+                                                Withdraw
+                                            </button>
+                                        </div>
+                                    }
+
+                                    <div>
+                                        { error && <p className="error_text">{error}</p>}
+                                    </div>
+                                    { message &&
+                                    <div className="success_msg_blk">
+                                        <p className="success_message" style={{  margin: '20px'}}>{message}</p>
+                                        <button className='btn-cancel' onClick={onClose}>Close</button>
+                                    </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </React.Fragment>
+                    </Modal>
+                }
+            </div>
+            {
+                width < 768 &&
                     <div>
-                        { error && <p className="error_text">{error}</p>}
+                        <div onClick={onClose}>
+                            <span className="withdraw-back-btn"><i className="fas fa-arrow-left"></i></span>
+                        </div>
+                        <React.Fragment>
+                                {
+                                    isOpen &&
+                                    <div>
+                                            <div className="btn-withdraw-block">
+                                                <div className="modal-container-with-draw">
+                                                    { !message && !isFetching && <h2 className="withdraw-heading">Withdraw</h2>}
+                                                    {
+                                                        !isFetching && !message &&
+                                                        <>
+                                                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
+                                                            <div>
+                                                                <Input
+                                                                    value={amount}
+                                                                    handleChange={setAmount}
+                                                                    placeholder="Enter value"
+                                                                    type="number"
+                                                                    className="with-draw-input"
+                                                                />
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
+                                                    <div>
+                                                        {
+                                                            isFetching && !message &&
+                                                            <div className="loader-footer">
+                                                                <Loader />
+                                                                <p>Connecting...</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    {
+                                                        !isFetching && !message &&
+                                                        <div className="withdraw-btn-section">
+                                                            <button className="btn-cancel" onClick={onClose}>Cancel</button>
+                                                            <button
+                                                                className="btn-ok"
+                                                                onClick={createCreditTransfer}
+                                                                disabled={isFetching || !( amount > 0) || !!error}
+                                                            >
+                                                                Withdraw
+                                                            </button>
+                                                        </div>
+                                                    }
+
+                                                    <div>
+                                                        { error && <p className="error_text">{error}</p>}
+                                                    </div>
+                                                    { message &&
+                                                    <div className="success_msg_blk">
+                                                        <p className="success_message" style={{  margin: '20px'}}>{message}</p>
+                                                        <button className='btn-cancel' onClick={onClose}>Close</button>
+                                                    </div>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                }
+
+                        </React.Fragment>
                     </div>
-                    { message &&
-                    <div className="success_msg_blk">
-                        <p className="success_message" style={{  margin: '20px'}}>{message}</p>
-                        <button className='btn-cancel' onClick={onClose}>Close</button>
-                    </div>
-                    }
-                </div>
-            </Modal>
+            }
         </div>
     );
 }
