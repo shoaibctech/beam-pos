@@ -22,8 +22,9 @@
 .set_btn {
     display: flex;
     justify-content: center;
-    position: relative;
-    margin-top: 328px;
+    position: absolute;
+    width: 100%;
+    bottom: 2rem;
 }
 
 /* Chrome 29+ */
@@ -364,8 +365,9 @@
 .hide-btn {
     display: flex;
     justify-content: center;
-    position: relative;
-    margin-top: 106px;
+    position: absolute;
+    width: 100%;
+    bottom: 2rem;
 }
 .receipt-table {
     margin: 75px auto;

@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Tick from '../../component/QRCode/img/tick-anim.svg';
 import UploadIcon from './img/upload.png';
 import FillTick from './img/black-tick.png';
-import { PaymentStatusImage } from '../../utils/Constants/PaymentStatus';
+import {PaymentStatusImage} from '../../utils/Constants/PaymentStatus';
 import moment from "moment";
 
 
@@ -15,16 +15,18 @@ const Receipt = () => {
     const {amount, merchant_name, payer_name, bank_name, trans_date, status, currency} = useParams();
 
     const getNameAcronym = (name) => {
-        return  name.match(/\b(\w)/g).join('').substr(0, 2);
+        return name.match(/\b(\w)/g).join('').substr(0, 2);
     }
-    if (step === 0) {
-        return (
-            <div className="main_container">
-                <div>
-                    <div>
-                        <img className="logo_pos" src={Logo}/>
-                    </div>
+    return (
 
+        <div className="main_container">
+            <div>
+                <img className="logo_pos" src={Logo}/>
+            </div>
+            {
+                step === 0
+                &&
+                <div>
                     {
                         PaymentStatusImage[status] ?
                             <React.Fragment>
@@ -96,77 +98,75 @@ const Receipt = () => {
                         </button>
                     </div>
                 </div>
-            </div>
-        );
-    } else if (step === 1) {
-        return (
-            <div className="main_container">
+            }
+            {
+                step === 1
+                &&
                 <div>
-                    <img className="logo_pos" src={Logo}/>
-                </div>
-                {/*<div className="text_size">*/}
-                {/*    Preivew*/}
-                {/*</div>*/}
-                <div>
-                    {PaymentStatusImage[status] ?
-                        <div className="view-detail detail-h">
-                            <span className="fill-tick"><i style={{color: 'limegreen'}} className="far fa-check-circle"></i></span>
-                            <h2 className="light-text">Payment Sent</h2>
-                        </div>
-                        :
-                        <div className="view-detail detail-h">
-                            <span className="fill-tick"><i style={{color: 'red'}} className="far fa-times-circle"></i></span>
-                            <h2 className="light-text">Payment Failed</h2>
-                        </div>
-                    }
-                    <div className="receipt-table">
-                        <table>
-                            {
-                                payer_name &&
+                    <div>
+                        {PaymentStatusImage[status] ?
+                            <div className="view-detail detail-h">
+                                <span className="fill-tick"><i style={{color: 'limegreen'}}
+                                                               className="far fa-check-circle"></i></span>
+                                <h2 className="light-text">Payment Sent</h2>
+                            </div>
+                            :
+                            <div className="view-detail detail-h">
+                                <span className="fill-tick"><i style={{color: 'red'}}
+                                                               className="far fa-times-circle"></i></span>
+                                <h2 className="light-text">Payment Failed</h2>
+                            </div>
+                        }
+                        <div className="receipt-table">
+                            <table>
+                                {
+                                    payer_name &&
+                                    <tr>
+                                        <td>From:</td>
+                                        <td><span className="d-light-text">{payer_name}</span></td>
+                                    </tr>
+                                }
                                 <tr>
-                                    <td>From:</td>
-                                    <td><span className="d-light-text">{payer_name}</span></td>
+                                    <td>To:</td>
+                                    <td><span className="d-light-text"
+                                              style={{textTransform: "uppercase"}}>{merchant_name}</span></td>
                                 </tr>
-                            }
-                            <tr>
-                                <td>To:</td>
-                                <td><span className="d-light-text"
-                                          style={{textTransform: "uppercase"}}>{merchant_name}</span></td>
-                            </tr>
-                            <tr>
-                                <td>Amount:</td>
-                                <td><span className="d-light-text">£{amount && parseFloat(amount).toFixed(2)}</span>
-                                </td>
-                            </tr>
-                            {/*<tr>*/}
-                            {/*    <td>Reference:</td>*/}
-                            {/*    <td><span>{refrence}</span></td>*/}
-                            {/*</tr>*/}
-                            <tr>
-                                <td>Bank:</td>
-                                <td><span className="d-light-text">{bank_name}</span></td>
-                            </tr>
-                            <tr>
-                                <td>Date:</td>
-                                <td><span
-                                    className="d-light-text">{trans_date && moment(trans_date).format('Do MMM YYYY')}</span>
-                                </td>
-                            </tr>
-                            {
-                                payer_name &&
                                 <tr>
-                                    <td>Payer Name:</td>
-                                    <td><span className="d-light-text">{payer_name}</span></td>
+                                    <td>Amount:</td>
+                                    <td><span className="d-light-text">£{amount && parseFloat(amount).toFixed(2)}</span>
+                                    </td>
                                 </tr>
-                            }
-                        </table>
+                                {/*<tr>*/}
+                                {/*    <td>Reference:</td>*/}
+                                {/*    <td><span>{refrence}</span></td>*/}
+                                {/*</tr>*/}
+                                <tr>
+                                    <td>Bank:</td>
+                                    <td><span className="d-light-text">{bank_name}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Date:</td>
+                                    <td><span
+                                        className="d-light-text">{trans_date && moment(trans_date).format('Do MMM YYYY')}</span>
+                                    </td>
+                                </tr>
+                                {
+                                    payer_name &&
+                                    <tr>
+                                        <td>Payer Name:</td>
+                                        <td><span className="d-light-text">{payer_name}</span></td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <div className="hide-btn">
+                        <button className="btn_set" onClick={() => setStep(0)}>Hide Details</button>
                     </div>
                 </div>
-                <div className="hide-btn">
-                    <button className="btn_set" onClick={() => setStep(0)}>Hide Details</button>
-                </div>
-            </div>
-        );
-    }
+            }
+
+        </div>
+    );
 }
 export default Receipt;
