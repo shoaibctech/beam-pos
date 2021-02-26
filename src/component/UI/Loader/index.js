@@ -15,7 +15,7 @@ const theme = createMuiTheme({
 
 const Loader = ({size = '4rem', color = 'primary'}) => (
     <ThemeProvider theme={theme}>
-        <CircularProgress  size={size} color={color}/>
+        <CircularProgress  size={size} color={color} />
     </ThemeProvider>
 );
 

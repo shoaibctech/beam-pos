@@ -8,12 +8,13 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orderBy } from 'lodash';
 import moment from "moment";
 import Loader from "../UI/Loader";
-import { RefundStatus } from "../../utils/Constants/PaymentStatus";
+import {PaymentStatus, RefundStatus} from "../../utils/Constants/PaymentStatus";
 
 import './styles.css';
 
 import {getUserData, makeSecureRequest} from "../../utils";
 import RefundForm from "../RefundForm";
+import useViewPort from "../../utils/useViewPort/useViewPort";
 
 Modal.setAppElement('#root')
 const customStyles = {
@@ -32,7 +33,7 @@ const customStyles = {
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: 'rgba(89, 86, 262, 1)'
+            main: '#ff1375'
         },
         // secondary: {
         //     main: green[500],
@@ -46,6 +47,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
     const [isFetchingRefundList, setIsFetchingRefundList] = useState(false);
     const [tabValue, setTabValue] = React.useState(0);
     const [refundedValue, setRefundedValue] = useState();
+    const { width } = useViewPort();
 
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
@@ -63,13 +65,32 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
 
     const renderRefundTable = (data) => {
         return data.map( (payment, idx) => {
-            return (   <tr key={idx}>
+            return (
+                <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{payment.refundAmount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
                 <td>{RefundStatus[payment.status]}</td>
                 <td>{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</td>
-            </tr>);
+            </tr>
+            );
+        });
+    }
+    const renderRefundMobileTable = (data) => {
+        return data.map( (payment, idx) => {
+            return (
+                <div className="tr-content-box" key={idx}>
+                    <h3 className="tr-content-box-items">{RefundStatus[payment.status]}</h3>
+                    <span className="tr-content-box-items tr-grey-item">{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : ''}</span>
+                    <div className="tr-s-row">
+                        <span className="tr-content-box-items tr-grey-item">{payment.refundAmount.toFixed(2)}</span>
+                        <span className="tr-content-box-items tr-grey-item">{payment.currency}</span>
+                    </div>
+                    <div>
+                        <span className="tr-content-box-items tr-grey-item">{moment(payment.creationDateTime).format('DD-MM-YYYY HH:mm')}</span>
+                    </div>
+                </div>
+            );
         });
     }
 
@@ -107,80 +128,147 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
         });
         setRefundedValue(amount);
     }
+
     return (
         <div>
-            <Modal
-                isOpen={isOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <Fragment>
-                    <div className="modal-close-btn" >
-                       <Cancel fontSize='large' onClick={closeModal} />
-                    </div>
-                    <div className="modal-container">
+            {
+                width > 768 &&
+                <div>
+                    <Modal
+                        isOpen={isOpen}
+                        onRequestClose={closeModal}
+                        style={customStyles}
+                        contentLabel="Refund"
+                    >
+                        <Fragment>
+                            <div className="modal-close-btn" >
+                                <Cancel fontSize='large' onClick={closeModal} />
+                            </div>
+                            <div className="modal-container">
 
-                        <Paper square>
-                            <ThemeProvider theme={theme}>
-                                <Tabs
-                                    value={tabValue}
-                                    indicatorColor="primary"
-                                    textColor="primary"
-                                    onChange={handleTabChange}
-                                    aria-label="Refund Tabs"
-                                >
-                                    <Tab label="Refund Transactions" />
-                                    <Tab label="Refund" />
-                                </Tabs>
-                            </ThemeProvider>
-                        </Paper>
-                        {
-                            tabValue === 0 &&
+                                <Paper square>
+                                    <ThemeProvider theme={theme}>
+                                        <Tabs
+                                            value={tabValue}
+                                            indicatorColor="primary"
+                                            textColor="primary"
+                                            onChange={handleTabChange}
+                                            aria-label="Refund Tabs"
+                                        >
+                                            <Tab label="Refund Transactions" />
+                                            <Tab label="Refund" />
+                                        </Tabs>
+                                    </ThemeProvider>
+                                </Paper>
+                                {
+                                    tabValue === 0 &&
+                                    <div>
+                                        <div className='table-container' style={{overflowX: 'auto'}}>
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Amount</th>
+                                                    <th>Currency</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                { !isFetchingRefundList ? refundList && refundList.length ? renderRefundTable(refundList)
+                                                    : <tr rowSpan="4" style={{height: '10rem'}}>
+                                                        <td colSpan="8" className="loading">No data found...</td>
+                                                    </tr>
+                                                    : <tr rowSpan="4" style={{height: '10rem'}}>
+                                                        <td colSpan="8" className="loading">
+                                                            <Loader />
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                {/*{refundList && refundList.length && renderRefundTable(refundList)}*/}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    tabValue === 1 &&
+                                    <RefundForm
+                                        getRefundList={getRefundList}
+                                        handleTabValue={setTabValue}
+                                        handleClose={onClose}
+                                        paymentObj={paymentObj}
+                                        isFetchingRefundList={isFetchingRefundList}
+                                        refundedValue={refundedValue}
+                                    />
+                                }
+                            </div>
+                        </Fragment>
+                    </Modal>
+                </div>
+            }
+            {
+                isOpen && width < 768 &&
+                <div>
+                    <Fragment>
+                        <div onClick={closeModal}>
+                        <span className="mobile-back-btn"><i className="fas fa-arrow-left"></i></span>
+                    </div>
+                        <div className="modal-container">
+
+                            <Paper square>
+                                <ThemeProvider theme={theme}>
+                                    <Tabs
+                                        value={tabValue}
+                                        indicatorColor="primary"
+                                        textColor="primary"
+                                        onChange={handleTabChange}
+                                        aria-label="Refund Tabs"
+                                    >
+                                        <Tab label="Refund Transactions" />
+                                        <Tab label="Refund" />
+                                    </Tabs>
+                                </ThemeProvider>
+                            </Paper>
+                            {
+                                tabValue === 0 &&
                                 <div>
                                     <div className='table-container' style={{overflowX: 'auto'}}>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Amount</th>
-                                                <th>Currency</th>
-                                                <th>Status</th>
-                                                <th>Date</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            { !isFetchingRefundList ? refundList && refundList.length ? renderRefundTable(refundList)
-                                                : <tr rowSpan="4" style={{height: '10rem'}}>
-                                                    <td colSpan="8" className="loading">No data found...</td>
-                                                </tr>
-                                                : <tr rowSpan="4" style={{height: '10rem'}}>
-                                                    <td colSpan="8" className="loading">
-                                                        <Loader />
-                                                    </td>
-                                                </tr>
-                                            }
-                                            {/*{refundList && refundList.length && renderRefundTable(refundList)}*/}
-                                            </tbody>
-                                        </table>
+                                        <div>
+                                            <div className='table-container' style={{overflowX: 'auto'}}>
+                                                <div className="tr-main-container">
+                                                    { !isFetchingRefundList ? refundList && refundList.length ? renderRefundMobileTable(refundList)
+                                                        : <span rowSpan="4" style={{height: '10rem'}}>
+                                                        <td colSpan="8" className="loading">No data found...</td>
+                                                    </span>
+                                                        : <span rowSpan="4" style={{height: '10rem'}}>
+                                                        <span colSpan="8" className="loading loader-center">
+                                                            <Loader />
+                                                        </span>
+                                                    </span>
+                                                    }
+                                                    {/*{refundList && refundList.length && renderRefundTable(refundList)}*/}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                        }
-                        {
-                            tabValue === 1 &&
-                           <RefundForm
-                               getRefundList={getRefundList}
-                               handleTabValue={setTabValue}
-                               handleClose={onClose}
-                               paymentObj={paymentObj}
-                               isFetchingRefundList={isFetchingRefundList}
-                               refundedValue={refundedValue}
-                           />
-                        }
-                    </div>
-                </Fragment>
-
-            </Modal>
+                            }
+                            {
+                                tabValue === 1 &&
+                                <RefundForm
+                                    getRefundList={getRefundList}
+                                    handleTabValue={setTabValue}
+                                    handleClose={onClose}
+                                    paymentObj={paymentObj}
+                                    isFetchingRefundList={isFetchingRefundList}
+                                    refundedValue={refundedValue}
+                                />
+                            }
+                        </div>
+                    </Fragment>
+                </div>
+            }
         </div>
     );
 }

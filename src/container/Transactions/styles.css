@@ -13,14 +13,29 @@
     padding-left: 20px;
 }
 .modal-container {
-    padding: 2rem 3rem 1rem;
+    padding: .2rem 3rem 1rem;
     min-width: 350px;
     min-height: 480px;
+}
+@media (max-width: 396px) {
+    .modal-container{
+        display: contents;
+    }
+
 }
 .modal-container-with-draw {
     padding: 2rem 3rem 1rem;
     min-width: 500px;
     text-align: center;
+}
+@media (max-width: 768px) {
+    .modal-container-with-draw{
+        min-width: 1rem;
+    }
+    .modal-container {
+        margin-top: 1rem;
+    }
+
 }
 .btn-refund {
     padding: 10px 15px;
@@ -61,7 +76,8 @@
     color: black;
 }
 .btn-ok[disabled] {
-    background: #cccccc;
+    background: #8a8787;
+    cursor: not-allowed;
 }
 .refund-radio-label {
     margin: 0 10px;
@@ -101,9 +117,9 @@
     padding-right: 10px;
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
-.balance-con:hover {
-    border: 1px solid var(--main-bg-color);
-}
+/*.balance-con:hover {*/
+/*    border: 1px solid var(--main-bg-color);*/
+/*}*/
 .balance-block {
     display: flex;
     justify-content: center;
@@ -125,9 +141,9 @@
 .with-draw-input {
     width: 95% !important;
 }
-.btn-withdraw-block {
-    width: 10rem;
-}
+/*.btn-withdraw-block {*/
+/*    width: 10rem;*/
+/*}*/
 .tr-top-box {
     display: flex;
     justify-content: space-between;
@@ -170,6 +186,11 @@
 .tr-d-table span {
     flex: 0 1 auto;
 }
+@media (max-width: 396px) {
+    .btn-withdraw-block{
+        
+    }
+}
 
 @media (max-width: 768px) {
     .isHidden {
@@ -198,7 +219,13 @@
         margin-right: 5px;
     }
     .btn-withdraw-block {
-        width: 7rem;
+        /*width: 7rem;*/
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
+        margin: 0 2rem;
+        background: white;
+        border-radius: 10px;
     }
     .balance-block {
         text-align: right;
