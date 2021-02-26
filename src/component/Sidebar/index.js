@@ -62,6 +62,15 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 </Link>
             </div>
         }
+        {
+            merchant_type !== 'charity' &&
+            <div className={isActive === '/directdebit' ? 'link-list active-link' : 'link-list'}>
+                <Link to="/directdebit">
+                    <i className="fas fa-money-bill"></i>
+                    Direct Debit
+                </Link>
+            </div>
+        }
         <div className="link-list" onClick={() => setIsSettingOpen(!isSettingOpen)}>
             <div className={'sidebar-submenu'}>
                <span>

@@ -1,0 +1,41 @@
+.plan-card {
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 300px;
+}
+.plan-header {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background: #1a202c;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.plan-price {
+    font-size: 20px;
+    font-weight: bold;
+}
+.plan-des {
+    border-bottom: 1px solid lightgray;
+    text-align: center;
+    padding-bottom: 13px;
+    padding-top: 13px;
+}
+.plan-footer {
+    text-align: center;
+    background: #d3d3d387;
+    padding-bottom: 23px;
+    padding-top: 23px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.plan-footer button {
+    width: 95%;
+}
+.cert-icon-block {
+    margin-bottom: 2rem;
+}

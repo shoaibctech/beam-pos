@@ -16,6 +16,9 @@ import Receipt from "./container/Receipt";
 import Profile from "./container/Profile";
 import MerchantEdit from "./container/MerchantEdit";
 import MessageSetting from "./component/MessageSetting";
+import DirectDebit from "./container/DirectDebit";
+import DDBank from "./container/DDBank";
+import SignDDI from "./container/SignDDI";
 
 import { getUserData } from "./utils";
 
@@ -39,6 +42,9 @@ const MainRoute = () => {
                 <Route path="/merchant-edit" exact component={MerchantEdit} />
                 <PrivateRoute path="/msetting" exact component={MessageSetting} />
                 <PrivateRoute path="/beamlink" exact component={Home} />
+                <Route path="/directdebit" exact component={DirectDebit} />
+                <Route path="/directdebit/bank/:token" exact component={DDBank} />
+                <Route path="/directdebit/signddi/:paymentId" exact component={SignDDI} />
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
