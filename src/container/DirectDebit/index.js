@@ -2,7 +2,7 @@ import React from "react";
 import PlanCard from '../../component/PlanCard';
 import './styles.css';
 // import useViewPort from '../../utils/'
-import { makeRequest } from "../../utils";
+import { makeRequest, getUserData } from "../../utils";
 
 const DirectDebit = () => {
     const planList = [{
@@ -33,9 +33,9 @@ const DirectDebit = () => {
         try {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/directdebit/getpaymentlink`,
                 {
-                    amount: 0.10,
+                    amount: 0.30,
                     email: 'linktofarooq@gmail.com',
-                    merchantId: 'lby3aled2d',
+                    merchantId: getUserData().merchant_id,
                     merchantName: 'Test Merchant B',
                     merchantType: 'nontip',
                 }, 'POST');
