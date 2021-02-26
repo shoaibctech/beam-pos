@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../UI/Loader";
 import { makeSecureRequest, getUserData } from "../../utils";
+import './style.css';
 
 const RefundForm = ({ getRefundList, paymentObj, handleTabValue, handleClose, isFetchingRefundList, refundedValue }) => {
 
@@ -119,7 +120,7 @@ const RefundForm = ({ getRefundList, paymentObj, handleTabValue, handleClose, is
                                 <div className="refund-success-message-block">
                                     <div className='text-center'>
                                         <Loader />
-                                    </div>
+                                    </div><Loader />
                                 </div>
                             }
                             {

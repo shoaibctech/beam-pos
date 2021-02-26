@@ -5,6 +5,23 @@
     font-size: 24px;
     cursor: pointer;
 }
+.mobile-back-btn{
+    color: #ff1375;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    margin-left: 3rem;
+}
+@media (max-width: 396px) {
+    .mobile-back-btn{
+        margin-left: 0;
+    }
+}
+.loader-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .refund-heading {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -16,7 +33,6 @@
 
 .table-container {
     height: 24rem;
-    padding-top: 1.5rem;
     padding-bottom: 1rem;
 }
 

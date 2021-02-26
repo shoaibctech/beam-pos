@@ -3,6 +3,7 @@ import Logo from "../../img/Dark.png";
 import {Link, useLocation, useHistory } from "react-router-dom";
 import { getUserData } from "../../utils";
 import './styles.css';
+import useViewport from "../../utils/useViewPort/useViewPort";
 
 const Sidebar = ({cookie, userData, setPathName}) => {
     const history = useHistory();
@@ -10,12 +11,13 @@ const Sidebar = ({cookie, userData, setPathName}) => {
     const [isActive, setActive] = useState('home');
     const [isSettingOpen, setIsSettingOpen] = useState(false);
     const { merchant_type } = getUserData();
+    const {width} = useViewport();
 
     useEffect(() => {
         setActive(location.pathname);
         setPathName(location.pathname);
         
-        if (window.innerWidth <= 768) {
+        if (width <= 768) {
             document.getElementById('sidenavbar').style.display = 'none';
         }
     }, [location.pathname]);
