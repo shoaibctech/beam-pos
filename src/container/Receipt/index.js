@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Tick from '../../component/QRCode/img/tick-anim.svg';
 import UploadIcon from './img/upload.png';
 import FillTick from './img/black-tick.png';
-import { PaymentStatusImage } from '../../utils/Constants/PaymentStatus';
+import {PaymentStatusImage} from '../../utils/Constants/PaymentStatus';
 import moment from "moment";
 
 
@@ -15,27 +15,27 @@ const Receipt = () => {
     const {amount, merchant_name, payer_name, bank_name, trans_date, status, currency} = useParams();
 
     const getNameAcronym = (name) => {
-        return  name.match(/\b(\w)/g).join('').substr(0, 2);
+        return name.match(/\b(\w)/g).join('').substr(0, 2);
     }
-    if (step === 0) {
-        return (
-            <div className="main_container">
-                <div>
-                    <div>
-                        <img className="logo_pos" src={Logo}/>
-                    </div>
+    return (
 
+        <div className="main_container">
+            <div>
+                <img className="logo_pos" src={Logo}/>
+            </div>
+            {
+                step === 0
+                &&
+                <div>
                     {
                         PaymentStatusImage[status] ?
                             <React.Fragment>
-                                <div className="example-appear">
                                 <div className="main_head">
                                     <h2>Your payment is complete.</h2><br/>
                                 </div>
                                 <div className="p_set">
                                     <h5>{amount && parseFloat(amount).toFixed(2)} {currency} has been sent to <span
                                         style={{color: "limegreen"}}>{merchant_name}.</span></h5>
-                                </div>
                                 </div>
                             </React.Fragment>
                             :
@@ -50,7 +50,6 @@ const Receipt = () => {
                     }
                     {
                         PaymentStatusImage[status] ?
-                            <div className="example-appear">
                             <div className="circle">
                                 <div className="inner-circle">
                                     <strong>{payer_name ? getNameAcronym(payer_name) : '£'}</strong>
@@ -71,9 +70,7 @@ const Receipt = () => {
                                     </div>
                                 </div>
                             </div>
-                            </div>
                             :
-                            <div className="example-appear">
                             <div className="failed-c">
                                 <div className="f-inner-c">
                                     <strong>{payer_name ? getNameAcronym(payer_name) : '£'}</strong>
@@ -94,7 +91,6 @@ const Receipt = () => {
                                     </div>
                                 </div>
                             </div>
-                            </div>
                     }
                     <div className="set_btn">
                         <button className="btn_set" onClick={() => setStep(1)}>
@@ -102,27 +98,22 @@ const Receipt = () => {
                         </button>
                     </div>
                 </div>
-            </div>
-        );
-    } else if (step === 1) {
-        return (
-            <div className="main_container">
+            }
+            {
+                step === 1
+                &&
                 <div>
-                    <img className="logo_pos" src={Logo}/>
-                </div>
-                {/*<div className="text_size">*/}
-                {/*    Preivew*/}
-                {/*</div>*/}
-                <div className="example-appear">
                     <div>
                         {PaymentStatusImage[status] ?
                             <div className="view-detail detail-h">
-                                <span className="fill-tick"><i style={{color: 'limegreen'}} className="far fa-check-circle"></i></span>
+                                <span className="fill-tick"><i style={{color: 'limegreen'}}
+                                                               className="far fa-check-circle"></i></span>
                                 <h2 className="light-text">Payment Sent</h2>
                             </div>
                             :
                             <div className="view-detail detail-h">
-                                <span className="fill-tick"><i style={{color: 'red'}} className="far fa-times-circle"></i></span>
+                                <span className="fill-tick"><i style={{color: 'red'}}
+                                                               className="far fa-times-circle"></i></span>
                                 <h2 className="light-text">Payment Failed</h2>
                             </div>
                         }
@@ -169,12 +160,13 @@ const Receipt = () => {
                             </table>
                         </div>
                     </div>
+                    <div className="hide-btn">
+                        <button className="btn_set" onClick={() => setStep(0)}>Hide Details</button>
+                    </div>
                 </div>
-                <div className="hide-btn">
-                    <button className="btn_set" onClick={() => setStep(0)}>Hide Details</button>
-                </div>
-            </div>
-        );
-    }
+            }
+
+        </div>
+    );
 }
 export default Receipt;
