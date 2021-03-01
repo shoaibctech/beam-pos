@@ -120,6 +120,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                             >
                                                 Withdraw
                                             </button>
+
                                         </div>
                                     }
 
