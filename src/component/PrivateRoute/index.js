@@ -1,15 +1,14 @@
 // src/components/PrivateRoute.js
 
 import React from "react";
-import { Route, Redirect, useHistory } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import {checkToken, removeUserData} from "../../utils";
 
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-    const history = useHistory();
     const isAuthenticated = checkToken();
-    const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
+    const [cookies, removeCookie] = useCookies(['isToken']);
 
         if(!cookies.isToken){
             removeCookie('isToken');

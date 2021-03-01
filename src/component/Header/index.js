@@ -6,10 +6,10 @@ import { useCookies } from "react-cookie";
 // import Logo from './img/Junction-pos.png';
 import Logo from './img/Light-Logo.png';
 import Logout from "../Logout";
-import Avatar from '@material-ui/core/Avatar';
 
 import "./styles.css";
 import { checkToken, removeUserData, getUserData, makeSecureRequest } from "../../utils";
+import useViewport from "../../utils/useViewPort/useViewPort";
 
 // const webAuth = new auth0.WebAuth({
 //     domain: process.env.REACT_APP_AUTH0_DOMAIN,
@@ -43,9 +43,10 @@ const Header = () => {
     const userData = getUserData();
     let history = useHistory();
     let location = useLocation();
+    const { width } = useViewport();
     const [isShowMenu, setIsShowMenu] = useState(false);
 
-    const [cookies, setCookie, removeCookie] = useCookies(['isToken']);
+    const [cookies, removeCookie] = useCookies(['isToken']);
     const ref = useRef(null);
 
     const handleHideDropdown = (event) => {
@@ -116,9 +117,20 @@ const Header = () => {
 
     return (
        <div>
-           <div className="hamburger-icon" onClick={() => {
-               document.getElementById('sidenavbar').style.display = 'block';
-           }}>☰</div>
+           {
+               checkToken() &&
+               <div className="hamburger-logo">
+                   <div className="hamburger-icon" onClick={() => {
+                       document.getElementById('sidenavbar').style.display = 'block';
+                   }}>☰</div>
+                   { width <= 768 &&
+                   <div className="invisible-item-logo">
+                       <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
+                   </div>
+                   }
+                   <div className="invisible-item"></div>
+               </div>
+           }
            <header className="header">
 
                { ( !checkToken()) ?

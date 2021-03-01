@@ -582,7 +582,7 @@ const Bank = () => {
                                     {/*</div>*/}
                                     {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                     <div className="flow-steps">
-                                        <div><span className="step-mark">1</span> Connect to your bank</div>
+                                        <div><span className="step-mark">1</span> Select your bank</div>
                                         <div><span className="step-mark">2</span> Authorize your payment</div>
                                         <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                     </div>
@@ -620,7 +620,7 @@ const Bank = () => {
                                     }
 
                                     <div>
-                                        <input type="text" placeholder="search" value={searchQuery} onChange={handleSearch} />
+                                        <input type="text" placeholder="Search" value={searchQuery} onChange={handleSearch} />
                                     </div>
                                     <div>
                                         {

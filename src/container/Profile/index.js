@@ -7,7 +7,7 @@ import './styles.css';
 const Profile = () => {
     const [isFetching, setIsFetching] = useState(false);
     const [apiKey, setApiKey] = useState('');
-    const [keyError, setKeyError] = useState('');
+    // const [keyError, setKeyError] = useState('');
     const [isCopied, setIsCopied] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -22,7 +22,8 @@ const Profile = () => {
             setApiKey(reqData.data.apiKey);
             setIsFetching(false);
         } catch (e) {
-            setKeyError('Something went wrong....');
+            console.log('error :: ', e);
+            // setKeyError('Something went wrong....');
         }
     }
     const refreshApiKey = async () => {
@@ -36,7 +37,8 @@ const Profile = () => {
             setIsFetching(false);
             setSuccessMessage('Api key successfully created.');
         } catch (e) {
-            setKeyError('Something went wrong....');
+            console.log('error :: ', e);
+            // setKeyError('Something went wrong....');
         }
     }
     const copyCodeToClipboard = () => {
@@ -53,7 +55,7 @@ const Profile = () => {
         <div>
             <div className="login-container">
                 <div>
-                    <p className="key-block">
+                    <div className="key-block">
                         <label htmlFor="api-key">Api Key:</label>
                         <div className="tooltip" style={{display: 'inlineBlock'}}>
                             <span className="key-data" onClick={copyCodeToClipboard}>
@@ -61,7 +63,7 @@ const Profile = () => {
                                 <input type="text" disabled value={apiKey} name="api-key"/>
                             </span>
                         </div>
-                    </p>
+                    </div>
                     <p className="text-center mr-1">
                         <span className="info-color"><i className="fa fa-info-circle"></i>&nbsp;</span>
                         <span

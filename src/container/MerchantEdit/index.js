@@ -14,7 +14,7 @@ const config = {
     secretAccessKey: process.env.REACT_APP_ACCESS_KEY,
 }
 
-const MerchantEdit = ({}) => {
+const MerchantEdit = () => {
     const [logo, setLogo] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
     const [isImg, setIsImg] = useState(false);
@@ -28,8 +28,13 @@ const MerchantEdit = ({}) => {
     }, []);
 
     const onDrop = (picture) => {
-        setLogo(picture[0]);
-        setIsImg(true);
+        if (picture[0]) {
+            setLogo(picture[0]);
+            setIsImg(true);
+        } else {
+            setLogo(null);
+            setIsImg(false);
+        }
     }
 
     const uploadLogoS3 = async () => {
@@ -85,7 +90,7 @@ const MerchantEdit = ({}) => {
     const handleSwitchChange = async (event) => {
         setNotificationToggle(event.target.checked);
         try {
-            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/sms/notification/${getUserData().merchant_id}`, {
+             await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/sms/notification/${getUserData().merchant_id}`, {
                 isSendNotification: event.target.checked,
                 merchantId: getUserData().merchant_id
             }, 'POST');
@@ -118,8 +123,18 @@ const MerchantEdit = ({}) => {
                             onChange={onDrop}
                             imgExtension={['.jpg', '.gif', '.png', '.gif']}
                             maxFileSize={5242880}
+                            withPreview={true}
+                            name={logo && logo.name}
                         />
                     </div>
+                    {
+                        isImg &&
+                        <div className="text-center">
+                            <button onClick={uploadLogoS3} className="btn btn-primary" style={{ width: '200px' }}>
+                                { isFetching ? <Loader size="1.5rem" color="secondary"/> : 'Upload' }
+                            </button>
+                        </div>
+                    }
                 </div>
             </div>
             <div className="settings-box">
@@ -142,14 +157,6 @@ const MerchantEdit = ({}) => {
                     </div>
                 </div>
             </div>
-            {
-                isImg &&
-                <div className="text-center">
-                    <button onClick={uploadLogoS3} className="btn btn-primary" style={{ width: '200px' }}>
-                        { isFetching ? <Loader size="1.5rem" color="secondary"/> : 'Upload' }
-                    </button>
-                </div>
-            }
             <AlertToast isOpen={showMessage} handleClose={() => setShowMessage(false)} message={toastMessage} />
         </React.Fragment>
     );
