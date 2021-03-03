@@ -17,7 +17,7 @@ import useViewport from "../../utils/useViewPort/useViewPort";
 // });
 
 const COMPONENT_NAMES = {
-    '/': getUserData().merchant_type === 'charity' ? 'Charity' : 'Point of Sale',
+    '/':'Point of Sale',
     '/profile': 'Key Management',
     '/transaction': 'Transactions',
     '/merchant-edit': 'Account Settings',
