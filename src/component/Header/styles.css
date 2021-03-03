@@ -28,6 +28,7 @@
 }
 .app-logo {
     width: 7rem;
+    margin-top: 8px;
 }
 .header h1 {
     color: var(--main-bg-color);

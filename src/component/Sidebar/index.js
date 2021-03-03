@@ -20,9 +20,9 @@ const Sidebar = ({cookie, userData, setPathName}) => {
 
     useEffect(() => {
         if (width <= 768) {
-            document.getElementById('sidenavbar').style.display = 'none';
+            document.getElementById('sidenavbar').style.display = '0';
         } else {
-            document.getElementById('sidenavbar').style.display = 'block';
+            document.getElementById('sidenavbar').style.display = '200px';
         }
     }, [width])
 
@@ -30,7 +30,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
     return (
     <div className="sidenav" id="sidenavbar">
         <span className="sidenav-close-icon" onClick={() => {
-            document.getElementById('sidenavbar').style.display = 'none';
+            document.getElementById('sidenavbar').style.width = '0';
         }}>
             <i className="fas fa-times"></i>
         </span>

@@ -14,6 +14,7 @@ import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import QrCodeWindow from "../../component/QrCodeWindow";
 
 // redeploying
 const Bank = () => {
@@ -76,6 +77,7 @@ const Bank = () => {
             if (!isMobile.any() && payment_type && payment_type === 'wp'){
                 getQrCode();
             } else {
+                getQrCode();
                 getPaymentDetails();
             }
 
@@ -306,6 +308,10 @@ const Bank = () => {
         } catch (e) {
             console.log('Error: No merchant logo found...');
         }
+    }
+
+    const showQRCodeWindow = () => {
+        document.getElementById('pop-block').style.display="block";
     }
 
     return (
@@ -635,7 +641,7 @@ const Bank = () => {
                                                         className="list-banks-logo"
                                                         src={bank.logo}
                                                         alt={bank.logo}
-                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : createPayment(bank.id)}
+                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : showQRCodeWindow()}
                                                     />
                                                     <p>{bank.name}</p>
                                                     <br/>
@@ -662,6 +668,7 @@ const Bank = () => {
                                 }}>Cancel and return to merchant</p>
                             </div>
                         }
+                        <QrCodeWindow qrCodeImg={qrCodeImg}/>
                 </div>
     );
 }
