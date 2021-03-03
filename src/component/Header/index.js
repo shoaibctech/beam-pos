@@ -16,8 +16,8 @@ import useViewport from "../../utils/useViewPort/useViewPort";
 //     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
 // });
 
-const COMPONENT_NAMES = {
-    '/':'Point of Sale',
+const PAGE_NAMES = {
+    '/': getUserData() && getUserData().merchant_type === 'charity' ? 'Charity' : 'Point of Sale',
     '/profile': 'Key Management',
     '/transaction': 'Transactions',
     '/merchant-edit': 'Account Settings',
@@ -138,7 +138,7 @@ const Header = () => {
                        <h1><Link to='/'><img src={Logo} alt="logo" className="app-logo" /> </Link></h1>
                    </div>
                    :
-                   <h3 className="component-names">{COMPONENT_NAMES[location.pathname]}</h3>
+                   <h3 className="component-names">{PAGE_NAMES[location.pathname]}</h3>
                }
                {/*<div className="app-title">*/}
                {/*    <div className="nav-link">*/}
