@@ -12,7 +12,7 @@
     margin: 0;
 }
 .fileContainer .uploadPictureContainer, .fileContainer .uploadPictureContainer img  {
-    max-width: 94px;
+    max-width: 300px;
     /*max-height: 94px;*/
 }
 .settings-box {
