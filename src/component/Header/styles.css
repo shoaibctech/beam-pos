@@ -121,7 +121,6 @@ li:hover{
 .component-names {
     padding-top: 15px;
     padding-bottom: 15px;
-    margin-left: 10px;
 }
 .hamburger-icon {
     font-size: 28px;
@@ -129,6 +128,17 @@ li:hover{
     margin-top: 13px;
     cursor: pointer;
 }
+.hamburger-logo {
+    display: flex;
+    justify-content: space-between;
+}
+.invisible-item {
+    visibility: hidden;
+}
+.invisible-item-logo {
+    margin-top: 13px;
+}
+
 
  @media (max-width: 760px) {
      .user-info {
@@ -149,5 +159,10 @@ li:hover{
      }
     .logout-dropdown {
         right: 10px;
+    }
+    .component-names {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        margin-left: 10px;
     }
  }

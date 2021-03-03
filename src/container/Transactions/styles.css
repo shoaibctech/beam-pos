@@ -24,7 +24,7 @@
 
 }
 .modal-container-with-draw {
-    padding: 2rem 3rem 1rem;
+    padding: 1rem .2rem 1rem;
     min-width: 500px;
     text-align: center;
 }
@@ -65,6 +65,7 @@
     cursor: pointer;
     font-size: 15px;
     width: 200px;
+    border: 1px solid;
     border-radius: 3px;
 }
 .btn-ok {
@@ -223,7 +224,7 @@
         /*display: flex;*/
         /*justify-content: center;*/
         /*align-items: center;*/
-        margin: 0 2rem;
+        margin: 0 .5rem;
         background: white;
         border-radius: 10px;
     }

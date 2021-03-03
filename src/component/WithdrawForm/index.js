@@ -87,7 +87,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                     {
                                         !isFetching && !message &&
                                         <>
-                                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
+                                            <p style={{paddingBottom: '1rem'}}>Withdrawal limit: {balance && balance.toFixed(2)} {currency}</p>
                                             <div>
                                                 <Input
                                                     value={amount}
@@ -99,7 +99,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                             </div>
                                         </>
                                     }
-                                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
+                                    {amountExceedError && <p className="error_text">Amount must not exceed from {balance.toFixed(2)}</p>}
                                     <div>
                                         {
                                             isFetching && !message &&
@@ -120,6 +120,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                             >
                                                 Withdraw
                                             </button>
+
                                         </div>
                                     }
 
@@ -155,7 +156,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                                     {
                                                         !isFetching && !message &&
                                                         <>
-                                                            <p style={{paddingBottom: '1rem'}}>Maximum amount that can be withdrawn is {balance && balance.toFixed(2)} {currency}</p>
+                                                            <p style={{paddingBottom: '1rem'}}>Withdrawal limit: {balance && balance.toFixed(2)} {currency}</p>
                                                             <div>
                                                                 <Input
                                                                     value={amount}
@@ -167,7 +168,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
                                                             </div>
                                                         </>
                                                     }
-                                                    {amountExceedError && <p className="error_text">Credit transfer amount must not exceed from {balance.toFixed(2)}.</p>}
+                                                    {amountExceedError && <p className="error_text">Amount must not exceed from {balance.toFixed(2)}</p>}
                                                     <div>
                                                         {
                                                             isFetching && !message &&

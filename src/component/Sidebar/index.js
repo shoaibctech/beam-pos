@@ -16,11 +16,15 @@ const Sidebar = ({cookie, userData, setPathName}) => {
     useEffect(() => {
         setActive(location.pathname);
         setPathName(location.pathname);
-        
+    }, [location.pathname]);
+
+    useEffect(() => {
         if (width <= 768) {
             document.getElementById('sidenavbar').style.display = 'none';
+        } else {
+            document.getElementById('sidenavbar').style.display = 'block';
         }
-    }, [location.pathname]);
+    }, [width])
 
 
     return (
@@ -30,12 +34,14 @@ const Sidebar = ({cookie, userData, setPathName}) => {
         }}>
             <i className="fas fa-times"></i>
         </span>
-        <div className="main-logo-container cursor-pointer">
-            <img src={Logo} alt="beam"  onClick={() => {
-                merchant_type !== 'charity' ?
-                history.push('/transaction') : history.push('/')
-            }}/>
-        </div>
+        { width > 768 &&
+            <div className="main-logo-container cursor-pointer">
+                <img src={Logo} alt="beam"  onClick={() => {
+                    merchant_type !== 'charity' ?
+                        history.push('/transaction') : history.push('/')
+                }}/>
+            </div>
+        }
         <br/>
         <div className={isActive === '/transaction' ? 'link-list active-link' : 'link-list'}>
             <Link to="/transaction">
@@ -51,7 +57,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 }
                 {
                     merchant_type === 'charity' ?
-                     'Charity QR Code' : 'Point of Sale'
+                     'Charity' : 'Point of Sale'
                 }
             </Link>
         </div>

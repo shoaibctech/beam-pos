@@ -1,6 +1,13 @@
 .withdraw-btn-section {
     margin-top: 1rem;
 }
+@media (max-width: 491px) {
+    .withdraw-btn-section{
+        display: flex;
+        margin: 0 auto;
+        padding-left: 4px;
+    }
+}
 /*@media (max-width: 768px) {*/
 /*    .withdraw-btn-section {*/
 
@@ -37,7 +44,7 @@
     font-size: 1.5rem;
     padding-bottom: 1rem;
     cursor: pointer;
-    margin-left: 2rem;
+    margin-left: .5rem;
 }
 @media (max-width: 768px) {
     .modal-container-with-draw{
