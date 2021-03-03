@@ -8,7 +8,7 @@ const Charity = () => {
         <div className="charity-container">
             <QRCode
                 title="You can scan the QR code or just download it!"
-                link={'https://tinyurl.com/yyaxqazf?merchant_name=Test'}
+                link={''}
                 isStatus={false}
                 statusData={{}}
                 amount={1}

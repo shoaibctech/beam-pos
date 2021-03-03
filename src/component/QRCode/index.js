@@ -181,7 +181,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                         </div>
                     }
                     {
-                        location.pathname === '/beamlink' &&
+                        (location.pathname === '/beamlink' || merchantType === 'charity') &&
                         <div>
                             <div className="qrcode-innerbox">
                                 <br/>

@@ -24,7 +24,37 @@
         margin-left: 1rem;
     }
 }
-@media (max-width: 520px) {
+@media (max-width: 1200px) {
+    .charity-container {
+        background: white;
+        width: 65%;
+        margin: 3rem auto;
+        padding: 1.5rem;
+    }
+    .step-root {
+        width: 65% !important;
+        margin: 0;
+    }
+    .step-margin {
+        margin-left: 0;
+    }
+}
+@media (max-width: 1000px) {
+    .charity-container {
+        background: white;
+        width: 80%;
+        margin: 3rem auto;
+        padding: 1.5rem;
+    }
+    .step-root {
+        width: 80% !important;
+        margin: 0;
+    }
+    .step-margin {
+        margin-left: 0;
+    }
+}
+@media (max-width: 768px) {
     .charity-container {
         background: white;
         width: 90%;

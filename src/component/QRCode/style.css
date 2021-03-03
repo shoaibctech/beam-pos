@@ -25,6 +25,8 @@ th, td {
 }
 .btn-flex {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 @media (max-width: 768px){
     .btn-flex {

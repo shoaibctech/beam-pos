@@ -57,7 +57,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
                 }
                 {
                     merchant_type === 'charity' ?
-                     'Charity QR Code' : 'Point of Sale'
+                     'Charity' : 'Point of Sale'
                 }
             </Link>
         </div>

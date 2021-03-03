@@ -16,7 +16,6 @@ import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import QrCodeWindow from "../../component/QrCodeWindow";
 
-// redeploying
 const Bank = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -83,11 +82,6 @@ const Bank = () => {
 
         }
     }, []);
-
-    const showLoader = () => {
-        setLoading(true);
-        setLoaderText('payment in progress');
-    }
 
 
     const createPayment = async (bankId) => {
@@ -300,8 +294,9 @@ const Bank = () => {
 
     const checkAndFetchLogo = async () => {
         try {
-            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/beam`);
-            console.log('logo req :: ', logoReq.data);
+            const logoType = location.pathname.includes('/ch/bank') ? 'charity' : 'beam';
+            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/${logoType}`);
+
             if (logoReq.data.isLogo){
                 setMerchantLogo(logoReq.data.logo);
             }
@@ -492,7 +487,7 @@ const Bank = () => {
                                         merchantType === 'charity' &&
                                         <div className="tip-detail">
                                             <div>
-                                                <h3 className="payment-label">Enter amount here</h3>
+                                                <h3 className="payment-label">Donation amount:</h3>
                                             </div>
                                             <div>
                                                 <Input
