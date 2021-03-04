@@ -1,14 +1,15 @@
 import React from 'react';
 import './styles.css';
 
-const QrCodeWindow = ({qrCodeImg}) =>  {
+const QrCodeWindow = ({qrCodeImg, handleSelectedBank, handleContinuePayment}) =>  {
 
     const hidePopUp = () => {
+        handleSelectedBank('');
         document.getElementById('pop-block').style.display = 'none';
     }
 
     return (
-        <div className="hover_bkgr_fricc main-div" id="pop-block" onClick={hidePopUp}>
+        <div className="hover_bkgr_fricc" id="pop-block">
             <span className="helper"></span>
                <div className="set-popup">
 
@@ -24,7 +25,7 @@ const QrCodeWindow = ({qrCodeImg}) =>  {
                        <span className="or">OR</span>
                        <hr className="or-hr set-or"/>
                    </div>
-                   <button className="confirm-btn size-btn">Continue</button>
+                   <button className="confirm-btn size-btn" onClick={handleContinuePayment}>Continue</button>
                </div>
            </div>
     );

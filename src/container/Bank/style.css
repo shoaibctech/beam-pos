@@ -428,7 +428,15 @@
     margin-top: 6px;
     border-radius: 5px;
 }
-
+.bank-loader-container {
+    height: 80px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media (max-width: 540px) {
     .outer-container {
         /*background-image: url('img/bank-bg-mobile.jpg');*/

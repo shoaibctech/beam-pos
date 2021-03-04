@@ -2,7 +2,7 @@
 .hover_bkgr_fricc{
     /*background:rgba(0,0,0,.4);*/
     cursor:pointer;
-    /*!*display:none;*!*/
+    display:none;
     height:100%;
     position:fixed;
     text-align:center;
@@ -15,23 +15,7 @@
     height:100%;
     vertical-align:middle;
 }
-/*.hover_bkgr_fricc > div {*/
-/*    background-color: #fff;*/
-/*    box-shadow: 10px 10px 60px #555;*/
-/*    display: inline-block;*/
-/*    height: auto;*/
-/*    max-width: 600px;*/
-/*    min-height: 500px;*/
-/*    vertical-align: middle;*/
-/*    width: 60%;*/
-/*    position: relative;*/
-/*    border-radius: 8px;*/
-/*    padding: 24px 2%;*/
-/*    position: relative;*/
-/*    left: 77px;*/
-/*    top: 68px;*/
-/*    !*animation: popUp 1s;*!*/
-/*}*/
+
 .set-popup{
     background-color: #fff;
     box-shadow: 1px 1px 10px #555;
@@ -44,8 +28,6 @@
     position: relative;
     border-radius: 8px;
     padding: 24px 2%;
-    /*left: 77px;*/
-    /*top: 79px;*/
     animation: fadeOut 1.5s;
 }
 @keyframes fadeOut{
@@ -58,28 +40,6 @@
     position: relative;
     bottom: 35px;
 }
-
-/*.st-effect-1.st-menu {*/
-/*    visibility: visible;*/
-/*    -webkit-transform: translate3d(-100%, 0, 0);*/
-/*    transform: translate3d(-100%, 0, 0);*/
-/*}*/
-
-/*.st-effect-1.st-menu-open .st-effect-1.st-menu {*/
-/*    visibility: visible;*/
-/*    -webkit-transform: translate3d(0, 0, 0);*/
-/*    transform: translate3d(0, 0, 0);*/
-/*}*/
-
-/*.st-effect-1.st-menu::after {*/
-/*    display: none;*/
-/*}*/
-/*@keyframes popUp {*/
-/*    from{*/
-/*        opacity: 0;}*/
-/*    to {*/
-/*        opacity: 1}*/
-/*}*/
 
 .popupCloseButton {
     background-color: var(--main-bg-color);

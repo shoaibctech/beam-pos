@@ -41,8 +41,9 @@ const Bank = () => {
     const [loaderText, setLoaderText] = useState('beam.');
     const [isWpPayment, setIsWpPayment] = useState(false);
     const [merchantLogo, setMerchantLogo] = useState(null);
+    const [selectedBank, setSelectedBank] = useState('');
 
-    const { token, payment_type } = useParams();
+    const { token, payment_type, bankId } = useParams();
     const location = useLocation();
     const history = useHistory();
 
@@ -73,12 +74,19 @@ const Bank = () => {
             setMerchantType('charity');
             getCharityPaymentDetails();
         } else {
-            if (!isMobile.any() && payment_type && payment_type === 'wp'){
-                getQrCode();
+            // if (!isMobile.any() && payment_type && payment_type === 'wp'){
+            //     getQrCode();
+            // } else {
+            // getQrCode();
+            // getPaymentDetails();
+            // }
+            if (payment_type && payment_type === 'PROCESS') {
+                createPayment(bankId);
             } else {
-                getQrCode();
+                // getQrCode();
                 getPaymentDetails();
             }
+
 
         }
     }, []);
@@ -185,23 +193,23 @@ const Bank = () => {
             setPaymentDetailError(true);
         }
     }
-
-    const getQrCode = async () => {
-        setLoading(true);
-        try {
-            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
-                {
-                    pathUrl: window.location.href,
-                    token: token
-                }, 'POST');
-           const imgBuffer = await convertSvgToJsxSvg(req.data.data);
-           setQrCodeImg(imgBuffer);
-           setShowQrCode(true);
-           setLoading(false);
-        } catch (e) {
-            setLoading(false);
-        }
-    }
+//TODO UPDATED THIS METHOD REMOVE IT FROM AFTER APPROVE OF NEW FLOW
+    // const getQrCode = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+    //             {
+    //                 pathUrl: window.location.href,
+    //                 token: token
+    //             }, 'POST');
+    //        const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+    //        setQrCodeImg(imgBuffer);
+    //        // setShowQrCode(true);
+    //        setLoading(false);
+    //     } catch (e) {
+    //         setLoading(false);
+    //     }
+    // }
     //TODO: move this code to utils
     const convertSvgToJsxSvg = async (data) => {
         let Img = data;
@@ -305,9 +313,33 @@ const Bank = () => {
         }
     }
 
-    const showQRCodeWindow = () => {
-        document.getElementById('pop-block').style.display="block";
+    const showQRCodeWindow = (bankId) => {
+        if (!isMobile.any() && payment_type && payment_type === 'wp'){
+            setSelectedBank(bankId);
+           createQRCode(bankId);
+        } else {
+            createPayment(bankId);
+        }
     }
+    const createQRCode = async (bankId) => {
+        try {
+            const paymentUrl = window.location.origin + '/bank/' + token + '/PROCESS/'+ bankId + window.location.search;
+            console.log('paymentUrl :: ', paymentUrl)
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+                {
+                    pathUrl: paymentUrl,
+                    token: token,
+                }, 'POST');
+            const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+            setQrCodeImg(imgBuffer);
+            setTimeout(() => {
+                document.getElementById('pop-block').style.display="block";
+            }, 100);
+        } catch (e) {
+            console.log('show Error :: ', e);
+        }
+    }
+
 
     return (
         loading ?
@@ -425,10 +457,10 @@ const Bank = () => {
                         <div className="inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
-                                    {
-                                        isWpPayment && !isMobile.any() &&
-                                        <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
-                                    }
+                                    {/*{*/}
+                                    {/*    isWpPayment && !isMobile.any() &&*/}
+                                    {/*    <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>*/}
+                                    {/*}*/}
                                     <div className="bank-screen-logo-container">
                                         <img src={merchantLogo ? merchantLogo : Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
@@ -631,13 +663,18 @@ const Bank = () => {
                                         <div className="bank-list-container">
                                             {bankList.map((bank, index) => (
                                                 <div key={index} className="list-banks">
-                                                    <img
+                                                    { selectedBank === bank.id ?
+                                                        <div className="bank-loader-container">
+                                                            <Loader size="2rem" color="primary"/>
+                                                        </div>
+                                                    : <img
                                                         style={{cursor: 'pointer'}}
                                                         className="list-banks-logo"
                                                         src={bank.logo}
                                                         alt={bank.logo}
-                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : showQRCodeWindow()}
+                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : showQRCodeWindow(bank.id)}
                                                     />
+                                                    }
                                                     <p>{bank.name}</p>
                                                     <br/>
                                                 </div>
@@ -663,7 +700,7 @@ const Bank = () => {
                                 }}>Cancel and return to merchant</p>
                             </div>
                         }
-                        <QrCodeWindow qrCodeImg={qrCodeImg}/>
+                        <QrCodeWindow qrCodeImg={qrCodeImg} handleSelectedBank={setSelectedBank} handleContinuePayment={() => createPayment(selectedBank)}/>
                 </div>
     );
 }
