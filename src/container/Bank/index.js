@@ -14,6 +14,7 @@ import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import QrCodeWindow from "../../component/QrCodeWindow";
 
 const Bank = () => {
     const [loading, setLoading] = useState(true);
@@ -40,8 +41,10 @@ const Bank = () => {
     const [loaderText, setLoaderText] = useState('beam.');
     const [isWpPayment, setIsWpPayment] = useState(false);
     const [merchantLogo, setMerchantLogo] = useState(null);
+    const [selectedBank, setSelectedBank] = useState('');
+    const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
 
-    const { token, payment_type } = useParams();
+    const { token, payment_type, bankId } = useParams();
     const location = useLocation();
     const history = useHistory();
 
@@ -60,7 +63,9 @@ const Bank = () => {
             }
         });
         channel.bind('bank-payment-in-process-event', function (data) {
-            if (data.token === token && data.status === 'processing') {
+            if (data.token === token && data.status === 'processing' && !isMobile.any() ) {
+                setIsPaymentProcessing(true);
+            } else if (data.token === token && data.status === 'processing' && isMobile.any()) {
                 setLoading(true);
                 setLoaderText('payment in progress');
             }
@@ -72,11 +77,19 @@ const Bank = () => {
             setMerchantType('charity');
             getCharityPaymentDetails();
         } else {
-            if (!isMobile.any() && payment_type && payment_type === 'wp'){
-                getQrCode();
+            // if (!isMobile.any() && payment_type && payment_type === 'wp'){
+            //     getQrCode();
+            // } else {
+            // getQrCode();
+            // getPaymentDetails();
+            // }
+            if (payment_type && payment_type === 'PROCESS') {
+                createPayment(bankId);
             } else {
+                // getQrCode();
                 getPaymentDetails();
             }
+
 
         }
     }, []);
@@ -183,23 +196,23 @@ const Bank = () => {
             setPaymentDetailError(true);
         }
     }
-
-    const getQrCode = async () => {
-        setLoading(true);
-        try {
-            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
-                {
-                    pathUrl: window.location.href,
-                    token: token
-                }, 'POST');
-           const imgBuffer = await convertSvgToJsxSvg(req.data.data);
-           setQrCodeImg(imgBuffer);
-           setShowQrCode(true);
-           setLoading(false);
-        } catch (e) {
-            setLoading(false);
-        }
-    }
+//TODO UPDATED THIS METHOD REMOVE IT FROM AFTER APPROVE OF NEW FLOW
+    // const getQrCode = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+    //             {
+    //                 pathUrl: window.location.href,
+    //                 token: token
+    //             }, 'POST');
+    //        const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+    //        setQrCodeImg(imgBuffer);
+    //        // setShowQrCode(true);
+    //        setLoading(false);
+    //     } catch (e) {
+    //         setLoading(false);
+    //     }
+    // }
     //TODO: move this code to utils
     const convertSvgToJsxSvg = async (data) => {
         let Img = data;
@@ -302,6 +315,38 @@ const Bank = () => {
             console.log('Error: No merchant logo found...');
         }
     }
+
+    const showQRCodeWindow = (bankId) => {
+            // setSelectedBank(bankId);
+        if (!isMobile.any() && payment_type && payment_type === 'wp'){
+            setSelectedBank(bankId);
+           createQRCode(bankId);
+        } else {
+            createPayment(bankId);
+        }
+        // setTimeout(() => {
+        //     document.getElementById('pop-block').style.display="block";
+        // }, 100);
+    }
+    const createQRCode = async (bankId) => {
+        try {
+            const paymentUrl = window.location.origin + '/bank/' + token + '/PROCESS/'+ bankId + window.location.search;
+            console.log('paymentUrl :: ', paymentUrl)
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+                {
+                    pathUrl: paymentUrl,
+                    token: token,
+                }, 'POST');
+            const imgBuffer = await convertSvgToJsxSvg(req.data.data);
+            setQrCodeImg(imgBuffer);
+            setTimeout(() => {
+                document.getElementById('pop-block').style.display="block";
+            }, 100);
+        } catch (e) {
+            console.log('show Error :: ', e);
+        }
+    }
+
 
     return (
         loading ?
@@ -419,10 +464,10 @@ const Bank = () => {
                         <div className="inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
-                                    {
-                                        isWpPayment && !isMobile.any() &&
-                                        <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>
-                                    }
+                                    {/*{*/}
+                                    {/*    isWpPayment && !isMobile.any() &&*/}
+                                    {/*    <span className="cursor-pointer btn-back" onClick={() => setShowQrCode(true)}><i className="fas fa-arrow-left"></i> back</span>*/}
+                                    {/*}*/}
                                     <div className="bank-screen-logo-container">
                                         <img src={merchantLogo ? merchantLogo : Logo} alt="logo" className="bank-screen-logo" />
                                     </div>
@@ -603,7 +648,7 @@ const Bank = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="right-section">
                                 <div className="right-content">
                                     <div className="text-center">
                                         <h2 className="bank-heading">Choose your bank</h2>
@@ -625,13 +670,18 @@ const Bank = () => {
                                         <div className="bank-list-container">
                                             {bankList.map((bank, index) => (
                                                 <div key={index} className="list-banks">
-                                                    <img
+                                                    { selectedBank === bank.id ?
+                                                        <div className="bank-loader-container">
+                                                            <Loader size="2rem" color="primary"/>
+                                                        </div>
+                                                    : <img
                                                         style={{cursor: 'pointer'}}
                                                         className="list-banks-logo"
                                                         src={bank.logo}
                                                         alt={bank.logo}
-                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : createPayment(bank.id)}
+                                                        onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : showQRCodeWindow(bank.id)}
                                                     />
+                                                    }
                                                     <p>{bank.name}</p>
                                                     <br/>
                                                 </div>
@@ -645,6 +695,14 @@ const Bank = () => {
                                             Service Regulations 2009 [FRN 624067] for the provision of payment services.
                                         </p>
                                     </div>
+                                </div>
+                                <div className="right-content-2">
+                                    <QrCodeWindow
+                                        isPaymentProcessing={isPaymentProcessing}
+                                        qrCodeImg={qrCodeImg}
+                                        handleSelectedBank={setSelectedBank}
+                                        // handleContinuePayment={() => setIsPaymentProcessing(!isPaymentProcessing)}/>
+                                        handleContinuePayment={() => createPayment(selectedBank)}/>
                                 </div>
                             </div>
                         </div>

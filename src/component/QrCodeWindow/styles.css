@@ -1,0 +1,150 @@
+/* Popup box BEGIN */
+.hover_bkgr_fricc{
+    /*background:rgba(0,0,0,.4);*/
+    cursor:pointer;
+    height:100%;
+    position: relative;
+    text-align: center;
+    top:0;
+    display: none;
+    width:100%;
+    z-index:10000;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+
+.set-popup{
+    background-color: #fff;
+    /*box-shadow: 1px 1px 10px #555;*/
+    display: inline-block;
+    min-height: 41rem;
+    width: 100%;
+    vertical-align: middle;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px 2%;
+    animation: fadeOut 1.5s;
+}
+@keyframes fadeOut{
+    0% {left: 3000px}
+    100% {left: 0}
+}
+.login-bank-btn {
+    margin: 1.5rem auto;
+    width: 20rem;
+    color: var(--btn-bg-color);
+    background: white;
+    border: 2px solid var(--btn-bg-color);
+}
+
+.popupCloseButton {
+    /*background-color: #C4C4C4;*/
+    /*border-radius: 50px;*/
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    color: grey;
+    left: 6px;
+    font-size: 15px;
+    width: 24px;
+    height: 24px;
+    /*padding: 2px;*/
+    text-align: center;
+}
+/*.cross {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    display: inline-block;*/
+/*}*/
+.popupCloseButton:hover {
+    cursor: pointer;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+.qr-page{
+    position: relative;
+    display: flex;
+    font-size: 17px;
+    padding: 0 75px;
+    justify-content: center;
+    top: 36px;
+}
+.qr-set {
+    position: relative;
+    width: 210px;
+    height: 210px;
+}
+
+.set-or-div {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    bottom: 80px;
+    padding: 0 152px;
+}
+.set-or {
+    position: relative;
+    top: 15px;
+    background-color: #151B25;
+}
+
+.overlay-qr-code {
+    width: 12rem;
+    margin: 1rem auto;
+}
+.qr_code_section {
+    position: relative;
+    margin-top: 5rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+.message-qrcode-top {
+    /*position: relative;*/
+    display: flex;
+    font-size: 17px;
+    padding: 0 75px;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    margin-top: 2.5rem;
+}
+.message-qrcode-bottom {
+    /*position: relative;*/
+    display: flex;
+    font-size: 17px;
+    padding: 0 75px;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+.qr-code-or-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.or-line {
+    width: 10rem;
+}
+.or-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.process-section {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 24.75rem;
+}
+/* Popup box BEGIN */

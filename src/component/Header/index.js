@@ -122,7 +122,10 @@ const Header = () => {
                checkToken() &&
                <div className="hamburger-logo">
                    <div className="hamburger-icon" onClick={() => {
+
+                       document.getElementById('sidenavbar').style.width = '200px';
                        document.getElementById('sidenavbar').style.display = 'block';
+                       console.log('hello', document.getElementById('sidenavbar'));
                    }}>☰</div>
                    { width <= 768 &&
                    <div className="invisible-item-logo">

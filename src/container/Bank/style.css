@@ -428,7 +428,15 @@
     margin-top: 6px;
     border-radius: 5px;
 }
-
+.bank-loader-container {
+    height: 80px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media (max-width: 540px) {
     .outer-container {
         /*background-image: url('img/bank-bg-mobile.jpg');*/
@@ -445,6 +453,7 @@
         width: 100%;
         margin: 0 auto;
         border-radius: 0;
+        overflow: hidden;
     }
     .inner-container-grid {
         display: grid;
@@ -497,3 +506,24 @@
     }
 }
 
+@media (min-width: 768px) {
+    .right-section {
+        position: relative;
+        overflow: hidden;
+    }
+    .right-content {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .right-content-2 {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+    .inner-container-grid {
+        display: grid;
+        grid-template-columns: 49% 51%;
+        min-height: 41rem;
+    }
+}
