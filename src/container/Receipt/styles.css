@@ -169,7 +169,7 @@
 }
 .f-line {
     border-left: 6px solid red;
-    height: 100px;
+    height: 60px;
     margin: auto 42px;
 }
 .small-circle {
@@ -227,7 +227,7 @@
     border: 6px solid white;
     border-radius: 50%;
     width: 95px;
-    height: 95px;
+    height: 96px;
     position: relative;
     margin: 59px auto 20px;
 }

@@ -1,11 +1,8 @@
-import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
-import Tick from '../../component/QRCode/img/tick-anim.svg';
-import UploadIcon from './img/upload.png';
-import FillTick from './img/black-tick.png';
-import {PaymentStatusImage} from '../../utils/Constants/PaymentStatus';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { PaymentStatusImage } from '../../utils/Constants/PaymentStatus';
 import moment from "moment";
-
+import useViewPort from '../../utils/useViewPort/useViewPort';
 
 import './styles.css';
 import Logo from './img/Dark.png';
@@ -13,6 +10,7 @@ import Logo from './img/Dark.png';
 const Receipt = () => {
     const [step, setStep] = useState(0);
     const {amount, merchant_name, payer_name, bank_name, trans_date, status, currency} = useParams();
+    const { width } = useViewPort();
 
     const getNameAcronym = (name) => {
         return name.match(/\b(\w)/g).join('').substr(0, 2);
@@ -41,10 +39,14 @@ const Receipt = () => {
                             :
                             <React.Fragment>
                                 <div className="main_head">
-                                    <h1>Payment failed.</h1><br/>
+                                    <h2>Payment failed.</h2><br/>
                                 </div>
                                 <div className="p_set">
-                                    <h4>Sorry, we are unable to process your payment. Please try again.</h4>
+                                    <h5 className="text-center">
+                                        Sorry, we are unable to process your
+                                        { width < 768 ? <br/> : ' '}
+                                        payment. Please try again.
+                                    </h5>
                                 </div>
                             </React.Fragment>
                     }
