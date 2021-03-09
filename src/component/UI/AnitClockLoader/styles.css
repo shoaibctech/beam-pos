@@ -1,8 +1,5 @@
 .anti-clock-loader {
     color: black;
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /*top: 50%;*/
     z-index: 1;
     /*margin: -75px 0 0 -75px;*/
     border: 4px solid #f3f3f3;
@@ -25,28 +22,21 @@
 }
 
 /* Add animation to "page content" */
-.animate-bottom {
-    position: relative;
-    -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
-    animation-name: animatebottom;
-    animation-duration: 1s;
-    background: black;
-}
+/*.animate-bottom {*/
+/*    position: relative;*/
+/*    -webkit-animation-name: animatebottom;*/
+/*    -webkit-animation-duration: 1s;*/
+/*    animation-name: animatebottom;*/
+/*    animation-duration: 1s;*/
+/*    background: black;*/
+/*}*/
 
-@-webkit-keyframes animatebottom {
-    from { bottom:-100px; opacity:0 }
-    to { bottom:0px; opacity:1 }
-}
+/*@-webkit-keyframes animatebottom {*/
+/*    from { bottom:-100px; opacity:0 }*/
+/*    to { bottom:0px; opacity:1 }*/
+/*}*/
 
-@keyframes animatebottom {
-    from{ bottom:-100px; opacity:0 }
-    to{ bottom:0; opacity:1 }
-}
-
-/*.anti-clock-message {*/
-/*    position: absolute;*/
-/*    margin-top: -18px;*/
-/*    margin-left: -78px;*/
-/*    font-size: 20px;*/
+/*@keyframes animatebottom {*/
+/*    from{ bottom:-100px; opacity:0 }*/
+/*    to{ bottom:0; opacity:1 }*/
 /*}*/

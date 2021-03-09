@@ -42,6 +42,7 @@ const Bank = () => {
     const [isWpPayment, setIsWpPayment] = useState(false);
     const [merchantLogo, setMerchantLogo] = useState(null);
     const [selectedBank, setSelectedBank] = useState('');
+    const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
 
     const { token, payment_type, bankId } = useParams();
     const location = useLocation();
@@ -62,7 +63,9 @@ const Bank = () => {
             }
         });
         channel.bind('bank-payment-in-process-event', function (data) {
-            if (data.token === token && data.status === 'processing') {
+            if (data.token === token && data.status === 'processing' && !isMobile.any() ) {
+                setIsPaymentProcessing(true);
+            } else if (data.token === token && data.status === 'processing' && isMobile.any()) {
                 setLoading(true);
                 setLoaderText('payment in progress');
             }
@@ -314,12 +317,16 @@ const Bank = () => {
     }
 
     const showQRCodeWindow = (bankId) => {
+            // setSelectedBank(bankId);
         if (!isMobile.any() && payment_type && payment_type === 'wp'){
             setSelectedBank(bankId);
            createQRCode(bankId);
         } else {
             createPayment(bankId);
         }
+        // setTimeout(() => {
+        //     document.getElementById('pop-block').style.display="block";
+        // }, 100);
     }
     const createQRCode = async (bankId) => {
         try {
@@ -641,7 +648,7 @@ const Bank = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="right-section">
                                 <div className="right-content">
                                     <div className="text-center">
                                         <h2 className="bank-heading">Choose your bank</h2>
@@ -689,6 +696,14 @@ const Bank = () => {
                                         </p>
                                     </div>
                                 </div>
+                                <div className="right-content-2">
+                                    <QrCodeWindow
+                                        isPaymentProcessing={isPaymentProcessing}
+                                        qrCodeImg={qrCodeImg}
+                                        handleSelectedBank={setSelectedBank}
+                                        // handleContinuePayment={() => setIsPaymentProcessing(!isPaymentProcessing)}/>
+                                        handleContinuePayment={() => createPayment(selectedBank)}/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -700,7 +715,6 @@ const Bank = () => {
                                 }}>Cancel and return to merchant</p>
                             </div>
                         }
-                        <QrCodeWindow qrCodeImg={qrCodeImg} handleSelectedBank={setSelectedBank} handleContinuePayment={() => createPayment(selectedBank)}/>
                 </div>
     );
 }

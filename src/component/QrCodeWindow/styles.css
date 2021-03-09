@@ -2,11 +2,11 @@
 .hover_bkgr_fricc{
     /*background:rgba(0,0,0,.4);*/
     cursor:pointer;
-    display:none;
     height:100%;
-    position:fixed;
-    text-align:center;
+    position: relative;
+    text-align: center;
     top:0;
+    display: none;
     width:100%;
     z-index:10000;
 }
@@ -18,50 +18,50 @@
 
 .set-popup{
     background-color: #fff;
-    box-shadow: 1px 1px 10px #555;
+    /*box-shadow: 1px 1px 10px #555;*/
     display: inline-block;
-    height: auto;
-    max-width: 600px;
-    min-height: 500px;
+    min-height: 41rem;
+    width: 100%;
     vertical-align: middle;
-    width: 60%;
     position: relative;
     border-radius: 8px;
-    padding: 24px 2%;
+    padding: 10px 2%;
     animation: fadeOut 1.5s;
 }
 @keyframes fadeOut{
     0% {left: 3000px}
     100% {left: 0}
 }
-.size-btn{
-    margin: auto;
+.login-bank-btn {
+    margin: 1.5rem auto;
     width: 20rem;
-    position: relative;
-    bottom: 35px;
+    color: var(--btn-bg-color);
+    background: white;
+    border: 2px solid var(--btn-bg-color);
 }
 
 .popupCloseButton {
-    background-color: var(--main-bg-color);
-    border: 3px solid var(--main-bg-color);
-    border-radius: 50px;
+    /*background-color: #C4C4C4;*/
+    /*border-radius: 50px;*/
     cursor: pointer;
     display: inline-block;
-    font-family: arial;
-    font-weight: bold;
     position: absolute;
-    top: -20px;
-    color: white;
-    /*right: -20px;*/
-    left: -20px;
-    font-size: 25px;
-    line-height: 29px;
-    width: 35px;
-    height: 35px;
+    top: 8px;
+    color: grey;
+    left: 6px;
+    font-size: 15px;
+    width: 24px;
+    height: 24px;
+    /*padding: 2px;*/
     text-align: center;
 }
+/*.cross {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    display: inline-block;*/
+/*}*/
 .popupCloseButton:hover {
-    background-color: #fc4c95;
+    cursor: pointer;
 }
 .trigger_popup_fricc {
     cursor: pointer;
@@ -73,31 +73,78 @@
 .qr-page{
     position: relative;
     display: flex;
-    font-size: 15px;
+    font-size: 17px;
     padding: 0 75px;
-    text-align: center;
-    top: 35px;
+    justify-content: center;
+    top: 36px;
 }
-.qr-set{
+.qr-set {
     position: relative;
-    top: -20px;
     width: 210px;
     height: 210px;
 }
-.qr-border{
-    border: 2px solid #151B25;
-}
-.set-or-div{
+
+.set-or-div {
     display: flex;
     flex-direction: row;
     position: relative;
     bottom: 80px;
     padding: 0 152px;
 }
-.set-or{
+.set-or {
     position: relative;
     top: 15px;
     background-color: #151B25;
 }
 
+.overlay-qr-code {
+    width: 12rem;
+    margin: 1rem auto;
+}
+.qr_code_section {
+    position: relative;
+    margin-top: 5rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+.message-qrcode-top {
+    /*position: relative;*/
+    display: flex;
+    font-size: 17px;
+    padding: 0 75px;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    margin-top: 2.5rem;
+}
+.message-qrcode-bottom {
+    /*position: relative;*/
+    display: flex;
+    font-size: 17px;
+    padding: 0 75px;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+.qr-code-or-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.or-line {
+    width: 10rem;
+}
+.or-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.process-section {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 24.75rem;
+}
 /* Popup box BEGIN */
