@@ -5,6 +5,7 @@ import {makeRequest} from "../../utils";
 import {getUserData } from "../../utils";
 import Logo from '../../component/Header/img/Light-Logo.png';
 import DirectDebitLogo from './img/directdebit.png';
+import Loader from "../../component/UI/Loader";
 import './styles.css';
 
 const SignDDI = () => {
@@ -14,6 +15,8 @@ const SignDDI = () => {
     const [step, setStep] = useState(0);
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false);
+    const [debtorAccount, setDebtorAccount] = useState({});
+    const [isSigining, setIsSigning] = useState(false);
 
     useEffect( () => {
         getPaymentDetail()
@@ -28,7 +31,14 @@ const SignDDI = () => {
                     merchantId: getUserData().merchant_id
                 }, 'POST');
 
-            console.log('req :: ', req.data);
+            console.log('Payemnt details  :: ', req.data.paymentDetail.data);
+            if(req.data.paymentDetail.data && req.data.paymentDetail.data.status === 'PAYMENT_RECEIVED') {
+                let formatedDebtorAccount = {};
+                formatedDebtorAccount = req.data.paymentDetail.data.debtorAccount;
+                formatedDebtorAccount.sortCode = req.data.paymentDetail.data.debtorAccount.identification.substr(0, 6);
+                formatedDebtorAccount.accountNumber = req.data.paymentDetail.data.debtorAccount.identification.substr(6);
+                setDebtorAccount(formatedDebtorAccount);
+            }
             setPaymentObj(req.data.paymentDetail.data);
             setLoading(false);
         } catch (e) {
@@ -39,9 +49,34 @@ const SignDDI = () => {
         console.log('req :: ', isShow);
         isShow ? setStep(1) : setStep(0);
     }
-    const handleSignRequest = () => {
-        setError(true);
+    const handleSignRequest = async () => {
+        // setError(true);
+        setIsSigning(true);
+        let debtor = {
+            name: debtorAccount.name,
+            email: paymentObj.email,
+            language: paymentObj.language
+        };
+        let debtorAc = {
+            domesticAccountNumber: debtorAccount.accountNumber,
+            domesticBranchCode: debtorAccount.sortCode,
+            accountCountry: 'GB'
+        }
+        try {
+            const req = await makeRequest( `${process.env.REACT_APP_BACKEND_URL}/api/directdebit/signddi`, {
+                debtor : debtor,
+                debtorAccount: debtorAc
+            }, 'POST');
+            console.log('req data :: ', req.data);
+            setIsSigning(false);
+        } catch (e) {
+            setIsSigning(false);
+            console.log('e', e);
+        }
     }
+
+    console.log('debtor Account ::', debtorAccount);
+
     return (
         <div>
             {loading &&
@@ -73,11 +108,11 @@ const SignDDI = () => {
                                         </div>
                                         <div className="text-center">
                                             <p>Payment Received: {paymentObj.amount ? paymentObj.amount.toFixed(2) : paymentObj.amount}</p>
-                                            <p>Reference:  43559083</p>
+                                            <p>Reference:  {paymentObj && paymentObj.remittanceInformation && paymentObj.remittanceInformation.reference}</p>
                                             <br/>
                                             <p>Future Direct Debits will be taken from</p>
-                                            <p>Account Number: 12345678</p>
-                                            <p> Bank Sort Code: 462517</p>
+                                            <p> Account Number: {debtorAccount && debtorAccount.accountNumber} </p>
+                                            <p> Bank Sort Code: {debtorAccount && debtorAccount.sortCode} </p>
                                         </div>
                                         <br/>
                                         <div>
@@ -95,7 +130,9 @@ const SignDDI = () => {
                                                 working days before the first collection.</p>
                                         </div>
                                         <div className="dd-btn-block">
-                                            <button className="btn btn-primary dd-btn" onClick={handleSignRequest} >Sign</button>
+                                            <button className="btn btn-primary dd-btn" onClick={handleSignRequest}>
+                                                {isSigining ? <Loader color="white" size="10px" /> : "Sign" }
+                                            </button>
                                         </div>
                                         <h3>beam.</h3>
                                         <h4>Address</h4>
