@@ -321,8 +321,6 @@ const Bank = () => {
 
     const showQRCodeWindow = (bankId) => {
             // setSelectedBank(bankId);
-        console.log('isMobile :: ', isMobile.any());
-        console.log('payment type :: ', payment_type);
         if (width > 768 && payment_type && payment_type === 'wp'){
             setSelectedBank(bankId);
            createQRCode(bankId);
@@ -336,7 +334,6 @@ const Bank = () => {
     const createQRCode = async (bankId) => {
         try {
             const paymentUrl = window.location.origin + '/bank/' + token + '/PROCESS/'+ bankId + window.location.search;
-            console.log('paymentUrl :: ', paymentUrl)
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
                 {
                     pathUrl: paymentUrl,
