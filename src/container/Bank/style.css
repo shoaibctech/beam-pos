@@ -196,6 +196,10 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+.right-section {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 .left-content {
     padding: 1rem 10px;
     height: 100%;
@@ -406,6 +410,7 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
+
     .list-banks-logo {
         height: 80px;
         width: 80px;

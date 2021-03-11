@@ -14,6 +14,7 @@
     display:inline-block;
     height:100%;
     vertical-align:middle;
+    border-radius: 5px;
 }
 
 .set-popup{
@@ -24,13 +25,14 @@
     width: 100%;
     vertical-align: middle;
     position: relative;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 10px 2%;
     animation: fadeOut 1.5s;
+    box-shadow: 0 0 20px 5px #00000030;
 }
 @keyframes fadeOut{
     0% {left: 3000px}
-    100% {left: 0}
+    100% {left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0}
 }
 .login-bank-btn {
     margin: 1.5rem auto;
