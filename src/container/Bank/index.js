@@ -15,6 +15,7 @@ import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import QrCodeWindow from "../../component/QrCodeWindow";
+import useViewport from "../../utils/useViewPort/useViewPort";
 
 const Bank = () => {
     const [loading, setLoading] = useState(true);
@@ -47,6 +48,7 @@ const Bank = () => {
     const { token, payment_type, bankId } = useParams();
     const location = useLocation();
     const history = useHistory();
+    const { width } = useViewport();
 
     var pusherClient = new Pusher('ac404fe517d1f318787a', {
         cluster: 'ap2'
@@ -63,9 +65,9 @@ const Bank = () => {
             }
         });
         channel.bind('bank-payment-in-process-event', function (data) {
-            if (data.token === token && data.status === 'processing' && !isMobile.any() ) {
+            if (data.token === token && data.status === 'processing' && width > 768 ) {
                 setIsPaymentProcessing(true);
-            } else if (data.token === token && data.status === 'processing' && isMobile.any()) {
+            } else if (data.token === token && data.status === 'processing' && width <= 768) {
                 setLoading(true);
                 setLoaderText('payment in progress');
             }
@@ -104,12 +106,13 @@ const Bank = () => {
                     bankId: bankId,
                     token: token,
                     tipAmount: tipError ? 0 : tipAmount,
-                    isMobile: isMobile.any()
+                    isMobile: width <= 768
                 });
             //load payment link
             window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
 
-            if (!isMobile.any()){
+
+            if (width > 768){
                 setTimeout(() => {
                     setLoading(false);
                 }, 5000);
@@ -318,7 +321,7 @@ const Bank = () => {
 
     const showQRCodeWindow = (bankId) => {
             // setSelectedBank(bankId);
-        if (!isMobile.any() && payment_type && payment_type === 'wp'){
+        if (width > 768 && payment_type && payment_type === 'wp'){
             setSelectedBank(bankId);
            createQRCode(bankId);
         } else {
@@ -331,7 +334,6 @@ const Bank = () => {
     const createQRCode = async (bankId) => {
         try {
             const paymentUrl = window.location.origin + '/bank/' + token + '/PROCESS/'+ bankId + window.location.search;
-            console.log('paymentUrl :: ', paymentUrl)
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
                 {
                     pathUrl: paymentUrl,
