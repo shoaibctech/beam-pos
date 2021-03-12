@@ -101,6 +101,7 @@ const Header = () => {
 
    if  (location.pathname.substring(0, 6) === '/bank/'
        || location.pathname.includes('/ch/bank')
+       || location.pathname.includes('/d/bank')
        || location.pathname.includes('/paymentdetails')
        || location.pathname.includes('/directdebit/bank')
        || location.pathname.includes('/thankyou')) {

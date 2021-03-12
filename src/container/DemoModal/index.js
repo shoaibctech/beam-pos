@@ -22,7 +22,7 @@ const DemoModal = () => {
     }
     return (
         <div>
-            <div className="text-center" style={{ marginTop: '1rem' }}>
+            <div className="text-center" style={{ marginTop: '4rem' }}>
                 <button className="btn btn-primary" onClick={() => setIsOpen(!isOpen)}>Pay by beam.</button>
             </div>
             <Modal
