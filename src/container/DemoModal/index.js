@@ -23,7 +23,7 @@ const DemoModal = () => {
     return (
         <div>
             <div className="text-center" style={{ marginTop: '1rem' }}>
-                <button className="btn btn-primary" onClick={() => setIsOpen(!isOpen)}>Show Modal</button>
+                <button className="btn btn-primary" onClick={() => setIsOpen(!isOpen)}>Pay by beam.</button>
             </div>
             <Modal
                 isOpen={isOpen}
