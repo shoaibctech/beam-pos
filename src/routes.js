@@ -19,6 +19,7 @@ import MessageSetting from "./component/MessageSetting";
 import DirectDebit from "./container/DirectDebit";
 import DDBank from "./container/DDBank";
 import SignDDI from "./container/SignDDI";
+import DemoModal from "./container/DemoModal";
 
 import { getUserData } from "./utils";
 
@@ -43,6 +44,7 @@ const MainRoute = () => {
                 <PrivateRoute path="/msetting" exact component={MessageSetting} />
                 <PrivateRoute path="/beamlink" exact component={Home} />
                 <Route path="/directdebit" exact component={DirectDebit} />
+                <Route path="/d/bank" exact component={DemoModal} />
                 <Route path="/directdebit/bank/:token" exact component={DDBank} />
                 <Route path="/directdebit/signddi/:paymentId" exact component={SignDDI} />
                 <Route>

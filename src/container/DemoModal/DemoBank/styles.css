@@ -82,12 +82,12 @@
     scrollbar-color: grey white;
 }
 
- /*width*/
+/*width*/
 .bank-list-container::-webkit-scrollbar {
     width: 8px;
 }
 
- /*Track */
+/*Track */
 .bank-list-container::-webkit-scrollbar-track {
     /*background: #f1f1f1;*/
 }
@@ -196,6 +196,10 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+.right-section {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 .left-content {
     padding: 1rem 10px;
     height: 100%;
@@ -211,7 +215,7 @@
     padding: 10px 3px;
     color: white;
 }
-.dd-right-content {
+.right-content {
     background: white;
     padding: 1rem 1rem;
 }
@@ -332,12 +336,6 @@
     color: var(--main-bg-color);
 }
 
-.email-error {
-    background: transparent;
-    color: red;
-    text-align: left;
-}
-
 @media (min-width: 768px) {
     .outer-container {
         /*background-color: var(--main-theme-color);*/
@@ -372,7 +370,7 @@
     .bank-list-container {
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 100%);
     }
-    .dd-right-content {
+    .right-content {
         /*background-image: url('img/bank-bg.jpg');*/
         /*background-repeat: no-repeat;*/
         /*background-position: center center;*/
@@ -412,6 +410,7 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
+
     .list-banks-logo {
         height: 80px;
         width: 80px;
@@ -434,7 +433,15 @@
     margin-top: 6px;
     border-radius: 5px;
 }
-
+.bank-loader-container {
+    height: 80px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media (max-width: 540px) {
     .outer-container {
         /*background-image: url('img/bank-bg-mobile.jpg');*/
@@ -451,6 +458,7 @@
         width: 100%;
         margin: 0 auto;
         border-radius: 0;
+        overflow: hidden;
     }
     .inner-container-grid {
         display: grid;
@@ -503,3 +511,24 @@
     }
 }
 
+@media (min-width: 768px) {
+    .right-section {
+        position: relative;
+        overflow: hidden;
+    }
+    .right-content {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+    .right-content-2 {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+    .inner-container-grid {
+        display: grid;
+        grid-template-columns: 49% 51%;
+        min-height: 41rem;
+    }
+}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import {makeRequest} from "../../utils";
 import {getUserData } from "../../utils";
@@ -16,10 +16,16 @@ const SignDDI = () => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false);
     const [debtorAccount, setDebtorAccount] = useState({});
-    const [isSigining, setIsSigning] = useState(false);
+    const [isSigning, setIsSigning] = useState(false);
+
+    const history = useHistory();
 
     useEffect( () => {
-        getPaymentDetail()
+        if (getUserData()){
+            getPaymentDetail()
+        } else {
+            history.push("/login");
+        }
     }, []);
 
     const getPaymentDetail = async () => {
@@ -28,10 +34,10 @@ const SignDDI = () => {
             const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/directdebit/payment`,
                 {
                     paymentId,
-                    merchantId: getUserData().merchant_id
+                    merchantId: getUserData() && getUserData().merchant_id
                 }, 'POST');
 
-            console.log('Payemnt details  :: ', req.data.paymentDetail.data);
+            // console.log('Payemnt details  :: ', req.data.paymentDetail.data);
             if(req.data.paymentDetail.data && req.data.paymentDetail.data.status === 'PAYMENT_RECEIVED') {
                 let formatedDebtorAccount = {};
                 formatedDebtorAccount = req.data.paymentDetail.data.debtorAccount;
@@ -46,11 +52,14 @@ const SignDDI = () => {
         }
     }
     const showLegalDocument = (isShow) => {
-        console.log('req :: ', isShow);
+        // console.log('req :: ', isShow);
         isShow ? setStep(1) : setStep(0);
     }
     const handleSignRequest = async () => {
-        // setError(true);
+        if (!checked){
+            setError(true);
+            return;
+        }
         setIsSigning(true);
         let debtor = {
             name: debtorAccount.name,
@@ -75,7 +84,7 @@ const SignDDI = () => {
         }
     }
 
-    console.log('debtor Account ::', debtorAccount);
+    // console.log('debtor Account ::', debtorAccount);
 
     return (
         <div>
@@ -97,10 +106,10 @@ const SignDDI = () => {
                                         <p className="text-center">Personal Details</p>
                                         <div>
                                             <label> First Name:<br/>
-                                                <input type="text" value="John" disabled/>
+                                                <input type="text" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[0]} disabled/>
                                             </label>
                                             <label> Last Name:<br/>
-                                                <input type="text" value="Doe" disabled/>
+                                                <input type="text" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[1]} disabled/>
                                             </label>
                                             <label className="email-input"> Email:<br/>
                                                 <input type="email" value={paymentObj.email} disabled/>
@@ -122,7 +131,7 @@ const SignDDI = () => {
                                                     setError(false);
                                                 }} /> <sup>*</sup>Tick To Accept Direct Debit Instruction
                                             </label>
-                                            {error && <p className="text-left error_text">This field is required!</p>}
+                                            {error && <p className="text-left error_text">Please accept Direct Debit Instruction!</p>}
                                         </div>
                                         <div>
                                             <p>You will be notified via e-mail once your Direct Debit Instruction has been activated.
@@ -131,7 +140,7 @@ const SignDDI = () => {
                                         </div>
                                         <div className="dd-btn-block">
                                             <button className="btn btn-primary dd-btn" onClick={handleSignRequest}>
-                                                {isSigining ? <Loader color="white" size="10px" /> : "Sign" }
+                                                {isSigning ? <Loader color="secondary" size="10px" /> : "Sign" }
                                             </button>
                                         </div>
                                         <h3>beam.</h3>

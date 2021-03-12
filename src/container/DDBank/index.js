@@ -41,7 +41,7 @@ const Bank = () => {
     const [loaderText, setLoaderText] = useState('beam.');
     const [isWpPayment, setIsWpPayment] = useState(false);
     const [merchantLogo, setMerchantLogo] = useState(null);
-    const [email, setEmail] = useState('directdebitdemo@c-tech.io');
+    const [email, setEmail] = useState('shoaib@c-tech.io');
     const [emailError, setEmailError] = useState('');
 
     const { token, payment_type } = useParams();
@@ -377,7 +377,7 @@ const Bank = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="right-content">
+                                    <div className="dd-right-content">
                                         <div className="text-center">
                                             <h2 className="bank-heading">Proceed to Payment</h2>
                                         </div>
@@ -611,7 +611,7 @@ const Bank = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="right-content">
+                                <div className="dd-right-content">
                                     <div className="text-center">
                                         <h2 className="bank-heading">Choose your bank</h2>
                                     </div>
