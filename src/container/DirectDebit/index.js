@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PlanCard from '../../component/PlanCard';
 import './styles.css';
 // import useViewPort from '../../utils/'
@@ -46,6 +46,19 @@ const DirectDebit = () => {
         }
     }
 
+    useEffect(() => {
+        listMandates();
+    }, [])
+
+    const listMandates = async () => {
+        try {
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/directdebit/mandate/${getUserData().merchant_id}`,
+                {}, 'GET');
+            console.log('Mandates :: ', req.data.mandates.data);
+        } catch (e){
+            console.log('error :: ', e);
+        }
+    }
     return (
         <div>
             <div className="plans-container desktop-m-top">
