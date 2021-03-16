@@ -16,6 +16,8 @@ import Receipt from "./container/Receipt";
 import Profile from "./container/Profile";
 import MerchantEdit from "./container/MerchantEdit";
 import MessageSetting from "./component/MessageSetting";
+import StaticPayments from "./container/StaticPayments";
+import ProductPaymentStatus from "./container/ProductPaymentStatus";
 
 import { getUserData } from "./utils";
 
@@ -39,6 +41,8 @@ const MainRoute = () => {
                 <PrivateRoute path="/merchant-edit" exact component={MerchantEdit} />
                 <PrivateRoute path="/msetting" exact component={MessageSetting} />
                 <PrivateRoute path="/beamlink" exact component={Home} />
+                <Route path="/product/status/:payment_status?/:order_id?/:payment_token?" exact component={ProductPaymentStatus}/>
+                <Route path="/product/:payment_token?" exact component={StaticPayments}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>
