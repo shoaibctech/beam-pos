@@ -416,7 +416,7 @@ const StaticPaymentsBank = () => {
                     </p>
                     <div className="product-price-block">
                         <span className="large-font">£44.99</span>
-                        <span className="medium-font">£44.99</span>
+                        <span className="medium-font">£49.99</span>
                         <span className="small-font">-£5.00</span>
                     </div>
                     <p className="product-type mr-t-10">NATURAL</p>
@@ -457,7 +457,7 @@ const StaticPaymentsBank = () => {
                             <p>
                                 Oral Oil Drops, 1,200mg
                             </p>
-                            <p>£49.99</p>
+                            <p>£44.99</p>
                         </div>
                     </div>
                 </div>

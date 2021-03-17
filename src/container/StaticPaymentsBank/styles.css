@@ -629,6 +629,7 @@
     color: #6A6A6A;
     display: inline-block;
     margin-right: 10px;
+    text-decoration:  line-through;
 }
 .small-font {
     font-size: 16px;
