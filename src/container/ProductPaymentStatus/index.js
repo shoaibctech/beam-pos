@@ -55,6 +55,12 @@ const ProductPaymentStatus = () => {
                    </div>
                }
            </div>
+            {
+                !paymentStatus &&
+                <div className="text-center">
+                    <a href="mailto:hello@beam" className="contact-support">Contact support</a>
+                </div>
+            }
             <div className="back-to-store-block">
                 { paymentStatus ?
                     <button className="back-to-store-btn" onClick={redirectToProductPage}>Back to love hemp</button> :

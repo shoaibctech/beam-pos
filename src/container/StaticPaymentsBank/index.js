@@ -408,9 +408,9 @@ const StaticPaymentsBank = () => {
                 </div>
                 <div className="product-des-container">
                     <p className="product-name">
-                        Love Hemp® CBD Liquid Oral Oil Drops,<br/>
-                        1,200mg CBD
+                        Love Hemp® CBD Liquid Oral Oil Drops,
                     </p>
+                    <p className="product-name">1,200mg CBD</p>
                     <p className="product-quantity">
                         Strong / 4% / 30ml
                     </p>
@@ -420,7 +420,7 @@ const StaticPaymentsBank = () => {
                         <span className="small-font">-£5.00</span>
                     </div>
                     <p className="product-type mr-t-10">NATURAL</p>
-                    <p className="mr-t-10 trust">Trustpilot</p>
+                    <p className="mr-t-20 trust">Trustpilot</p>
                     <div className="mr-t-10 product-ch">
                         <img src={SmallTick} alt="tick" />
                         <span>Vegan</span>
@@ -429,7 +429,7 @@ const StaticPaymentsBank = () => {
                         <img src={SmallTick} alt="tick" />
                         <span>Zero THC</span>
                     </div>
-                    <button className="confirm-order-btn mr-t-10" onClick={() => scrollToRef(820)}>
+                    <button className="confirm-order-btn" onClick={() => scrollToRef(820)}>
                         CONFIRM YOUR ORDER
                     </button>
                     <div>
@@ -452,12 +452,12 @@ const StaticPaymentsBank = () => {
                     <p className="product-link">What is this?</p>
                     <div className="payment-info">
                         <p className="payment-label">Payment info</p>
-                        <p>Love Hemp</p>
+                        <p className="merchant-and-item">Love Hemp</p>
                         <div className="product-name-price">
-                            <p>
+                            <p className="merchant-and-item">
                                 Oral Oil Drops, 1,200mg
                             </p>
-                            <p>£44.99</p>
+                            <p className="item-price">£44.99</p>
                         </div>
                     </div>
                 </div>
@@ -541,7 +541,7 @@ const StaticPaymentsBank = () => {
             <div id="love-hemp-section-3" className="love-hemp-section" ref={myRef2}>
                  <div className="right-content">
                      <div className="text-center">
-                         <h2 className="bank-heading">Select your bank</h2>
+                         <h2 className="bank-heading-static">Select your bank</h2>
                      </div>
                      {    error &&
                     <div>

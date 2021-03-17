@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
 .list-banks-logo-static {
+    font-family: 'DM Sans', sans-serif;
     height: 80px;
     width: 80px;
     cursor: pointer;
@@ -219,14 +222,18 @@
 /*.right-content {*/
 /*    background: white;*/
 /*    padding: 1rem 1rem;*/
-/*}*/
-/*.bank-heading {*/
-/*    margin-top: 1rem;*/
-/*    margin-bottom: 1rem;*/
-/*    background: white;*/
-/*    padding: 9px;*/
-/*    !*border: 1px solid var(--input-border-color);*!*/
-/*    border-radius: 4px;*/
+.bank-heading-static {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.3597px;
+    line-height: 27px;
+    text-align: center;
+    color: #505254;
+}
 /*}*/
 /*.bank-heading-sub {*/
 /*    margin-top: 1rem;*/
@@ -505,7 +512,7 @@
         height: 55px;
         width: 60px;
     }
-    .bank-heading {
+    .bank-heading-static {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         font-size: 20px;
@@ -591,6 +598,7 @@
     box-sizing: border-box;
 }
 .on-sale {
+    font-family: 'Roboto', sans-serif;
     background: #F26D4E;
     color: white;
     text-align: center;
@@ -604,14 +612,22 @@
     margin-right: 25px;
 }
 .product-name {
-    font-size: 13px;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14.6884px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 15px;
+    font-weight: bold;
+    line-height: 21px;
     letter-spacing: 0.065em;
     text-align: left;
 }
 .product-quantity {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.3362px;
+    line-height: 16px;
+    letter-spacing: 0.055em;
     color: #6A6A6A;
     margin-top: 10px;
 }
@@ -619,11 +635,13 @@
     margin-top: 10px;
 }
 .large-font {
+    font-family: 'Roboto', sans-serif;
     font-size: 30px;
     display: inline-block;
     margin-right: 10px;
 }
 .medium-font {
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #6A6A6A;
     display: inline-block;
@@ -631,6 +649,7 @@
     text-decoration:  line-through;
 }
 .small-font {
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #F37C5F;
 }
@@ -639,7 +658,7 @@
     border-radius: 35.07px;
     width: 81px;
     padding: 10px 15px;
-    font-family: Roboto;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 9.13625px;
@@ -652,11 +671,13 @@
     color: #FFFFFF;
 }
 .confirm-order-btn {
+    font-family: 'Roboto', sans-serif;
     background: #BAD3CD;
     padding-top: 15px;
     padding-bottom: 15px;
     width: 100%;
     border: none;
+    margin-top: 30px;
 }
 .mr-t-10 {
     margin-top: 10px;
@@ -667,18 +688,32 @@
 .product-ch img {
     margin-right: 10px;
 }
-.product-ch span {
-    margin-right: 20px;
+.trust {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11.0263px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.015em;
     color: #6A6A6A;
 }
-.trust {
+.product-ch  span {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11.0263px;
+    line-height: 13px;
+    letter-spacing: -0.015em;
     color: #6A6A6A;
+    margin-right: 20px;
 }
 .term-condition {
-    font-family: "DM Sans";
+    font-family: 'DM Sans', sans-serif;
     font-size: 10px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: bold;
     line-height: 12px;
     letter-spacing: 0em;
     text-align: center;
@@ -686,7 +721,14 @@
     color: #79828F;
 }
 .sec-2-h {
-    font-size: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.3597px;
+    line-height: 27px;
+    text-align: center;
+
+    color: #505254;
 }
 .payment-info-block {
     margin-top: 20px;
@@ -699,7 +741,28 @@
     border-radius: 8px;
 }
 .payment-label {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.9314px;
+    line-height: 18px;
     color: #79828F;
+}
+.merchant-and-item {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.9216px;
+    line-height: 21px;
+    color: #253245;
+}
+.item-price {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19.6993px;
+    line-height: 26px;
+    color: #253245;
 }
 .product-name-price {
     display: flex;
@@ -731,11 +794,19 @@
     margin-right: 20px;
 }
 .product-input label {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10.9769px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+
     color: #79828F;
     margin-bottom: 0;
     margin-top: 13px;
 }
-.product-input input, .product-input input:focus, .product-input input:hover {
+.product-input input, .product-input input:focus, .product-input input:hover, .product-input input:visited {
     margin-top: 0;
     margin-bottom: 0;
     padding: 0;
@@ -744,6 +815,13 @@
     border-right: none !important;
     border-bottom: 0.477256px solid #79828F !important;
     border-radius: 0 !important;
+
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.09px;
+    line-height: 24.86px;
+    color: #253245;
 }
 .error_text_static {
     color: red;
@@ -782,6 +860,15 @@
     margin-left: 15px;
 }
 .confirm-ship-btn {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16.3175px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    color: #333333;
     padding-top: 15px;
     padding-bottom: 15px;
     background: rgba(186, 211, 205, 0.3);
@@ -804,6 +891,12 @@
     border: none;
 }
 .ship-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15.9216px;
+    line-height: 21px;
+    color: #253245;
     display: flex;
     align-items: center;
 }
