@@ -24,7 +24,7 @@ const namespace = "https://posjunction.com";
 //4S2K - Y7RL - DBX8 - ANK3 - 62BG - 8E35
 const Signin = () =>  {
 
-    const [cookies, setCookie] = useCookies(['isToken']);
+    const [ setCookie] = useCookies(['isToken']);
     const history = useHistory();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +37,7 @@ const Signin = () =>  {
     const [mfaToken, setMfaToken] = useState('');
     const [oobCode, setOobCode] = useState('');
     const [phone, setPhone] = useState('44');
-    const [recoveryCodes, setRecoveryCodes] = useState({});
+    // const [recoveryCodes, setRecoveryCodes] = useState({});
     const [showToast, setShowToast] = useState(false);
 
     const signin = async () => {
@@ -227,7 +227,7 @@ const Signin = () =>  {
             }, {
                 headers: {Authorization: 'Bearer ' + mfaToken, 'Content-Type': 'application/json' }
             });
-            setRecoveryCodes(prevState => data);
+            // setRecoveryCodes(prevState => data);
             setOobCode(data.data.oob_code);
             setLoading(false);
             setLoginStep(1);

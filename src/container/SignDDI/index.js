@@ -26,6 +26,7 @@ const SignDDI = () => {
         } else {
             history.push("/login");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getPaymentDetail = async () => {
@@ -154,7 +155,7 @@ const SignDDI = () => {
                                            </p>
                                         </div>
                                         <div className="text-right">
-                                            <img src={DirectDebitLogo} width='114' />
+                                            <img src={DirectDebitLogo} width='114' alt="Direct Debit" />
                                         </div>
                                     </div>
                                 </div>
