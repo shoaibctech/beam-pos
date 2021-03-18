@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Logo from '../StaticPaymentsBank/img/love_hemp.svg';
 import Check from '../StaticPaymentsBank/img/check.svg';
 import FailedIcon from './img/failed.svg';

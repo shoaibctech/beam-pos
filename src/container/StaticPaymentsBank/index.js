@@ -1,36 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './styles.css';
 import {NUAPAY_LIVE_BANKS as banks} from "../../utils/Constants";
 import Logo from './img/love_hemp.svg';
-import Check from './img/check.svg';
 import SmallTick from './img/small-tick.svg';
 import CbdOil from './img/cbd_oil.svg';
-// import Pusher from "pusher-js";
-// import { setPusherClient } from "react-pusher";
-import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import useViewport from "../../utils/useViewPort/useViewPort";
 import OrangeCircle from "./img/orange-circle.svg";
 import TickCircle from "./img/tick-circle.svg";
 
 const StaticPaymentsBank = () => {
-    const myRef1 = useRef(null);
-    const myRef2 = useRef(null);
-    const myRef3 = useRef(null);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [bankList, setBankList] = useState(banks);
-    const [paymentDetailError, setPaymentDetailError] = useState(false);
+    // const [paymentDetailError, setPaymentDetailError] = useState(false);
     const [paymentData, setPaymentData] = useState({
         merchantName: "LOVE HEMP",
-        amount: 29.99,
+        amount: 44.99,
         merchant_type: 'nontip'
     });
-    const [totalAmount, setTotalAmount] = useState(29.99);
     const [selectedBank, setSelectedBank] = useState('');
 
     const [payerName, setPayerName] = useState('');
@@ -39,11 +30,7 @@ const StaticPaymentsBank = () => {
     const [payerErrors, setPayerErrors] = useState({name: '', email: '', address: ''})
     const [isAllFiledFill, setIsAllFieldFill] = useState(false);
 
-    const { token, payment_token } = useParams();
-
-    const location = useLocation();
-    const history = useHistory();
-    const { width } = useViewport();
+    const { payment_token } = useParams();
 
     // var pusherClient = new Pusher('ac404fe517d1f318787a', {
     //     cluster: 'ap2'
@@ -72,7 +59,9 @@ const StaticPaymentsBank = () => {
 
     useEffect(( ) => {
         getPaymentDetails();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     useEffect(() => {
         let isError = false;
         if (!payerName) {
@@ -85,7 +74,7 @@ const StaticPaymentsBank = () => {
             let lastAtPos = payerEmail.lastIndexOf('@');
             let lastDotPos = payerEmail.lastIndexOf('.');
 
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && payerEmail.indexOf('@@') == -1 && lastDotPos > 2 && (payerEmail.length - lastDotPos) > 2)) {
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && payerEmail.indexOf('@@') === -1 && lastDotPos > 2 && (payerEmail.length - lastDotPos) > 2)) {
                 isError = true;
             }
         }
@@ -116,7 +105,7 @@ const StaticPaymentsBank = () => {
             let lastAtPos = payerEmail.lastIndexOf('@');
             let lastDotPos = payerEmail.lastIndexOf('.');
 
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && payerEmail.indexOf('@@') == -1 && lastDotPos > 2 && (payerEmail.length - lastDotPos) > 2)) {
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && payerEmail.indexOf('@@') === -1 && lastDotPos > 2 && (payerEmail.length - lastDotPos) > 2)) {
                 isError = true;
                 payerError.email = "Email is not valid";
             }
@@ -135,7 +124,7 @@ const StaticPaymentsBank = () => {
         }
 
         try {
-            setLoading(true);
+            // setLoading(true);
             setSelectedBank(bankId);
             setError('');
             const aspUrl = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/product/payment`,
@@ -156,7 +145,7 @@ const StaticPaymentsBank = () => {
             // console.log(e.response);
             // console.log(e.response.data);
             setSelectedBank('')
-            setLoading(false);
+            // setLoading(false);
             switch (e.response && e.response.data.ErrorCode) {
                 case 101:
                     setError(e.response.data.message);
@@ -180,16 +169,16 @@ const StaticPaymentsBank = () => {
     }
 
     const getPaymentDetails = async () => {
-        setLoading(true);
+        // setLoading(true);
         try {
             const req = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product/payment/${payment_token}`);
             setPaymentData( req.data.paymentDetails);
-            setLoading(false);
-            setPaymentDetailError('');
+            // setLoading(false);
+            // setPaymentDetailError('');
 
         } catch (e) {
-            setLoading(false);
-            setPaymentDetailError(true);
+            // setLoading(false);
+            // setPaymentDetailError(true);
         }
     }
 
@@ -440,7 +429,7 @@ const StaticPaymentsBank = () => {
                     </div>
                 </div>
             </div>
-            <div id="love-hemp-section-2" className="love-hemp-section" ref={myRef1}>
+            <div id="love-hemp-section-2" className="love-hemp-section" >
                 <p className="mr-t-10 text-center sec-2-h">
                     Confirm shipping info
                 </p>
@@ -538,7 +527,7 @@ const StaticPaymentsBank = () => {
                     </p>
                 </div>
             </div>
-            <div id="love-hemp-section-3" className="love-hemp-section" ref={myRef2}>
+            <div id="love-hemp-section-3" className="love-hemp-section">
                  <div className="right-content">
                      <div className="text-center">
                          <h2 className="bank-heading-static">Select your bank</h2>
