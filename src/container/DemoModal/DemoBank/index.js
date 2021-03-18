@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import axios from "axios";
 import './styles.css';
 import {NUAPAY_LIVE_BANKS as banks} from "../../../utils/Constants";
-// import Logo from '../../component/Header/img/Light-Logo.png';
 import Logo from './img/Dark.png';
 import Input from "../../../component/UI/Input";
 import { makeRequest } from "../../../utils";
@@ -61,6 +60,8 @@ const DemoBank = () => {
     setPusherClient(pusherClient);
 
     useEffect(() => {
+        setMerchantType('nontip');
+        setMerchantName('Test Merchant A');
         const channel = pusherClient.subscribe('my-channel');
         channel.bind('thankyou-page-event', function(data) {
             if(data.token === token && !data.isMobile ) {
@@ -77,6 +78,7 @@ const DemoBank = () => {
                 setLoaderText('payment in progress');
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // useEffect(( ) => {
@@ -156,34 +158,34 @@ const DemoBank = () => {
             setBankList(banks);
         }
     }
-    const getCharityPaymentDetails = async () => {
-        try {
-            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment/${token}`, {}, 'GET');
-            setMerchantName(req.data.merchantName);
-            setPaymentDetailError('');
-            setLoading(false);
-        } catch (e) {
-            setPaymentDetailError(true);
-        }
-    }
+    // const getCharityPaymentDetails = async () => {
+    //     try {
+    //         const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment/${token}`, {}, 'GET');
+    //         setMerchantName(req.data.merchantName);
+    //         setPaymentDetailError('');
+    //         setLoading(false);
+    //     } catch (e) {
+    //         setPaymentDetailError(true);
+    //     }
+    // }
 
-    const getPaymentDetails = async () => {
-        // setLoading(true);
-        // try {
-        //     const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
-        //     setPaymentData( prevState => ({...paymentData, ...req.data.data}));
-        //     setTotalAmount(req.data.data.amount);
-        //     setLoading(false);
-        //     setPaymentDetailError('');
-        //     if (req.data && req.data.data.link) {
-        //         setIsWpPayment(true);
-        //     }
-        // } catch (e) {
-        //     setLoading(false);
-        //     setPaymentDetailError(true);
-        // }
-        setTotalAmount(1.30);
-    }
+    // const getPaymentDetails = async () => {
+    //     // setLoading(true);
+    //     // try {
+    //     //     const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/details/${token}`, {}, 'GET');
+    //     //     setPaymentData( prevState => ({...paymentData, ...req.data.data}));
+    //     //     setTotalAmount(req.data.data.amount);
+    //     //     setLoading(false);
+    //     //     setPaymentDetailError('');
+    //     //     if (req.data && req.data.data.link) {
+    //     //         setIsWpPayment(true);
+    //     //     }
+    //     // } catch (e) {
+    //     //     setLoading(false);
+    //     //     setPaymentDetailError(true);
+    //     // }
+    //     setTotalAmount(1.30);
+    // }
     const getPaymentDetailsWeb = async () => {
         setFetching(true);
         try {
@@ -266,48 +268,9 @@ const DemoBank = () => {
             setChAmount(value);
         }
     }
-    const createCharityPayment = async (bankId) => {
-        if(taxPayer) {
-            if(!taxPayerName || !taxPayerAddr) {
-                !taxPayerName && setTaxPayerNameError('Please enter name');
-                !taxPayerAddr && setTaxPayerAddrError('Please enter address');
-                return;
-            }
-        }
-        if (!chAmount) {
-            setChAmountError('Please enter amount value');
-            return;
-        } else if (parseFloat(chAmount) < 0 || parseFloat(chAmount) === 0) {
-            setChAmountError('Amount must be greater than 0.00');
-            return;
-        }
-        try {
-            setLoading(true);
-            setError('');
-            let data = {
-                bankId: bankId,
-                charityAmount: chAmount,
-                isTaxPayer: taxPayer,
-                name: taxPayerName,
-                address: taxPayerAddr.label,
-                token: token
-            };
-
-            const aspUrl = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/ch_payment`,
-                data);
-            // setLoading(false);
-            window.open(aspUrl.data.paymentData.aspspAuthUrl, '_self');
-        } catch (e) {
-            // console.log(e);
-            // console.log(e.response);
-            // console.log(e.response.data);
-            setLoading(false);
-            setError(e.response.data.error.message);
-            // window.scrollTo(0, 0);
-        }
-    }
     useEffect(() => {
         checkAndFetchLogo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const checkAndFetchLogo = async () => {
@@ -685,8 +648,8 @@ const DemoBank = () => {
                                                                 className="list-banks-logo"
                                                                 src={bank.logo}
                                                                 alt={bank.logo}
-                                                                onClick={() => null}
-                                                                // onClick={() => merchantType === 'charity' ? createCharityPayment(bank.id) : showQRCodeWindow(bank.id)}
+                                                                // onClick={() => null}
+                                                                onClick={() => showQRCodeWindow(bank.id)}
                                                             />
                                                         }
                                                         <p>{bank.name}</p>

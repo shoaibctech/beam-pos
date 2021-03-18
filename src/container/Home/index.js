@@ -112,6 +112,7 @@ const Home =  () => {
         if(step > 0 && loading){
             document.querySelector('.loader').style.height = 150 + 'vh';
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[step, loading]);
 
     const parseImg = () => {

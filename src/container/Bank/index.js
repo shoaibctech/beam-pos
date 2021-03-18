@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Pusher from "pusher-js";
 import { setPusherClient } from "react-pusher";
 import AntiClockLoader from '../../component/UI/AnitClockLoader';
-import isMobile from '../../utils/MobileCheck';
+// import isMobile from '../../utils/MobileCheck';
 import Loader from '../../component/UI/Loader';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import QrCodeWindow from "../../component/QrCodeWindow";
@@ -72,6 +72,7 @@ const Bank = () => {
                 setLoaderText('payment in progress');
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(( ) => {
@@ -91,9 +92,8 @@ const Bank = () => {
                 // getQrCode();
                 getPaymentDetails();
             }
-
-
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -304,6 +304,7 @@ const Bank = () => {
     }
     useEffect(() => {
         checkAndFetchLogo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const checkAndFetchLogo = async () => {

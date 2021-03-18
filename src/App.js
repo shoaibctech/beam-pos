@@ -19,6 +19,7 @@ const App = () => {
                 window.location.href = '/';
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathName]);
 
     return (

@@ -15,6 +15,7 @@ const RefundForm = ({ getRefundList, paymentObj, handleTabValue, handleClose, is
 
     useEffect(() => {
         setRefundPayment( prevState => ({...paymentObj}));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const refund = async () => {

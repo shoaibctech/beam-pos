@@ -16,6 +16,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
     useEffect(() => {
         setActive(location.pathname);
         setPathName(location.pathname);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const Sidebar = ({cookie, userData, setPathName}) => {
         } else {
             document.getElementById('sidenavbar').style.display = '200px';
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width])
 
 

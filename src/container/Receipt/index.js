@@ -19,7 +19,7 @@ const Receipt = () => {
 
         <div className="main_container">
             <div>
-                <img className="logo_pos" src={Logo}/>
+                <img className="logo_pos" src={Logo} alt={"Pos icon"}/>
             </div>
             {
                 step === 0

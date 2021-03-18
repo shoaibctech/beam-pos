@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeSecureRequest } from "../../utils";
 import Loader from '../UI/Loader/index';
-import {PaymentStatus} from "../../utils/Constants/PaymentStatus";
 import moment from "moment";
 
 const GiftAids = () => {

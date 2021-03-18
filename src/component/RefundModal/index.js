@@ -8,7 +8,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orderBy } from 'lodash';
 import moment from "moment";
 import Loader from "../UI/Loader";
-import {PaymentStatus, RefundStatus} from "../../utils/Constants/PaymentStatus";
+import {RefundStatus} from "../../utils/Constants/PaymentStatus";
 
 import './styles.css';
 
@@ -55,6 +55,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
 
     useEffect(() => {
         sureRefund();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -121,6 +122,7 @@ const RefundModal = ({ paymentObj, isOpen, onClose }) => {
     }
     const calculateRefundAbleAmount = (data) => {
         let amount = 0;
+        // eslint-disable-next-line
         data && data.map( x => {
             if (x.status === 'REFUND_COMPLETED' || x.status === 'REFUND_PENDING'){
                 amount = amount + x.refundAmount;

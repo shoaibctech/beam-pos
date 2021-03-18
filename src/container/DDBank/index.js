@@ -68,6 +68,7 @@ const Bank = () => {
                 setLoaderText('payment in progress');
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(( ) => {
@@ -80,14 +81,14 @@ const Bank = () => {
             } else {
                 getPaymentDetails();
             }
-
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const showLoader = () => {
-        setLoading(true);
-        setLoaderText('payment in progress');
-    }
+    // const showLoader = () => {
+    //     setLoading(true);
+    //     setLoaderText('payment in progress');
+    // }
 
 
     const createPayment = async (bankId) => {
@@ -289,6 +290,7 @@ const Bank = () => {
     }
     useEffect(() => {
         checkAndFetchLogo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const checkAndFetchLogo = async () => {

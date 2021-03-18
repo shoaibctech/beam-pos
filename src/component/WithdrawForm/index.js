@@ -47,8 +47,7 @@ const WithdrawForm = ({balance, currency, isBalance, getBalance, isOpen, handleI
         }
         setIsFetching(true);
         try {
-
-            const data = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit_transfer`,
+            await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/credit_transfer`,
                 {
                     merchantId: getUserData().merchant_id,
                     beneficiaryId: getUserData().beneficiary_id,
