@@ -20,6 +20,8 @@ import DirectDebit from "./container/DirectDebit";
 import DDBank from "./container/DDBank";
 import SignDDI from "./container/SignDDI";
 import DemoModal from "./container/DemoModal";
+import StaticPayments from "./container/StaticPayments";
+import ProductPaymentStatus from "./container/ProductPaymentStatus";
 
 import { getUserData } from "./utils";
 
@@ -47,6 +49,8 @@ const MainRoute = () => {
                 <Route path="/d/bank" exact component={DemoModal} />
                 <Route path="/directdebit/bank/:token" exact component={DDBank} />
                 <Route path="/directdebit/signddi/:paymentId" exact component={SignDDI} />
+                <Route path="/product/status/:payment_status?/:order_id?/:payment_token?" exact component={ProductPaymentStatus}/>
+                <Route path="/product/:payment_token?" exact component={StaticPayments}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>

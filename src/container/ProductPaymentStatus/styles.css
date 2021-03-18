@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+.check-img {
+    margin-top: 40px;
+    width: 100px;
+}
+.top-block {
+    background: #FBFCFF;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.top-block > p {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.3597px;
+    line-height: 27px;
+    text-align: center;
+    color: #505254;
+}
+.message-box-1 {
+    margin-top: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.p-color {
+    color: #253245;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18.1213px;
+    line-height: 24px;
+}
+.message-box-1 > p, .message-box-2 > p {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18.1213px;
+    line-height: 117.2%;
+    text-align: center;
+    color: #505254;
+}
+.message-box-2 {
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px
+}
+.back-to-store-block {
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.back-to-store-btn {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16.3175px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+
+    color: #333333;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #BAD3CD;
+    border: none;
+}
+.term-service {
+    margin: 10px 20px;
+}
+.term-service > p {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 9.55294px;
+    line-height: 12px;;
+    text-align: center;
+    color: #79828F;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contact-support {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #BAD3CD;
+}

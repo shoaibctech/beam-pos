@@ -50,6 +50,10 @@
     justify-content: center;
     align-items: center;
 }
+.demo-outer-container {
+    background: transparent;
+}
+
 .detail-error-block {
     background: white;
     width: 50%;
@@ -151,17 +155,17 @@
         width: 95%;
     }
 }
-.outer-container {
+.demo-outer-container {
     /*background-image: url('img/bank-bg-mobile.jpg');*/
-    background: #fffbf4ab;
+    background: transparent;
     /*background-repeat: no-repeat;*/
     /*background-position: center center;*/
     /*background-attachment: fixed;*/
     /*background-size: cover;*/
     width: 100%;
-    min-height: 100vh;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    /*min-height: 100vh;*/
+    /*padding-top: 2.5rem;*/
+    /*padding-bottom: 2.5rem;*/
 }
 .cancel-flow {
     cursor: pointer;
@@ -337,16 +341,16 @@
 }
 
 @media (min-width: 768px) {
-    .outer-container {
+    .demo-outer-container {
         /*background-color: var(--main-theme-color);*/
         width: 100%;
-        min-height: 100vh;
-        height: 100vh;
+        /*min-height: 100vh;*/
+        /*height: 100vh;*/
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-bottom: 2rem;
-        padding-top: 2rem;
+        /*padding-bottom: 2rem;*/
+        /*padding-top: 2rem;*/
     }
 }
 @media (max-width: 768px) {
@@ -391,9 +395,9 @@
 
 /*Mobile css */
 @media (min-width:540px) and (max-width: 768px) {
-    .outer-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+    .demo-outer-container {
+        /*padding-top: 1rem;*/
+        /*padding-bottom: 1rem;*/
     }
     .inner-container {
         background: white;
@@ -443,7 +447,7 @@
     align-items: center;
 }
 @media (max-width: 540px) {
-    .outer-container {
+    .demo-outer-container {
         /*background-image: url('img/bank-bg-mobile.jpg');*/
         /*background-repeat: no-repeat;*/
         /*background-position: center center;*/

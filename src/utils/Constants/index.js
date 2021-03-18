@@ -3,11 +3,12 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "id": "qj29q69mxn",
         "uri": "/banks/qj29q69mxn",
         "name": "Barclays Personal",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclayspersonal.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclays.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "kd28nj4r2l",
@@ -17,7 +18,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "jwmjgzwmgl",
@@ -27,27 +29,30 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "3omgdowxmk",
         "uri": "/banks/3omgdowxmk",
         "name": "HSBC Personal",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/hsbcpersonal.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/hsbc.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "ow24y9qa2p",
         "uri": "/banks/ow24y9qa2p",
         "name": "Lloyds Personal",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/llyodspersonal.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/llyods.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "4ym3n48wb3",
@@ -57,7 +62,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "gwbva4qb7r",
@@ -67,7 +73,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "3lbyj4zdbd",
@@ -77,7 +84,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "z6bz39yqmd",
@@ -87,7 +95,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "6p2lqvramv",
@@ -97,7 +106,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "qj29paqabx",
@@ -107,7 +117,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "3lbyj46dbd",
@@ -117,7 +128,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "ra2aolzmwe",
@@ -127,7 +139,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "462wnkdd2y",
@@ -137,17 +150,19 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "z8b5q6zbrq",
         "uri": "/banks/z8b5q6zbrq",
-        "name": "Bank Of Scotland Personal",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/bospersonal.svg",
+        "name": "Bank Of Scotland",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/bos.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "lybo8yx32q",
@@ -157,7 +172,8 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "7zmngy6gby",
@@ -167,17 +183,19 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "re27klqybd",
         "uri": "/banks/re27klqybd",
         "name": "Ulster",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/ulsterbank.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/ulster.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "3omgdogxmk",
@@ -187,37 +205,151 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "re27klxybd",
         "uri": "/banks/re27klxybd",
         "name": "Barclays Corporate",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclayscorporate.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclays.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "kn2kod3abg",
         "uri": "/banks/kn2kod3abg",
         "name": "HSBC Business",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/hsbcbusiness.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/hsbc.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
     },
     {
         "id": "ka2req6nmq",
         "uri": "/banks/ka2req6nmq",
         "name": "Lloyds Business",
-        "logo": "https://static.nuapay.com/ob/banks/uk/svg/llyodsbusiness.svg",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/llyods.svg",
         "supportedCurrencies": [
             "GBP"
         ],
-        "country": "GB"
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "k4m6r59ama",
+        "uri": "/banks/k4m6r59ama",
+        "name": "AIB Business",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/aib.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "pdmq8y5vml",
+        "uri": "/banks/pdmq8y5vml",
+        "name": "Lloyds Commercial",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/llyods.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "zrmpa7ozm6",
+        "uri": "/banks/zrmpa7ozm6",
+        "name": "TransferWise",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/transferwise.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "w6bee4y7by",
+        "uri": "/banks/w6bee4y7by",
+        "name": "Bank Of Ireland Business",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/boi.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "xkbd7xz9bv",
+        "uri": "/banks/xkbd7xz9bv",
+        "name": "NatWest Corporate",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/natwest.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "gabxqxy52l",
+        "uri": "/banks/gabxqxy52l",
+        "name": "Bank of Scotland Business",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/bos.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "ow24y9xa2p",
+        "uri": "/banks/ow24y9xa2p",
+        "name": "Bank of Scotland Commercial",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/bos.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "qj29palabx",
+        "uri": "/banks/qj29palabx",
+        "name": "Barclays Wealth",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclays.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "lybo8y932q",
+        "uri": "/banks/lybo8y932q",
+        "name": "Barclays Business",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclays.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
+    },
+    {
+        "id": "z8b5go482r",
+        "uri": "/banks/z8b5go482r",
+        "name": "Barclaycard Commercial",
+        "logo": "https://static.nuapay.com/ob/banks/uk/svg/barclays.svg",
+        "supportedCurrencies": [
+            "GBP"
+        ],
+        "country": "GB",
+        "debtorAccountRequired": false
     }
 ] : [
     {

@@ -38,10 +38,14 @@
     /*rgba(255, 255, 255, 0.9)*/
     /*100%);*/
 }
-.bank-list-container::after {
-    content: "";
-    flex: auto;
+.bank-list-container > div:last-child {
+    margin-right: auto;
+    margin-left: 18px;
 }
+/*.bank-list-container::after {*/
+/*    content: "";*/
+/*    flex: auto;*/
+/*}*/
 .detail-error {
     background: var(--main-theme-color);
     min-width: 100%;

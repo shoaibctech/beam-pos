@@ -268,43 +268,42 @@ const DemoBank = () => {
             setChAmount(value);
         }
     }
-    useEffect(() => {
-        checkAndFetchLogo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     // checkAndFetchLogo();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
-    const checkAndFetchLogo = async () => {
-        try {
-            const logoType = location.pathname.includes('/ch/bank') ? 'charity' : 'beam';
-            const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/${logoType}`);
-
-            if (logoReq.data.isLogo){
-                setMerchantLogo(logoReq.data.logo);
-            }
-        } catch (e) {
-            console.log('Error: No merchant logo found...');
-        }
-    }
+    // const checkAndFetchLogo = async () => {
+    //     try {
+    //         const logoType = location.pathname.includes('/ch/bank') ? 'charity' : 'beam';
+    //         const logoReq = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/merchant/logo/${token}/${logoType}`);
+    //
+    //         if (logoReq.data.isLogo){
+    //             setMerchantLogo(logoReq.data.logo);
+    //         }
+    //     } catch (e) {
+    //         console.log('Error: No merchant logo found...');
+    //     }
+    // }
 
     const showQRCodeWindow = (bankId) => {
         // setSelectedBank(bankId);
-        if (width > 768 && payment_type && payment_type === 'wp'){
+        // if (width > 768 && payment_type && payment_type === 'wp'){
             setSelectedBank(bankId);
             createQRCode(bankId);
-        } else {
-            createPayment(bankId);
-        }
+        // } else {
+        //     createPayment(bankId);
+        // }
         // setTimeout(() => {
         //     document.getElementById('pop-block').style.display="block";
         // }, 100);
     }
     const createQRCode = async (bankId) => {
         try {
-            const paymentUrl = window.location.origin + '/bank/' + token + '/PROCESS/'+ bankId + window.location.search;
-            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/qrcode/create`,
+            const paymentUrl = window.location.origin + '/d/bank';
+            const req = await makeRequest(`${process.env.REACT_APP_BACKEND_URL}/api/bitpay/qrcode`,
                 {
                     pathUrl: paymentUrl,
-                    token: token,
                 }, 'POST');
             const imgBuffer = await convertSvgToJsxSvg(req.data.data);
             setQrCodeImg(imgBuffer);
@@ -343,7 +342,7 @@ const DemoBank = () => {
                 </div>
                 :
                 showQrCode ?
-                    <div className="outer-container">
+                    <div className="demo-outer-container">
                         <div className="inner-container">
                             <div className="inner-container-grid">
                                 <div className="left-section">
@@ -428,7 +427,7 @@ const DemoBank = () => {
                         </div>
                     </div>
                     :
-                    <div className="outer-container">
+                    <div className="demo-outer-container">
                         <div className="inner-container">
                             <div className="inner-container-grid">
                                 <div className="left-section">
@@ -593,7 +592,7 @@ const DemoBank = () => {
                                         <div className="flow-steps">
                                             <div><span className="step-mark">1</span> Select your bank</div>
                                             <div><span className="step-mark">2</span> Authorize your payment</div>
-                                            <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
+                                            {/*<div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>*/}
                                         </div>
                                         }
                                         {

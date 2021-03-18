@@ -1,0 +1,905 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+.list-banks-logo-static {
+    font-family: 'DM Sans', sans-serif;
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 18px;
+    padding-bottom: 5px;
+}
+/*.loader {*/
+/*    position: absolute;*/
+/*    width: 100vw;*/
+/*    min-width: 100vw;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 50%;*/
+/*    min-height: 100vh;*/
+/*    -webkit-backdrop-filter: blur(4px);*/
+/*    backdrop-filter: blur(4px);*/
+/*}*/
+/*.bank-bg-color {*/
+/*    background: white;*/
+/*}*/
+/*.bank-bg-color h3 {*/
+/*    color: black;*/
+/*}*/
+.bank-list-container-static {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    height: 40.5rem;
+    padding: 5px;
+    overflow-y: scroll;
+
+    /*background-image: linear-gradient(to bottom,*/
+    /*rgba(255, 255, 255, 0),*/
+    /*rgba(255, 255, 255, 0.9)*/
+    /*100%);*/
+}
+.bank-list-container-static::after {
+    content: "";
+    flex: auto;
+}
+/*.detail-error {*/
+/*    background: var(--main-theme-color);*/
+/*    min-width: 100%;*/
+/*    min-height: 100vh;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+/*.detail-error-block {*/
+/*    background: white;*/
+/*    width: 50%;*/
+/*    height: 100%;*/
+/*    padding: 30px;*/
+/*    justify-content: center;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    border-radius: 6px;*/
+/*}*/
+/*.mr-1 {*/
+/*    margin: 1rem auto;*/
+/*}*/
+/*.mr-2 {*/
+/*    margin: 10px auto;*/
+/*}*/
+/*.mark {*/
+/*    width: 108px;*/
+/*}*/
+/*!*!* Hide scrollbar for Chrome, Safari and Opera *!*!*/
+/*!*.bank-list-container::-webkit-scrollbar {*!*/
+/*!*    display: none;*!*/
+/*!*}*!*/
+
+/*!* Hide scrollbar for IE, Edge and Firefox *!*/
+.bank-list-container-static {
+    /*-ms-overflow-style: none;  !* IE and Edge *!*/
+    /*scrollbar-width: none;  !* Firefox *!*/
+    scrollbar-width: thin;
+    scrollbar-color: grey white;
+}
+
+/*width*/
+.bank-list-container-static::-webkit-scrollbar {
+    width: 8px;
+}
+
+/*Track */
+.bank-list-container-static::-webkit-scrollbar-track {
+    /*background: #f1f1f1;*/
+}
+
+/* Handle */
+.bank-list-container-static::-webkit-scrollbar-thumb {
+    background: #151B25;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+.bank-list-container-static::-webkit-scrollbar-thumb:hover {
+    background: #151B25;
+}
+.list-banks-static {
+    box-sizing: border-box;
+    width: 30.33%;
+    text-align: center;
+    box-shadow: 1px 1px 6px 0 #888888;
+    margin: 6px 1px;
+    border-radius: 5px;
+    background: white;
+}
+.list-banks-static:hover {
+    box-sizing: border-box;
+    border: 1px solid;
+}
+.list-banks-static > p {
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: -14px;
+}
+
+/*.error-block {*/
+/*    padding: 5px;*/
+/*    margin: 0 5px 10px;*/
+/*    border: 1px solid var(--text-error-color);*/
+/*}*/
+@media (max-width: 540px) {
+    .list-banks-static {
+        width: 30.33%;
+    }
+    .list-banks-static > p {
+        font-size: 10px;
+    }
+    .list-banks-logo-static {
+        height: 50px;
+        width: 80px;
+    }
+    .detail-error-block {
+        width: 100%;
+    }
+}
+@media (min-width: 521px) and (max-width: 770px) {
+    .list-banks-static {
+        width: 30% !important;
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .detail-error-block {
+        width: 95%;
+    }
+}
+/*.outer-container-static {*/
+/*    !*background-image: url('img/bank-bg-mobile.jpg');*!*/
+/*    background: #fffbf4ab;*/
+/*    !*background-repeat: no-repeat;*!*/
+/*    !*background-position: center center;*!*/
+/*    !*background-attachment: fixed;*!*/
+/*    !*background-size: cover;*!*/
+/*    width: 100%;*/
+/*    min-height: 110vh;*/
+/*    padding-top: 2.5rem;*/
+/*    padding-bottom: 2.5rem;*/
+/*}*/
+/*.cancel-flow {*/
+/*    cursor: pointer;*/
+/*    !*text-decoration: underline;*!*/
+/*}*/
+/*.cancel-flow-bg {*/
+/*    position: absolute;*/
+/*    left: 10px;*/
+/*    bottom: -2px;*/
+/*    font-size: 12px;*/
+/*    color: #1A202C;*/
+/*}*/
+/*.info-link {*/
+/*    font-size: 14px;*/
+/*    cursor: pointer;*/
+/*    color: var(--main-bg-color);*/
+/*    float: left;*/
+/*}*/
+/*.inner-container {*/
+/*    background: #ffffff59;*/
+/*    box-shadow: 0px 0px 20px 5px #00000030;*/
+/*    width: 758px;*/
+/*    margin: 0 auto;*/
+/*    border-radius: 5px;*/
+/*}*/
+/*.inner-container-grid {*/
+/*    display: grid;*/
+/*    grid-template-columns: 45% 55%;*/
+/*}*/
+/*.left-section {*/
+/*    background: #1A202C;*/
+/*    border-top-left-radius: 5px;*/
+/*    border-bottom-left-radius: 5px;*/
+/*}*/
+/*.right-section {*/
+/*    border-top-right-radius: 5px;*/
+/*    border-bottom-right-radius: 5px;*/
+/*}*/
+/*.left-content {*/
+/*    padding: 1rem 10px;*/
+/*    height: 100%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: flex-start;*/
+/*}*/
+/*.rule-conduct {*/
+/*    margin-top: auto;*/
+/*}*/
+/*.rule-conduct > p {*/
+/*    font-size: 10px;*/
+/*    padding: 10px 3px;*/
+/*    color: white;*/
+/*}*/
+/*.right-content {*/
+/*    background: white;*/
+/*    padding: 1rem 1rem;*/
+.bank-heading-static {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.3597px;
+    line-height: 27px;
+    text-align: center;
+    color: #505254;
+}
+/*}*/
+/*.bank-heading-sub {*/
+/*    margin-top: 1rem;*/
+/*    margin-bottom: 1rem;*/
+/*    background: white;*/
+/*    padding: 9px;*/
+/*    !*border: 1px solid var(--input-border-color);*!*/
+/*    border-radius: 4px;*/
+/*    text-align: center;*/
+/*    font-size: 15px;*/
+/*}*/
+/*.bank-screen-logo {*/
+/*    width: 80%;*/
+/*    max-width: 232px;*/
+/*    max-height: 108px;*/
+/*}*/
+/*.bank-screen-logo-container {*/
+/*    margin: 1.5rem auto;*/
+/*    text-align: center;*/
+/*    padding: 1rem;*/
+/*}*/
+/*.payment-detail {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: flex-end;*/
+/*    background: white;*/
+/*    padding: 15px 10px;*/
+/*    border-radius: 4px;*/
+/*}*/
+/*.payment-label {*/
+/*    font-size: 14px;*/
+/*    color: #33333373;*/
+/*}*/
+/*.mobile-heading {*/
+/*    display: none;*/
+/*}*/
+
+/*.no-bank {*/
+/*    margin: 10px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.tip-detail {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    flex-direction: column;*/
+/*    background: white;*/
+/*    margin-top: 1rem;*/
+/*    padding: 15px 10px;*/
+/*    border-radius: 4px;*/
+/*}*/
+/*.tip-box {*/
+/*    width: auto !important;*/
+/*    margin-left: 0 !important;*/
+/*    margin-right: 0 !important;*/
+/*}*/
+/*.flow-steps {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin-top: auto;*/
+/*}*/
+/*.flow-steps > div {*/
+/*    display: flex;*/
+/*    align-items: baseline;*/
+/*    background: white;*/
+/*    padding: 10px 10px;*/
+/*    margin: 5px 0;*/
+/*    border-radius: 4px;*/
+/*}*/
+/*.step-mark {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background: #1A202C;*/
+/*    color: white;*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    border-radius: 50%;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+/*.bank-qr-code {*/
+/*    width: 12rem;*/
+/*    margin: 6rem auto;*/
+/*}*/
+/*.click-to-pay {*/
+/*    width: 100%;*/
+/*    margin: 10px auto;*/
+/*}*/
+/*.or-div {*/
+/*    background: transparent !important;*/
+/*}*/
+/*.or {*/
+/*    display: inline-block;*/
+/*    padding-left: 5px;*/
+/*    padding-right: 5px;*/
+/*    color: var(--main-bg-color);*/
+/*}*/
+/*.or-hr {*/
+/*    width: 48%;*/
+/*    color: var(--main-bg-color);*/
+/*    height: 1px;*/
+/*    border-width: 0;*/
+/*    background-color: var(--main-bg-color);*/
+/*}*/
+
+/*.btn-back {*/
+/*    color: var(--main-bg-color);*/
+/*}*/
+
+/*@media (min-width: 768px) {*/
+/*    .outer-container-static {*/
+/*        !*background-color: var(--main-theme-color);*!*/
+/*        width: 100%;*/
+/*        min-height: 110vh;*/
+/*        height: 110vh;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        padding-bottom: 2rem;*/
+/*        padding-top: 2rem;*/
+/*    }*/
+/*}*/
+/*@media (max-width: 768px) {*/
+/*    .flow-steps {*/
+/*        margin: 3rem 0 0 0;*/
+/*    }*/
+/*    .cancel-flow {*/
+/*        margin-bottom: 3rem;*/
+/*        margin-top: 5px;*/
+/*    }*/
+/*    .rule-conduct > p {*/
+/*        font-size: 10px;*/
+/*        padding: 10px 3px;*/
+/*        color: #1A202C;*/
+/*    }*/
+/*    .desktop-768-only{*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+@media (max-width: 540px) {
+    .bank-list-container-static {
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6) 100%);
+    }
+    .right-content {
+        /*background-image: url('img/bank-bg.jpg');*/
+        /*background-repeat: no-repeat;*/
+        /*background-position: center center;*/
+        /*background-attachment: fixed;*/
+        /*background-size: cover;*/
+    }
+    .info-icon {
+        display: block;
+        font-size: 40px;
+    }
+}
+
+/*@media (max-width: 1000px) {*/
+/*    .detail-error-block {*/
+/*        width: 90%;*/
+/*    }*/
+/*}*/
+
+/*Mobile css */
+@media (min-width:540px) and (max-width: 768px) {
+    .outer-container-static {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .inner-container {
+        background: white;
+        width: 75%;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+    .inner-container-grid {
+        display: grid;
+        grid-template-columns: 100%;
+    }
+    .left-section {
+        background: #1A202C;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .list-banks-logo-static {
+        height: 80px;
+        width: 80px;
+    }
+}
+/*.info-text {*/
+/*    padding-left: 20px;*/
+/*    padding-right: 20px;*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+/*.beam-link {*/
+/*    margin-top: -10px;*/
+/*    padding-bottom: 5px;*/
+/*    text-decoration: underline;*/
+/*    color: white;*/
+/*}*/
+/*.gift-aid-block {*/
+/*    background: white;*/
+/*    margin-top: 6px;*/
+/*    border-radius: 5px;*/
+/*}*/
+/*.bank-loader-container {*/
+/*    height: 80px;*/
+/*    cursor: pointer;*/
+/*    border-radius: 6px;*/
+/*    margin-top: 0.5rem;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+/*@media (max-width: 540px) {*/
+/*    .outer-container-static {*/
+/*        !*background-image: url('img/bank-bg-mobile.jpg');*!*/
+/*        !*background-repeat: no-repeat;*!*/
+/*        !*background-position: center center;*!*/
+/*        !*background-attachment: fixed;*!*/
+/*        !*background-size: cover;*!*/
+/*        background: #9ba9b84d;*/
+/*        padding-top: 0;*/
+/*        padding-bottom: 0;*/
+/*    }*/
+/*    .inner-container {*/
+/*        background: #ffffff00;*/
+/*        width: 100%;*/
+/*        margin: 0 auto;*/
+/*        border-radius: 0;*/
+/*        overflow: hidden;*/
+/*    }*/
+/*    .inner-container-grid {*/
+/*        display: grid;*/
+/*        grid-template-columns: 100%;*/
+/*    }*/
+/*    .left-section {*/
+/*        background: #1A202C;*/
+/*        border-top-left-radius: 0;*/
+/*        border-bottom-left-radius: 0;*/
+/*    }*/
+/*    .left-content {*/
+/*        padding: 1rem 10px 1rem 10px;*/
+/*    }*/
+/*    .mobile-heading {*/
+/*        display: block;*/
+/*        padding-bottom: 1.5rem;*/
+/*    }*/
+/*    .bank-heading {*/
+/*        margin-top: 0.5rem;*/
+/*        margin-bottom: 0.5rem;*/
+/*    }*/
+/*    .bank-screen-logo-container {*/
+/*        margin-top: 1rem;*/
+/*        margin-bottom: 2rem;*/
+/*    }*/
+/*    .mobile-only {*/
+/*        display: inline-block;*/
+/*        !*background: rgba(255, 255, 255, 0.6);*!*/
+/*        padding: 0 9px;*/
+/*    }*/
+/*    .desktop-only {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+/*@media (min-width: 768px) {*/
+/*    .mobile-only {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+@media (max-width: 280px) {
+    .list-banks-logo-static {
+        height: 55px;
+        width: 60px;
+    }
+    .bank-heading-static {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 20px;
+    }
+}
+.right-content {
+    background: #FBFCFF;
+}
+
+/*@media (min-width: 768px) {*/
+/*    .right-section {*/
+/*        position: relative;*/
+/*        overflow: hidden;*/
+/*    }*/
+/*    .right-content {*/
+/*        position: absolute;*/
+/*        width: 100%;*/
+/*        z-index: 1;*/
+/*    }*/
+/*    .right-content-2 {*/
+/*        position: absolute;*/
+/*        z-index: 10;*/
+/*        width: 100%;*/
+/*    }*/
+/*    .inner-container-grid {*/
+/*        display: grid;*/
+/*        grid-template-columns: 49% 51%;*/
+/*        min-height: 41rem;*/
+/*    }*/
+/*}*/
+
+/*.css-g1d714-ValueContainer {*/
+/*    !*height: 47px;*!*/
+/*    margin: 0 !important;*/
+/*}*/
+/*.css-b8ldur-Input input {*/
+/*    margin: 0 !important;*/
+/*}*/
+/*.css-g1d714-ValueContainer {*/
+/* padding: 0 8px !important;*/
+/*}*/
+/*.css-2b097c-container {*/
+/*    margin-top: 11px !important;*/
+/*    margin-bottom: 6px !important;*/
+/*}*/
+/*.css-1pahdxg-control {*/
+/*    border-color: black !important;*/
+/*    box-shadow: none !important;*/
+/*    cursor: text !important;*/
+/*}*/
+/*.w-100 {*/
+/*    width: 100%;*/
+/*}*/
+/*.detail-step {*/
+/*    display: flex;*/
+/*    align-items: baseline;*/
+/*}*/
+/*#react-select-3-input:focus {*/
+/*    border: none !important;*/
+/*    cursor: text !important;*/
+/*}*/
+/*#react-select-3-input:hover {*/
+/*    border: none !important;*/
+/*    cursor: text !important;*/
+/*}*/
+
+/*New Screen */
+.logo-container {
+    margin: 20px auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+.logo-container > img {
+    width: 175px;
+}
+.product-img-container {
+    padding: 20px;
+    background: #BAD3CD;
+    margin: 10px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px 0 #949292;
+    border-radius: 9.77px;
+    box-sizing: border-box;
+}
+.on-sale {
+    font-family: 'Roboto', sans-serif;
+    background: #F26D4E;
+    color: white;
+    text-align: center;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-top: 25px
+}
+.product-des-container {
+    margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.product-name {
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14.6884px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 21px;
+    letter-spacing: 0.065em;
+    text-align: left;
+}
+.product-quantity {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.3362px;
+    line-height: 16px;
+    letter-spacing: 0.055em;
+    color: #6A6A6A;
+    margin-top: 10px;
+}
+.product-price-block {
+    margin-top: 10px;
+}
+.large-font {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.medium-font {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #6A6A6A;
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration:  line-through;
+}
+.small-font {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #F37C5F;
+}
+.product-type {
+    background: #A2C4BA;
+    border-radius: 35.07px;
+    width: 81px;
+    padding: 10px 15px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 9.13625px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.confirm-order-btn {
+    font-family: 'Roboto', sans-serif;
+    background: #BAD3CD;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    border: none;
+    margin-top: 30px;
+}
+.mr-t-10 {
+    margin-top: 10px;
+}
+.mr-t-20 {
+    margin-top: 20px;
+}
+.product-ch img {
+    margin-right: 10px;
+}
+.trust {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11.0263px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.015em;
+    color: #6A6A6A;
+}
+.product-ch  span {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11.0263px;
+    line-height: 13px;
+    letter-spacing: -0.015em;
+    color: #6A6A6A;
+    margin-right: 20px;
+}
+.term-condition {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: center;
+    padding: 13px 7px;
+    color: #79828F;
+}
+.sec-2-h {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.3597px;
+    line-height: 27px;
+    text-align: center;
+
+    color: #505254;
+}
+.payment-info-block {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.payment-info {
+    background: #ECF0F0;
+    padding: 20px 10px;
+    border-radius: 8px;
+}
+.payment-label {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.9314px;
+    line-height: 18px;
+    color: #79828F;
+}
+.merchant-and-item {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.9216px;
+    line-height: 21px;
+    color: #253245;
+}
+.item-price {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19.6993px;
+    line-height: 26px;
+    color: #253245;
+}
+.product-name-price {
+    display: flex;
+    justify-content: space-between;
+}
+.product-link {
+    text-decoration: underline;
+    font-size: 10px;
+    color: #191D27;
+    margin-bottom: 10px;
+}
+.shipping-block {
+    border: 1px solid #F37C5F;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.orange-circle {
+    border: 5px solid #F37C5F;
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.input-block {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.product-input label {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10.9769px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+
+    color: #79828F;
+    margin-bottom: 0;
+    margin-top: 13px;
+}
+.product-input input, .product-input input:focus, .product-input input:hover, .product-input input:visited {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 0.477256px solid #79828F !important;
+    border-radius: 0 !important;
+
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.09px;
+    line-height: 24.86px;
+    color: #253245;
+}
+.error_text_static {
+    color: red;
+}
+
+.css-g1d714-ValueContainer {
+    /*height: 47px;*/
+    margin: 0 !important;
+}
+.css-b8ldur-Input input {
+    margin: 0 !important;
+}
+.css-yk16xz-control {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 0.477256px solid #79828F !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+.css-g1d714-ValueContainer {
+ padding: 0 8px !important;
+}
+.css-2b097c-container {
+    margin-top: 11px !important;
+    margin-bottom: 6px !important;
+}
+.css-1pahdxg-control {
+    border-color: black !important;
+    box-shadow: none !important;
+    cursor: text !important;
+}
+.confirm-ship-btn-block {
+    margin-top: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.confirm-ship-btn {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16.3175px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    color: #333333;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: rgba(186, 211, 205, 0.3);
+    border: none;
+    width: 100%;
+}
+.m-r-15 {
+    margin-right: 15px;
+}
+.m-l-15 {
+    margin-left: 15px;
+}
+.love-hemp-section {
+    min-height: 812px;
+}
+.fill-color {
+    background: #BAD3CD !important;
+}
+.no-border {
+    border: none;
+}
+.ship-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15.9216px;
+    line-height: 21px;
+    color: #253245;
+    display: flex;
+    align-items: center;
+}
+.ship-heading img {
+    margin-right: 20px;
+}
