@@ -127,9 +127,10 @@ const Signin = () =>  {
             // Todo redirect to home page
             history.push('/transaction');
         } catch (e) {
+            console.log(e);
             setLoading(false);
             const ErrorString = {'Invalid binding_code.' : 'Incorrect code.'}
-            setMessage(ErrorString[e.response.data.error_description] ? ErrorString[e.response.data.error_description] : 'Incorrect code.');
+            setMessage(ErrorString[e.response && e.response.data.error_description] ? ErrorString[e.response && e.response.data.error_description] : 'Incorrect code.');
         }
     }
     const updateOrCreateMerchant = async (name, merchant_id, email, phone) => {
