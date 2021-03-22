@@ -16,15 +16,23 @@ const SignDDI = () => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState(false);
     const [debtorAccount, setDebtorAccount] = useState({});
-    const [isSigning, setIsSigning] = useState(false);
+    // const [isSigning, setIsSigning] = useState(false);
 
+    const isSigning = false;
     const history = useHistory();
+
 
     useEffect( () => {
         if (getUserData()){
             getPaymentDetail()
         } else {
             history.push("/login");
+        }
+
+        const existingScript = document.getElementById('nuapayform');
+        if (existingScript) {
+            window.EMandates.setToken('6969b210-06da-45c8-8fdb-c20bd3d14074-bz9845vn9m');
+            window.EMandates.setUrl('https://sandbox.nuapay.com/emandate-rest');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -56,36 +64,63 @@ const SignDDI = () => {
         // console.log('req :: ', isShow);
         isShow ? setStep(1) : setStep(0);
     }
-    const handleSignRequest = async () => {
-        if (!checked){
-            setError(true);
-            return;
-        }
-        setIsSigning(true);
-        let debtor = {
-            name: debtorAccount.name,
-            email: paymentObj.email,
-            language: paymentObj.language
-        };
-        let debtorAc = {
-            domesticAccountNumber: debtorAccount.accountNumber,
-            domesticBranchCode: debtorAccount.sortCode,
-            accountCountry: 'GB'
-        }
-        try {
-            const req = await makeRequest( `${process.env.REACT_APP_BACKEND_URL}/api/directdebit/signddi`, {
-                debtor : debtor,
-                debtorAccount: debtorAc
-            }, 'POST');
-            console.log('req data :: ', req.data);
-            setIsSigning(false);
-        } catch (e) {
-            setIsSigning(false);
-            console.log('e', e);
-        }
-    }
+    // const handleSignRequest = async () => {
+    //     if (!checked){
+    //         setError(true);
+    //         return;
+    //     }
+    //     setIsSigning(true);
+    //     let debtor = {
+    //         name: debtorAccount.name,
+    //         email: paymentObj.email,
+    //         language: paymentObj.language
+    //     };
+    //     let debtorAc = {
+    //         domesticAccountNumber: debtorAccount.accountNumber,
+    //         domesticBranchCode: debtorAccount.sortCode,
+    //         accountCountry: 'GB'
+    //     }
+    //     try {
+    //         const req = await makeRequest( `${process.env.REACT_APP_BACKEND_URL}/api/directdebit/signddi`, {
+    //             debtor : debtor,
+    //             debtorAccount: debtorAc
+    //         }, 'POST');
+    //         console.log('req data :: ', req.data);
+    //         setIsSigning(false);
+    //     } catch (e) {
+    //         setIsSigning(false);
+    //         console.log('e', e);
+    //     }
+    // }
 
-    // console.log('debtor Account ::', debtorAccount);
+    const  successResponseHandler = (statusCode, responseBody) => {
+        console.log('code ', statusCode);
+        console.log('res', statusCode);
+    }
+    const  errorResponseHandler = (statusCode, responseBody) => {
+        console.log('error code ', statusCode);
+        console.log('res', statusCode);
+    }
+    const submitForm = (e) => {
+
+        // var name = document.getElementById('name');
+        // var email = document.getElementById('email');
+        var iban = 'GB02SELN04041300000691';//document.getElementById('iban');
+
+        var requestData = {
+            "debtorDetails" : {
+                "name" : 'Demo Payer', //name.value,
+                "email" : 'farooq@c-tech.io', //email.value,
+                "iban" : iban,
+
+            },
+            "accepted" : true
+        };
+        window.EMandates.signEmandate(requestData, successResponseHandler,
+            errorResponseHandler);
+        e.preventDefault();
+        return false;
+    }
 
     return (
         <div>
@@ -103,17 +138,17 @@ const SignDDI = () => {
                         {
                             paymentObj &&
                                 <div>
-                                    <div className="sign-container">
+                                    <form className="sign-container" onSubmit={submitForm}>
                                         <p className="text-center">Personal Details</p>
                                         <div>
                                             <label> First Name:<br/>
-                                                <input type="text" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[0]} disabled/>
+                                                <input type="text" id="firstName" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[0]} disabled/>
                                             </label>
                                             <label> Last Name:<br/>
-                                                <input type="text" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[1]} disabled/>
+                                                <input type="text" id="lastName" value={debtorAccount && debtorAccount.name && debtorAccount.name.split(' ')[1]} disabled/>
                                             </label>
                                             <label className="email-input"> Email:<br/>
-                                                <input type="email" value={paymentObj.email} disabled/>
+                                                <input type="email" id="email" value={paymentObj.email} disabled/>
                                             </label>
                                         </div>
                                         <div className="text-center">
@@ -140,7 +175,8 @@ const SignDDI = () => {
                                                 working days before the first collection.</p>
                                         </div>
                                         <div className="dd-btn-block">
-                                            <button className="btn btn-primary dd-btn" onClick={handleSignRequest}>
+                                            {/*onClick={handleSignRequest}*/}
+                                            <button className="btn btn-primary dd-btn" type="submit" id="btnSubmitMandate">
                                                 {isSigning ? <Loader color="secondary" size="10px" /> : "Sign" }
                                             </button>
                                         </div>
@@ -157,7 +193,7 @@ const SignDDI = () => {
                                         <div className="text-right">
                                             <img src={DirectDebitLogo} width='114' alt="Direct Debit" />
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                         }
                     </div>

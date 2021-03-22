@@ -636,16 +636,16 @@ const DemoBank = () => {
                                                 bankList.length < 1 &&
                                                 <p className="no-bank">No bank found.</p>
                                             }
-                                            <div className="bank-list-container">
+                                            <div className="demo-bank-list-container">
                                                 {bankList.map((bank, index) => (
-                                                    <div key={index} className="list-banks">
+                                                    <div key={index} className="demo-list-banks">
                                                         { selectedBank === bank.id ?
                                                             <div className="bank-loader-container">
                                                                 <Loader size="2rem" color="primary"/>
                                                             </div>
                                                             : <img
                                                                 style={{cursor: 'pointer'}}
-                                                                className="list-banks-logo"
+                                                                className="demo-list-banks-logo"
                                                                 src={bank.logo}
                                                                 alt={bank.logo}
                                                                 // onClick={() => null}
