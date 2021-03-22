@@ -42,10 +42,14 @@
     /*rgba(255, 255, 255, 0.9)*/
     /*100%);*/
 }
-.bank-list-container-static::after {
-    content: "";
-    flex: auto;
+.bank-list-container-static > div:last-child {
+    margin-right: auto;
+    margin-left: 9px;
 }
+/*.bank-list-container-static::after {*/
+/*    content: "";*/
+/*    flex: auto;*/
+/*}*/
 /*.detail-error {*/
 /*    background: var(--main-theme-color);*/
 /*    min-width: 100%;*/
@@ -108,19 +112,29 @@
 }
 .list-banks-static {
     box-sizing: border-box;
-    width: 30.33%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    width: 31.33%;
     text-align: center;
-    box-shadow: 1px 1px 6px 0 #888888;
-    margin: 6px 1px;
-    border-radius: 5px;
-    background: white;
+    margin: 5px 2px;
+    background: #FFFFFF;
+    border: 1px solid #6D7A84;
+    box-shadow: 0px 1.62877px 1.62877px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
 }
 .list-banks-static:hover {
     box-sizing: border-box;
-    border: 1px solid;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    border: 3px solid #253245;
 }
 .list-banks-static > p {
-    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: #253245;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10.1798px;
+    line-height: 13px;
     text-align: center;
     margin-bottom: -14px;
 }
@@ -131,12 +145,6 @@
 /*    border: 1px solid var(--text-error-color);*/
 /*}*/
 @media (max-width: 540px) {
-    .list-banks-static {
-        width: 30.33%;
-    }
-    .list-banks-static > p {
-        font-size: 10px;
-    }
     .list-banks-logo-static {
         height: 50px;
         width: 80px;
@@ -146,11 +154,6 @@
     }
 }
 @media (min-width: 521px) and (max-width: 770px) {
-    .list-banks-static {
-        width: 30% !important;
-        text-align: center;
-        margin-top: 1rem;
-    }
     .detail-error-block {
         width: 95%;
     }
