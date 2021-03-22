@@ -631,9 +631,9 @@ const Bank = () => {
                                             bankList.length < 1 &&
                                             <p className="no-bank">No bank found.</p>
                                         }
-                                        <div className="bank-list-container">
+                                        <div className="dd-bank-list-container">
                                             {bankList.map((bank, index) => (
-                                                <div key={index} className="list-banks">
+                                                <div key={index} className="dd-list-banks">
                                                     <img
                                                         style={{cursor: 'pointer'}}
                                                         className="list-banks-logo"
