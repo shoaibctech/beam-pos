@@ -5,7 +5,7 @@ import Loader from "../UI/Loader";
 import {makeSecureRequest, getUserData} from "../../utils";
 import moment from "moment";
 import './styles.css';
-import {PaymentStatus} from "../../utils/Constants/PaymentStatus";
+// import {PaymentStatus} from "../../utils/Constants/PaymentStatus";
 
 const CreditTransferHistory = () => {
     const userData = getUserData();
@@ -15,6 +15,7 @@ const CreditTransferHistory = () => {
 
     useEffect(() => {
         getCreditList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getCreditList = async () => {

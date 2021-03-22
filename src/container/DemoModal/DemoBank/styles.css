@@ -29,7 +29,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: flex-start;
-    height: 30rem;
+    height: 27rem;
     padding: 5px;
     overflow-y: scroll;
 
@@ -456,6 +456,7 @@
         background: #9ba9b84d;
         padding-top: 0;
         padding-bottom: 0;
+        /*height: 100vh;*/
     }
     .inner-container {
         background: #ffffff00;
@@ -533,6 +534,6 @@
     .inner-container-grid {
         display: grid;
         grid-template-columns: 49% 51%;
-        min-height: 41rem;
+        min-height: 38rem;
     }
 }

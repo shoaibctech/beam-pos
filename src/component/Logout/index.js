@@ -1,6 +1,4 @@
 import React from 'react';
-import {checkToken} from "../../utils";
-import {Link} from "react-router-dom";
 
 const Logout = ({cookies, userData, logout}) =>{
     return (

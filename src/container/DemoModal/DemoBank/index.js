@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import './styles.css';
 import {NUAPAY_LIVE_BANKS as banks} from "../../../utils/Constants";
@@ -43,14 +43,15 @@ const DemoBank = () => {
     const [isFetching, setFetching] = useState(false)
     const [loaderText, setLoaderText] = useState('beam.');
     const [isWpPayment, setIsWpPayment] = useState(false);
-    const [merchantLogo, setMerchantLogo] = useState(null);
+    // const [merchantLogo, setMerchantLogo] = useState(null);
     const [selectedBank, setSelectedBank] = useState('');
     const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
 
     // const { token, payment_type, bankId } = useParams();
     const token = 'thisistoken';
-    const payment_type = '';
-    const location = useLocation();
+    const merchantLogo = null;
+    // const payment_type = '';
+    // const location = useLocation();
     const history = useHistory();
     const { width } = useViewport();
 

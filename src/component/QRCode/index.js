@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../Payment/styles.css';
 import './style.css';
 import GreenTick from './img/tick-anim.svg';
@@ -22,7 +22,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
     const [imgData, setImgData] = useState('');
     const [linkToSend, setLink] = useState(link);
     const [isCopied, setIsCopied] = useState(false);
-    const svgRef = useRef(null);
+
 
     useEffect(() => {
         if(merchantType === 'charity')
@@ -31,6 +31,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
         setTimeout(() => {
             isStatus && setTick(true);
         }, 1200)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isStatus]);
 
     const redirect = () => {
@@ -100,7 +101,7 @@ const QRCode = ({link, title, isStatus, statusData, amount, merchantType, token}
                 amount,
                 type: merchantType === 'charity' ? 'charity' : 'pos',
             };
-            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/send_lucie_link`, data, 'POST');
+            await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/send_lucie_link`, data, 'POST');
             setIsLinkSending(false);
             setIsLinkSent('success');
         } catch (e) {

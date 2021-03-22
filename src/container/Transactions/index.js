@@ -41,11 +41,11 @@ const Transactions = () => {
     const [tabValue, setTabValue] = useState(0);
     const [index, setIndex] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const [paymentId, setPaymentId] = useState('');
+    // const [paymentId, setPaymentId] = useState('');
     const [isSearching, setIsSearching] = useState(true);
     const [searchData, setSearchData] = useState([]);
     const [isPaymentReceived, setIsPaymentReceived] = useState(false);
-    const [payerName, setPayerName] = useState('');
+    // const [payerName, setPayerName] = useState('');
     const [searchKey, setSearchKey] = useState('');
     const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
 
@@ -54,9 +54,13 @@ const Transactions = () => {
     useEffect( () => {
         getPaymentsList();
         getBalance();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     useEffect(() => {
         getPaymentsList();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPaymentReceived]);
 
     const getPaymentsList = async (page = 1) => {
@@ -88,20 +92,20 @@ const Transactions = () => {
 
     }
 
-    const getRefundPaymentsList = async () => {
-        setIsFetching(true);
-        setTransError('');
-        try {
-            const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
-                {email: getUserData().email}, 'POST' );
-            setIsFetching(false);
-            setPaymentsList( prevState => ({...paymentList.data.paymentList}));
-        } catch (e) {
-            console.log('transssssssssssssssssssssss ', e);
-            setIsFetching(false);
-            setTransError('Refund transaction request failed...');
-        }
-    }
+    // const getRefundPaymentsList = async () => {
+    //     setIsFetching(true);
+    //     setTransError('');
+    //     try {
+    //         const paymentList = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payments`,
+    //             {email: getUserData().email}, 'POST' );
+    //         setIsFetching(false);
+    //         setPaymentsList( prevState => ({...paymentList.data.paymentList}));
+    //     } catch (e) {
+    //         console.log('transssssssssssssssssssssss ', e);
+    //         setIsFetching(false);
+    //         setTransError('Refund transaction request failed...');
+    //     }
+    // }
 
     const getBalance = async () => {
         setBalanceError('');
@@ -178,34 +182,34 @@ const Transactions = () => {
             e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
         }
     }
-    const getPaymentDetail = async () => {
-        if (!paymentId && !payerName)
-            return;
-
-        setIsFetching(true);
-        setIsSearching(true);
-        const apiData = payerName ? {
-            payerName: payerName,
-            merchantId: getUserData().merchant_id
-        } :
-            {
-                paymentId: paymentId,
-                merchantId: getUserData().merchant_id
-            };
-        try {
-            const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
-                apiData, 'POST');
-            const data = paymentId ? [req.data.paymentDetail] : req.data.paymentDetail;
-            setSearchData(data);
-            console.log('payment Detail :: ', data);
-            setIsFetching(false);
-        } catch (e) {
-            setIsFetching(false);
-            setSearchData([]);
-           console.log(e);
-           e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
-        }
-    }
+    // const getPaymentDetail = async () => {
+    //     if (!paymentId && !payerName)
+    //         return;
+    //
+    //     setIsFetching(true);
+    //     setIsSearching(true);
+    //     const apiData = payerName ? {
+    //         payerName: payerName,
+    //         merchantId: getUserData().merchant_id
+    //     } :
+    //         {
+    //             paymentId: paymentId,
+    //             merchantId: getUserData().merchant_id
+    //         };
+    //     try {
+    //         const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
+    //             apiData, 'POST');
+    //         const data = paymentId ? [req.data.paymentDetail] : req.data.paymentDetail;
+    //         setSearchData(data);
+    //         console.log('payment Detail :: ', data);
+    //         setIsFetching(false);
+    //     } catch (e) {
+    //         setIsFetching(false);
+    //         setSearchData([]);
+    //        console.log(e);
+    //        e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
+    //     }
+    // }
 
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1);
@@ -420,7 +424,7 @@ const Transactions = () => {
                                                     })
                                                     : !isFetching && isSearching &&
                                                     <div className="text-center tr-info">
-                                                        <span className="loading">No payment details found against <strong>{paymentId}</strong></span>
+                                                        <span className="loading">No payment details found against</span>
                                                     </div>
                                             }
                                             {
