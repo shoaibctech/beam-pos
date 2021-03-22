@@ -23,8 +23,7 @@ var webAuth = new auth0.WebAuth({
 const namespace = "https://posjunction.com";
 //4S2K - Y7RL - DBX8 - ANK3 - 62BG - 8E35
 const Signin = () =>  {
-
-    const [ setCookie] = useCookies(['isToken']);
+    const [cookie, setCookie] = useCookies(['isToken']); // eslint-disable-line no-unused-vars
     const history = useHistory();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
