@@ -74,6 +74,7 @@ const Home =  () => {
         setStep(1);
         setActiveStep(0);
         setAmount('');
+        setIsStatus(false);
     }, [location.pathname]);
 
     const steps = getSteps();
