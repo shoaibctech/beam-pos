@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CreditTransferHistory from '../../component/CreditTransferHistory';
 import WithdrawForm from '../../component/WithdrawForm';
 import moment from 'moment';
-import { orderBy } from 'lodash';
+import { orderBy, debounce } from 'lodash';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 
@@ -33,6 +33,7 @@ const Transactions = () => {
     const { width } = useViewport();
     const [paymentList, setPaymentsList] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
+    const [searchPageNumber, setSearchPageNumber] = useState(1);
     const [isLastPage, setIsLastPage] = useState(false);
     const [transError, setTransError] = useState('');
     const [isFetching, setIsFetching] = useState(false);
@@ -52,18 +53,23 @@ const Transactions = () => {
     const { account_type, merchant_type } = getUserData();
 
     useEffect( () => {
-        getPaymentsList();
+        getPaymentsList(pageNumber, isPaymentReceived);
         getBalance();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        getPaymentsList();
+    // useEffect(() => {
+    //     if(searchKey) {
+    //         searchPayment(searchKey, searchPageNumber);
+    //     } else {
+    //         getPaymentsList(pageNumber);
+    //     }
+    //
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [isPaymentReceived]);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPaymentReceived]);
 
-    const getPaymentsList = async (page = 1) => {
+    const getPaymentsList = async (page = 1, isPaymentCleared) => {
         setIsFetching(true);
         setTransError('');
         setIsSearching(false);
@@ -72,14 +78,12 @@ const Transactions = () => {
                 {
                     merchant_id: getUserData().merchant_id,
                     pageNumber: page,
-                    paymentStatus: !isPaymentReceived ? 'PAYMENT_RECEIVED' : 'all'
+                    paymentStatus: isPaymentCleared ?  'all' : 'PAYMENT_RECEIVED'
                 }, 'POST' );
 
             setIsFetching(false);
             const sortedData =  orderBy(paymentListReq.data.paymentList.data, ['creationDateTime'], ['desc']);
-            if (page === paymentListReq.data.paymentList.page.totalPages){
-                setIsLastPage(true);
-            }
+            checkIfLastPage(page, paymentListReq.data.paymentList);
             if (page === 1){
                 setPaymentsList( prevState => ([...sortedData]));
             } else {
@@ -130,6 +134,7 @@ const Transactions = () => {
             return (   <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{payment.id}</td>
+                <td>{payment.remittanceInformation && payment.remittanceInformation.unstructured ? payment.remittanceInformation.unstructured : 'N/A'}</td>
                 <td>{payment.debtorAccount && payment.debtorAccount.name ? payment.debtorAccount.name : 'N/A'}</td>
                 <td>{payment.amount.toFixed(2)}</td>
                 <td>{payment.currency}</td>
@@ -155,26 +160,45 @@ const Transactions = () => {
         }
     };
 
-    const handleSearch = async (e) => {
-        if (e.target.value === ''){
+    const debouncedSave = useCallback(
+        debounce((key,page, paymentStatus) => searchPayment(key, page, paymentStatus), 500),
+        [],
+    );
+
+    const handleSearch = (e) => {
+        setSearchKey(e.target.value);
+        debouncedSave(e.target.value, 1, isPaymentReceived);
+    }
+
+    const searchPayment = async (value, page = 1, isPaymentCleared = isPaymentReceived) => {
+        if (value === ''){
          setIsSearching(false);
-         setSearchKey(e.target.value);
+         getPaymentsList(pageNumber, isPaymentCleared)
          return;
         }
 
         setIsFetching(true);
         setIsSearching(true);
-        setSearchKey(e.target.value);
         const apiData = {
-                searchKey: e.target.value,
-                merchantId: getUserData().merchant_id
-            };
+            searchKey: value,
+            merchantId: getUserData().merchant_id,
+            pageNumber: page,
+            paymentStatus: isPaymentCleared ?  'all' : 'PAYMENT_RECEIVED'
+        };
 
         try {
             const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
                 apiData, 'POST');
-            setSearchData(req.data.paymentDetail);
+
+            setSearchData(req.data.paymentDetail.data);
             setIsFetching(false);
+            checkIfLastPage(page, req.data.paymentDetail);
+            const sortedData =  orderBy(req.data.paymentDetail.data, ['creationDateTime'], ['desc']);
+            if (page === 1){
+                setSearchData( prevState => ([...sortedData]));
+            } else {
+                setSearchData( prevState => ([...searchData,...sortedData]));
+            }
         } catch (e) {
             setIsFetching(false);
             setSearchData([]);
@@ -182,43 +206,37 @@ const Transactions = () => {
             e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
         }
     }
-    // const getPaymentDetail = async () => {
-    //     if (!paymentId && !payerName)
-    //         return;
-    //
-    //     setIsFetching(true);
-    //     setIsSearching(true);
-    //     const apiData = payerName ? {
-    //         payerName: payerName,
-    //         merchantId: getUserData().merchant_id
-    //     } :
-    //         {
-    //             paymentId: paymentId,
-    //             merchantId: getUserData().merchant_id
-    //         };
-    //     try {
-    //         const req = await makeSecureRequest(`${process.env.REACT_APP_BACKEND_URL}/api/payment/retrieve`,
-    //             apiData, 'POST');
-    //         const data = paymentId ? [req.data.paymentDetail] : req.data.paymentDetail;
-    //         setSearchData(data);
-    //         console.log('payment Detail :: ', data);
-    //         setIsFetching(false);
-    //     } catch (e) {
-    //         setIsFetching(false);
-    //         setSearchData([]);
-    //        console.log(e);
-    //        e.response && e.response.data.message.includes('404') ? setTransError('') : setTransError('Payment detail request failed.');
-    //     }
-    // }
+
+    const checkIfLastPage = (page, pageElement) => {
+        if (page >= pageElement.page.totalPages){
+            setIsLastPage(true);
+        } else {
+            setIsLastPage(false);
+        }
+    }
+
 
     const handleNextPage = () => {
-        setPageNumber(pageNumber + 1);
-        getPaymentsList(pageNumber + 1);
+        if (searchKey){
+            setSearchPageNumber(searchPageNumber + 1)
+            searchPayment(searchKey, searchPageNumber + 1, isPaymentReceived);
+        } else {
+            setPageNumber(pageNumber + 1);
+            getPaymentsList(pageNumber + 1, isPaymentReceived);
+        }
     }
+
     const handleSwitchChange = (event) => {
         setPaymentsList([]);
         setIsPaymentReceived(event.target.checked);
+
+        if(searchKey) {
+            searchPayment(searchKey, searchPageNumber, event.target.checked);
+        } else {
+            getPaymentsList(pageNumber, event.target.checked);
+        }
     }
+
     return (
         <div className="transaction">
             {
@@ -319,6 +337,7 @@ const Transactions = () => {
                                         <tr>
                                             <th>No</th>
                                             <th>Payment Id</th>
+                                            <th>Order Id</th>
                                             <th>Payer Name</th>
                                             <th>Amount</th>
                                             <th>Currency</th>
@@ -342,7 +361,7 @@ const Transactions = () => {
                                             </tr>
                                         }
                                         {
-                                            !isFetching && isSearching  && searchData  && searchData.length > 0 ?
+                                            isSearching  && searchData  && searchData.length > 0 ?
                                                 renderTable(searchData)
                                                 : !isFetching && isSearching && <tr rowSpan="4" style={{height: '10rem'}}>
                                                 <td colSpan="10" className="loading">No transaction found against <strong>{searchKey}</strong></td>

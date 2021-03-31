@@ -191,7 +191,7 @@
     margin: 0 auto;
     border-radius: 5px;
 }
-.inner-container-grid {
+.demo-inner-container-grid {
     display: grid;
     grid-template-columns: 45% 55%;
 }
@@ -405,7 +405,7 @@
         margin: 0 auto;
         border-radius: 10px;
     }
-    .inner-container-grid {
+    .demo-inner-container-grid {
         display: grid;
         grid-template-columns: 100%;
     }
@@ -465,7 +465,7 @@
         border-radius: 0;
         overflow: hidden;
     }
-    .inner-container-grid {
+    .demo-inner-container-grid {
         display: grid;
         grid-template-columns: 100%;
     }
@@ -531,7 +531,7 @@
         z-index: 10;
         width: 100%;
     }
-    .inner-container-grid {
+    .demo-inner-container-grid {
         display: grid;
         grid-template-columns: 49% 51%;
         min-height: 38rem;

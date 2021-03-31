@@ -333,7 +333,7 @@ const Bank = () => {
                 showQrCode ?
                     <div className="outer-container">
                         <div className="inner-container">
-                            <div className="inner-container-grid">
+                            <div className="dd-inner-container-grid">
                                 <div className="left-section">
                                     <div className="left-content">
                                         {/*<span className="cursor-pointer" onClick={() => window.history.back()}><i className="fas fa-arrow-left"></i> back</span>*/}
@@ -418,7 +418,7 @@ const Bank = () => {
                     :
                     <div className="outer-container">
                     <div className="inner-container">
-                        <div className="inner-container-grid">
+                        <div className="dd-inner-container-grid">
                             <div className="left-section">
                                 <div className="left-content">
                                     {

@@ -345,7 +345,7 @@ const DemoBank = () => {
                 showQrCode ?
                     <div className="demo-outer-container">
                         <div className="inner-container">
-                            <div className="inner-container-grid">
+                            <div className="demo-inner-container-grid">
                                 <div className="left-section">
                                     <div className="left-content">
                                         {/*<span className="cursor-pointer" onClick={() => window.history.back()}><i className="fas fa-arrow-left"></i> back</span>*/}
@@ -430,7 +430,7 @@ const DemoBank = () => {
                     :
                     <div className="demo-outer-container">
                         <div className="inner-container">
-                            <div className="inner-container-grid">
+                            <div className="demo-inner-container-grid">
                                 <div className="left-section">
                                     <div className="left-content">
                                         {/*{*/}

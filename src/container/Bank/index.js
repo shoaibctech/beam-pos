@@ -121,6 +121,7 @@ const Bank = () => {
             // console.log(e);
             // console.log(e.response);
             // console.log(e.response.data);
+            setSelectedBank('');
             setLoading(false);
             switch (e.response.data.ErrorCode) {
                 case 101:
@@ -626,7 +627,7 @@ const Bank = () => {
                                     {paymentData && paymentData.merchant_type === 'nontip' &&  merchantType !== 'charity' &&
                                     <div className="flow-steps">
                                         <div><span className="step-mark">1</span> Select your bank</div>
-                                        <div><span className="step-mark">2</span> Authorize your payment</div>
+                                        <div><span className="step-mark">2</span> Authorise your payment</div>
                                         <div><span className="step-mark">3</span> Return to{' '} <strong style={{marginLeft: '5px'}}> beam.</strong></div>
                                     </div>
                                     }

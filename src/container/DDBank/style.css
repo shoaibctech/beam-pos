@@ -187,7 +187,7 @@
     margin: 0 auto;
     border-radius: 5px;
 }
-.inner-container-grid {
+.dd-inner-container-grid {
     display: grid;
     grid-template-columns: 45% 55%;
 }
@@ -403,7 +403,7 @@
         margin: 0 auto;
         border-radius: 10px;
     }
-    .inner-container-grid {
+    .dd-inner-container-grid {
         display: grid;
         grid-template-columns: 100%;
     }
@@ -452,7 +452,7 @@
         margin: 0 auto;
         border-radius: 0;
     }
-    .inner-container-grid {
+    .dd-inner-container-grid {
         display: grid;
         grid-template-columns: 100%;
     }
