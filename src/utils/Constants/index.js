@@ -1,5 +1,5 @@
 export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTION' ? [
-    {
+    {//redeploying
         "id": "qj29q69mxn",
         "uri": "/banks/qj29q69mxn",
         "name": "Barclays Personal",
