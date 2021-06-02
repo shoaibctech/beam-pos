@@ -166,6 +166,7 @@ const Transactions = () => {
     );
 
     const handleSearch = (e) => {
+        setSearchData([]);
         setSearchKey(e.target.value);
         debouncedSave(e.target.value, 1, isPaymentReceived);
     }
