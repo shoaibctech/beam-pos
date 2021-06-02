@@ -41,6 +41,10 @@
     background: white;
     border: 2px solid var(--btn-bg-color);
 }
+.login-bank-btn:disabled {
+    color: var(--btn-bg-disable-color);
+    border: 2px solid var(--btn-bg-disable-color);
+}
 
 .popupCloseButton {
     /*background-color: #C4C4C4;*/

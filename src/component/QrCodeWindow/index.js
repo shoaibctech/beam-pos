@@ -47,7 +47,13 @@ const QrCodeWindow = ({qrCodeImg, handleSelectedBank, handleContinuePayment, isP
                                <span className="or-content" >Or</span>
                                <hr className="or-line"/>
                            </div>
-                           <button className="btn login-bank-btn" onClick={handleContinuePayment}>Login to your bank</button>
+                           <button
+                               className="btn login-bank-btn"
+                               onClick={handleContinuePayment}
+                               disabled={isPaymentProcessing}
+                           >
+                               Login to your bank
+                           </button>
                        </div>
                    </div>
                </div>

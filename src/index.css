@@ -12,7 +12,8 @@
 
     --btn-txt-color: white;
     --btn-bg-color: #ff1375;
-    --btn-bg-hover-color: #fc4c95;;
+    --btn-bg-hover-color: #fc4c95;
+    --btn-bg-disable-color: #e7699de6;
 
     --input-hover-color: #151B25;
     --input-border-color: lightgrey;
