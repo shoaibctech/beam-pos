@@ -9,3 +9,7 @@
 .label {
     margin-left: 10px;
 }
+.signup-link a {
+    color: var(--btn-bg-color);
+    text-decoration: underline;
+}

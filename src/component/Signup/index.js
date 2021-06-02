@@ -229,8 +229,8 @@ const Signup = () => {
                 </div>
                 {
                     isSignedUp &&
-                    <div className="bottom-section-container">
-                        <p className="mr-1" style={{color: "green"}}>You account has been registered. <Link to="/">Login</Link></p>
+                    <div className="bottom-section-container signup-link">
+                        <p className="mr-1" style={{color: "green"}}>You account has been registered. <Link to="/">click here to Login</Link></p>
                     </div>
                 }
                 <div className="bottom-section-container">
