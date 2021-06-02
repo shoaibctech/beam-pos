@@ -3,10 +3,11 @@ import AntiClockLoader from '../../component/UI/AnitClockLoader';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import './styles.css';
 
-const QrCodeWindow = ({qrCodeImg, handleSelectedBank, handleContinuePayment, isPaymentProcessing}) =>  {
+const QrCodeWindow = ({qrCodeImg, handleSelectedBank, handleContinuePayment, isPaymentProcessing, clearLoading}) =>  {
 
     const hidePopUp = () => {
         handleSelectedBank('');
+        clearLoading();
         document.getElementById('pop-block').style.display = 'none';
     }
 

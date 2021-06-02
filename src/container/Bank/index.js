@@ -96,7 +96,11 @@ const Bank = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
+    const clearLoading = () => {
+        setIsPaymentProcessing(false);
+        setLoading(false);
+        setQrCodeImg(null);
+    }
     const createPayment = async (bankId) => {
         try {
             setLoading(true);
@@ -705,6 +709,7 @@ const Bank = () => {
                                         isPaymentProcessing={isPaymentProcessing}
                                         qrCodeImg={qrCodeImg}
                                         handleSelectedBank={setSelectedBank}
+                                        clearLoading={clearLoading}
                                         // handleContinuePayment={() => setIsPaymentProcessing(!isPaymentProcessing)}/>
                                         handleContinuePayment={() => createPayment(selectedBank)}/>
                                 </div>
