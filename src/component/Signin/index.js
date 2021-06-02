@@ -124,7 +124,7 @@ const Signin = () =>  {
             updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
             addDataToDatabase(decodedIdToken.merchant_id);
             // Todo redirect to home page
-            history.push('/transaction');
+            history.push('/');
         } catch (e) {
             console.log(e);
             setLoading(false);

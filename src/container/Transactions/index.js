@@ -231,9 +231,11 @@ const Transactions = () => {
         setIsPaymentReceived(event.target.checked);
 
         if(searchKey) {
-            searchPayment(searchKey, searchPageNumber, event.target.checked);
+            setSearchPageNumber(1);
+            searchPayment(searchKey, 1, event.target.checked);
         } else {
-            getPaymentsList(pageNumber, event.target.checked);
+            setPageNumber(1)
+            getPaymentsList(1, event.target.checked);
         }
     }
 
