@@ -59,7 +59,7 @@ const Home =  () => {
     const [successStep, setSuccessStep] = useState(['Amount','Confirm', 'Pay']);
     const [emailStatus, setIsEmailStatus] = useState(false);
     const [errorStatus, setIsErrorStatus] = useState(false);
-    const [link, setLink] = useState('')
+    const [link, setLink] = useState('');
     const [isStatus, setIsStatus] = useState(false);
     const [statusData, setStatusData] = useState({});
     const [qrCode, setQrCode] = useState();
@@ -94,8 +94,10 @@ const Home =  () => {
         channel.bind('qr-code-event', function(data) {
 
             if(data.token === localStorage.getItem('token')){
-                setLoading(true);
-                setLoadingMessage('Payment is in progress... ');
+                if (step === 3){
+                    setLoading(true);
+                    setLoadingMessage('Payment is in progress... ');
+                }
             }
         });
 
@@ -103,22 +105,25 @@ const Home =  () => {
 
             console.log('data ::', data);
             if(data.token === localStorage.getItem('token')) {
-                setLoadingMessage('');
-                setStatusData(data.data);
-                setIsStatus(true);
-                setLoading(false);
+               if (step === 3){
+                   setLoadingMessage('');
+                   setStatusData(data.data);
+                   setIsStatus(true);
+                   setLoading(false);
+               }
             }
         });
 
-        if(step > 0 && loading){
-            document.querySelector('.loader').style.height = 150 + 'vh';
+        if(step > 0 && loading) {
+            document.querySelector('.home-loader').style.height = 150 + 'vh';
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[step, loading]);
 
     const parseImg = () => {
         setStep(step + 1);
-        setActiveStep(activeStep + 1)
+        setActiveStep(activeStep + 1);
+        setIsStatus(false);
       if (location.pathname === '/') {
           setTimeout(() => {
               var doc = new DOMParser().parseFromString(qrCode, 'application/xml');
@@ -167,6 +172,7 @@ const Home =  () => {
     };
 
     const handleEdit = (index) => {
+        setStep(index + 1)
         setActiveStep(index);
         setIsStatus(false);
         setIsErrorStatus(false);
@@ -175,10 +181,11 @@ const Home =  () => {
     const getSuccessStep = (index) => {
         return successStep[index];
     };
+    console.log('step :: ', step);
     return(
         <main>
             {   loading &&
-            <div className="loader">
+            <div className="home-loader">
                 <div id="loaderdiv">
                     <Loader type="TailSpin" color="black" height={100} width={100}/>
                 </div>

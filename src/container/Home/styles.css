@@ -122,19 +122,21 @@ label {
     width: calc(10vw + 224px);
     text-align: center;
 }
-.loader {
+.home-loader {
     position: absolute;
+    left: 0;
+    top: 0;
     z-index: 100;
     width: 100vw;
     min-width: 100vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 80%;
     min-height: 100vh;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
 }
 .success-step {
     background: white;
