@@ -103,7 +103,6 @@ const Signin = () =>  {
                 binding_code: otpCode,
             });
             const res = data.data;
-            setLoading(false);
             const decodedIdToken = jwt(res.id_token);
             decodedIdToken.first_name = decodedIdToken[`${namespace}/first_name`];
             decodedIdToken.last_name = decodedIdToken[`${namespace}/last_name`];
@@ -120,10 +119,11 @@ const Signin = () =>  {
             // Set Expire time to one hour (60 minutes)
             let expMiliSec = milliseconds + 3600000; // add one hour milli seconds to current time milli seconds
             let expSec = expMiliSec / 1000; // divide milli seconds on 1000 to get seconds
-            setCookie('isToken', res.access_token,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
-            updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
-            addDataToDatabase(decodedIdToken.merchant_id);
+            await updateOrCreateMerchant(decodedIdToken.name, decodedIdToken.merchant_id, userName, phone);
+            await addDataToDatabase(decodedIdToken.merchant_id);
             // Todo redirect to home page
+            setLoading(false);
+            setCookie('isToken', res.access_token,  { path: '/', expires: new Date(parseInt(expMiliSec)), maxAge: expSec });
             history.push('/');
         } catch (e) {
             console.log(e);
