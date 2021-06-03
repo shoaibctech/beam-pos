@@ -112,6 +112,7 @@
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     width: 31.33%;
     text-align: center;
+    padding: 2px;
     margin: 4px 2px;
     background: #FFFFFF;
     border: 1px solid #6D7A84;
@@ -122,6 +123,7 @@
     box-sizing: border-box;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    padding: 0px;
     border: 3px solid #253245;
 }
 .list-banks > p {
