@@ -25,7 +25,7 @@ const Signup = () => {
     }, [])
 
     const onSignup = async () => {
-        let merchant = orgs.filter( org => org.contact.email1.toLowerCase() === email.toLowerCase());
+        let merchant = orgs.filter( org => org.contact.email1.toLowerCase().trim() === email.toLowerCase());
         let account;
         setIsSignedUp(false);
 
