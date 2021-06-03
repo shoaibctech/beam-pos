@@ -43,6 +43,7 @@ const MerchantEdit = () => {
             await deleteOldLogo();
             const ReactS3Client = new S3(config);
             const newFileName = logo.name.slice(0, -4);
+            
             ReactS3Client
                 .uploadFile(logo, newFileName)
                 .then(data => updateLogoUrl(data))
