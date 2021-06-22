@@ -8,9 +8,9 @@ import HttpsRedirect from 'react-https-redirect';
 
 ReactDOM.render(
     <CookiesProvider>
-        {/*<HttpsRedirect>*/}
+        <HttpsRedirect>
             <App />
-        {/*</HttpsRedirect>*/}
+        </HttpsRedirect>
     </CookiesProvider>,
     document.getElementById('root')
 );

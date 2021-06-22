@@ -9,7 +9,7 @@ const Product = () => {
 
     const renderComponent = () => {
         const Component = components[step];
-       return <Component />;
+       return <Component step={step} setStep={setStep} />;
     }
     return (
         <div>{renderComponent()}</div>

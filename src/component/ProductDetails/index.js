@@ -14,14 +14,14 @@ const ProductDetails = (step, setStep) => {
 
                 </div>
                 <div className="flex justify-center w-auto h-45 mt-8 mb-8 ">
-                    <img src={ProductImg} alt="Product Image" />
+                    <img src={ProductImg} alt="Product" />
                 </div>
                 <div className="flex opacity-50 h-101 justify-between bg-blue-light rounded-t-md-1">
                     <div className="pl-4 flex">
-                        <img src={Lovehemp} alt="love hemp Image" />
+                        <img src={Lovehemp} alt="love hemp" />
                     </div>
                     <div className="pr-4 flex">
-                        <img src={stars} alt="stars Image" />
+                        <img src={stars} alt="stars" />
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@ const ProductDetails = (step, setStep) => {
                     <div className="block  pt-4 pl-82 pr-83">
                         <div className="flex w-auto h-104 justify-center bg-grey rounded-md-2">
                             {/*<p className="py-3 font-inter font-semibold not-italic text-orange-500 tracking-wide text-sm">FREE DELIVERY (UK ONLY)</p>*/}
-                            <img src={d} alt="stars Image" />
+                            <img src={d} alt="stars" />
                         </div>
                         <div className="flex w-auto h-12 mt-200 bg-white">
                             <p className="font-inter font-semibold not-italic tracking-custom text-title-color text-lg">Love Hemp CBD Liquid Oil Drops 1,200mg CBD</p>
@@ -47,15 +47,15 @@ const ProductDetails = (step, setStep) => {
 
                         <div className="flex justify-start mt-203 ">
                             <div className="flex ">
-                                <img src={vector} alt="Product Image" className="h-83" />
+                                <img src={vector} alt="Product" className="h-83" />
                                 <p className="pl-85 h-4 font-inter font-medium not-italic text-type-color text-sm">Vegan</p>
                             </div>
                             <div className="flex pl-204">
-                                <img src={vector} alt="Product Image" className="h-83" />
+                                <img src={vector} alt="Product" className="h-83" />
                                 <p className="pl-85 h-4 font-inter font-medium not-italic text-type-color text-sm">Gluten free</p>
                             </div>
                             <div className="flex pl-204">
-                                <img src={vector} alt="Product Image" className="h-83" />
+                                <img src={vector} alt="Product" className="h-83" />
                                 <p className="pl-85 h-4 font-inter font-medium not-italic text-type-color text-sm">Zero THC</p>
                             </div>
                         </div>
