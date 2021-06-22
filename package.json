@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.8.1",
+    "@craco/craco": "^6.1.2",
     "@material-ui/core": "4.9.10",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.49",
@@ -34,17 +35,17 @@
     "react-player": "^2.0.1",
     "react-pusher": "^0.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
+    "react-scripts": "^4.0.3",
     "react-spinners": "^0.7.2",
     "request": "^2.88.2",
     "serve": "^11.3.2",
     "yarn": "^1.22.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "craco start",
     "start": "serve -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2"
   }
 }
