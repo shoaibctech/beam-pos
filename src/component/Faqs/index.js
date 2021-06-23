@@ -22,14 +22,10 @@ const FaqItem = ({title, message} ) => {
     );
 }
  const Faqs = ( ) => {
-
-     const [open, setOpen] = useState(false)
-
      return (
          <div>
-             <p className="text-input font-inter font-semibold not-italic text-price-color"  onClick={() => setOpen(!open)}>FAQ's</p>
+             <p className="text-input font-inter font-semibold not-italic text-price-color">FAQ's</p>
              {
-                 open &&
                  <div className="pt-83">
                      <FaqItem title={"FAQ #1"} message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}/>
                      <FaqItem title={"FAQ #2"} message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}/>

@@ -36,7 +36,7 @@ const ShippingDetails = ({step, setStep, product}) => {
                             <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Postcode"/>
                         </div>
                         <button
-                            //onClick={ () => setStep(step+1)}
+                            onClick={ () => setStep(step + 1)}
                             className="w-full mt-10 h-205 bg-darkGrey rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-white text-smbtn">
                             View order summary
                         </button>

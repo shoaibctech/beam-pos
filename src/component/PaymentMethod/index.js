@@ -4,7 +4,7 @@ import vector from "../PaymentMethod/images/Vector.svg";
 import BorderTick from "../PaymentMethod/images/borderTick.svg";
 import Faq from "../Faqs";
 
-const PaymentMethod = () => {
+const PaymentMethod = ({step, setStep, product}) => {
     return (
         <div>
             <div className="bg-paymentDark w-auto pt-10 h-114">
@@ -64,7 +64,7 @@ const PaymentMethod = () => {
                     </div>
 
                     <button
-                        //onClick={ () => setStep(step+1)}
+                        onClick={ () => setStep(step - 1)}
                         className="w-full mt-209 mb-8 rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-flavour-color text-smbtn">
                         Cancel
                     </button>
@@ -72,7 +72,7 @@ const PaymentMethod = () => {
                 </div>
                 <div className="flex justify-center sticky bottom-0 bg-white py-205 rounded-md-2 shadow-2xl">
                     <button
-                        //onClick={ () => setStep(step+1)}
+                        onClick={ () => setStep(step + 1)}
                         className="w-full mx-5 h-205 bg-darkGrey rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-white text-smbtn">
                         Select your bank
                     </button>

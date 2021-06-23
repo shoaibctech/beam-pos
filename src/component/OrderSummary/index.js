@@ -1,6 +1,6 @@
 import React  from "react";
 
-const OrderSummary = () => {
+const OrderSummary = ({step, setStep, product}) => {
     return (
         <div>
             <div className="bg-blue-light  w-screen px-5 pt-5">
@@ -62,7 +62,7 @@ const OrderSummary = () => {
                     </div>
                 </div>
                 <button
-                    //onClick={ () => setStep(step+1)}
+                    onClick={ () => setStep(step - 1)}
                     className="w-full mt-211 mb-8 rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-flavour-color text-smbtn">
                     Back to shipping
                 </button>
@@ -70,7 +70,7 @@ const OrderSummary = () => {
 
             <div className="flex justify-center sticky bottom-0 bg-white py-205 rounded-md-2 shadow-2xl">
                 <button
-                    //onClick={ () => setStep(step+1)}
+                    onClick={ () => setStep(step + 1)}
                     className="w-full mx-5 h-205 bg-darkGrey rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-white text-smbtn">
                     Finalise your order
                 </button>
