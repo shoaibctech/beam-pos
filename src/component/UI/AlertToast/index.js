@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default  ({isOpen, handleClose, message, severity = 'success'}) => {
+const AlertToast = ({isOpen, handleClose, message, severity = 'success'}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -28,3 +28,5 @@ export default  ({isOpen, handleClose, message, severity = 'success'}) => {
         </div>
     );
 }
+
+export default AlertToast;

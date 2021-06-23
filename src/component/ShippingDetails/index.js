@@ -1,12 +1,13 @@
 import React  from "react";
+import ShopifyStepper from "../UI/ShopifyStepper";
 
-const ShippingDetails = () => {
+const ShippingDetails = ({step, setStep, product}) => {
     return (
         <div>
             <div className="bg-blue-light w-screen p-5">
-                <div className="flex w-auto h-100 bg-white rounded-md-1">
-
-                </div>
+                <ShopifyStepper step={step} />
+                {/*<div className="flex w-auto h-100 bg-white rounded-md-1">*/}
+                {/*</div>*/}
 
                 <div className="flex h-111 w-auto bg-white rounded-lg mt-5">
                     <div className="m-5 w-screen ">
@@ -47,7 +48,7 @@ const ShippingDetails = () => {
                     </div>
                 </div>
                 <button
-                    //onClick={ () => setStep(step+1)}
+                    onClick={ () => setStep(step - 1)}
                     className="w-full mt-209 mb-210 rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-flavour-color text-smbtn">
                     Back to product
                 </button>

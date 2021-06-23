@@ -1,24 +1,24 @@
 import React from "react";
-import ProductImg from './images/Homepage-CategoriesOils_600x 1.svg';
-import Lovehemp from "./images/Love Hemp.svg";
+import LoveHemp from "./images/Love Hemp.svg";
 import stars from "./images/stars.svg";
 import d from "./images/Desktop.svg";
 import vector from "./images/Vector.svg";
+import ShopifyStepper from "../UI/ShopifyStepper";
 
-const ProductDetails = (step, setStep) => {
+const ProductDetails = ({step, setStep, product}) => {
+
+    console.log('product de:: ', product);
 
     return (
         <div>
             <div className="relative w-auto h-98 bg-blue px-5 pt-81">
-                <div className="flex w-auto h-100 bg-white rounded-md-1">
-
-                </div>
+                <ShopifyStepper step={step} />
                 <div className="flex justify-center w-auto h-45 mt-8 mb-8 ">
-                    <img src={ProductImg} alt="Product" />
+                    <img src={product && product.img} alt="Product" />
                 </div>
                 <div className="flex opacity-50 h-101 justify-between bg-blue-light rounded-t-md-1">
                     <div className="pl-4 flex">
-                        <img src={Lovehemp} alt="love hemp" />
+                        <img src={LoveHemp} alt="love hemp" />
                     </div>
                     <div className="pr-4 flex">
                         <img src={stars} alt="stars" />
@@ -33,7 +33,9 @@ const ProductDetails = (step, setStep) => {
                             <img src={d} alt="stars" />
                         </div>
                         <div className="flex w-auto h-12 mt-200 bg-white">
-                            <p className="font-inter font-semibold not-italic tracking-custom text-title-color text-lg">Love Hemp CBD Liquid Oil Drops 1,200mg CBD</p>
+                            <p className="font-inter font-semibold not-italic tracking-custom text-title-color text-lg">
+                                {product && product.title}
+                            </p>
                         </div>
 
                         <div className="flex  mt-201 ">
@@ -84,7 +86,7 @@ const ProductDetails = (step, setStep) => {
                                 <p className="text-base leading-8 font-inter font-medium not-italic text-price-color">Price</p>
                             </div>
                             <div className=" flex">
-                                <p className="text-base leading-8 font-inter font-medium not-italic text-price-color">£44.99</p>
+                                <p className="text-base leading-8 font-inter font-medium not-italic text-price-color">£{product && product.price}</p>
                             </div>
                         </div>
                         <div className="flex px-86 pt-87 justify-between ">

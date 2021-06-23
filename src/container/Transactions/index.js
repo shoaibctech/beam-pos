@@ -160,9 +160,11 @@ const Transactions = () => {
         }
     };
 
-    const debouncedSave = useCallback(
-        debounce((key,page, paymentStatus) => searchPayment(key, page, paymentStatus), 500),
-        [],
+    const debouncedSave = useCallback ( () => {
+            debounce((key, page, paymentStatus) => searchPayment(key, page, paymentStatus), 500)
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []
     );
 
     const handleSearch = (e) => {
