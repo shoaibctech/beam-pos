@@ -9,12 +9,12 @@ const FaqItem = ({title, message} ) => {
     return (
         <div>
             <div className="flex justify-between" onClick={() => setOpen(!open)}>
-                <p className=" text-input font-inter font-normal not-italic text-btn-text-color" >{title}</p>
+                <p className="pt-214 text-input font-inter font-medium not-italic text-btn-text-color" >{title}</p>
                 {!open ? <img src={Down} alt="logo" className="pr-1" /> : <img src={Up} alt="logo" className="pr-1" /> }
             </div>
             {
                 open &&
-                <div>
+                <div className="pb-83 pt-214 w-auto text-left font-inter font-medium not-italic text-flavour-color text-sm">
                     <p>{message}</p>
                 </div>
             }
@@ -26,7 +26,7 @@ const FaqItem = ({title, message} ) => {
          <div>
              <p className="text-input font-inter font-semibold not-italic text-price-color">FAQ's</p>
              {
-                 <div className="pt-83">
+                 <div className="pt-91">
                      <FaqItem title={"FAQ #1"} message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}/>
                      <FaqItem title={"FAQ #2"} message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}/>
                      <FaqItem title={"FAQ #3"} message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}/>

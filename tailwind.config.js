@@ -12,6 +12,8 @@ module.exports = {
         green: {
           DEFAULT: '#33846E'
         },
+        ratingDiv: 'rgba(249, 250, 251, 0.5)',
+        borderColor: '#4B5563',
         paymentDark: '#7d838d',
         white: '#FFFFFF',
         darkGrey: '#374151',
@@ -20,6 +22,7 @@ module.exports = {
         blue: {
           light: '#F9FAFB',
           DEFAULT: '#BAD3CD',
+          medium: '#dce9e6',
         },
         orange: {
           DEFAULT: '#FFF7ED',
@@ -35,9 +38,12 @@ module.exports = {
         '85': '0.47625rem', //padding between vector and typle div
         '86': '1.3125rem', //padding price div
         '87': '1.96875rem', //padding price div
+        'search': '0.76562rem', //searchicon padding
         '88': '0.1875rem', //padding summary info
         '89': '1.5625rem', //padding summary info (total Price div )
         '90': '1.0625rem', //padding payment method
+        '91': '0.3125rem', //padding payment method
+        '92': '0.4375rem', //padding payment method
 
 
         //width & height
@@ -58,6 +64,7 @@ module.exports = {
         '113': '31.75rem', //shipping (input field) div height
         '114': '7.125rem', //payment method) div height
         '115': '6.625rem', //payment method (term&conditions) div height
+        '116': '22.6875rem', //payment method (term&conditions) div height
 
 
 
@@ -77,6 +84,9 @@ module.exports = {
         '212': '1.375rem', //payment method div
         '213': '1.125rem', //payment method div
         '214': '0.625rem', //payment method div
+        '215': '3.375rem', //banking method div
+        '216': '1.0625rem', //banking method div
+        '217': '13.375rem', //banking method div
 
 
       }
@@ -109,6 +119,7 @@ module.exports = {
       sm1: ['14px', '16.94px'],
       smbtn: ['14px', '16px'],
       base: ['16px', '24px'],
+      stepper: ['11px', '16px'],
       heading: ['18px', '24px'],
       totalPrice: ['18px', '21.78px'],
       input: ['14px', '20px'], //font-size for inputs ordersummary page

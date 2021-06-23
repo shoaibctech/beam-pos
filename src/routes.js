@@ -23,6 +23,7 @@ import DemoModal from "./container/DemoModal";
 import StaticPayments from "./container/StaticPayments";
 import ProductPaymentStatus from "./container/ProductPaymentStatus";
 import Product from "./container/Product";
+import OrderStatus from "./container/OrderStatus";
 
 import { getUserData } from "./utils";
 
@@ -53,6 +54,7 @@ const MainRoute = () => {
                 <Route path="/product/status/:payment_status?/:order_id?/:payment_token?" exact component={ProductPaymentStatus}/>
                 <Route path="/product/:payment_token?" exact component={StaticPayments}/>
                 <Route path="/order/product" exact component={Product}/>
+                <Route path="/order/status" exact component={OrderStatus}/>
                 <Route>
                     <p>Some thing went wrong</p>
                 </Route>

@@ -1,12 +1,11 @@
 import React  from "react";
+import ShopifyStepper from "../UI/ShopifyStepper";
 
 const OrderSummary = ({step, setStep, product}) => {
     return (
         <div>
             <div className="bg-blue-light  w-screen px-5 pt-5">
-                <div className="flex w-auto h-100 bg-white rounded-md-1">
-
-                </div>
+                <ShopifyStepper step={step} />
 
                 <div className="flex h-113 w-auto bg-white rounded-lg mt-5">
                     <div className="m-5 w-screen ">
