@@ -8,7 +8,24 @@ module.exports = {
       letterSpacing: {
         custom: '-0.02em',
       },
-
+      colors: theme => ({
+        green: {
+          DEFAULT: '#33846E'
+        },
+        paymentDark: '#7d838d',
+        white: '#FFFFFF',
+        darkGrey: '#374151',
+        grey: '#f9fafb',
+        greyBorder: '#F3F4F6',
+        blue: {
+          light: '#F9FAFB',
+          DEFAULT: '#BAD3CD',
+        },
+        orange: {
+          DEFAULT: '#FFF7ED',
+        },
+        border: '#e5e7eb',
+      }),
       spacing: {
         //paddings
         '81': '1.1875rem',
@@ -20,6 +37,7 @@ module.exports = {
         '87': '1.96875rem', //padding price div
         '88': '0.1875rem', //padding summary info
         '89': '1.5625rem', //padding summary info (total Price div )
+        '90': '1.0625rem', //padding payment method
 
 
         //width & height
@@ -37,6 +55,9 @@ module.exports = {
         '110': '9.4375rem', //price div height
         '111': '47rem', //shipping div height
         '112': '3.25rem', //shipping (input field) div height
+        '113': '31.75rem', //shipping (input field) div height
+        '114': '7.125rem', //payment method) div height
+        '115': '6.625rem', //payment method (term&conditions) div height
 
 
 
@@ -52,6 +73,10 @@ module.exports = {
         '208': '3.125rem', //shipping div (ml)
         '209': '1.8125rem', //margin product name
         '210': '1.9375rem', //margin product name
+        '211': '1.6875rem', //margin shiiping summary page (back button top margin)
+        '212': '1.375rem', //payment method div
+        '213': '1.125rem', //payment method div
+        '214': '0.625rem', //payment method div
 
 
       }
@@ -99,23 +124,7 @@ module.exports = {
     container: {
       center: true,
     },
-    colors: theme => ({
-      green: {
-        DEFAULT: '#33846E'
-      },
-      white: '#FFFFFF',
-      darkGrey: '#374151',
-      grey: '#f9fafb',
-      greyBorder: '#F3F4F6',
-      blue: {
-        light: '#F9FAFB',
-        DEFAULT: '#BAD3CD',
-      },
-      orange: {
-        DEFAULT: '#FFF7ED',
-      },
-      border: '#e5e7eb',
-    }),
+
   },
   variants: {
     extend: {

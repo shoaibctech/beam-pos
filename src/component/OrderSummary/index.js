@@ -3,12 +3,12 @@ import React  from "react";
 const OrderSummary = () => {
     return (
         <div>
-            <div className="bg-blue-light w-screen p-5">
+            <div className="bg-blue-light  w-screen px-5 pt-5">
                 <div className="flex w-auto h-100 bg-white rounded-md-1">
 
                 </div>
 
-                <div className="flex h-111 w-auto bg-white rounded-lg my-5">
+                <div className="flex h-113 w-auto bg-white rounded-lg mt-5">
                     <div className="m-5 w-screen ">
                         <div className="flex justify-between pb-83 border-b border-greyBorder">
                             <div className=" flex">
@@ -54,14 +54,20 @@ const OrderSummary = () => {
                             <p className="text-xxs font-inter text-center font-medium not-italic text-flavour-color">You’ll be redirected to your bank for payment</p>
                         </div>
 
-                        <div className=" mt-5 ">
+                        <div className=" mt-2.5 ">
                             <p className=" text-xs text-center text-gray-400 font-inter font-normal not-italic">
                                 Terms and conditions of order text. By confirming this order to Love Hemp you agree to their terms of service and privacy information.
                             </p>
                         </div>
                     </div>
                 </div>
+                <button
+                    //onClick={ () => setStep(step+1)}
+                    className="w-full mt-211 mb-8 rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-flavour-color text-smbtn">
+                    Back to shipping
+                </button>
             </div>
+
             <div className="flex justify-center sticky bottom-0 bg-white py-205 rounded-md-2 shadow-2xl">
                 <button
                     //onClick={ () => setStep(step+1)}
