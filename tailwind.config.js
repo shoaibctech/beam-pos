@@ -51,6 +51,7 @@ module.exports = {
         '94': '1.4375rem', //padding ordersuccessfull
         '300': '1.625rem', //padding orderFailed
         '301': '2.1875rem', //padding orderFailed
+        '302': '0.5625rem', //padding orderFailed
 
 
 

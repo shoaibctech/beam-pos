@@ -13,7 +13,7 @@ const PaymentMethod = ({step, setStep, product}) => {
                         <div className="mt-83">
                             <p className="text-input font-inter font-semibold not-italic text-price-color">Payment method</p>
                         </div>
-                        <div className="flex justify-between mt-214 py-90 pl-82 w-full border border-btn-text-color rounded-md-2">
+                        <div className="flex justify-between mt-214 py-90 pl-82 w-full border border-borderGrey rounded-md-2">
                             <p className="text-input font-inter font-normal not-italic text-price-color">Via your banking app</p>
                             <img src={BorderTick} alt="tick" className="pr-213" />
                         </div>

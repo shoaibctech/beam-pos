@@ -43,14 +43,14 @@ const BankSelection = ({step, setStep, bankId, setBankId}) => {
                             </div>
                         </div>
                         { searchBank && searchBank.length > 0 &&
-                            <div
-                                style={{overflowY: 'scroll', marginTop: '5px' ,background: 'white', position: 'relative', zIndex: '100', border: '1px solid', maxHeight: '300px'}}
+                            <div className="relative bg-white rounded-md-2 z-50 shadow-2xl"
+                                style={{overflowY: 'scroll', border: '1px solid', maxHeight: '300px'}}
                             >
                                 {
                                     searchBank && searchBank.map ((sb, index) =>
                                         <div
                                             key={`search-${sb.id}`}
-                                            className="cursor-pointer flex"
+                                            className="cursor-pointer flex relative"
                                             onClick={() => handleSearchSelect(sb)}
                                         >
                                             <img src={sb.logo} alt="logo" className="pl-4" style={{width: '58px', height: '52px'}} />

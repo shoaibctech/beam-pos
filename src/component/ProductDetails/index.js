@@ -24,8 +24,8 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                     </div>
                 </div>
             </div>
-            <div className="bg-blue-light w-screen  px-5">
-                <div className="w-auto h-102 shadow-3xl bg-white">
+            <div className="bg-blue-light rounded-md-2 h-auto w-screen  px-5">
+                <div className="w-auto h-auto shadow-3xl rounded-b-md-2 bg-white">
                     <div className="block  pt-4 pl-82 pr-83">
                         <div className="flex w-auto h-104 justify-center bg-grey rounded-md-2">
                             {/*<p className="py-3 font-inter font-semibold not-italic text-orange-500 tracking-wide text-sm">FREE DELIVERY (UK ONLY)</p>*/}
@@ -37,9 +37,9 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                             </p>
                         </div>
 
-                        <div className="flex  mt-201 ">
-                            <div className="flex h-107 rounded-md-1 bg-grey">
-                                <p className="py-2 px-84 w-strn font-inter font-medium not-italic tracking-custom text-title-color text-sm1" >
+                        <div className="flex mt-201 ">
+                            <div className="flex py-2 px-84 w-215 h-107 rounded-md-1 bg-grey">
+                                <p className="w-215 text-center font-inter font-medium not-italic tracking-custom text-title-color text-sm1" >
                                     {product && product.strength[strengthIndex]}
                                 </p>
                             </div>
@@ -64,8 +64,8 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                         </div>
 
                         <div className="block  mt-203">
-                            <h1 className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-sm">FLAVOUR</h1>
-                            <div className="flex  mt-4">
+                            <p className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-xxs">FLAVOUR</p>
+                            <div className="flex flex-wrap mt-83">
                                 {
                                     product && product.flavour.map((flavour, index) =>
                                         <button
@@ -74,7 +74,9 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                                                 e.preventDefault();
                                                 setFlavourIndex(index);
                                             }}
-                                            className={`${ flavourIndex === index ? 'selected-flavour-tag' : 'flavour-tag'}`}>
+                                            className={`${ flavourIndex === index ?
+                                                'mb-2 mr-2.5 capitalize px-84 py-302 w-auto whitespace-nowrap h-109 rounded-sm   border border-border bg-darkGrey font-inter font-medium not-italic text-white text-smbtn' : 
+                                                'mb-2 mr-2.5 capitalize px-84 py-302 w-auto h-109 whitespace-nowrap border border-border rounded-sm font-inter font-medium not-italic text-smbtn'}`}>
                                             {flavour}
                                         </button>
                                     )
@@ -82,15 +84,16 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                             </div>
                         </div>
                         <div className="block  mt-203">
-                            <h1 className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-sm">STRENGTH</h1>
-                            <div className="flex  mt-4">
+                            <p className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-xxs">STRENGTH</p>
+                            <div className="flex  mt-83">
                                 {
                                     product && product.strength.map( (strn, index) =>
                                         <button
                                             key={index}
                                             onClick={() => setStrengthIndex(index)}
-                                            className={`${index === strengthIndex ? 'strength-tag-selected' : 'strength-tag'}`}
-                                        >
+                                            className={`${index === strengthIndex ?
+                                                'mb-2 mr-2.5 px-84 py-302 w-auto whitespace-nowrap h-109 rounded-sm   border border-border bg-darkGrey font-inter font-medium not-italic text-white text-smbtn' :
+                                                'mb-2 mr-2.5 px-84 py-302 w-auto h-109 whitespace-nowrap border border-border rounded-sm font-inter font-medium not-italic text-smbtn'}`}>
                                             {strn}
                                         </button>
                                     )
@@ -98,13 +101,17 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                             </div>
                         </div>
                     </div>
-                    <div className="block mt-205 h-110 bg-blue-light rounded-b-md-1">
+                    <div className="block mt-205 pb-211 bg-blue-light rounded-b-md-2">
                         <div className="flex px-86 pt-87 justify-between ">
                             <div className=" flex">
                                 <p className="text-base leading-8 font-inter font-medium not-italic text-price-color">Price</p>
                             </div>
-                            <div className=" flex">
+                            <div className=" flex flex-col text-right">
                                 <p className="text-base leading-8 font-inter font-medium not-italic text-price-color">£{product && product.price}</p>
+                                <p className="text-xxs font-inter tracking-tight font-semibold not-italic text-flavour-color">
+                                    <span className="pr-1 text-xxs line-through font-inter tracking-tight font-semibold not-italic text-gray-400">Was £49.99 </span>
+                                    Saving £5.00
+                                </p>
                             </div>
                         </div>
                         <div className="flex px-86 pt-87 justify-between ">
