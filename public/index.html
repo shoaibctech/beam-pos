@@ -15,14 +15,11 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-<!--    <link rel="preconnect" href="https://fonts.gstatic.com">-->
-<!--    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap" rel="stylesheet">-->
+
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:regular,italic,500,500italic,700,700italic" media="all">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">-->
-<!--    <link rel="stylesheet" type="text/css" href="./MyFontsWebfontsKit/MyFontsWebfontsKit.css">-->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -35,97 +32,6 @@
     <script src="https://sandbox.nuapay.com/emandate/static/js/emandates.js" id="nuapayform">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-
-      function submitFormActions() {
-        var submit = document.getElementById('btnSubmitMandate');
-        submit.disabled = true;
-
-        var i = document.createElement("i");
-        i.className = "fa fa-spinner fa-spin fa-fw";
-        submit.appendChild(i);
-      }
-
-      function submitFormActionsDone() {
-        var submit = document.getElementById('btnSubmit');
-        submit.disabled = false;
-        submit.firstElementChild.remove();
-      }
-
-      function successResponseHandler(statusCode, responseBody) {
-        submitFormActionsDone();
-
-        if (responseBody.data.mandateInfo.signed) {
-          //deal with submitting form to the server
-          //post to server the detail back
-          var form = document.getElementById('milkManForm');
-
-          //mandateid
-          var mandateId = document.createElement("input");
-          mandateId.setAttribute("type", "hidden");
-          mandateId.setAttribute("name", "mandateId");
-          mandateId.setAttribute("value", responseBody.data.mandateInfo.mandateId);
-          form.appendChild(mandateId);
-          //encodedMandateId
-          var encodedMandateId = document.createElement("input");
-          encodedMandateId.setAttribute("type", "hidden");
-          encodedMandateId.setAttribute("name", "encodedMandateId");
-          encodedMandateId.setAttribute("value", responseBody.data.mandateInfo.encodedMandateId);
-          form.appendChild(encodedMandateId);
-          //encodedSchemeId
-          var encodedSchemeId = document.createElement("input");
-          encodedSchemeId.setAttribute("type", "hidden");
-          encodedSchemeId.setAttribute("name", "encodedSchemeId");
-          encodedSchemeId.setAttribute("value", responseBody.data.mandateInfo.encodedSchemeId);
-          form.appendChild(encodedSchemeId);
-
-          form.submit();
-
-        } else {
-          dealWithUnexpectedError(responseBody);
-        }
-      }
-
-      function errorResponseHandler(statusCode, responseBody) {
-        submitFormActionsDone();
-        //we are deailing with server side validation messages when status is 400
-        if (statusCode == 400) {
-          var errors = responseBody.details;
-          errors.forEach(function(element) {
-            var errorElement = document.getElementById(element.field);
-            errorElement.textContent = element.description;
-          });
-        } else {
-          dealWithUnexpectedError(responseBody);
-        }
-      }
-
-      function dealWithUnexpectedError(responseBody) {
-        console.log(responseBody);
-        var generalErrorElement = document.getElementById('generalError');
-        errorElement.textContent('server fault');
-      }
-
-      const submitForm = () => {
-
-        var name = document.getElementById('name');
-        var email = document.getElementById('email');
-        var iban = document.getElementById('iban');
-
-        var requestData = {
-          "debtorDetails" : {
-            "name" : name.value,
-            "email" : email.value,
-            "iban" : iban.value
-          },
-          "accepted" : true
-        };
-        submitFormActions();
-        EMandates.signEmandate(requestData, successResponseHandler,
-                errorResponseHandler);
-        return false;
-      }
-    </script>
     <title>beam.</title>
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.7.1/css/all.css>
   </head>

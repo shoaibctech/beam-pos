@@ -1,4 +1,4 @@
-export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTION' ?
+export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT !== 'PRODUCTION' ?
     [
         {
             "id": "qj29q69mxn",
@@ -397,3 +397,5 @@ export const NUAPAY_LIVE_BANKS = process.env.REACT_APP_ENVIRONMENT === 'PRODUCTI
             "country": "GB"
         }
     ];
+
+

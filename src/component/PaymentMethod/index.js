@@ -8,7 +8,6 @@ const PaymentMethod = ({step, setStep, product}) => {
     return (
         <div>
             <div className="bg-paymentDark w-auto pt-10 h-114">
-
                 <div className="bg-blue-light w-auto rounded-lg pt-200 px-5">
                     <div className="flex flex-col w-auto h-114 px-5 bg-white rounded-md-1">
                         <div className="mt-83">
@@ -43,9 +42,9 @@ const PaymentMethod = ({step, setStep, product}) => {
                             </div>
 
                             <div className="mt-207">
-                                <p className="">
+                                <div className="">
                                     <Faq />
-                                </p>
+                                </div>
                             </div>
 
                         </div>
