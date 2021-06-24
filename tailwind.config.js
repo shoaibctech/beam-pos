@@ -8,6 +8,7 @@ module.exports = {
       letterSpacing: {
         custom: '-0.02em',
       },
+      padding: ['focus'],
       colors: theme => ({
         green: {
           DEFAULT: '#33846E'
@@ -20,6 +21,7 @@ module.exports = {
         grey: '#f9fafb',
         greyBorder: '#F3F4F6',
         blue: {
+          soft: '#EBF3F1',
           light: '#F9FAFB',
           DEFAULT: '#BAD3CD',
           medium: '#dce9e6',
@@ -44,6 +46,11 @@ module.exports = {
         '90': '1.0625rem', //padding payment method
         '91': '0.3125rem', //padding payment method
         '92': '0.4375rem', //padding payment method
+        '93': '16.25rem', //padding ordersuccessfull
+        '94': '1.4375rem', //padding ordersuccessfull
+        '300': '1.625rem', //padding orderFailed
+        '301': '2.1875rem', //padding orderFailed
+
 
 
         //width & height
@@ -65,6 +72,11 @@ module.exports = {
         '114': '7.125rem', //payment method) div height
         '115': '6.625rem', //payment method (term&conditions) div height
         '116': '22.6875rem', //payment method (term&conditions) div height
+        '117': '19.3125rem', //order successful first div height
+        '118': '25.1875rem', //order successful first div height
+        '119': '7.824375rem', //order successful first div height
+        '120': '3.75rem', //order successful first (order id) div height
+        '121': '8.6875rem', //order successful first (button div) div height
 
 
 
@@ -124,7 +136,7 @@ module.exports = {
       totalPrice: ['18px', '21.78px'],
       input: ['14px', '20px'], //font-size for inputs ordersummary page
       lg: ['20px', '24.2px'],
-      xl: ['24px', '32px'],
+      xl: ['24px', '28px'],
     },
     borderRadius: {
       'sm' : '3px',
