@@ -5,6 +5,7 @@ import ProductDetails from '../../component/ProductDetails';
 import ShippingDetails from '../../component/ShippingDetails';
 import OrderSummary from '../../component/OrderSummary';
 import PaymentMethod from '../../component/PaymentMethod';
+import BankSelection from "../../component/BankSelection";
 
 const Product = () => {
     const [step, setStep] = useState(0);
@@ -21,7 +22,7 @@ const Product = () => {
 
     }
     // const { token } = useParams();
-    const components = [ProductDetails, ShippingDetails, OrderSummary, PaymentMethod];
+    const components = [ProductDetails, ShippingDetails, OrderSummary, PaymentMethod, BankSelection];
 
 
     // useEffect(() => {

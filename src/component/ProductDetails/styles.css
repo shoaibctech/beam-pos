@@ -1,0 +1,12 @@
+.selected-flavour-tag {
+    @apply px-84 py-2.5 w-auto h-109 rounded-sm bg-darkGrey font-inter font-medium not-italic text-white text-smbtn;
+}
+.flavour-tag {
+    @apply ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-smbtn;
+}
+.strength-tag-selected {
+    @apply px-84 py-2.5 w-auto h-109 rounded-sm bg-darkGrey font-inter font-medium not-italic text-white text-smbtn;
+}
+.strength-tag {
+    @apply ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-btn-text-color text-smbtn;
+}

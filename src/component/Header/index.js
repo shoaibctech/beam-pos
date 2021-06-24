@@ -105,6 +105,7 @@ const Header = () => {
        || location.pathname.includes('/bitpay/demo')
        || location.pathname.includes('/paymentdetails')
        || location.pathname.includes('/product')
+       || location.pathname.includes('/order')
        || location.pathname.includes('/product/status')
        || location.pathname.includes('/directdebit/bank')
        || location.pathname.includes('/thankyou')) {

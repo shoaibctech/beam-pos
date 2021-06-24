@@ -2,6 +2,7 @@ import React, { useState }  from "react";
 import axios from 'axios';
 
 import ShopifyStepper from "../UI/ShopifyStepper";
+import Search from "./images/search.svg";
 
 const ShippingDetails = ({step, setStep, product}) => {
 
@@ -42,7 +43,7 @@ const ShippingDetails = ({step, setStep, product}) => {
                 {/*<div className="flex w-auto h-100 bg-white rounded-md-1">*/}
                 {/*</div>*/}
 
-                <div className="flex h-111 w-auto bg-white rounded-lg mt-5">
+                <div className="flex min-h-full w-auto bg-white rounded-lg mt-5">
                     <div className="m-5 w-screen ">
                         <p className="font-inter font-semibold not-italic text-gray-600 text-heading">
                             Shipping information
@@ -63,6 +64,7 @@ const ShippingDetails = ({step, setStep, product}) => {
                                 placeholder="Email"/>
                         </div>
                         <div className="mt-208">
+
                             <input
                                 value={search}
                                 onChange={e => getAddress(e.target.value)}
@@ -79,6 +81,15 @@ const ShippingDetails = ({step, setStep, product}) => {
                                     }
                                 </div>
                             }
+
+                            <div className="flex p-4 h-112 w-full border border-border rounded-md-2 ">
+                                <img src={Search} alt="logo" />
+                                <input className="pl-search font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
+
+                            </div>
+                        </div>
+                        <div className="mt-5">
+                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
                         </div>
                         <div className="mt-5">
                             <input

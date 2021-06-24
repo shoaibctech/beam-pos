@@ -17,7 +17,7 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
                 <div className="flex justify-center w-auto h-45 mt-8 mb-8 ">
                     <img src={product && product.img} alt="Product" />
                 </div>
-                <div className="flex opacity-50 h-101 justify-between bg-blue-light rounded-t-md-1">
+                <div className="flex h-101 justify-between bg-ratingDiv rounded-t-md-1">
                     <div className="pl-4 flex">
                         <img src={LoveHemp} alt="love hemp" />
                     </div>
