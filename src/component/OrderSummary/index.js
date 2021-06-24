@@ -5,7 +5,7 @@ const OrderSummary = ({step, setStep, product, shippingDetail}) => {
 
     useEffect(() => {
         let element = document.getElementById('order-summary');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({behavior: "auto"});
     }, []);
 
     return (

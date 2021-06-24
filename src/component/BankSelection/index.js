@@ -9,7 +9,7 @@ const BankSelection = ({step, setStep, bankId, setBankId}) => {
 
     useEffect(() => {
         let element = document.getElementById('bank-selection');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({behavior: "auto"});
     }, []);
 
     const handleSearch = (key) => {

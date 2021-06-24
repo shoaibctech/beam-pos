@@ -8,20 +8,20 @@ import Search from "./images/search.svg";
 
 const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDetail}) => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [name, setName] = useState(shippingDetail && shippingDetail.name);
+    const [email, setEmail] = useState(shippingDetail && shippingDetail.email);
     const [search, setSearch] = useState('');
-    const [add1, setAdd1] = useState('');
-    const [add2, setAdd2] = useState('');
-    const [city, setCity] = useState('');
-    const [postCode, setPostCode] = useState('');
+    const [add1, setAdd1] = useState(shippingDetail && shippingDetail.address1);
+    const [add2, setAdd2] = useState(shippingDetail && shippingDetail.address2);
+    const [city, setCity] = useState(shippingDetail && shippingDetail.city);
+    const [postCode, setPostCode] = useState(shippingDetail && shippingDetail.postCode);
     const [error, setError] = useState({});
     const [isSearch, setIsSearch] = useState(false);
     const [places, setPlaces] = useState();
 
     useEffect(() => {
         let element = document.getElementById('shipping-details');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({behavior: "auto"});
     }, []);
 
     const getAddress = async (searchKey) => {

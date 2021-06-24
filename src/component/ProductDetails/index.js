@@ -10,7 +10,7 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
 
     useEffect(() => {
         let element = document.getElementById('product-details');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({behavior: "auto"});
     }, []);
 
     return (

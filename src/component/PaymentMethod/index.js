@@ -8,7 +8,7 @@ const PaymentMethod = ({step, setStep, product}) => {
 
     useEffect(() => {
         let element = document.getElementById('payment-method');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({behavior: "auto"});
     }, []);
 
     return (
