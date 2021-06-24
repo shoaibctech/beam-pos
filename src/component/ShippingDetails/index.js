@@ -81,15 +81,11 @@ const ShippingDetails = ({step, setStep, product}) => {
                                     }
                                 </div>
                             }
-
                             <div className="flex p-4 h-112 w-full border border-border rounded-md-2 ">
                                 <img src={Search} alt="logo" />
                                 <input className="pl-search font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
 
                             </div>
-                        </div>
-                        <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
                         </div>
                         <div className="mt-5">
                             <input
