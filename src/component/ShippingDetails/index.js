@@ -1,7 +1,40 @@
-import React  from "react";
+import React, { useState }  from "react";
+import axios from 'axios';
+
 import ShopifyStepper from "../UI/ShopifyStepper";
 
 const ShippingDetails = ({step, setStep, product}) => {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [search, setSearch] = useState('');
+    const [add1, setAdd1] = useState('');
+    const [add2, setAdd2] = useState('');
+    const [city, setCity] = useState('');
+    const [zipCode, setZipcode] = useState('');
+    const [isSearch, setIsSearch] = useState(false);
+    const [places, setPlaces] = useState();
+
+    const getAddress = async (searchKey) => {
+        try {
+            setIsSearch(true);
+            setSearch(searchKey);
+            const placeReq = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/location/search`, {
+                search: searchKey
+            })
+            console.log('place data ::', placeReq.data.location);
+            if (placeReq.data.location) {
+                setPlaces(placeReq.data.location.predictions)
+            }
+            setIsSearch(false);
+        } catch (e){
+
+        }
+    }
+    const handlePlaceSelect = (place) => {
+        console.log(place);
+        // setPlaces([]);
+    }
     return (
         <div>
             <div className="bg-blue-light w-screen p-5">
@@ -15,25 +48,69 @@ const ShippingDetails = ({step, setStep, product}) => {
                             Shipping information
                         </p>
                         <div className="mt-207">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Full name"/>
+                            <input
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Full name"
+                            />
                         </div>
                         <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Email"/>
+                            <input
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Email"/>
                         </div>
                         <div className="mt-208">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
+                            <input
+                                value={search}
+                                onChange={e => getAddress(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Search by postcode"
+                            />
+                            { places && places.length > 0 &&
+                                <div>
+                                    {
+                                        places && places.length && places.map((place, index) =>
+                                            <p key={index} onClick={() => handlePlaceSelect(place)}>
+                                                {place.description}
+                                            </p>)
+                                    }
+                                </div>
+                            }
                         </div>
                         <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Address line 1"/>
+                            <input
+                                value={add1}
+                                onChange={e => setAdd1(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Address line 1"
+                            />
                         </div>
                         <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Address line 2"/>
+                            <input
+                                value={add2}
+                                onChange={e => setAdd2(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Address line 2"
+                            />
                         </div>
                         <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="City"/>
+                            <input
+                                value={city}
+                                onChange={e => setCity(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="City"
+                            />
                         </div>
                         <div className="mt-5">
-                            <input className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic" placeholder="Postcode"/>
+                            <input
+                                value={zipCode}
+                                onChange={e => setZipcode(e.target.value)}
+                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
+                                placeholder="Postcode"
+                            />
                         </div>
                         <button
                             onClick={ () => setStep(step + 1)}

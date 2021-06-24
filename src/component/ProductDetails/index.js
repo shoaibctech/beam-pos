@@ -4,8 +4,9 @@ import stars from "./images/stars.svg";
 import d from "./images/Desktop.svg";
 import vector from "./images/Vector.svg";
 import ShopifyStepper from "../UI/ShopifyStepper";
+import './styles.css';
 
-const ProductDetails = ({step, setStep, product}) => {
+const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex, flavourIndex, setFlavourIndex}) => {
 
     console.log('product de:: ', product);
 
@@ -40,7 +41,9 @@ const ProductDetails = ({step, setStep, product}) => {
 
                         <div className="flex  mt-201 ">
                             <div className="flex h-107 rounded-md-1 bg-grey">
-                                <p className="py-2 px-84  font-inter font-medium not-italic tracking-custom text-title-color text-sm1" >{'{'} Strength {'}'}</p>
+                                <p className="py-2 px-84 w-strn font-inter font-medium not-italic tracking-custom text-title-color text-sm1" >
+                                    {product && product.strength[strengthIndex]}
+                                </p>
                             </div>
                             <div className="flex h-107 ml-202 rounded-md-1 bg-grey">
                                 <p className="py-2 px-84 font-inter font-medium not-italic tracking-custom text-title-color text-sm1" >30ml</p>
@@ -65,18 +68,35 @@ const ProductDetails = ({step, setStep, product}) => {
                         <div className="block  mt-203">
                             <h1 className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-sm">FLAVOUR</h1>
                             <div className="flex  mt-4">
-                                <button className="px-84 py-2.5 w-auto h-109 rounded-sm bg-darkGrey font-inter font-medium not-italic text-white text-smbtn">Flavour 1</button>
-                                <button className="ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-smbtn">Flavour 2</button>
+                                {
+                                    product && product.flavour.map((flavour, index) =>
+                                        <button
+                                            key={index}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                setFlavourIndex(index);
+                                            }}
+                                            className={`${ flavourIndex === index ? 'selected-flavour-tag' : 'flavour-tag'}`}>
+                                            {flavour}
+                                        </button>
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="block  mt-203">
                             <h1 className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-sm">STRENGTH</h1>
                             <div className="flex  mt-4">
-                                <button className="px-84 py-2.5 w-auto h-109 rounded-sm bg-darkGrey font-inter font-medium not-italic text-white text-smbtn">1%</button>
-                                <button className="ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-btn-text-color text-smbtn">2%</button>
-                                <button className="ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-btn-text-color text-smbtn">4%</button>
-                                <button className="ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-btn-text-color text-smbtn">10%</button>
-                                <button className="ml-2.5 px-84 py-2.5 w-auto h-109 border border-border rounded-sm font-inter font-medium not-italic text-btn-text-color text-smbtn">20%</button>
+                                {
+                                    product && product.strength.map( (strn, index) =>
+                                        <button
+                                            key={index}
+                                            onClick={() => setStrengthIndex(index)}
+                                            className={`${index === strengthIndex ? 'strength-tag-selected' : 'strength-tag'}`}
+                                        >
+                                            {strn}
+                                        </button>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
