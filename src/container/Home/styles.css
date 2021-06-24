@@ -52,7 +52,7 @@
     justify-content: center;
 }
 input[type=text], input[type=password], input[type=number], input[type=email] {
-    margin: 10px 10px 10px 0;
+    margin: 4px 4px 4px 0;
     width: 100%;
     box-sizing: border-box;
     outline: 0;

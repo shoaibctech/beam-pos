@@ -143,7 +143,7 @@ button:focus {
 .shopify-input label {
     color: #6b7280 !important;
     font-size: 14px !important;
-    line-height: 20px;
+    line-height: 11px;
     font-weight: 400;
     font-style: normal;
     font-family: 'Inter', sans-serif;
@@ -160,6 +160,9 @@ button:focus {
     padding-bottom: 0 !important;
     height: 18px !important;
     padding-left: 0.76562rem;
+}
+.shopify-input-search div {
+    border: 1px solid rgba(0, 0, 0, 0.23) !important;
 }
 
 @media (max-width: 768px) {

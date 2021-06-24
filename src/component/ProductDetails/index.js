@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import LoveHemp from "./images/Love Hemp.svg";
 import stars from "./images/stars.svg";
 import d from "./images/Desktop.svg";
@@ -8,8 +8,13 @@ import './styles.css';
 
 const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex, flavourIndex, setFlavourIndex}) => {
 
+    useEffect(() => {
+        let element = document.getElementById('product-details');
+        element.scrollIntoView({behavior: "smooth"});
+    }, []);
+
     return (
-        <div>
+        <div id="product-details">
             <div className="relative w-auto h-98 bg-blue px-5 pt-81">
                 <ShopifyStepper step={step} />
                 <div className="flex justify-center w-auto h-45 mt-8 mb-8 ">

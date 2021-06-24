@@ -1,9 +1,15 @@
-import React  from "react";
+import React, {useEffect} from "react";
 import ShopifyStepper from "../UI/ShopifyStepper";
 
 const OrderSummary = ({step, setStep, product, shippingDetail}) => {
+
+    useEffect(() => {
+        let element = document.getElementById('order-summary');
+        element.scrollIntoView({behavior: "smooth"});
+    }, []);
+
     return (
-        <div>
+        <div id="order-summary">
             <div className="bg-blue-light  w-screen px-5 pt-5">
                 <ShopifyStepper step={step} />
 

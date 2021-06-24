@@ -1,4 +1,4 @@
-import React, {useState }  from "react";
+import React, {useState, useEffect }  from "react";
 // import { useParams } from 'react-router-dom';
 // import axios from 'axios';
 import ProductDetails from '../../component/ProductDetails';
@@ -31,6 +31,7 @@ const Product = () => {
     //     getProduct();
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, []);
+
 
     const renderComponent = () => {
         const Component = components[step];

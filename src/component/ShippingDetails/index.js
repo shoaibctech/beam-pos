@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import { validateEmail } from '../../utils/index';
@@ -18,6 +18,11 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
     const [error, setError] = useState({});
     const [isSearch, setIsSearch] = useState(false);
     const [places, setPlaces] = useState();
+
+    useEffect(() => {
+        let element = document.getElementById('shipping-details');
+        element.scrollIntoView({behavior: "smooth"});
+    }, []);
 
     const getAddress = async (searchKey) => {
         try {
@@ -74,7 +79,7 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
         callback(value);
     }
     return (
-        <div>
+        <div id="shipping-details">
             <div className="bg-blue-light w-screen p-5">
                 <ShopifyStepper step={step} />
 
@@ -103,35 +108,42 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
                                 helperText={error && error.email}
                             />
                         </div>
-                        <div className="mt-208 shopify-input">
-                            <TextField
-                                value={search}
-                                onChange={e => getAddress(e.target.value)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Search by postcode"
-                                variant="outlined"
-                            />
-                            { places && places.length > 0 &&
-                                <div>
-                                    {
-                                        places && places.length && places.map((place, index) =>
-                                            <p key={index} onClick={() => handlePlaceSelect(place)}>
-                                                {place.description}
-                                            </p>)
-                                    }
-                                </div>
-                            }
-                            <div className="flex p-4 h-112 w-full border border-border rounded-md-2 ">
+                        <div className="mt-208 shopify-input-search">
+                            <div className="flex p-4 h-112 w-full border border-border rounded-md-2 shopify-input-search">
                                 <img src={Search} alt="logo" />
-                                <input className="pl-search font-inter text-input font-inter font-normal not-italic" placeholder="Search by postcode"/>
+                                <input
+                                    className="pl-search font-inter text-input font-inter font-normal not-italic"
+                                    placeholder="Search by postcode"
+                                    value={search}
+                                    type="text"
+                                    onChange={(e) => getAddress(e.target.value)}
+                                />
                             </div>
                         </div>
+                        { places && places.length > 0 &&
+                        <div
+                            style={{overflowY: 'scroll', marginTop: '5px' ,background: 'white', position: 'relative', zIndex: '100', border: '1px solid', maxHeight: '300px'}}
+                        >
+                            {
+                                places && places.map ((place, index) =>
+                                    <div
+                                        key={`search-${index}`}
+                                        className="cursor-pointer flex"
+                                        onClick={() => handlePlaceSelect(place)}
+                                    >
+                                        <p className="py-4 pl-4 text-price-color font-inter text-input font-inter font-normal not-italic">
+                                            {place.description}
+                                        </p>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        }
                         <div className="mt-5 shopify-input">
                             <TextField
                                 value={add1}
                                 onChange={e => handleInputChange(e.target.value, setAdd1)}
                                 className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                id="outlined-basic"
                                 label="Address line 1"
                                 variant="outlined"
                                 helperText={error && error.add1}
@@ -144,6 +156,7 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
                                 className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
                                 label="Address line 2"
                                 variant="outlined"
+                                helperText={error && error.add2}
                             />
                         </div>
                         <div className="mt-5 shopify-input">
@@ -161,7 +174,7 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
                                 value={postCode}
                                 onChange={e => handleInputChange(e.target.value, setPostCode)}
                                 className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Post code"
+                                label="Postcode"
                                 variant="outlined"
                                 helperText={error && error.postCode}
                             />

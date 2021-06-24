@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, {useEffect, useState} from "react";
 import BorderTick from "./images/borderTick.svg";
 import Search from "./images/search.svg";
 import { NUAPAY_LIVE_BANKS } from "../../utils/Constants/index";
@@ -6,6 +6,11 @@ import { NUAPAY_LIVE_BANKS } from "../../utils/Constants/index";
 const BankSelection = ({step, setStep, bankId, setBankId}) => {
     const [searchBank, setSearchBank] = useState();
     const [searchInput, setSearchInput] = useState('');
+
+    useEffect(() => {
+        let element = document.getElementById('bank-selection');
+        element.scrollIntoView({behavior: "smooth"});
+    }, []);
 
     const handleSearch = (key) => {
         setSearchInput(key);
@@ -24,7 +29,7 @@ const BankSelection = ({step, setStep, bankId, setBankId}) => {
         setSearchInput('');
     }
     return (
-            <div className="bg-paymentDark w-auto pt-10 h-114">
+            <div className="bg-paymentDark w-auto pt-10 h-114" id="bank-selection">
                 <div className="bg-blue-light w-auto rounded-t-lg pt-200 px-5">
                     <div className="flex flex-col w-auto h-116 px-5 bg-white rounded-md-1">
                         <div className="mt-83">

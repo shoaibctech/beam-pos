@@ -1,12 +1,18 @@
-import React  from "react";
+import React, {useEffect} from "react";
 import Logo from "./images/ClearstackLogo.svg";
 import vector from "../PaymentMethod/images/Vector.svg";
 import BorderTick from "../PaymentMethod/images/borderTick.svg";
 import Faq from "../Faqs";
 
 const PaymentMethod = ({step, setStep, product}) => {
+
+    useEffect(() => {
+        let element = document.getElementById('payment-method');
+        element.scrollIntoView({behavior: "smooth"});
+    }, []);
+
     return (
-        <div>
+        <div id="payment-method">
             <div className="bg-paymentDark w-auto pt-10 h-114">
                 <div className="bg-blue-light w-auto rounded-lg pt-200 px-5">
                     <div className="flex flex-col w-auto h-114 px-5 bg-white rounded-md-1">
