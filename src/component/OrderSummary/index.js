@@ -1,7 +1,7 @@
 import React  from "react";
 import ShopifyStepper from "../UI/ShopifyStepper";
 
-const OrderSummary = ({step, setStep, product}) => {
+const OrderSummary = ({step, setStep, product, shippingDetail}) => {
     return (
         <div>
             <div className="bg-blue-light  w-screen px-5 pt-5">
@@ -14,12 +14,24 @@ const OrderSummary = ({step, setStep, product}) => {
                                 <p className="text-input font-inter font-medium not-italic text-price-color">Your information</p>
                             </div>
                             <div className="flex flex-col text-right">
-                                <p className="text-input font-inter font-medium not-italic text-price-color">Thomas Fry</p>
-                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">tom@email.com</p>
-                                <p className="pt-83 text-input font-inter font-medium not-italic text-price-color">Address line 1</p>
-                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">Address line 2</p>
-                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">City</p>
-                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">Postcode</p>
+                                <p className="text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.name}
+                                </p>
+                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.email}
+                                </p>
+                                <p className="pt-83 text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.address1}
+                                </p>
+                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.addres2}
+                                </p>
+                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.city}
+                                </p>
+                                <p className="pt-88 text-input font-inter font-medium not-italic text-price-color">
+                                    {shippingDetail && shippingDetail.postCode}
+                                </p>
 
                             </div>
                         </div>
@@ -28,8 +40,12 @@ const OrderSummary = ({step, setStep, product}) => {
                                 <p className="text-input leading-8 font-inter font-medium not-italic text-price-color">Price</p>
                             </div>
                             <div className="flex flex-col text-right">
-                                <p className="text-base font-inter font-semibold not-italic text-price-color">£44.99</p>
-                                <p className="text-xxs font-inter tracking-tight font-medium not-italic text-flavour-color">Saving £5.00</p>
+                                <p className="text-base font-inter font-semibold not-italic text-price-color">
+                                    £{product && product.price}
+                                </p>
+                                <p className="text-xxs font-inter tracking-tight font-medium not-italic text-flavour-color">
+                                    Saving £5.00
+                                </p>
                             </div>
                         </div>
                         <div className="flex pt-81 pb-81 border-b border-greyBorder justify-between ">
@@ -46,7 +62,9 @@ const OrderSummary = ({step, setStep, product}) => {
                                 <p className="text-sm1 leading-5 font-inter font-semibold not-italic text-black1">Total</p>
                             </div>
                             <div className=" flex">
-                                <p className="text-totalPrice tracking-tight font-inter font-semibold not-italic text-black1">£49.99</p>
+                                <p className="text-totalPrice tracking-tight font-inter font-semibold not-italic text-black1">
+                                    £{product && product.price}
+                                </p>
                             </div>
                         </div>
                         <div className="mt-6">

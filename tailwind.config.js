@@ -28,6 +28,7 @@ module.exports = {
           DEFAULT: '#FFF7ED',
         },
         border: '#e5e7eb',
+        borderGrey: '#374151',
       }),
       spacing: {
         //paddings

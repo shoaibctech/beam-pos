@@ -11,6 +11,8 @@ const Product = () => {
     const [step, setStep] = useState(0);
     const [strengthIndex, setStrengthIndex] = useState(0);
     const [flavourIndex, setFlavourIndex] = useState(0);
+    const [shippingDetail, setShippingDetail] = useState({});
+    const [bankId, setBankId] = useState('');
     // const [product, setProduct] = useState();
     const product = {
         title: 'Love Hemp® CBD Liquid Oral Oil Drops,  1,200mg CBD',
@@ -40,6 +42,10 @@ const Product = () => {
             setStrengthIndex={setStrengthIndex}
             flavourIndex={flavourIndex}
             setFlavourIndex={setFlavourIndex}
+            shippingDetail={shippingDetail}
+            setShippingDetail={setShippingDetail}
+            bankId={bankId}
+            setBankId={setBankId}
         />;
     }
     // const getProduct = async () => {

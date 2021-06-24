@@ -125,6 +125,42 @@ button:focus {
 .theme-primary-color {
     color: var(--main-bg-color);
 }
+.shopify-input input,
+.shopify-input input[type=text]:hover,
+.shopify-input input[type=email]:hover,
+.shopify-input input[type=number]:hover,
+.shopify-input input[type=text]:focus,
+.shopify-input input[type=email]:focus,
+.shopify-input input[type=number]:focus {
+    border: none !important;
+    font-size: 14px !important;
+    line-height: 20px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    color: #374151 !important;
+}
+.shopify-input label {
+    color: #6b7280 !important;
+    font-size: 14px !important;
+    line-height: 20px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+}
+.shopify-input .MuiFormHelperText-root  {
+    color: red !important;
+}
+.shopify-input-search input, .shopify-input-search input[type=text]:focus, .shopify-input-search input[type=text],
+.shopify-input-search input[type=text]:focus-within, .shopify-input-search input[type=text]:hover {
+    border: 0 !important;
+    margin: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 18px !important;
+    padding-left: 0.76562rem;
+}
 
 @media (max-width: 768px) {
     h1 {

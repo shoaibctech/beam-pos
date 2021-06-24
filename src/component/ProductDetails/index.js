@@ -8,8 +8,6 @@ import './styles.css';
 
 const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex, flavourIndex, setFlavourIndex}) => {
 
-    console.log('product de:: ', product);
-
     return (
         <div>
             <div className="relative w-auto h-98 bg-blue px-5 pt-81">
