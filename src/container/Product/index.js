@@ -11,7 +11,14 @@ const Product = () => {
     const [step, setStep] = useState(0);
     const [strengthIndex, setStrengthIndex] = useState(0);
     const [flavourIndex, setFlavourIndex] = useState(0);
-    const [shippingDetail, setShippingDetail] = useState({});
+    const [shippingDetail, setShippingDetail] = useState({
+        name: 'Thomas Fry',
+        email: 'tom@gmail.com',
+        address1: 'Address line 1',
+        address2: 'Address line 2',
+        city: 'City',
+        postCode: 'Postcode'
+    });
     const [bankId, setBankId] = useState('');
     // const [product, setProduct] = useState();
     const product = {

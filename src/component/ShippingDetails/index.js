@@ -36,7 +36,7 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
                 setPlaces(placeReq.data.location.predictions)
             }
             setIsSearch(false);
-        } catch (e){
+        } catch (e) {
 
         }
     }
