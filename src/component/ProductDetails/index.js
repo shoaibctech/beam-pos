@@ -70,7 +70,7 @@ const ProductDetails = ({step, setStep, product, strengthIndex, setStrengthIndex
 
                         <div className="block  mt-203">
                             <p className="font-inter font-semibold not-italic text-flavour-color tracking-wider text-xxs">FLAVOUR</p>
-                            <div className="flex flex-wrap mt-83">
+                            <div className="flex flex-wrap justify-start mt-83">
                                 {
                                     product && product.flavour.map((flavour, index) =>
                                         <button
