@@ -20,7 +20,7 @@ const Product = () => {
         img: 'https://cdn.shopify.com/s/files/1/0556/4900/9833/products/Homepage-CategoriesOils_600x1_cbb13d10-a374-4509-b3eb-7ed16a0f89ac.png?v=1624286394',
         quantity: 71,
         strength: ['1%', '2%', '4%', '10%', '20%'],
-        flavour: ['Natural', 'Permanent', 'Valencia Orange'],
+        flavour: ['Natural','Peppermint', 'Orange'],
 
     }
     // const { token } = useParams();
