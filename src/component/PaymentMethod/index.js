@@ -77,7 +77,7 @@ const PaymentMethod = ({step, setStep, product}) => {
                 </div>
                 <div className="flex justify-center sticky bottom-0 bg-white py-205 rounded-md-2 shadow-2xl">
                     <button
-                        onClick={ () => setStep(step + 1)}
+                        // onClick={ () => setStep(step + 1)}
                         className="w-full mx-5 h-205 bg-darkGrey rounded-md-2 font-inter text-base font-inter text-center font-medium not-italic text-white text-smbtn">
                         Select your bank
                     </button>
