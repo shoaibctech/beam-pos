@@ -5,6 +5,7 @@ import { validateEmail } from '../../utils/index';
 
 import ShopifyStepper from "../UI/ShopifyStepper";
 import Search from "./images/search.svg";
+import AnimatedInput from "../UI/AnimatedInput";
 
 const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDetail}) => {
 
@@ -83,29 +84,44 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
             <div className="bg-blue-light w-screen p-5">
                 <ShopifyStepper step={step} />
 
-                <div className="flex min-h-full w-auto bg-white rounded-lg mt-5">
+                <div className="relative flex min-h-full w-auto bg-white rounded-lg mt-5">
                     <div className="m-5 w-screen ">
                         <p className="font-inter font-semibold not-italic text-gray-600 text-heading">
                             Shipping information
                         </p>
-                        <div className="mt-207 shopify-input">
-                            <TextField
+                        {/*<div className="mt-207 relative">*/}
+                        {/*    <AnimatedInput />*/}
+                        {/*</div>*/}
+                        <div className="mt-207 relative">
+                            {/*<TextField*/}
+                            {/*    value={name}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setName)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="Full name"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.name}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="name"
+                                placeHolder="Full name"
                                 value={name}
-                                onChange={e => handleInputChange(e.target.value, setName)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Full name"
-                                variant="outlined"
-                                helperText={error && error.name}
+                                handleChange={e => handleInputChange(e.target.value, setName)}
                             />
                         </div>
-                        <div className="mt-5 shopify-input">
-                            <TextField
+                        <div className="mt-5 relative">
+                            {/*<TextField*/}
+                            {/*    value={email}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setEmail)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="Email"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.email}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="email"
+                                placeHolder="Email"
                                 value={email}
-                                onChange={e => handleInputChange(e.target.value, setEmail)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Email"
-                                variant="outlined"
-                                helperText={error && error.email}
+                                handleChange={e => handleInputChange(e.target.value, setEmail)}
                             />
                         </div>
                         <div className="mt-208 shopify-input-search">
@@ -139,44 +155,68 @@ const ShippingDetails = ({step, setStep, product, shippingDetail, setShippingDet
                             }
                         </div>
                         }
-                        <div className="mt-5 shopify-input">
-                            <TextField
+                        <div className="mt-5 relative">
+                            {/*<TextField*/}
+                            {/*    value={add1}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setAdd1)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="Address line 1"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.add1}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="add1"
+                                placeHolder="Address line 1"
                                 value={add1}
-                                onChange={e => handleInputChange(e.target.value, setAdd1)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Address line 1"
-                                variant="outlined"
-                                helperText={error && error.add1}
+                                handleChange={e => handleInputChange(e.target.value, setAdd1)}
                             />
                         </div>
-                        <div className="mt-5 shopify-input">
-                            <TextField
+                        <div className="mt-5 relative">
+                            {/*<TextField*/}
+                            {/*    value={add2}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setAdd2)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="Address line 2"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.add2}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="add2"
+                                placeHolder="Address line 2"
                                 value={add2}
-                                onChange={e => handleInputChange(e.target.value, setAdd2)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Address line 2"
-                                variant="outlined"
-                                helperText={error && error.add2}
+                                handleChange={e => handleInputChange(e.target.value, setAdd2)}
                             />
                         </div>
-                        <div className="mt-5 shopify-input">
-                            <TextField
+                        <div className="mt-5 relative">
+                            {/*<TextField*/}
+                            {/*    value={city}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setCity)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="City"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.city}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="city"
+                                placeHolder="City"
                                 value={city}
-                                onChange={e => handleInputChange(e.target.value, setCity)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="City"
-                                variant="outlined"
-                                helperText={error && error.city}
+                                handleChange={e => handleInputChange(e.target.value, city)}
                             />
                         </div>
-                        <div className="mt-5 shopify-input">
-                            <TextField
+                        <div className="mt-5 relative">
+                            {/*<TextField*/}
+                            {/*    value={postCode}*/}
+                            {/*    onChange={e => handleInputChange(e.target.value, setPostCode)}*/}
+                            {/*    className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"*/}
+                            {/*    label="Postcode"*/}
+                            {/*    variant="outlined"*/}
+                            {/*    helperText={error && error.postCode}*/}
+                            {/*/>*/}
+                            <AnimatedInput
+                                id="postcode"
+                                placeHolder="Postcode"
                                 value={postCode}
-                                onChange={e => handleInputChange(e.target.value, setPostCode)}
-                                className="p-4 h-112 w-full border border-border rounded-md-2 font-inter text-input font-inter font-normal not-italic"
-                                label="Postcode"
-                                variant="outlined"
-                                helperText={error && error.postCode}
+                                handleChange={e => handleInputChange(e.target.value, setPostCode)}
                             />
                         </div>
                         <button

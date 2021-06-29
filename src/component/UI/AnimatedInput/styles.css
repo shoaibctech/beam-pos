@@ -1,0 +1,57 @@
+
+div.animated-input {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    vertical-align: middle;
+}
+
+div.animated-input div {
+    position: relative;
+    margin: 40px 0;
+}
+
+ .animated-input-label {
+     position: absolute;
+     top: 9px;
+     font-size: 14px;
+     font-weight: 400;
+     font-family: 'Inter', sans-serif;
+     line-height: 20px;
+     margin: 10px 8px;
+     padding: 0 5px;
+     background-color: white;
+     color: #6b7280;
+     -webkit-transition: top .2s ease-in-out,  font-size .2s ease-in-out;
+     transition: top .2s ease-in-out,  font-size .2s ease-in-out;
+}
+
+.active {
+    top: -19px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: #4b5563;
+}
+
+.animated-input > div > input[type=text] {
+    width: 100%;
+    padding: 16px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: white;
+    color: #374151;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: normal;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.animated-input > div > input[type=text]:focus,
+.animated-input > div > input[type=text]:hover {
+    outline: none;
+    border: 1px solid #374151;
+}
