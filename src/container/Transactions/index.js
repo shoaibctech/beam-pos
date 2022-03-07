@@ -59,7 +59,9 @@ const Transactions = () => {
     const { account_type, merchant_type } = getUserData();
 
     useEffect( () => {
-        getPaymentsList(pageNumber, isPaymentReceived);
+        setPaymentsList([]);
+        setPageNumber(1);
+        getPaymentsList(1, isPaymentReceived);
         getBalance();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dateRange]);
