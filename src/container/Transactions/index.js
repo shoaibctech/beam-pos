@@ -317,31 +317,6 @@ const Transactions = () => {
                                         />
                                         <span>All</span>
                                     </div>
-                                    <div className="date-range">
-                                        <div className="date-range__title">
-                                            {dateRange.from.format('MMM Do YYYY')} — {dateRange.to.format('MMM Do YYYY')}
-                                        </div>
-                                        <button
-                                            disabled={isFetching}
-                                            className="btn-withdraw"
-                                            onClick={() => {
-                                                setDateRange({
-                                                    from: dateRange.from.subtract(30, 'days'),
-                                                    to: dateRange.to.subtract(30, 'days')
-                                                })
-                                            }}
-                                        >Previous</button>
-                                        <button
-                                            disabled={isFetching || moment(dateRange.to).add(30, 'days').isAfter(moment(), 'day')}
-                                            className="btn-withdraw"
-                                            onClick={() => {
-                                                setDateRange({
-                                                    from: dateRange.from.add(30, 'days'),
-                                                    to: dateRange.to.add(30, 'days')
-                                                })
-                                            }}
-                                        >Next</button>
-                                    </div>
                                     <div className="search-container">
                                         <div className="icon-search-container">
                                             <i className="fas fa-search"></i>
@@ -368,6 +343,33 @@ const Transactions = () => {
                                         {/*       disabled={!!payerName}*/}
                                         {/*/>*/}
                                         {/*<button className="btn btn-primary" onClick={getPaymentDetail}>Search</button>*/}
+                                    </div>
+                                </div>
+                                <div className="date-range">
+                                    <div className="date-range__title">
+                                        {dateRange.from.format('MMM Do YYYY')} — {dateRange.to.format('MMM Do YYYY')}
+                                    </div>
+                                    <div>
+                                        <button
+                                            disabled={isFetching}
+                                            className="btn-withdraw"
+                                            onClick={() => {
+                                                setDateRange({
+                                                    from: dateRange.from.subtract(30, 'days'),
+                                                    to: dateRange.to.subtract(30, 'days')
+                                                })
+                                            }}
+                                        >Previous</button>
+                                        <button
+                                            disabled={isFetching || moment(dateRange.to).add(30, 'days').isAfter(moment(), 'day')}
+                                            className="btn-withdraw"
+                                            onClick={() => {
+                                                setDateRange({
+                                                    from: dateRange.from.add(30, 'days'),
+                                                    to: dateRange.to.add(30, 'days')
+                                                })
+                                            }}
+                                        >Next</button>
                                     </div>
                                 </div>
                                 <div style={{overflowX: 'auto'}} className="tr-desktop-only">
