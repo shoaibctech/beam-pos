@@ -365,3 +365,14 @@
 }
 
 
+.date-range {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+.date-range__title {
+    margin-right: 8px;
+}
+.date-range button {
+    margin-right: 8px;
+}

@@ -29,6 +29,8 @@ const theme = createMuiTheme({
     },
 });
 
+const NUAPAY_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss";
+
 const Transactions = () => {
     const { width } = useViewport();
     const [paymentList, setPaymentsList] = useState([]);
@@ -49,6 +51,10 @@ const Transactions = () => {
     // const [payerName, setPayerName] = useState('');
     const [searchKey, setSearchKey] = useState('');
     const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
+    const [dateRange, setDateRange] = useState({
+        from: moment().utc().subtract(30, 'days'),
+        to: moment().utc()
+    });
 
     const { account_type, merchant_type } = getUserData();
 
@@ -56,7 +62,7 @@ const Transactions = () => {
         getPaymentsList(pageNumber, isPaymentReceived);
         getBalance();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dateRange]);
 
     // useEffect(() => {
     //     if(searchKey) {
@@ -78,7 +84,11 @@ const Transactions = () => {
                 {
                     merchant_id: getUserData().merchant_id,
                     pageNumber: page,
-                    paymentStatus: isPaymentCleared ?  'all' : 'PAYMENT_RECEIVED'
+                    paymentStatus: isPaymentCleared ?  'all' : 'PAYMENT_RECEIVED',
+                    dateRange: {
+                        from: dateRange.from.format(NUAPAY_DATE_FORMAT),
+                        to: dateRange.to.format(NUAPAY_DATE_FORMAT)
+                    }
                 }, 'POST' );
 
             setIsFetching(false);
@@ -306,6 +316,31 @@ const Transactions = () => {
                                             inputProps={{ 'aria-label': 'primary checkbox' }}
                                         />
                                         <span>All</span>
+                                    </div>
+                                    <div className="date-range">
+                                        <div className="date-range__title">
+                                            {dateRange.from.format('MMM Do YYYY')} — {dateRange.to.format('MMM Do YYYY')}
+                                        </div>
+                                        <button
+                                            disabled={isFetching}
+                                            className="btn-withdraw"
+                                            onClick={() => {
+                                                setDateRange({
+                                                    from: dateRange.from.subtract(30, 'days'),
+                                                    to: dateRange.to.subtract(30, 'days')
+                                                })
+                                            }}
+                                        >Previous</button>
+                                        <button
+                                            disabled={isFetching || moment(dateRange.to).add(30, 'days').isAfter(moment(), 'day')}
+                                            className="btn-withdraw"
+                                            onClick={() => {
+                                                setDateRange({
+                                                    from: dateRange.from.add(30, 'days'),
+                                                    to: dateRange.to.add(30, 'days')
+                                                })
+                                            }}
+                                        >Next</button>
                                     </div>
                                     <div className="search-container">
                                         <div className="icon-search-container">
